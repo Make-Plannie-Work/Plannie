@@ -23,7 +23,7 @@ public class GebruikerController {
     @GetMapping("/registreren")
     public String registreren(Model model) {
         model.addAttribute("registratieFormulier", model);
-        return "registreren";
+        return "gebruikerNieuw";
     }
 
     @PostMapping("/registreren")
