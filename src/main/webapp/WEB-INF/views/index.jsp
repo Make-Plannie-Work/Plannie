@@ -11,6 +11,13 @@
     <title>Home Plannie</title>
   </head>
   <body>
+    <form action = "/index" method="post">
+        <div class="container">
+
+
+            <a href="/registreren" class="btn btn-primary" role="button">Registreer je nu!</a>
+        </div>
+    </form>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
