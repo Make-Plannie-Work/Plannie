@@ -16,7 +16,7 @@ public class Gebruiker {
     private String trancientWachtwoord;
 
     public String toString() {
-        return gebruikersId + ":\t" + voornaam + " " + achternaam;
+        return getGebruikersId() + ":\t" + voornaam + " " + achternaam;
     }
 
     public String getVoornaam() {
@@ -49,5 +49,13 @@ public class Gebruiker {
 
     public void setTrancientWachtwoord(String trancientWachtwoord) {
         this.trancientWachtwoord = trancientWachtwoord;
+    }
+
+    public Integer getGebruikersId() {
+        return gebruikersId;
+    }
+
+    public void setGebruikersId(Integer gebruikersId) {
+        this.gebruikersId = gebruikersId;
     }
 }
