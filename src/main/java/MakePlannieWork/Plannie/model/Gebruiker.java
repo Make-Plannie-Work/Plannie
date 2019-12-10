@@ -1,4 +1,4 @@
-package model;
+package MakePlannieWork.Plannie.model;
 
 import javax.persistence.*;
 

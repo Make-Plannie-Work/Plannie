@@ -1,12 +1,12 @@
-package controller;
+package MakePlannieWork.Plannie.controller;
 
-import model.Gebruiker;
+import MakePlannieWork.Plannie.model.Gebruiker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import repository.GebruikerRepository;
+import MakePlannieWork.Plannie.repository.GebruikerRepository;
 
 @Controller
 public class GebruikerController {
@@ -16,7 +16,7 @@ public class GebruikerController {
 
     @GetMapping({"/index" , "/"})
     String index(Model model) {
-        model.addAttribute("loginForm", new Gebruiker());
+        //MakePlannieWork.Plannie.model.addAttribute("loginForm", new Gebruiker());
         return "index";
     }
 

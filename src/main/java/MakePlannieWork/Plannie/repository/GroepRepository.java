@@ -1,6 +1,6 @@
-package repository;
+package MakePlannieWork.Plannie.repository;
 
-import model.Groep;
+import MakePlannieWork.Plannie.model.Groep;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface GroepRepository extends JpaRepository<Groep, Integer> {
