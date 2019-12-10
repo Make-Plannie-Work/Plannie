@@ -1,6 +1,7 @@
 package MakePlannieWork.Plannie.controller;
 
 import MakePlannieWork.Plannie.model.Groep;
+import MakePlannieWork.Plannie.repository.GebruikerRepository;
 import MakePlannieWork.Plannie.repository.GroepRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,6 +14,9 @@ public class GroepController {
 
     @Autowired
     private GroepRepository groepRepository;
+
+    @Autowired
+    private GebruikerRepository gebruikerRepository;
 
     @GetMapping("/groepAanmaken")
     public String nieuweGroep(Model model) {
@@ -33,6 +37,7 @@ public class GroepController {
     @GetMapping("/groepDetail")
     public String groepDetail(Groep groep, Model model) {
         model.addAttribute(groep);
+        model.addAttribute("groepsLedenLijst", gebruikerRepository.findByGroepen_groepsNaam(groep.getGroepsNaam()));
         return "groepDetail";
     }
 
