@@ -8,37 +8,40 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
-    <title>Hello, world!</title>
+    <title>Registreren in Plannie</title>
 </head>
 <body>
 
 <form action = "/registreren" method="post">
-    <div class="row">
-        <div class="col">
-            <input type="text" class="form-control" name="voornaam" placeholder="Voornaam">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <input type="text" class="form-control" name="voornaam" placeholder="Voornaam">
+            </div>
+            <div class="col">
+                <input type="text" class="form-control" name="achternaam" placeholder="Achternaam">
+            </div>
+       </div>
+
+
+
+        <div class="form-group">
+            <label for="inputEmail4">Email</label>
+            <input type="email" class="form-control" name="email" placeholder="Email">
         </div>
-        <div class="col">
-            <input type="text" class="form-control" name="achternaam" placeholder="Achternaam">
+
+
+        <div class="row">
+            <div class="col">
+                <input type="password" class="form-control" name="wachtwoord" placeholder="Wachtwoord">
+            </div>
+            <div class="col">
+                <input type="password" class="form-control" name="trancientWachtwoord" placeholder="Bevestig wachtwoord">
+            </div>
         </div>
+
+        <button type="submit" class="btn btn-primary">Registreer</button>
     </div>
-
-
-    <div class="form-group">
-        <label for="inputEmail4">Email</label>
-        <input type="email" class="form-control" name="email" placeholder="Email">
-    </div>
-
-
-    <div class="row">
-        <div class="col">
-            <input type="password" class="form-control" name="wachtwoord" placeholder="Wachtwoord">
-        </div>
-        <div class="col">
-            <input type="password" class="form-control" name="trancientWachtwoord" placeholder="Bevestig wachtwoord">
-        </div>
-    </div>
-
-    <button type="submit" class="btn btn-primary">Registreer</button>
 
 </form>
 
