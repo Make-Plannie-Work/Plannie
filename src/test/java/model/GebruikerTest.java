@@ -1,8 +1,8 @@
 package model;
 
-import org.junit.Assert;
+import MakePlannieWork.Plannie.model.Gebruiker;
 import org.junit.jupiter.api.Test;
-
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 class GebruikerTest {
@@ -15,7 +15,7 @@ class GebruikerTest {
 
     // Deze test controleerd of de Entity Gebruiker wordt aangemaakt, en of de benodidge getters en setters aanwezig zijn.
     @Test
-    void gebruikerWerkt() {
+    void entityGebruikerWerkt() {
         // Arrange
         Gebruiker gebruiker = new Gebruiker();
 
@@ -27,10 +27,10 @@ class GebruikerTest {
         gebruiker.setWachtwoord(wachtwoord);
 
         // Assert
-        Assert.assertEquals(gebruikersID,gebruiker.getGebruikersId());
-        Assert.assertEquals(voornaam,gebruiker.getVoornaam());
-        Assert.assertEquals(achternaam,gebruiker.getAchternaam());
-        Assert.assertEquals(email,gebruiker.getEmail());
-        Assert.assertEquals(wachtwoord,gebruiker.getWachtwoord());
+        assertEquals(gebruikersID,gebruiker.getGebruikersId());
+        assertEquals(voornaam,gebruiker.getVoornaam());
+        assertEquals(achternaam,gebruiker.getAchternaam());
+        assertEquals(email,gebruiker.getEmail());
+        assertEquals(wachtwoord,gebruiker.getWachtwoord());
     }
 }
