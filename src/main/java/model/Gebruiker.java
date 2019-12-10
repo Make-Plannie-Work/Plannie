@@ -10,6 +10,7 @@ public class Gebruiker {
     private Integer gebruikersId;
     private String voornaam;
     private String achternaam;
+    private String email;
     private String wachtwoord;
 
     @Transient
