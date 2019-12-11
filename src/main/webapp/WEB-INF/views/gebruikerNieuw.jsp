@@ -14,6 +14,7 @@
 
 <form action = "/registreren" method="post">
     <div class="container">
+    <div class="form-group">
         <div class="row">
             <div class="col">
                 <input type="text" class="form-control" name="voornaam" placeholder="Voornaam">
@@ -22,15 +23,16 @@
                 <input type="text" class="form-control" name="achternaam" placeholder="Achternaam">
             </div>
        </div>
+       </div>
 
 
 
         <div class="form-group">
-            <label for="inputEmail4">Email</label>
+
             <input type="email" class="form-control" name="email" placeholder="Email">
         </div>
 
-
+        <div class="form-group">
         <div class="row">
             <div class="col">
                 <input type="password" class="form-control" name="wachtwoord" placeholder="Wachtwoord">
@@ -39,9 +41,11 @@
                 <input type="password" class="form-control" name="trancientWachtwoord" placeholder="Bevestig wachtwoord">
             </div>
         </div>
+        </div>
 
         <button type="submit" class="btn btn-primary">Registreer</button>
     </div>
+
 
 </form>
 
