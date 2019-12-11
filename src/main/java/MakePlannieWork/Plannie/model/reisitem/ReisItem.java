@@ -10,5 +10,5 @@ public abstract class ReisItem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer groepId;
+    private Integer reisItemId;
 }
