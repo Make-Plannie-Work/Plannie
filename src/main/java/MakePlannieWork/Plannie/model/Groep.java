@@ -1,6 +1,7 @@
 package MakePlannieWork.Plannie.model;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -13,7 +14,11 @@ public class Groep {
     private String groepsNaam;
 
     @ManyToMany
-    private Set<Gebruiker> groepsleden;
+    @JoinTable(
+            name="GROEP_GEBRUIKER",
+            joinColumns = { @JoinColumn(name="groep_groepid")},
+            inverseJoinColumns = {@JoinColumn(name="gebruiker_gebruikersid")})
+    private Set<Gebruiker> groepsleden = new HashSet<>();
 
     public Integer getGroepId() {
         return groepId;
