@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns:form="http://www.w3.org/1999/xhtml">
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -7,47 +7,43 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+    <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
     <title>Registreren in Plannie</title>
 </head>
 <body>
 
-<form action = "/registreren" method="post">
+<form:form action = "/registreren" method="post" modelAttribute="registratieFormulier">
     <div class="container">
-    <div class="form-group">
         <div class="row">
             <div class="col">
-                <input type="text" class="form-control" name="voornaam" placeholder="Voornaam">
+                <form:input type="text" class="form-control" path="voornaam" placeholder="Voornaam" />
             </div>
             <div class="col">
-                <input type="text" class="form-control" name="achternaam" placeholder="Achternaam">
+                <form:input type="text" class="form-control" path="achternaam" placeholder="Achternaam" />
             </div>
-       </div>
        </div>
 
 
 
         <div class="form-group">
-
-            <input type="email" class="form-control" name="email" placeholder="Email">
+            <form:input type="email" class="form-control" path="email" placeholder="Email" />
         </div>
 
-        <div class="form-group">
+
         <div class="row">
             <div class="col">
-                <input type="password" class="form-control" name="wachtwoord" placeholder="Wachtwoord">
+                <form:input type="password" class="form-control" path="wachtwoord" placeholder="Wachtwoord" />
             </div>
             <div class="col">
-                <input type="password" class="form-control" name="trancientWachtwoord" placeholder="Bevestig wachtwoord">
+                <form:input type="password" class="form-control" path="trancientWachtwoord" placeholder="Bevestig wachtwoord" />
             </div>
         </div>
-        </div>
 
-        <button type="submit" class="btn btn-primary">Registreer</button>
+        <form:button type="submit" class="btn btn-primary">Registreer</form:button>
     </div>
 
-
-</form>
+</form:form>
 
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
