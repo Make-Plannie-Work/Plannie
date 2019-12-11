@@ -1,8 +1,10 @@
-package model;
+package MakePlannieWork.Plannie.model;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
+@Table(name = "gebruikers")
 public class Gebruiker {
 
     @Id
@@ -10,10 +12,14 @@ public class Gebruiker {
     private Integer gebruikersId;
     private String voornaam;
     private String achternaam;
+    private String email;
     private String wachtwoord;
 
     @Transient
     private String trancientWachtwoord;
+
+    @ManyToMany(mappedBy = "groepsleden")
+    private Set<Groep> groepen;
 
     public String toString() {
         return getGebruikersId() + ":\t" + voornaam + " " + achternaam;
@@ -57,5 +63,21 @@ public class Gebruiker {
 
     public void setGebruikersId(Integer gebruikersId) {
         this.gebruikersId = gebruikersId;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Set<Groep> getGroepen() {
+        return groepen;
+    }
+
+    public void setGroepen(Set<Groep> groepen) {
+        this.groepen = groepen;
     }
 }
