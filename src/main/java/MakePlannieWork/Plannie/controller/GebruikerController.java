@@ -16,7 +16,7 @@ public class GebruikerController {
 
     @GetMapping({"/index" , "/"})
     String index(Model model) {
-        //MakePlannieWork.Plannie.model.addAttribute("loginForm", new Gebruiker());
+        //MakePlannieWork.Plannie.MakePlannieWork.Plannie.model.addAttribute("loginForm", new Gebruiker());
         return "index";
     }
 

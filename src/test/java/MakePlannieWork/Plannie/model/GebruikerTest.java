@@ -1,6 +1,5 @@
-package model;
+package MakePlannieWork.Plannie.model;
 
-import MakePlannieWork.Plannie.model.Gebruiker;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
