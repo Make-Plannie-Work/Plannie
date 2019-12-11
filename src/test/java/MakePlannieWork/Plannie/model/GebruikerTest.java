@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class GebruikerTest {
 
-    private static Integer gebruikersID = 0;
+    private static Integer gebruikersId = 0;
     private static String voornaam = "testVoornaam";
     private static String achternaam = "testAchternaam";
     private static String email = "test@email.com";
@@ -19,14 +19,14 @@ class GebruikerTest {
         Gebruiker gebruiker = new Gebruiker();
 
         // Activate
-        gebruiker.setGebruikersId(gebruikersID);
+        gebruiker.setGebruikersId(gebruikersId);
         gebruiker.setVoornaam(voornaam);
         gebruiker.setAchternaam(achternaam);
         gebruiker.setEmail(email);
         gebruiker.setWachtwoord(wachtwoord);
 
         // Assert
-        assertEquals(gebruikersID,gebruiker.getGebruikersId());
+        assertEquals(gebruikersId,gebruiker.getGebruikersId());
         assertEquals(voornaam,gebruiker.getVoornaam());
         assertEquals(achternaam,gebruiker.getAchternaam());
         assertEquals(email,gebruiker.getEmail());
