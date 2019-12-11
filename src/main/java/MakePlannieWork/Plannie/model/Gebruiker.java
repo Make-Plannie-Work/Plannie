@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
+@Table(name = "gebruikers")
 public class Gebruiker {
 
     @Id
@@ -16,6 +17,9 @@ public class Gebruiker {
 
     @Transient
     private String trancientWachtwoord;
+
+    @ManyToMany(mappedBy = "groepsleden")
+    private Set<Groep> groepen;
 
     public String toString() {
         return getGebruikersId() + ":\t" + voornaam + " " + achternaam;
@@ -67,5 +71,13 @@ public class Gebruiker {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Set<Groep> getGroepen() {
+        return groepen;
+    }
+
+    public void setGroepen(Set<Groep> groepen) {
+        this.groepen = groepen;
     }
 }
