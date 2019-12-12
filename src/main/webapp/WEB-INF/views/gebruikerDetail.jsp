@@ -15,25 +15,25 @@
     <title>Hallo, ${currentUser.voornaam}</title>
 </head>
 <body>
-<div class="container mt-4">
+<div class="container mt-4 ">
 <h1>Hallo, ${currentUser.voornaam}</h1>
 
-    <div class="accordion mt-4" id="accordionExample">
-        <div class="card">
+    <div class="accordion mb-4 " id="accordionExample">
+        <div class="card text-white bg-primary rounded-4 mb-4">
             <div class="card-header" id="headingOne">
                 <h2 class="mb-0">
-                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                    <button class="btn btn-link text-white" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
                         Groep 1
                     </button>
                 </h2>
             </div>
 
             <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
-                <div class="card-body">
+                <div class="card-body text-white">
                         <ul class="list-group list-group-flush">
-                            <a href="/#"><li class="list-group-item">Reis 1</li></a>
-                            <a href="/#"><li class="list-group-item">Reis 2</li></a>
-                            <a href="/#"><li class="list-group-item">Reis 3</li></a>
+                            <a href="/#"><li class="list-group-item text-white bg-primary">Reis 1</li></a>
+                            <a href="/#"><li class="list-group-item text-white bg-primary">Reis 2</li></a>
+                            <a href="/#"><li class="list-group-item text-white bg-primary">Reis 3</li></a>
                         </ul>
                 </div>
             </div>
@@ -45,7 +45,7 @@
                 <input type="hidden"
                        name="${_csrf.parameterName}"
                        value="${_csrf.token}"/>
-                <input type="submit" value="Logout">
+                <input type="submit" class="btn btn-primary" value="Logout">
             </form>
         </div>
     </div>
