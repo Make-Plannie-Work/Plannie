@@ -1,5 +1,9 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
+
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns:form="http://www.w3.org/1999/xhtml" xmlns:security="http://www.springframework.org/schema/security">
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -7,13 +11,12 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-    <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+
     <title>Hallo, (gebruiker)</title>
 </head>
 <body>
 <div class="container">
-<h1>Hallo, (gebruiker)</h1>
+<h1>Hallo, <security:authentication property="principal.username" /></h1>
 
     <div class="accordion" id="accordionExample">
         <div class="card">
