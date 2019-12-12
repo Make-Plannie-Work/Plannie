@@ -14,7 +14,7 @@
 <body>
 
 <form:form action = "/registreren" method="post" modelAttribute="registratieFormulier">
-    <div class="container">
+    <div class="container mt-4">
         <div class="row">
             <div class="col">
                 <form:input type="text" class="form-control" path="voornaam" placeholder="Voornaam" />
@@ -26,7 +26,7 @@
 
 
 
-        <div class="form-group">
+        <div class="form-group mt-3">
             <form:input type="email" class="form-control" path="email" placeholder="Email" />
         </div>
 
@@ -40,7 +40,7 @@
             </div>
         </div>
 
-        <form:button type="submit" class="btn btn-primary">Registreer</form:button>
+        <form:button type="submit" class="btn btn-primary mt-3">Registreer</form:button>
     </div>
 
 </form:form>

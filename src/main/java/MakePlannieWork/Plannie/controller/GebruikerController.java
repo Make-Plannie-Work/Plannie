@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import MakePlannieWork.Plannie.repository.GebruikerRepository;
 
+import java.security.Principal;
+
 @Controller
 public class GebruikerController {
 
@@ -33,18 +35,20 @@ public class GebruikerController {
     }
 
     @PostMapping("/registreren")
-    public String nieuweGebruiker(@ModelAttribute("registratieformulier") Gebruiker gebruiker, BindingResult result) {
+    public String nieuweGebruiker(@ModelAttribute("registratieformulier") Gebruiker gebruiker, Model model, BindingResult result) {
         if (result.hasErrors() || !gebruiker.getWachtwoord().equals(gebruiker.getTrancientWachtwoord())) {
             return "gebruikerNieuw";
         } else {
             gebruiker.setWachtwoord(passwordEncoder.encode(gebruiker.getWachtwoord()));
             gebruikerRepository.save(gebruiker);
-            return "/index";
+            model.addAttribute("loginForm", new Gebruiker());
+            return "index";
         }
     }
 
     @GetMapping("/gebruikerDetail")
-    public String gebruikerDetail(Model model) {
+    public String gebruikerDetail(Model model, Principal principal) {
+        model.addAttribute("currentUser", gebruikerRepository.findGebruikerByEmail(principal.getName()));
         return "gebruikerDetail";
     }
 }

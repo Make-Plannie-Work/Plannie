@@ -15,7 +15,7 @@
   </head>
   <body>
 
-  <div class="container">
+  <div class="container mt-4">
   <form:form id="loginForm" action="/index" modelAttribute="loginForm" method="post">
     <div class="form-group">
       <form:input type="email" class="form-control" id="username" path="username" placeholder="Email"/>
@@ -26,7 +26,7 @@
     <button type="submit" class="btn btn-primary">Login</button>
 
   </form:form>
-  <a href="/registreren"><button type="text" class="btn btn-primary">Registreer je nu!</button></a>
+  <a href="/registreren"><button type="text" class="btn btn-primary mt-3">Registreer je nu!</button></a>
   </div>
 
     <!-- Optional JavaScript -->

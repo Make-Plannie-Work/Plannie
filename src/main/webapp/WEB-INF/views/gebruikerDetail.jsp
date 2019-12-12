@@ -12,13 +12,13 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
-    <title>Hallo, (gebruiker)</title>
+    <title>Hallo, ${currentUser.voornaam}</title>
 </head>
 <body>
-<div class="container">
-<h1>Hallo, <security:authentication property="principal.username" /></h1>
+<div class="container mt-4">
+<h1>Hallo, ${currentUser.voornaam}</h1>
 
-    <div class="accordion" id="accordionExample">
+    <div class="accordion mt-4" id="accordionExample">
         <div class="card">
             <div class="card-header" id="headingOne">
                 <h2 class="mb-0">
@@ -39,8 +39,16 @@
             </div>
         </div>
     </div>
-
-
+    <div class="container mt-3" >
+        <div class="row">
+            <form action="/logout" method="post">
+                <input type="hidden"
+                       name="${_csrf.parameterName}"
+                       value="${_csrf.token}"/>
+                <input type="submit" value="Logout">
+            </form>
+        </div>
+    </div>
 
 </div>
 
