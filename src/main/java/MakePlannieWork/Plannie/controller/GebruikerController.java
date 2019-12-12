@@ -21,8 +21,8 @@ public class GebruikerController {
     private GebruikerRepository gebruikerRepository;
 
     @GetMapping({"/index" , "/"})
-    String index() {
-        //MakePlannieWork.Plannie.MakePlannieWork.Plannie.model.addAttribute("loginForm", new Gebruiker());
+    String index(Model model) {
+        model.addAttribute("loginForm", new Gebruiker());
         return "index";
     }
 
@@ -39,7 +39,12 @@ public class GebruikerController {
         } else {
             gebruiker.setWachtwoord(passwordEncoder.encode(gebruiker.getWachtwoord()));
             gebruikerRepository.save(gebruiker);
-            return "redirect:/registreren";
+            return "/index";
         }
+    }
+
+    @GetMapping("/gebruikerDetail")
+    public String gebruikerDetail(Model model) {
+        return "gebruikerDetail";
     }
 }
