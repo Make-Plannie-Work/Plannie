@@ -1,6 +1,8 @@
 package MakePlannieWork.Plannie.controller;
 
 import MakePlannieWork.Plannie.model.Gebruiker;
+import MakePlannieWork.Plannie.model.Groep;
+import MakePlannieWork.Plannie.service.PlannieGroepService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import MakePlannieWork.Plannie.repository.GebruikerRepository;
 
 import java.security.Principal;
+import java.util.Set;
 
 @Controller
 public class GebruikerController {
@@ -21,6 +24,9 @@ public class GebruikerController {
 
     @Autowired
     private GebruikerRepository gebruikerRepository;
+
+    @Autowired
+    private PlannieGroepService plannieGroepService;
 
     @GetMapping({"/index" , "/"})
     String index(Model model) {
@@ -49,6 +55,8 @@ public class GebruikerController {
     @GetMapping("/gebruikerDetail")
     public String gebruikerDetail(Model model, Principal principal) {
         model.addAttribute("currentUser", gebruikerRepository.findGebruikerByEmail(principal.getName()));
+        Set<Groep> groepen = plannieGroepService.getLijstMetGroepenOpGebruikersnaam(principal.getName());
+        model.addAttribute("lijstMetGroepen", groepen);
         return "gebruikerDetail";
     }
 }
