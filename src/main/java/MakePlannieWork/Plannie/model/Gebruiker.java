@@ -19,7 +19,10 @@ public class Gebruiker implements UserDetails {
     private Integer gebruikersId;
     private String voornaam;
     private String achternaam;
+
+    @Column(unique = true)
     private String email;
+
     private String wachtwoord;
 
     @Transient
