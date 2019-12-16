@@ -19,6 +19,12 @@ public class PlannieGroepService {
     @Autowired
     private GebruikerRepository gebruikerRepository;
 
+    @Autowired
+    private PlannieGroepService plannieGroepService;
+
+    @Autowired
+    private PlannieMailingService mailingService;
+
     public Set<Groep> getLijstMetGroepenOpGebruikersnaam(String gebruikersnaam) {
         Gebruiker gebruiker = gebruikerRepository.findGebruikerByEmail(gebruikersnaam);
 
@@ -29,6 +35,17 @@ public class PlannieGroepService {
         return groepRepository.findById(id);
     }
 
+    public void voegGebruikerToeAanGroep(Integer uitgenodigdeGebruiker, Integer groepId) {
+        Groep groep = groepRepository.findById(groepId).get();
+        groep.getGroepsleden().add(gebruikerRepository.findById(uitgenodigdeGebruiker).get());
+        groepRepository.save(groep);
+    }
 
+    /*public void stuurUitnodigingPerEmail(String email, String groepUUID, HttpServletRequest request) throws MessagingException {
+        Groep groep = groepRepository.findByIdentifier(groepUUID).get();
 
+        String URL = request.getScheme() + "://" + request.getServerName() + "/register?eventUUID=" + groepUUID;
+        mailingService.sendEmail(email, "Hallo, u bent door " + groep.getAanmaker().getVoornaam()+ " " + groep.getAanmaker().getAchternaam() + " uitgenodigd voor de groep " + groep.getGroepsNaam() +
+                ". Plannie maakt het groepen makkelijk om reizen te plannen.");
+    }*/
 }

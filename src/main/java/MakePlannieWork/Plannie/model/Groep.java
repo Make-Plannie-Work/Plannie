@@ -1,20 +1,15 @@
 package MakePlannieWork.Plannie.model;
 
-import MakePlannieWork.Plannie.repository.GebruikerRepository;
 import MakePlannieWork.Plannie.repository.GroepRepository;
 import org.apache.tomcat.jni.User;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
-import java.security.Principal;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 public class Groep {
-
-    @Autowired
-    private GebruikerRepository gebruikerRepository;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -23,6 +18,8 @@ public class Groep {
     private String groepsNaam;
 
     private Gebruiker aanmaker;
+
+    private String identifier; //UUID
 
     @ManyToMany
     @JoinTable(
@@ -59,7 +56,7 @@ public class Groep {
         return aanmaker;
     }
 
-    public void setAanmaker(Principal principal) {
-        this.aanmaker = gebruikerRepository.findGebruikerByEmail(principal.getName());
+    public void setAanmaker(Gebruiker aanmaker) {
+        this.aanmaker = aanmaker;
     }
 }
