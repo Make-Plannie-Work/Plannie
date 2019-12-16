@@ -3,7 +3,6 @@ package MakePlannieWork.Plannie.views;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.jupiter.api.Assertions;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -14,8 +13,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 import static org.junit.Assert.assertEquals;
-
-import javax.persistence.criteria.CriteriaBuilder;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
@@ -43,7 +40,6 @@ public class LoginTest {
     public void testLogInGeslaagd() throws InterruptedException {
         //Arrange
         this.driver.get("http://localhost:8080/index");
-        //Thread.sleep(2000);
 
         //Activate
         driver.findElement(By.name("username")).sendKeys(ADMIN_EMAIL);
@@ -59,15 +55,14 @@ public class LoginTest {
     public void testLogInGefaald() throws InterruptedException {
         //Arrange
         this.driver.get("http://localhost:8080/index");
-        //Thread.sleep(2000);
 
         //Activate
         driver.findElement(By.name("username")).sendKeys(ADMIN_EMAIL);
-        driver.findElement(By.name("password")).sendKeys("foutwachtwoord");
+        driver.findElement(By.name("password")).sendKeys("foutwachtwoord" + Keys.RETURN);
         Thread.sleep(500);
 
         //Assert
-        assertEquals("http://localhost:8080/index", driver.getCurrentUrl());
+        assertEquals("http://localhost:8080/index?error", driver.getCurrentUrl());
     }
 }
 
