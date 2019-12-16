@@ -40,7 +40,7 @@
             </div>
         </div>
 
-        <form:button type="submit" class="btn btn-primary mt-3">Registreer</form:button>
+        <form:button id="registreer" type="submit" class="btn btn-primary mt-3"  >Registreer</form:button>
     </div>
 
 </form:form>
