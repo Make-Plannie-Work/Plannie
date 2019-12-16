@@ -52,7 +52,11 @@ public class GroepController {
         Gebruiker gebruiker = gebruikerRepository.findGebruikerByEmail(principal.getName());
         model.addAttribute(gebruiker);
         model.addAttribute("groepsLedenLijst", alleGebruikers);
-        return "groepDetail";
+        if (groepOptional.isPresent()) {
+            model.addAttribute("groep", groepOptional.get());
+            return "groepDetail";
+        }
+        return "redirect:/gebruikerDetail";
     }
 
 
