@@ -40,27 +40,35 @@ public class LoginTest {
     }
 
     @Test
-    public void testLogIn() throws InterruptedException {
+    public void testLogInGeslaagd() throws InterruptedException {
         //Arrange
         this.driver.get("http://localhost:8080/index");
-        Thread.sleep(2000);
+        //Thread.sleep(2000);
 
         //Activate
         driver.findElement(By.name("username")).sendKeys(ADMIN_EMAIL);
         driver.findElement(By.name("password")).sendKeys(ADMIN_PASS + Keys.RETURN);
-        Thread.sleep(2000);
+        // TODO Inplaats van sleep, zouden we eigenlijk een wait.until moeten gebruiken.
+        Thread.sleep(500);
 
         //Assert
         assertEquals("http://localhost:8080/gebruikerDetail", driver.getCurrentUrl());
-        System.out.println(" " + driver.getCurrentUrl());
-
     }
 
+    @Test
+    public void testLogInGefaald() throws InterruptedException {
+        //Arrange
+        this.driver.get("http://localhost:8080/index");
+        //Thread.sleep(2000);
 
+        //Activate
+        driver.findElement(By.name("username")).sendKeys(ADMIN_EMAIL);
+        driver.findElement(By.name("password")).sendKeys("foutwachtwoord");
+        Thread.sleep(500);
+
+        //Assert
+        assertEquals("http://localhost:8080/index", driver.getCurrentUrl());
+    }
 }
 
 
-//    driver.findElement(By.name("username")).sendKeys(ADMIN_USER);
-//    driver.findElement(By.name("password")).sendKeys(ADMIN_PASS + Keys.RETURN);
-//    // TODO Inplaats van sleep, zouden we eigenlijk een wait.until moeten gebruiken.
-//    Thread.sleep(500);
