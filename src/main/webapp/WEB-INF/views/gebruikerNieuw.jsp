@@ -14,33 +14,33 @@
 <body>
 
 <form:form action = "/registreren" method="post" modelAttribute="registratieFormulier">
-    <div class="container">
+    <div class="container mt-4">
         <div class="row">
             <div class="col">
-                <form:input type="text" class="form-control" path="voornaam" placeholder="Voornaam" />
+                <form:input type="text" class="form-control" path="voornaam" required="required" placeholder="Voornaam" />
             </div>
             <div class="col">
-                <form:input type="text" class="form-control" path="achternaam" placeholder="Achternaam" />
+                <form:input type="text" class="form-control" path="achternaam" required="required" placeholder="Achternaam" />
             </div>
        </div>
 
 
 
-        <div class="form-group">
-            <form:input type="email" class="form-control" path="email" placeholder="Email" />
+        <div class="form-group mt-3">
+            <form:input type="email" class="form-control" path="email" required="required" placeholder="Email" />
         </div>
 
 
         <div class="row">
             <div class="col">
-                <form:input type="password" class="form-control" path="wachtwoord" placeholder="Wachtwoord" />
+                <form:input type="password" class="form-control" path="wachtwoord" required="required" placeholder="Wachtwoord" />
             </div>
             <div class="col">
-                <form:input type="password" class="form-control" path="trancientWachtwoord" placeholder="Bevestig wachtwoord" />
+                <form:input type="password" class="form-control" path="trancientWachtwoord" required="required" placeholder="Bevestig wachtwoord" />
             </div>
         </div>
 
-        <form:button type="submit" class="btn btn-primary">Registreer</form:button>
+        <form:button id="registreer" type="submit" class="btn btn-primary mt-3"  >Registreer</form:button>
     </div>
 
 </form:form>
