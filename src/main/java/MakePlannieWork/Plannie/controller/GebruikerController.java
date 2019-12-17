@@ -70,20 +70,23 @@ public class GebruikerController {
         return "gebruikerDetail";
     }
 
+    // Gebruiker gaat naar gebruikerWijzig URL en zijn gegevens worden ingevuld in gebruikersWijzigingsFormulier
     @GetMapping("/gebruikerWijzig")
-    public String gebruikerWijzig(Model model, Principal principal) {
+    public String huidigeGebruiker(Model model, Principal principal) {
         model.addAttribute("currentUser", gebruikerRepository.findGebruikerByEmail(principal.getName()));
         model.addAttribute("gebruikersWijzigingsFormulier", new Gebruiker());
         return "gebruikerWijzig";
     }
 
+    // Gebruiker kan zijn voornaam, achternaam en email adres wijzigen
+    // Zijn nieuwe gegevens worden onder zijn eigen gebruikersId opgeslagen
+    // Gebruiker gaat weer naar gebruikerWijzig met zijn nieuwe gegevens
     @PostMapping("/wijzigen")
-    public String wijzigenGebruiker(@ModelAttribute("gebruikersWijzigingsFormulier") Gebruiker gebruiker,
+    public String wijzigenHuidigeGebruiker(@ModelAttribute("gebruikersWijzigingsFormulier") Gebruiker gebruiker,
                                     BindingResult result, Principal principal) {
         if (result.hasErrors()) {
             return "gebruikerDetail";
         } else {
-
             Gebruiker huidigeGebruiker = gebruikerRepository.findGebruikerByEmail(principal.getName());
             huidigeGebruiker.setVoornaam(gebruiker.getVoornaam());
             huidigeGebruiker.setAchternaam(gebruiker.getAchternaam());
