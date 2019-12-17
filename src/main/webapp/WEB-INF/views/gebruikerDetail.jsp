@@ -19,6 +19,10 @@
 <h1>Hallo, ${currentUser.voornaam}</h1>
 
     <div class="accordion mb-4 " id="accordionExample">
+
+        <-- Lijst met groepen van deze gebruiker -->
+        <c:forEach var="groep" items="${requestScope.lijstMetGroepen}">
+
         <div class="card text-white bg-primary rounded-4 mb-4">
             <div class="card-header" id="headingOne">
                 <h2 class="mb-0">
@@ -28,23 +32,29 @@
                 </h2>
             </div>
 
+            <-- Lijst met reizen per groep-->
             <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+
                 <div class="card-body text-white">
-                        <ul class="list-group list-group-flush">
-                            <a href="/#"><li class="list-group-item text-white bg-primary">Reis 1</li></a>
-                            <a href="/#"><li class="list-group-item text-white bg-primary">Reis 2</li></a>
-                            <a href="/#"><li class="list-group-item text-white bg-primary">Reis 3</li></a>
-                        </ul>
+                    <ul class="list-group list-group-flush">
+                        <a href="/#"><li class="list-group-item text-white bg-primary">Reis 1</li></a>
+                        <a href="/#"><li class="list-group-item text-white bg-primary">Reis 2</li></a>
+                        <a href="/#"><li class="list-group-item text-white bg-primary">Reis 3</li></a>
+                    </ul>
                 </div>
             </div>
         </div>
+
+        </c:forEach>
+
     </div>
+
     <div class="container mt-3" >
         <div class="row">
             <form action="/logout" method="post">
                 <input type="hidden"
-                       name="${_csrf.parameterName}"
-                       value="${_csrf.token}"/>
+                    name="${_csrf.parameterName}"
+                    value="${_csrf.token}"/>
                 <input type="submit" class="btn btn-primary" value="Logout">
             </form>
         </div>
