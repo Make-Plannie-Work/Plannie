@@ -49,7 +49,7 @@
             </form>
         </div>
                 <div class="row">
-                    <a href="/gebruikerWijzig"><button type="text" class="btn btn-primary mt-3">Gegevens wijzigen</button></a>
+                    <a href="/gebruikerWijzig"><button type="text" class="btn btn-primary mt-3" id="gebruikerWijzigen">Gegevens wijzigen</button></a>
                 </div>
     </div>
 

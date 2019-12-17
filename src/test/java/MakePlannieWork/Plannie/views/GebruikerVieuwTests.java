@@ -20,7 +20,7 @@ import static org.junit.Assert.assertEquals;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
 @WebAppConfiguration
-public class GebruikerNieuwTest {
+public class GebruikerVieuwTests {
 
     private static final String VOORNAAM = "testVoornaam";
     private static final String ACHTERNAAM = "testAchternaam";
@@ -107,5 +107,35 @@ public class GebruikerNieuwTest {
 
         // Assert
         assertEquals("Registreren in Plannie",driver.getTitle());
+    }
+
+    @Test
+    public void testGebruikerWijzigen() throws InterruptedException {
+        // Arrange
+        this.driver.get("http://localhost:8080/registreren");
+        String gewijzigdeVoornaam = VOORNAAM + "Test";
+
+        // Activate
+        driver.findElement(By.name("voornaam")).sendKeys(VOORNAAM);
+        driver.findElement(By.name("achternaam")).sendKeys(ACHTERNAAM);
+        driver.findElement(By.name("email")).sendKeys(EMAIL);
+        driver.findElement(By.name("wachtwoord")).sendKeys(WACHTWOORD);
+        driver.findElement(By.name("trancientWachtwoord")).sendKeys(WACHTWOORD);
+        driver.findElement(By.id("registreer")).click();
+        Thread.sleep(500);
+
+        this.driver.get("http://localhost:8080/gebruikerDetail");
+        driver.findElement(By.name("username")).sendKeys(EMAIL);
+        driver.findElement(By.name("password")).sendKeys(WACHTWOORD + Keys.RETURN);
+        Thread.sleep(500);
+
+        driver.findElement(By.id("gebruikerWijzigen")).click();
+        driver.findElement(By.name("voornaam")).clear();
+        driver.findElement(By.name("voornaam")).sendKeys(gewijzigdeVoornaam);
+        driver.findElement(By.id("gebruikerWijzigen")).click();
+        Thread.sleep(500);
+
+        // Assert
+        assertEquals("Hallo, " + gewijzigdeVoornaam, driver.getTitle());
     }
 }
