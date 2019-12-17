@@ -78,9 +78,15 @@ public class GebruikerController {
     }
 
     @PostMapping("/wijzigen")
-    public String wijzigenGebruiker(@ModelAttribute("gebruikersWijzigingsFormulier") Gebruiker gebruiker, Model model, BindingResult result) {
-        gebruiker.setVoornaam(gebruiker.getWachtwoord());
-
+    public String wijzigenGebruiker(@ModelAttribute("gebruikersWijzigingsFormulier") Gebruiker gebruiker, Principal principal) {
+        Gebruiker huidigeGebruiker = gebruikerRepository.findGebruikerByEmail(principal.getName());
+        System.out.println("Nieuwe gebruiker:" + gebruiker.getVoornaam());
+        System.out.println("Huidige gebruiker: " + huidigeGebruiker.getGebruikersId() + " " + huidigeGebruiker.getVoornaam());
+        huidigeGebruiker.setVoornaam(gebruiker.getVoornaam());
+        huidigeGebruiker.setAchternaam(gebruiker.getAchternaam());
+        huidigeGebruiker.setEmail(gebruiker.getEmail());
+        System.out.println("Huidige gebruiker andere voornaa: " + huidigeGebruiker.getVoornaam());
+        gebruikerRepository.save(huidigeGebruiker);
         return "gebruikerDetail";
     }
 
