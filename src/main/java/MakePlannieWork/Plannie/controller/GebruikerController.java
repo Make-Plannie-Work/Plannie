@@ -8,14 +8,13 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import MakePlannieWork.Plannie.repository.GebruikerRepository;
-import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.security.Principal;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @Controller
@@ -70,4 +69,19 @@ public class GebruikerController {
         model.addAttribute("currentUser", gebruikerRepository.findGebruikerByEmail(principal.getName()));
         return "gebruikerDetail";
     }
+
+    @GetMapping("/gebruikerWijzig")
+    public String gebruikerWijzig(Model model, Principal principal) {
+        model.addAttribute("currentUser", gebruikerRepository.findGebruikerByEmail(principal.getName()));
+        model.addAttribute("gebruikersWijzigingsFormulier", new Gebruiker());
+        return "gebruikerWijzig";
+    }
+
+    @PostMapping("/wijzigen")
+    public String wijzigenGebruiker(@ModelAttribute("gebruikersWijzigingsFormulier") Gebruiker gebruiker, Model model, BindingResult result) {
+        gebruiker.setVoornaam(gebruiker.getWachtwoord());
+
+        return "gebruikerDetail";
+    }
+
 }
