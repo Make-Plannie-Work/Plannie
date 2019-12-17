@@ -78,16 +78,19 @@ public class GebruikerController {
     }
 
     @PostMapping("/wijzigen")
-    public String wijzigenGebruiker(@ModelAttribute("gebruikersWijzigingsFormulier") Gebruiker gebruiker, Principal principal) {
-        Gebruiker huidigeGebruiker = gebruikerRepository.findGebruikerByEmail(principal.getName());
-        System.out.println("Nieuwe gebruiker:" + gebruiker.getVoornaam());
-        System.out.println("Huidige gebruiker: " + huidigeGebruiker.getGebruikersId() + " " + huidigeGebruiker.getVoornaam());
-        huidigeGebruiker.setVoornaam(gebruiker.getVoornaam());
-        huidigeGebruiker.setAchternaam(gebruiker.getAchternaam());
-        huidigeGebruiker.setEmail(gebruiker.getEmail());
-        System.out.println("Huidige gebruiker andere voornaa: " + huidigeGebruiker.getVoornaam());
-        gebruikerRepository.save(huidigeGebruiker);
-        return "gebruikerDetail";
+    public String wijzigenGebruiker(@ModelAttribute("gebruikersWijzigingsFormulier") Gebruiker gebruiker,
+                                    BindingResult result, Principal principal) {
+        if (result.hasErrors()) {
+            return "gebruikerDetail";
+        } else {
+
+            Gebruiker huidigeGebruiker = gebruikerRepository.findGebruikerByEmail(principal.getName());
+            huidigeGebruiker.setVoornaam(gebruiker.getVoornaam());
+            huidigeGebruiker.setAchternaam(gebruiker.getAchternaam());
+            huidigeGebruiker.setEmail(gebruiker.getEmail());
+            gebruikerRepository.save(huidigeGebruiker);
+            return "redirect:/gebruikerDetail";
+        }
     }
 
 }
