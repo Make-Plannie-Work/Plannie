@@ -1,5 +1,9 @@
 package MakePlannieWork.Plannie.model;
 
+import MakePlannieWork.Plannie.repository.GroepRepository;
+import org.apache.tomcat.jni.User;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -12,6 +16,10 @@ public class Groep {
     private Integer groepId;
 
     private String groepsNaam;
+
+    private Gebruiker aanmaker;
+
+    private String identifier; //UUID
 
     @ManyToMany
     @JoinTable(
@@ -42,5 +50,13 @@ public class Groep {
 
     public void setGroepsleden(Set<Gebruiker> groepsleden) {
         this.groepsleden = groepsleden;
+    }
+
+    public Gebruiker getAanmaker() {
+        return aanmaker;
+    }
+
+    public void setAanmaker(Gebruiker aanmaker) {
+        this.aanmaker = aanmaker;
     }
 }

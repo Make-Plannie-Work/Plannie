@@ -19,4 +19,6 @@ public class PlannieGebruikersService implements UserDetailsService {
                 () -> new UsernameNotFoundException("User " + s + " was not found")
         );
     }
+
+
 }
