@@ -48,6 +48,9 @@
                 <input type="submit" class="btn btn-primary" value="Logout">
             </form>
         </div>
+                <div class="row">
+                    <a href="/gebruikerWijzig"><button type="text" class="btn btn-primary mt-3">Gegevens wijzigen</button></a>
+                </div>
     </div>
 
 </div>
