@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import MakePlannieWork.Plannie.repository.GebruikerRepository;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.security.Principal;
 import java.util.Set;
@@ -35,8 +36,11 @@ public class GebruikerController {
     }
 
     @GetMapping("/registreren")
-    public String registreren(Model model) {
+public String registreren(@RequestParam(name="groepUUID", required = false) String groepUUID, Model model) {
         model.addAttribute("registratieFormulier", new Gebruiker());
+        if (groepUUID != null) {
+            model.addAttribute("groepUUID", groepUUID);
+        }
         return "gebruikerNieuw";
     }
 
@@ -54,9 +58,11 @@ public class GebruikerController {
 
     @GetMapping("/gebruikerDetail")
     public String gebruikerDetail(Model model, Principal principal) {
+        if (!plannieGroepService.getLijstMetGroepenOpGebruikersnaam(principal.getName()).isEmpty() || plannieGroepService.getLijstMetGroepenOpGebruikersnaam(principal.getName()) != null){
+            Set<Groep> groepen = plannieGroepService.getLijstMetGroepenOpGebruikersnaam(principal.getName());
+            model.addAttribute("lijstMetGroepen", groepen);
+        }
         model.addAttribute("currentUser", gebruikerRepository.findGebruikerByEmail(principal.getName()));
-        Set<Groep> groepen = plannieGroepService.getLijstMetGroepenOpGebruikersnaam(principal.getName());
-        model.addAttribute("lijstMetGroepen", groepen);
         return "gebruikerDetail";
     }
 }

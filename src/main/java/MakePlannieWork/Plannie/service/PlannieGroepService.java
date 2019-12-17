@@ -7,6 +7,8 @@ import MakePlannieWork.Plannie.repository.GroepRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.mail.MessagingException;
+import javax.servlet.http.HttpServletRequest;
 import java.util.Optional;
 import java.util.Set;
 
@@ -41,11 +43,11 @@ public class PlannieGroepService {
         groepRepository.save(groep);
     }
 
-    /*public void stuurUitnodigingPerEmail(String email, String groepUUID, HttpServletRequest request) throws MessagingException {
+    public void stuurUitnodigingPerEmail(String email, String groepUUID, HttpServletRequest request) throws MessagingException {
         Groep groep = groepRepository.findByIdentifier(groepUUID).get();
 
-        String URL = request.getScheme() + "://" + request.getServerName() + "/register?eventUUID=" + groepUUID;
+        String URL = request.getScheme() + "://" + request.getServerName() + "/registreren?groepUUID=" + groepUUID;
         mailingService.sendEmail(email, "Hallo, u bent door " + groep.getAanmaker().getVoornaam()+ " " + groep.getAanmaker().getAchternaam() + " uitgenodigd voor de groep " + groep.getGroepsNaam() +
-                ". Plannie maakt het groepen makkelijk om reizen te plannen.");
-    }*/
+                ". Plannie maakt het groepen makkelijk om reizen te plannen. Klink op de volgende link om mee te doen: " + URL, "Uitnodiging voor Plannie");
+    }
 }
