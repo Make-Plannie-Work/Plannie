@@ -80,4 +80,30 @@ public class GebruikerNieuwTest {
         // Assert
         assertEquals("Registreren in Plannie",driver.getTitle());
     }
+
+    @Test
+    public void testRegistreerDubbel() throws InterruptedException {
+        // Arrange
+        this.driver.get("http://localhost:8080/registreren");
+
+        // Activate
+        driver.findElement(By.name("voornaam")).sendKeys(VOORNAAM);
+        driver.findElement(By.name("achternaam")).sendKeys(ACHTERNAAM);
+        driver.findElement(By.name("email")).sendKeys(EMAIL);
+        driver.findElement(By.name("wachtwoord")).sendKeys(WACHTWOORD);
+        driver.findElement(By.name("trancientWachtwoord")).sendKeys(WACHTWOORD);
+        driver.findElement(By.id("registreer")).click();
+        Thread.sleep(500);
+        this.driver.get("http://localhost:8080/registreren");
+        driver.findElement(By.name("voornaam")).sendKeys(VOORNAAM);
+        driver.findElement(By.name("achternaam")).sendKeys(ACHTERNAAM);
+        driver.findElement(By.name("email")).sendKeys(EMAIL);
+        driver.findElement(By.name("wachtwoord")).sendKeys(WACHTWOORD);
+        driver.findElement(By.name("trancientWachtwoord")).sendKeys(WACHTWOORD);
+        driver.findElement(By.id("registreer")).click();
+        Thread.sleep(500);
+
+        // Assert
+        assertEquals("Registreren in Plannie",driver.getTitle());
+    }
 }

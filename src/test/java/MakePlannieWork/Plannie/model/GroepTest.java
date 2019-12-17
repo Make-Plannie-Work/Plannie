@@ -15,7 +15,7 @@ class GroepTest {
 
     // Deze test controleerd of de Entity Groep wordt aangemaakt, en of de benodidge getters en setters aanwezig zijn.
     @Test
-    void entityGebruikerWerkt() {
+    void entityGroepWerkt() {
         // Arrange
         Groep groep = new Groep();
         Gebruiker groepsLid = new Gebruiker();
