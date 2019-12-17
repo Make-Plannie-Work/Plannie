@@ -13,6 +13,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
+import java.util.List;
+
 import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -32,9 +34,9 @@ public class GebruikerNieuwTest {
     @Before
     public void setUp() {
         // Oude test gebruiker verwijderen.
-        Gebruiker testGebruiker = gebruikerRepository.findGebruikerByEmail(EMAIL);
+        List<Gebruiker> testGebruiker = gebruikerRepository.findGebruikersByEmail(EMAIL);
         if (testGebruiker != null) {
-            gebruikerRepository.delete(testGebruiker);
+            gebruikerRepository.deleteAll(testGebruiker);
         }
 
         System.setProperty("webdriver.chrome.driver", "Algemeen/chromedriver.exe");

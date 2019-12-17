@@ -15,6 +15,7 @@ import MakePlannieWork.Plannie.repository.GebruikerRepository;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.security.Principal;
+import java.util.List;
 import java.util.Set;
 
 @Controller
@@ -36,7 +37,7 @@ public class GebruikerController {
     }
 
     @GetMapping("/registreren")
-public String registreren(@RequestParam(name="groepUUID", required = false) String groepUUID, Model model) {
+        public String registreren(@RequestParam(name="groepUUID", required = false) String groepUUID, Model model) {
         model.addAttribute("registratieFormulier", new Gebruiker());
         if (groepUUID != null) {
             model.addAttribute("groepUUID", groepUUID);
@@ -46,7 +47,11 @@ public String registreren(@RequestParam(name="groepUUID", required = false) Stri
 
     @PostMapping("/registreren")
     public String nieuweGebruiker(@ModelAttribute("registratieformulier") Gebruiker gebruiker, Model model, BindingResult result) {
-        if (result.hasErrors() || !gebruiker.getWachtwoord().equals(gebruiker.getTrancientWachtwoord())) {
+        // Als de ingevulde gebruiker al best in de database bestaat met dit email adres, wordt de actie niet uitgevoerd.
+        List<Gebruiker> bestaandeGebruiker = gebruikerRepository.findGebruikersByEmail(gebruiker.getEmail());
+
+        if (!bestaandeGebruiker.isEmpty() || result.hasErrors() || !gebruiker.getWachtwoord().equals(gebruiker.getTrancientWachtwoord())) {
+            model.addAttribute("registratieFormulier", new Gebruiker());
             return "gebruikerNieuw";
         } else {
             gebruiker.setWachtwoord(passwordEncoder.encode(gebruiker.getWachtwoord()));
