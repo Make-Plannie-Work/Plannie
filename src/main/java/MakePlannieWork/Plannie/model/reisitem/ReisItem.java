@@ -1,11 +1,6 @@
 package MakePlannieWork.Plannie.model.reisitem;
 
-import MakePlannieWork.Plannie.model.Groep;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
-
 import javax.persistence.*;
-import java.util.Set;
 
 /**
  * ReisItem class aangemaakt. Is composite. Heeft 1 op veel relatie met Groep.

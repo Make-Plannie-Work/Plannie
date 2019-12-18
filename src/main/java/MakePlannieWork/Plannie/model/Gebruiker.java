@@ -19,6 +19,7 @@ public class Gebruiker implements UserDetails {
     private Integer gebruikersId;
     private String voornaam;
     private String achternaam;
+    private String identifier; //UUID
 
     @Column(unique = true)
     private String email;
@@ -89,6 +90,14 @@ public class Gebruiker implements UserDetails {
 
     public void setGroepen(Set<Groep> groepen) {
         this.groepen = groepen;
+    }
+
+    public String getIdentifier() {
+        return identifier;
+    }
+
+    public void setIdentifier(String identifier) {
+        this.identifier = identifier;
     }
 
     @Override

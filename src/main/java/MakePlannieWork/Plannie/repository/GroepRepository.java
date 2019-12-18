@@ -10,5 +10,5 @@ import java.util.Optional;
 public interface GroepRepository extends JpaRepository<Groep, Integer> {
     List<Groep> findByGroepsleden_GebruikersId(Integer gebruikersId);
 
-    Optional<Groep> findByIdentifier(String uuid);
+    Groep findByGroepId(Integer groepId);
 }

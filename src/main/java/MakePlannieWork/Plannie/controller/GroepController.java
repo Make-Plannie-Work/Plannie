@@ -4,11 +4,14 @@ import MakePlannieWork.Plannie.model.Gebruiker;
 import MakePlannieWork.Plannie.model.Groep;
 import MakePlannieWork.Plannie.repository.GebruikerRepository;
 import MakePlannieWork.Plannie.repository.GroepRepository;
+import MakePlannieWork.Plannie.service.PlannieGebruikersService;
 import MakePlannieWork.Plannie.service.PlannieGroepService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -28,6 +31,9 @@ public class GroepController {
 
     @Autowired
     private PlannieGroepService plannieGroepService;
+
+    @Autowired
+    private PlannieGebruikersService plannieGebruikersService;
 
     @GetMapping("/groepAanmaken")
     public String nieuweGroep(Model model) {
@@ -59,5 +65,38 @@ public class GroepController {
         return "redirect:/gebruikerDetail";
     }
 
+
+    @GetMapping("/groepDetail/{groepId}/voegGebruikerToeAanGroep/{gebruikersId}")
+    public String voegGebruikerToeAanGroep(@PathVariable("groepId") Integer groepId, @PathVariable("gebruikersId") Integer gebruikersId, Principal principal) {
+        plannieGroepService.voegGebruikerToeAanGroep(gebruikersId, groepId);
+        return "redirect:/groepDetail/" + groepId;
+    }
+
+    @PostMapping("/groepDetail/{groepId}/voegLedenToeAanGroepViaEmail")
+    public String voegLedenToeAanGroepViaEmail(@ModelAttribute("groepslidEmail") Gebruiker gebruiker, @PathVariable("groepId") Integer groepId, BindingResult result, Model model) {
+
+        Optional<Groep> groepOptional = plannieGroepService.findById(groepId);
+        if (!groepOptional.isPresent()) {
+            result.reject("Invalid group");
+        }
+
+        if (result.hasErrors()) {
+            model.addAttribute("error", result.getAllErrors());
+            return "groepDetail";
+        } else {
+
+            plannieGebruikersService.voegGebruikerToe(gebruiker, groepOptional.get());
+        } return "redirect:/groepDetail";
+    }
+
+    @GetMapping("/groepDetail/{groepId}/VerwijderLedenUitGroep/{gebruikersId}")
+    public String VerwijderLedenUitGroep(@PathVariable("groepId") Integer groepId, @PathVariable("gebruikersId") Integer gebruikersId, Principal principal) {
+        plannieGroepService.verwijderGebruikerUitGroep(gebruikersId, groepId);
+        if (groepRepository.findByGroepId(groepId).getGroepsleden().contains(gebruikerRepository.findByEmail(principal.getName()).get())) {
+            return "redirect:/groepDetail/" + groepId;
+        } else {
+            return "redirect:/gebruikerDetail";
+        }
+    }
 
 }

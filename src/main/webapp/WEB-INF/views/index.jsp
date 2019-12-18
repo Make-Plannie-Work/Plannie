@@ -23,7 +23,7 @@
     <div class="form-group">
       <form:input type="password" id="password" path="password" class="form-control" placeholder="Wachtwoord"/>
     </div>
-    <button type="submit" class="btn btn-primary">Login</button>
+    <button id="login" type="submit" class="btn btn-primary">Login</button>
 
   </form:form>
   <a href="/registreren"><button type="text" class="btn btn-primary mt-3">Registreer je nu!</button></a>
