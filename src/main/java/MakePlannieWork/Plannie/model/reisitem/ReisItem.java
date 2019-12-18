@@ -5,12 +5,11 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
+import java.util.Set;
 
 /**
  * ReisItem class aangemaakt. Is composite. Heeft 1 op veel relatie met Groep.
  */
-
-
 
 @Entity
 @Table(name = "reis_item")
@@ -22,11 +21,6 @@ public class ReisItem {
 
     private String naam;
     private String datum;
-
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "groep_id", referencedColumnName = "groep_id", nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    private Groep groep;
 
     public Integer getReisItemId() {
         return reisItemId;
@@ -51,15 +45,5 @@ public class ReisItem {
     public void setDatum(String datum) {
         this.datum = datum;
     }
-
-    public Groep getGroep() {
-        return groep;
-    }
-
-    public void setGroep(Groep groep) {
-        this.groep = groep;
-    }
-
-
 
 }

@@ -1,7 +1,10 @@
 package MakePlannieWork.Plannie.model;
 
+import MakePlannieWork.Plannie.model.reisitem.ReisItem;
 import MakePlannieWork.Plannie.repository.GroepRepository;
 import org.apache.tomcat.jni.User;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
@@ -27,6 +30,11 @@ public class Groep {
             joinColumns = { @JoinColumn(name="groep_groepid")},
             inverseJoinColumns = {@JoinColumn(name="gebruiker_gebruikersid")})
     private Set<Gebruiker> groepsleden = new HashSet<>();
+
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "groep_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private Set<ReisItem> reisItem;
 
     public Integer getGroepId() {
         return groepId;
