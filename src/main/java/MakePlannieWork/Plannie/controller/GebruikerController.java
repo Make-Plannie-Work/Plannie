@@ -11,10 +11,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import MakePlannieWork.Plannie.repository.GebruikerRepository;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import java.security.Principal;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 @Controller
@@ -95,5 +93,4 @@ public class GebruikerController {
             return "redirect:/gebruikerDetail";
         }
     }
-
 }

@@ -13,29 +13,27 @@
 </head>
 <body>
 
-<form:form action = "/wijzigen" method="post" modelAttribute="gebruikersWijzigingsFormulier">
-    <div class="container mt-4">
-        <div class="row">
-            <div class="col">
-                <form:input type="text" class="form-control" path="voornaam" required="required" placeholder="Voornaam" value ="${currentUser.voornaam}" />
+<div class="container mt-4">
+    <form:form action = "/wijzigen" method="post" modelAttribute="gebruikersWijzigingsFormulier">
+            <div class="row">
+                <div class="col">
+                    <form:input type="text" class="form-control" path="voornaam" required="required" placeholder="Voornaam" value ="${currentUser.voornaam}" />
+                </div>
+                <div class="col">
+                    <form:input type="text" class="form-control" path="achternaam" required="required" placeholder="Achternaam" value ="${currentUser.achternaam}" />
+                </div>
+           </div>
+
+            <div class="form-group mt-3">
+                <form:input type="email" class="form-control" path="email" required="required" placeholder="Email" value ="${currentUser.email}" />
             </div>
-            <div class="col">
-                <form:input type="text" class="form-control" path="achternaam" required="required" placeholder="Achternaam" value ="${currentUser.achternaam}" />
-            </div>
-       </div>
 
+            <form:button id="gebruikerWijzigen" type="submit" class="btn btn-primary mt-3"  >Wijzig gegevens</form:button>
 
+    </form:form>
 
-        <div class="form-group mt-3">
-            <form:input type="email" class="form-control" path="email" required="required" placeholder="Email" value ="${currentUser.email}" />
-        </div>
-
-
-
-        <form:button id="gebruikerWijzigen" type="submit" class="btn btn-primary mt-3"  >Wijzig gegevens</form:button>
-    </div>
-
-</form:form>
+    <a href="/gebruikerDetail"><button type="text" class="btn btn-primary mt-3" id="gebruikerWijzigen">Annuleren</button></a>
+</div>
 
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
