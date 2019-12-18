@@ -17,13 +17,15 @@
 <body>
 <div class="container mt-4 ">
 <h1>Hallo, ${currentUser.voornaam}</h1>
+<a href="/gebruikerWijzig"><button type="text" class="btn btn-primary mt-3" id="gebruikerWijzigen">Gegevens wijzigen</button></a>
 
-    <div class="accordion mb-4 " id="accordionExample">
+    <c:forEach items="${lijstMetGroepen}" var="groep">
+    <div class="accordion mb-4 " id="lijstMetGroepen">
         <div class="card text-white bg-primary rounded-4 mb-4">
             <div class="card-header" id="headingOne">
                 <h2 class="mb-0">
                     <button class="btn btn-link text-white" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-                        Groep 1
+                        <a href="/groepDetail/${groep.groepId}" class="text-white">${groep.groepsNaam}</a>
                     </button>
                 </h2>
             </div>
@@ -32,13 +34,21 @@
                 <div class="card-body text-white">
                         <ul class="list-group list-group-flush">
                             <a href="/#"><li class="list-group-item text-white bg-primary">Reis 1</li></a>
-                            <a href="/#"><li class="list-group-item text-white bg-primary">Reis 2</li></a>
-                            <a href="/#"><li class="list-group-item text-white bg-primary">Reis 3</li></a>
                         </ul>
                 </div>
             </div>
         </div>
     </div>
+    </c:forEach>
+    <div class="container mt-3" >
+        <div class="row">
+            <form:form action="/groepAanmaken" method="post" modelAttribute="nieuweGroepFormulier">
+                <input type="text" name="groepsNaam" required="required" placeholder="Naam Groep">
+                <input id="groepAanmaken" type="submit" class="btn btn-primary" value="Maak groep aan">
+            </form:form>
+        </div>
+    </div>
+
     <div class="container mt-3" >
         <div class="row">
             <form action="/logout" method="post">
@@ -48,9 +58,6 @@
                 <input type="submit" class="btn btn-primary" value="Logout">
             </form>
         </div>
-                <div class="row">
-                    <a href="/gebruikerWijzig"><button type="text" class="btn btn-primary mt-3" id="gebruikerWijzigen">Gegevens wijzigen</button></a>
-                </div>
     </div>
 
 </div>
