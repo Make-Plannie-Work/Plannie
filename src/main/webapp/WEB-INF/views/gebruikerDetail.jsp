@@ -17,7 +17,6 @@
 <body>
 <div class="container mt-4 ">
 <h1>Hallo, ${currentUser.voornaam}</h1>
-<a href="/gebruikerWijzig"><button type="text" class="btn btn-primary mt-3" id="gebruikerWijzigen">Gegevens wijzigen</button></a>
 
     <c:forEach items="${lijstMetGroepen}" var="groep">
     <div class="accordion mb-4 " id="lijstMetGroepen">
@@ -59,7 +58,7 @@
             </form>
         </div>
     </div>
-
+    <a href="/gebruikerWijzig"><button type="text" class="btn btn-primary mt-3" id="gebruikerWijzigen">Gegevens wijzigen</button></a>
 </div>
 
 <!-- Optional JavaScript -->

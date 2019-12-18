@@ -24,8 +24,8 @@ public class PlannieGroepService {
         Gebruiker gebruiker = gebruikerRepository.findGebruikerByEmail(gebruikersnaam);
         return gebruiker.getGroepen();
     }
-    public void voegGroepToe(Groep groep, String email, Principal principal) {
-        Gebruiker gebruiker = gebruikerRepository.findGebruikerByEmail(email);
+    public void voegGroepToe(Groep groep, Principal principal) {
+        Gebruiker gebruiker = gebruikerRepository.findGebruikerByEmail(principal.getName());
         groep.getGroepsleden().add(gebruiker);
         groep.setAanmaker(gebruikerRepository.findGebruikerByEmail(principal.getName()).getGebruikersId());
         groepRepository.save(groep);

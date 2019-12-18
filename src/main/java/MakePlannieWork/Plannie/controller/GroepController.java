@@ -45,19 +45,22 @@ public class GroepController {
     public String nieuweGroep (Groep groep, Model model, Principal principal) {
         model.addAttribute(groep);
         if (groep != null && !groep.getGroepsNaam().isEmpty()) {
-            groepRepository.save(groep);
-            return groepDetail(groep.getGroepId(), model, principal);
+            plannieGroepService.voegGroepToe(groep, principal);
+            return "redirect:/groepDetail/" + groep.getGroepId();
         }
         return "nieuweGroepError";
     }
 
     @GetMapping("/groepDetail/{groepId}")
-    public String groepDetail(@PathVariable("id") Integer id, Model model, Principal principal) {
+    public String groepDetail(@PathVariable("groepId") Integer id, Model model, Principal principal) {
         Optional<Groep> groepOptional = plannieGroepService.findById(id);
-        List<Gebruiker> alleGebruikers = gebruikerRepository.findByGroepen_groepsNaam(groepRepository.findById(id).get().getGroepsNaam());
+        List<Gebruiker> alleGebruikersInGroep = gebruikerRepository.findByGroepen_groepsNaam(groepRepository.findById(id).get().getGroepsNaam());
+        List<Gebruiker> alleGebruikers = gebruikerRepository.findAll();
         Gebruiker gebruiker = gebruikerRepository.findGebruikerByEmail(principal.getName());
         model.addAttribute(gebruiker);
-        model.addAttribute("groepsLedenLijst", alleGebruikers);
+        model.addAttribute("AlleLedenLijst", alleGebruikers);
+        model.addAttribute("groepsLedenLijst", alleGebruikersInGroep);
+        model.addAttribute("groepslidEmail", new Gebruiker());
         if (groepOptional.isPresent()) {
             model.addAttribute("groep", groepOptional.get());
             return "groepDetail";
