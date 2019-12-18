@@ -20,7 +20,7 @@ import static org.junit.Assert.assertEquals;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
 @WebAppConfiguration
-public class GebruikerVieuwTests {
+public class GebruikerViewTests {
 
     private static final String VOORNAAM = "testVoornaam";
     private static final String ACHTERNAAM = "testAchternaam";
