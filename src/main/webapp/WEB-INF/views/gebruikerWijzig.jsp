@@ -32,7 +32,7 @@
 
     </form:form>
 
-    <a href="/gebruikerDetail"><button type="text" class="btn btn-primary mt-3" id="gebruikerWijzigen">Annuleren</button></a>
+    <a href="/gebruikerDetail"><button type="text" class="btn btn-primary mt-3" id="annuleren">Annuleren</button></a>
 </div>
 
 <!-- Optional JavaScript -->
