@@ -43,8 +43,8 @@ public class GroepController {
 
     @PostMapping("/groepAanmaken")
     public String nieuweGroep (Groep groep, Model model, Principal principal) {
-        model.addAttribute(groep);
         if (groep != null && !groep.getGroepsNaam().isEmpty()) {
+            model.addAttribute(groep);
             plannieGroepService.voegGroepToe(groep, principal);
             return "redirect:/groepDetail/" + groep.getGroepId();
         }

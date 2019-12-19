@@ -26,6 +26,7 @@
                 <tbody>
 
 
+
                 </tbody>
             </table>
         </div>
@@ -36,7 +37,7 @@
             </h3>
             <hr class="my-4">
 
-            <table class="table table-hover table-dark col-2">
+            <table class="table table-hover table-dark">
                 <thead>
                 <tr>
                     <th scope="col">Voornaam</th>
@@ -62,10 +63,6 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-8">
-
-        </div>
-        <div class="col-4">
             <h3 class="display-4">Alle Leden</h3>
             <hr class="my-4">
 
