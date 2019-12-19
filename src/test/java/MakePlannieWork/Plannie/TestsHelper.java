@@ -4,6 +4,7 @@ import MakePlannieWork.Plannie.model.Groep;
 import MakePlannieWork.Plannie.model.reisitem.ReisItem;
 import MakePlannieWork.Plannie.repository.GroepRepository;
 import MakePlannieWork.Plannie.repository.ReisItemRepository;
+import MakePlannieWork.Plannie.service.PlannieGroepService;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -12,6 +13,7 @@ import MakePlannieWork.Plannie.repository.GebruikerRepository;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.security.crypto.password.PasswordEncoder;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,16 +26,16 @@ import java.util.List;
 
 public class TestsHelper {
 
-    // Gebruikers
+    // Gebruikers Static Test Waarden
     private static final String GEBRUIKER_VOORNAAM = "testVoornaam";
     private static final String GEBRUIKER_ACHTERNAAM = "testAchternaam";
     private static final String GEBRUIKER_EMAIL = ".testing@test.com";
     private static final String GEBRUIKER_WACHTWOORD = "testWachtwoord";
 
-    // Groepen
+    // Groepen Static Test Waarden
     private static final String GROEP_NAAM = "testGroep";
 
-
+    // TODO ReisItems Static Test Waarden
 
     private ArrayList<Gebruiker> testGebruikers = new ArrayList<>();
     private ArrayList<Groep> testGroepen = new ArrayList<>();
@@ -43,8 +45,9 @@ public class TestsHelper {
     private ReisItemRepository reisItemRepository;
     private GroepRepository groepRepository;
     private PasswordEncoder passwordEncoder;
-    private WebDriverWait wacht;
     private WebDriver driver;
+
+    private WebDriverWait wacht;
 
     // Constructors, voor alle mogelijke opties.
     public TestsHelper(WebDriver driver, GebruikerRepository gebruikerRepository, PasswordEncoder passwordEncoder,
@@ -84,7 +87,46 @@ public class TestsHelper {
         this.wacht.until(ExpectedConditions.titleIs(titel));
     }
 
-    // TODO Test Groepen aanmaken:
+    // Test Groepen aanmaken:
+    public void maakTestGroepen(int aantal) {
+        this.testGroepen.clear();
+        for (int i = 0; i < aantal; i++) {
+            Groep testGroep = new Groep();
+            testGroep.setGroepsNaam(GROEP_NAAM + i);
+            this.testGroepen.add(testGroep);
+        }
+    }
+
+    public void maakTestGroep() {
+        maakTestGroepen(1);
+    }
+
+    // Test Groepen geven: Je kan alle groepen, of 1 opvragen.
+    public ArrayList<Groep> geefTestGroepen() {
+        return this.testGroepen;
+    }
+
+    public Groep geefTestGroep() {
+        return geefTestGroep(0);
+    }
+
+    public Groep geefTestGroep(int index) {
+        return this.testGroepen.get(index);
+    }
+
+    // Test Groepen registeren
+    public void registreerTestGroepen(Gebruiker aanmaker) {
+        int index = 0;
+        for (Groep testGroep : testGroepen) {
+            registreerTestGroep(index, aanmaker);
+            index++;
+        }
+    }
+
+    public void registreerTestGroep(int index, Gebruiker aanmaker) {
+        Groep testGroep = this.testGroepen.get(index);
+        // TODO Mag helaas van de PlannieGroepService geen groepen direct in de database schieten, dus datn maar via de WebDriver.
+    }
 
     // TODO Test ReisItems aanmaken:
 
@@ -101,6 +143,7 @@ public class TestsHelper {
             this.testGebruikers.add(testGebruiker);
         }
     }
+
     public void maakTestGebruiker() {
         maakTestGebruikers(1);
     }

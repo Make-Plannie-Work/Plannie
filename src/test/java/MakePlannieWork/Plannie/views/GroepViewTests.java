@@ -1,8 +1,10 @@
 package MakePlannieWork.Plannie.views;
 import MakePlannieWork.Plannie.TestsHelper;
 import MakePlannieWork.Plannie.model.Gebruiker;
+import MakePlannieWork.Plannie.model.Groep;
 import MakePlannieWork.Plannie.repository.GebruikerRepository;
 import MakePlannieWork.Plannie.repository.GroepRepository;
+import MakePlannieWork.Plannie.service.PlannieGroepService;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -15,6 +17,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
+
+import java.security.Principal;
 
 import static org.junit.Assert.assertEquals;
 
@@ -35,6 +39,9 @@ public class GroepViewTests {
     @Autowired
     private GroepRepository groepRepository;
 
+    @Autowired
+    private PlannieGroepService plannieGroepService;
+
     @Before
     public void setUp() {
 
@@ -54,22 +61,71 @@ public class GroepViewTests {
     }
 
     @Test
-    public void testGroepAanmaken() throws InterruptedException {
+    public void testGroepAanmakenCorrect() throws InterruptedException {
+        // Arrange
+        this.driver.get("http://localhost:8080/gebruikerDetail");
+        this.testsHelper.maakTestGebruiker();
+        this.testsHelper.maakTestGroep();
+        this.testsHelper.registreerTestGebruikers();
+        this.testsHelper.inloggen();
+        Gebruiker testGebruiker = this.testsHelper.geefTestGebruiker();
+        Groep testGroep = this.testsHelper.geefTestGroep();
+        this.testsHelper.wachtOpTitel("Hallo, " + testGebruiker.getVoornaam());
+
+        // Activate
+        driver.findElement(By.name("groepsNaam")).sendKeys(testGroep.getGroepsNaam());
+        driver.findElement(By.id("groepAanmaken")).click();
+        this.testsHelper.wachtOpTitel("Groepsdetails " + testGroep.getGroepsNaam());
+
+        // Assert
+        assertEquals("Groepsdetails " + testGroep.getGroepsNaam(), driver.getTitle());
+    }
+
+    @Test
+    public void testGroepAanmakenFout() throws InterruptedException {
         // Arrange
         this.driver.get("http://localhost:8080/gebruikerDetail");
         this.testsHelper.maakTestGebruiker();
         this.testsHelper.registreerTestGebruikers();
         this.testsHelper.inloggen();
         Gebruiker testGebruiker = this.testsHelper.geefTestGebruiker();
-        String testGroepNaam = "TestGroep 1";
         this.testsHelper.wachtOpTitel("Hallo, " + testGebruiker.getVoornaam());
 
         // Activate
-        driver.findElement(By.name("groepsNaam")).sendKeys(testGroepNaam);
+        driver.findElement(By.name("groepsNaam")).sendKeys("");
         driver.findElement(By.id("groepAanmaken")).click();
-        this.testsHelper.wachtOpTitel("Groepsdetails " + testGroepNaam);
+        Thread.sleep(500);
 
         // Assert
-        assertEquals("Groepsdetails " + testGroepNaam, driver.getTitle());
+        assertEquals("Hallo, " + testGebruiker.getVoornaam(), driver.getTitle());
+    }
+
+    @Test
+    public void testGroepNaamWijzigen() throws InterruptedException {
+        // Arrange
+        this.driver.get("http://localhost:8080/gebruikerDetail");
+        this.testsHelper.maakTestGebruiker();
+        this.testsHelper.maakTestGroep();
+        Gebruiker testGebruiker = this.testsHelper.geefTestGebruiker();
+        Groep testGroep = this.testsHelper.geefTestGroep();
+        this.testsHelper.registreerTestGebruikers();
+
+
+
+
+        // this.testsHelper.registreerTestGroepen(testGebruiker);
+
+
+
+        this.testsHelper.inloggen();
+        this.testsHelper.wachtOpTitel("Hallo, " + testGebruiker.getVoornaam());
+
+        // Activate
+        driver.findElement(By.name("groepsNaam")).sendKeys("");
+        driver.findElement(By.id("groepAanmaken")).click();
+        Thread.sleep(500);
+
+        // Assert
+        assertEquals("Hallo, " + testGebruiker.getVoornaam(), driver.getTitle());
     }
 }
