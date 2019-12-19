@@ -1,15 +1,22 @@
 package MakePlannieWork.Plannie.controller;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
+@RunWith(SpringRunner.class)
+@SpringBootTest
 class ReisItemControllerTest {
 
-    @BeforeEach
-    void setUp() {
-    }
+    @Autowired
+    private ReisItemController reisItemController;
 
-    @AfterEach
-    void tearDown() {
+    @Test
+    public void contextLoads() throws Exception {
+        assertThat(reisItemController).isNotNull();
     }
 }
