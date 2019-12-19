@@ -32,7 +32,7 @@
         </div>
         <div class="col-4">
             <h3 class="display-4">Groepsdetails ${groep.groepsNaam}
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#wijzigGroepsNaam"><i
+                <button id="wijzigGroepsNaam" type="button" class="btn btn-primary" data-toggle="modal" data-target="#wijzigGroepsNaam"><i
                         class="fas fa-edit"></i></button>
             </h3>
             <hr class="my-4">
@@ -58,7 +58,7 @@
                 </tbody>
             </table>
             <a href="/gebruikerDetail">
-                <button type="text" class="btn btn-primary mt-3" id="annuleren">Terug</button>
+                <button id="annuleren" type="text" class="btn btn-primary mt-3" >Terug</button>
             </a>
         </div>
     </div>
@@ -103,7 +103,7 @@
             </div>
             </p>
             <div>
-                <button type="submit" class="btn btn-primary">Stuur</button>
+                <button id="stuurEmail" type="submit" class="btn btn-primary">Stuur</button>
             </div>
         </form:form>
     </div>
