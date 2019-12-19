@@ -1,6 +1,10 @@
 package MakePlannieWork.Plannie.model.reisitem;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
+import java.util.Set;
 
 /**
  * ReisItem class aangemaakt. Is composite. Heeft 1 op veel relatie met Groep.
@@ -16,6 +20,14 @@ public class ReisItem {
 
     private String naam;
     private String datum;
+    private Integer aanmaker;
+
+    @OneToMany
+    @JoinColumn(
+            name = "reis_item",
+            referencedColumnName = "reisItemId"
+    )
+    private Set<ReisItem> reisItems;
 
     public Integer getReisItemId() {
         return reisItemId;
@@ -41,4 +53,19 @@ public class ReisItem {
         this.datum = datum;
     }
 
+    public Integer getAanmaker() {
+        return aanmaker;
+    }
+
+    public void setAanmaker(Integer aanmaker) {
+        this.aanmaker = aanmaker;
+    }
+
+    public Set<ReisItem> getReisItems() {
+        return reisItems;
+    }
+
+    public void setReisItem(Set<ReisItem> reisItems) {
+        this.reisItems = reisItems;
+    }
 }
