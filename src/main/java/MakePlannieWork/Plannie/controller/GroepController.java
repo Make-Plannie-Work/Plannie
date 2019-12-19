@@ -48,7 +48,7 @@ public class GroepController {
             plannieGroepService.voegGroepToe(groep, principal);
             return "redirect:/groepDetail/" + groep.getGroepId();
         }
-        return "nieuweGroepError";
+        return "error";
     }
 
     @GetMapping("/groepDetail/{groepId}")

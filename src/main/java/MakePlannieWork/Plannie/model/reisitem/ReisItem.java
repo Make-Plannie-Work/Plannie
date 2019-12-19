@@ -16,6 +16,7 @@ public class ReisItem {
 
     private String naam;
     private String datum;
+    private Integer aanmaker;
 
     public Integer getReisItemId() {
         return reisItemId;
@@ -41,4 +42,11 @@ public class ReisItem {
         this.datum = datum;
     }
 
+    public Integer getAanmaker() {
+        return aanmaker;
+    }
+
+    public void setAanmaker(Integer aanmaker) {
+        this.aanmaker = aanmaker;
+    }
 }
