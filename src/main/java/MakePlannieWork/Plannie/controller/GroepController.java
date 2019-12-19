@@ -102,12 +102,12 @@ public class GroepController {
         }
     }
 
-    @GetMapping("/wijzigengroepsnaam/{groepId}")
+    @GetMapping("/groepWijzig/{groepId}")
     public String huidigeGroep(@PathVariable("groepId") Integer id, Model model) {
         Optional<Groep> groepOptional = plannieGroepService.findById(id);
         model.addAttribute("groep", groepOptional.get());
-        model.addAttribute("groepsNaamWijzigingsFormulier", groepOptional);
-        return "wijzigengroepsnaam";
+        model.addAttribute("groepsNaamWijzigingsFormulier", new Groep());
+        return "groepWijzig";
     }
 
     @PostMapping("/wijzigengroepsnaam")

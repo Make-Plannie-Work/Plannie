@@ -1,7 +1,7 @@
 <div class="container mt-4">
     <div class="row">
-        <form:form action = "/groepsnaamwijzigen" method="post" modelAttribute="groepsNaamWijzigingsFormulier">
-            <input type="text" name="groepsNaam" required="required" placeholder="Naam Groep">
+        <form:form action = "/groepsNaamWijzigen" method="post" modelAttribute="groepsNaamWijzigingsFormulier">
+            <input type="text" name="groepsNaam" required="required" value="${groep.groepsNaam}">
 
 
             <form:button id="groepsNaamWijzigen" type="submit" class="btn btn-primary mt-3"  >Wijzig groepsnaam</form:button>
