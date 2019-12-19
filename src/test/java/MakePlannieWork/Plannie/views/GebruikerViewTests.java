@@ -1,19 +1,20 @@
 package MakePlannieWork.Plannie.views;
 
+import MakePlannieWork.Plannie.TestsHelper;
 import MakePlannieWork.Plannie.model.Gebruiker;
 import MakePlannieWork.Plannie.repository.GebruikerRepository;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.openqa.selenium.*;
+import org.junit.runner.RunWith;
 import org.openqa.selenium.chrome.*;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.web.WebAppConfiguration;
-
-import java.util.List;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import static org.junit.Assert.assertEquals;
 
@@ -22,47 +23,47 @@ import static org.junit.Assert.assertEquals;
 @WebAppConfiguration
 public class GebruikerViewTests {
 
-    private static final String VOORNAAM = "testVoornaam";
-    private static final String ACHTERNAAM = "testAchternaam";
-    private static final String EMAIL = "test.testing@test.com";
-    private static final String WACHTWOORD = "testWachtwoord";
+    private TestsHelper testsHelper;
     private WebDriver driver;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
     GebruikerRepository gebruikerRepository;
 
     @Before
     public void setUp() {
-        // Oude test gebruiker verwijderen.
-        List<Gebruiker> testGebruiker = gebruikerRepository.findGebruikersByEmail(EMAIL);
-        if (testGebruiker != null) {
-            gebruikerRepository.deleteAll(testGebruiker);
-        }
 
         System.setProperty("webdriver.chrome.driver", "Algemeen/chromedriver.exe");
         this.driver = new ChromeDriver();
+        this.testsHelper = new TestsHelper(this.driver, this.gebruikerRepository, this.passwordEncoder);
     }
 
     @After
     public void tearDown() {
 
+        this.testsHelper.verwijderTestGebruikersUitDatabase();
         this.driver.quit();
         this.driver = null;
+        this.testsHelper = null;
     }
 
     @Test
     public void testRegistreerCorrect() throws InterruptedException {
         // Arrange
         this.driver.get("http://localhost:8080/registreren");
+        this.testsHelper.maakTestGebruikers(1);
+        Gebruiker testGebruiker = testsHelper.geefTestGebruiker();
 
         // Activate
-        driver.findElement(By.name("voornaam")).sendKeys(VOORNAAM);
-        driver.findElement(By.name("achternaam")).sendKeys(ACHTERNAAM);
-        driver.findElement(By.name("email")).sendKeys(EMAIL);
-        driver.findElement(By.name("wachtwoord")).sendKeys(WACHTWOORD);
-        driver.findElement(By.name("trancientWachtwoord")).sendKeys(WACHTWOORD);
+        driver.findElement(By.name("voornaam")).sendKeys(testGebruiker.getVoornaam());
+        driver.findElement(By.name("achternaam")).sendKeys(testGebruiker.getAchternaam());
+        driver.findElement(By.name("email")).sendKeys(testGebruiker.getEmail());
+        driver.findElement(By.name("wachtwoord")).sendKeys(testGebruiker.getWachtwoord());
+        driver.findElement(By.name("trancientWachtwoord")).sendKeys(testGebruiker.getWachtwoord());
         driver.findElement(By.id("registreer")).click();
-        Thread.sleep(500);
+        this.testsHelper.wachtOpTitel("Home Plannie");
 
         // Assert
         assertEquals("Home Plannie",driver.getTitle());
@@ -72,12 +73,14 @@ public class GebruikerViewTests {
     public void testRegistreerFout() throws InterruptedException {
         // Arrange
         this.driver.get("http://localhost:8080/registreren");
+        this.testsHelper.maakTestGebruiker();
+        Gebruiker testGebruiker = testsHelper.geefTestGebruiker();
 
         // Activate
-        driver.findElement(By.name("voornaam")).sendKeys(VOORNAAM);
-        driver.findElement(By.name("achternaam")).sendKeys(ACHTERNAAM);
+        driver.findElement(By.name("voornaam")).sendKeys(testGebruiker.getVoornaam());
+        driver.findElement(By.name("achternaam")).sendKeys(testGebruiker.getAchternaam());
         driver.findElement(By.id("registreer")).click();
-        Thread.sleep(500);
+        this.testsHelper.wachtOpTitel("Registreren in Plannie");
 
         // Assert
         assertEquals("Registreren in Plannie",driver.getTitle());
@@ -87,53 +90,75 @@ public class GebruikerViewTests {
     public void testRegistreerDubbel() throws InterruptedException {
         // Arrange
         this.driver.get("http://localhost:8080/registreren");
+        this.testsHelper.maakTestGebruiker();
+        this.testsHelper.registreerTestGebruikers();
+        Gebruiker testGebruiker = this.testsHelper.geefTestGebruiker();
 
         // Activate
-        driver.findElement(By.name("voornaam")).sendKeys(VOORNAAM);
-        driver.findElement(By.name("achternaam")).sendKeys(ACHTERNAAM);
-        driver.findElement(By.name("email")).sendKeys(EMAIL);
-        driver.findElement(By.name("wachtwoord")).sendKeys(WACHTWOORD);
-        driver.findElement(By.name("trancientWachtwoord")).sendKeys(WACHTWOORD);
+        driver.findElement(By.name("voornaam")).sendKeys(testGebruiker.getVoornaam());
+        driver.findElement(By.name("achternaam")).sendKeys(testGebruiker.getAchternaam());
+        driver.findElement(By.name("email")).sendKeys(testGebruiker.getEmail());
+        driver.findElement(By.name("wachtwoord")).sendKeys(testGebruiker.getWachtwoord());
+        driver.findElement(By.name("trancientWachtwoord")).sendKeys(testGebruiker.getWachtwoord());
         driver.findElement(By.id("registreer")).click();
-        Thread.sleep(500);
-        this.driver.get("http://localhost:8080/registreren");
-        driver.findElement(By.name("voornaam")).sendKeys(VOORNAAM);
-        driver.findElement(By.name("achternaam")).sendKeys(ACHTERNAAM);
-        driver.findElement(By.name("email")).sendKeys(EMAIL);
-        driver.findElement(By.name("wachtwoord")).sendKeys(WACHTWOORD);
-        driver.findElement(By.name("trancientWachtwoord")).sendKeys(WACHTWOORD);
-        driver.findElement(By.id("registreer")).click();
-        Thread.sleep(500);
+        this.testsHelper.wachtOpElement("trancientWachtwoord");
 
         // Assert
         assertEquals("Registreren in Plannie",driver.getTitle());
     }
 
     @Test
+    public void testLogInGeslaagd() throws InterruptedException {
+        //Arrange
+        this.driver.get("http://localhost:8080/gebruikerDetail");
+        this.testsHelper.maakTestGebruiker();
+        this.testsHelper.registreerTestGebruikers();
+        Gebruiker testGebruiker = testsHelper.geefTestGebruiker();
+
+        //Activate
+        driver.findElement(By.name("username")).sendKeys(testGebruiker.getEmail());
+        driver.findElement(By.name("password")).sendKeys(testGebruiker.getWachtwoord() + Keys.RETURN);
+        this.testsHelper.wachtOpTitel("Hallo, " + testGebruiker.getVoornaam());
+
+        //Assert
+        assertEquals("http://localhost:8080/gebruikerDetail", driver.getCurrentUrl());
+    }
+
+    @Test
+    public void testLogInGefaald() throws InterruptedException {
+        //Arrange
+        this.driver.get("http://localhost:8080/gebruikerDetail");
+        this.testsHelper.maakTestGebruiker();
+        this.testsHelper.registreerTestGebruikers();
+        Gebruiker testGebruiker = testsHelper.geefTestGebruiker();
+
+        //Activate
+        driver.findElement(By.name("username")).sendKeys(testGebruiker.getEmail());
+        driver.findElement(By.name("password")).sendKeys("foutwachtwoord" + Keys.RETURN);
+        this.testsHelper.wachtOpTitel("Home Plannie");
+
+        //Assert
+        assertEquals("http://localhost:8080/index?error", driver.getCurrentUrl());
+    }
+
+    @Test
     public void testGebruikerWijzigen() throws InterruptedException {
         // Arrange
-        this.driver.get("http://localhost:8080/registreren");
-        String gewijzigdeVoornaam = VOORNAAM + "Test";
+        this.driver.get("http://localhost:8080/gebruikerDetail");
+        WebDriverWait wait = new WebDriverWait(this.driver, 10);
+
+        this.testsHelper.maakTestGebruiker();
+        this.testsHelper.registreerTestGebruikers();
+        Gebruiker testGebruiker = this.testsHelper.geefTestGebruiker();
+        String gewijzigdeVoornaam = testGebruiker.getVoornaam() + "Test";
+        this.testsHelper.inloggen();
 
         // Activate
-        driver.findElement(By.name("voornaam")).sendKeys(VOORNAAM);
-        driver.findElement(By.name("achternaam")).sendKeys(ACHTERNAAM);
-        driver.findElement(By.name("email")).sendKeys(EMAIL);
-        driver.findElement(By.name("wachtwoord")).sendKeys(WACHTWOORD);
-        driver.findElement(By.name("trancientWachtwoord")).sendKeys(WACHTWOORD);
-        driver.findElement(By.id("registreer")).click();
-        Thread.sleep(500);
-
-        this.driver.get("http://localhost:8080/gebruikerDetail");
-        driver.findElement(By.name("username")).sendKeys(EMAIL);
-        driver.findElement(By.name("password")).sendKeys(WACHTWOORD + Keys.RETURN);
-        Thread.sleep(500);
-
         driver.findElement(By.id("gebruikerWijzigen")).click();
         driver.findElement(By.name("voornaam")).clear();
         driver.findElement(By.name("voornaam")).sendKeys(gewijzigdeVoornaam);
         driver.findElement(By.id("gebruikerWijzigen")).click();
-        Thread.sleep(500);
+        this.testsHelper.wachtOpTitel("Hallo, " + gewijzigdeVoornaam);
 
         // Assert
         assertEquals("Hallo, " + gewijzigdeVoornaam, driver.getTitle());
