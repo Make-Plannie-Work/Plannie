@@ -59,7 +59,9 @@ public class ReisItemController {
         Gebruiker gebruiker = gebruikerRepository.findGebruikerByEmail(principal.getName());
         model.addAttribute(gebruiker);
         if (reisItemOptional.isPresent() && groepOptional.isPresent()) {
+            model.addAttribute("currentUser", gebruikerRepository.findGebruikerByEmail(principal.getName()));
             model.addAttribute("reisItem", reisItemOptional.get());
+            model.addAttribute("groepslidEmail", new Gebruiker());
             model.addAttribute("groep", groepOptional.get());
             return "reisItemDetail";
         }

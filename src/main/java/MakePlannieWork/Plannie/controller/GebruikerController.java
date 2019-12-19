@@ -36,8 +36,10 @@ public class GebruikerController {
     @GetMapping("/registreren")
         public String registreren(@RequestParam(name="groepUUID", required = false) String groepUUID, Model model) {
         model.addAttribute("registratieFormulier", new Gebruiker());
+        model.addAttribute("loginForm", new Gebruiker());
         if (groepUUID != null) {
             model.addAttribute("groepUUID", groepUUID);
+
         }
         return "gebruikerNieuw";
     }
@@ -49,6 +51,7 @@ public class GebruikerController {
 
         if (!bestaandeGebruiker.isEmpty() || result.hasErrors() || !gebruiker.getWachtwoord().equals(gebruiker.getTrancientWachtwoord())) {
             model.addAttribute("registratieFormulier", new Gebruiker());
+            model.addAttribute("loginForm", new Gebruiker());
             return "gebruikerNieuw";
         } else {
             gebruiker.setWachtwoord(passwordEncoder.encode(gebruiker.getWachtwoord()));

@@ -10,103 +10,135 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/d450c035a5.js" crossorigin="anonymous"></script>
-    <title>Groepsdetails ${groep.groepsNaam}
+    <title>Plannie - Groepsdetails ${groep.groepsNaam}
     </title>
 </head>
 <body>
-<div class="jumbotron">
+
+<nav class="navbar navbar-light bg-light">
+    <span class="navbar-brand mb-0 h1"><a href="/gebruikerDetail" class="text-dark">${currentUser.voornaam}'s Plannie</a></span>
+
+    <ul class="nav justify-content-end">
+        <li class="nav-item">
+            <a class="nav-link text-dark" method="post" id="gebruikerWijzigen" href="/gebruikerWijzig">Jouw gegevens</a>
+        </li>
+        <li class="nav-item">
+
+            <a class="nav-link text-dark" id="logout" method="post" href="<c:url value="/logout"/>">Log uit</a>
+        </li>
+</nav>
+<div class="container mt-3">
     <div class="row">
-        <div class="col-8">
-            <table class="table table-hover table-dark">
-                <thead>
-                <tr>
-                    <th scope="col">Reizen</th>
-                </tr>
-                </thead>
-                <tbody>
 
-
-
-                </tbody>
-            </table>
+        <div class="col-sm-8">
+            <div class="jumbotron">
+                <div class="row">
+                    <div class="col-12">
+                        <table class="table table-hover table-borderless">
+                            <thead>
+                            <tr>
+                                <th scope="col">Reizen</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr><td>Reis 1</td></tr>
+                            <tr><td>Reis 2</td></tr>
+                            <tr><td>Reis 3</td></tr>
+                            <tr><td>Reis 4</td></tr>
+                            <tr><td>Reis 5</td></tr>
+                            <tr><td>Reis 6</td></tr>
+                            </tbody>
+                        </table>
+                        <div class="container mt-3" >
+                            <div class="row">
+                                <form:form action="/${groep.groepId}/reisItemAanmaken" method="post" modelAttribute="nieuwReisItemFormulier">
+                                    <input type="text" name="naam" required="required" placeholder="Naam Reis">
+                                    <input id="reisItemAanmaken" type="submit" class="btn btn-primary" value="Maak reis aan">
+                                </form:form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="col-4">
-            <h3 class="display-4">Groepsdetails ${groep.groepsNaam}
-                <button id="wijzigGroepsNaam2" type="button" class="btn btn-primary" data-toggle="modal" data-target="#wijzigGroepsNaam"><i
-                        class="fas fa-edit"></i></button>
-            </h3>
-            <hr class="my-4">
 
-            <table class="table table-hover table-dark">
-                <thead>
-                <tr>
-                    <th scope="col">Voornaam</th>
-                    <th scope="col">Email</th>
-                    <th scope="col"></th>
-                </tr>
-                </thead>
-                <tbody>
-                <c:forEach items="${groepsLedenLijst}" var="groepslid">
-                    <tr>
-                        <td>${groepslid.voornaam}</td>
-                        <td>${groepslid.email}</td>
-                        <td><a href="${groep.groepId}/VerwijderLedenUitGroep/${groepslid.gebruikersId}">
-                            <i class="far fa-trash-alt"></i>
-                        </a></td>
-                    </tr>
-                </c:forEach>
-                </tbody>
-            </table>
-            <a href="/gebruikerDetail">
-                <button id="annuleren" type="text" class="btn btn-primary mt-3" >Terug</button>
-            </a>
+        <div class="col-sm-4">
+            <div class="jumbotron" style="background-color: #666666;">
+                <div class="row" >
+                    <p class="lead text-white strong">${groep.groepsNaam}
+                        <a id="wijzigGroepsNaam2" type="button" class="text-white" data-toggle="modal" data-target="#wijzigGroepsNaam"><i class="far fa-edit"></i></a>
+                        </h3>
+                    <table class="table table-hover table-borderless text-white">
+                        <thead>
+                        <tr>
+                            <th scope="col">Naam</th>
+
+                            <th scope="col"></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <c:forEach items="${groepsLedenLijst}" var="groepslid">
+                            <tr>
+                                <td data-toggle="tooltip" data-placement="bottom" title="${groepslid.email}">${groepslid.voornaam} ${groepslid.achternaam}</td>
+                                <td><a href="${groep.groepId}/VerwijderLedenUitGroep/${groepslid.gebruikersId}">
+                                    <i class="far fa-trash-alt"></i>
+                                </a></td>
+                            </tr>
+                        </c:forEach>
+                        </tbody>
+                    </table>
+                </div>
+                <hr class="my-4">
+                <div class="row">
+                    <p class="lead text-white mt-3">Alle Leden</h3>
+                    <hr class="my-4">
+
+                    <table class="table table-hover table-borderless text-white">
+                        <thead>
+                        <tr>
+                            <th scope="col">Naam</th>
+                            <th scope="col"></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <c:forEach items="${AlleLedenLijst}" var="lid">
+                            <tr>
+                                <td data-toggle="tooltip" data-placement="bottom" title="${lid.email}">${lid.voornaam} ${lid.achternaam}</td>
+                                <td><a href="${groep.groepId}/voegGebruikerToeAanGroep/${lid.gebruikersId}">
+                                    <i class="fas fa-plus"></i>
+                                </a></td>
+                            </tr>
+                        </c:forEach>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
     <div class="row">
-            <h3 class="display-4">Alle Leden</h3>
-            <hr class="my-4">
+        <div class="col-sm-offset-1 col-sm-10">
+            <div class="card w-75 mx-auto">
+                <div class="card-body">
+                    <form:form action="/{groepId}/voegLedenToeAanGroepViaEmail" method="post" modelAttribute="groepslidEmail">
+                        <h5 class="card-title">Stuur een uitnodiging naar een nog niet bestaande gebruiker.</h5>
+                        <p class="card-text">
+                        <div class="form-group">
+                            <div class="col">
+                                <form:input type="email" class="form-control" path="email" placeholder="Email"/>
+                            </div>
+                        </div>
+                        </p>
+                        <div>
+                            <button type="submit" class="btn btn-primary">Stuur</button>
+                        </div>
+                    </form:form>
+                </div>
+            </div>
 
-            <table class="table table-hover table-dark col-2">
-                <thead>
-                <tr>
-                    <th scope="col">Voornaam</th>
-                    <th scope="col">Achternaam</th>
-                    <th scope="col"></th>
-                </tr>
-                </thead>
-                <tbody>
-                <c:forEach items="${AlleLedenLijst}" var="lid">
-                    <tr>
-                        <td>${lid.voornaam}</td>
-                        <td>${lid.achternaam}</td>
-                        <td><a href="${groep.groepId}/voegGebruikerToeAanGroep/${lid.gebruikersId}">
-                            <i class="fas fa-plus"></i>
-                        </a></td>
-                    </tr>
-                </c:forEach>
-
-                </tbody>
-            </table>
         </div>
     </div>
 </div>
-
-<div class="card w-75 mx-auto">
-    <div class="card-body">
-        <form:form action="/{groepId}/voegLedenToeAanGroepViaEmail" method="post" modelAttribute="groepslidEmail">
-            <h5 class="card-title">Stuur een uitnodiging naar een nog niet bestaande gebruiker.</h5>
-            <p class="card-text">
-            <div class="form-group">
-                <div class="col">
-                    <form:input type="email" class="form-control" path="email" placeholder="Email"/>
-                </div>
-            </div>
-            </p>
-            <div>
-                <button id="stuurEmail" type="submit" class="btn btn-primary">Stuur</button>
-            </div>
-        </form:form>
-    </div>
 </div>
 
 <!-- Modal -->
