@@ -41,7 +41,8 @@ public class ReisViewTests {
 
         System.setProperty("webdriver.chrome.driver", "Algemeen/chromedriver.exe");
         this.driver = new ChromeDriver();
-        this.testsHelper = new TestsHelper(this.driver, this.gebruikerRepository, this.passwordEncoder);
+        this.testsHelper = new TestsHelper(this.driver, this.gebruikerRepository, this.passwordEncoder,
+                this.groepRepository, this.reisItemRepository);
     }
 
     @After

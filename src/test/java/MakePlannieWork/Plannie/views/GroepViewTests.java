@@ -4,6 +4,7 @@ import MakePlannieWork.Plannie.repository.GebruikerRepository;
 import MakePlannieWork.Plannie.repository.GroepRepository;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -37,7 +38,8 @@ public class GroepViewTests {
 
         System.setProperty("webdriver.chrome.driver", "Algemeen/chromedriver.exe");
         this.driver = new ChromeDriver();
-        this.testsHelper = new TestsHelper(this.driver, this.gebruikerRepository, this.passwordEncoder);
+        this.testsHelper = new TestsHelper(this.driver, this.gebruikerRepository, this.passwordEncoder,
+                this.groepRepository);
     }
 
     @After
@@ -47,5 +49,10 @@ public class GroepViewTests {
         this.driver.quit();
         this.driver = null;
         this.testsHelper = null;
+    }
+
+    @Test
+    public void testGroepAanmaken() {
+
     }
 }
