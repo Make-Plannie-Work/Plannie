@@ -102,4 +102,27 @@ public class GroepController {
         }
     }
 
+    @GetMapping("/wijzigengroepsnaam/{groepId}")
+    public String huidigeGroep(@PathVariable("groepId") Integer id, Model model) {
+        Optional<Groep> groepOptional = plannieGroepService.findById(id);
+        model.addAttribute("groep", groepOptional.get());
+        model.addAttribute("groepsNaamWijzigingsFormulier", groepOptional);
+        return "wijzigengroepsnaam";
+    }
+
+    @PostMapping("/wijzigengroepsnaam")
+    public String wijzigenGroepsNaam(@ModelAttribute("groepsNaamWijzigingsFormulier") Integer groepId, Groep groep,
+                                           BindingResult result, Principal principal) {
+        if (result.hasErrors()) {
+            return "groepDetail";
+        } else {
+            Groep huidigeGroep = groepRepository.findByGroepId(groepId);
+            System.out.println("Groep: " + groep.getGroepsNaam());
+            System.out.println("Groep1: " + huidigeGroep.getGroepsNaam());
+            huidigeGroep.setGroepsNaam(groep.getGroepsNaam());
+            groepRepository.save(huidigeGroep);
+            return "redirect:/groepDetail";
+        }
+    }
+
 }
