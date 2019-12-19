@@ -32,7 +32,7 @@
         </div>
         <div class="col-4">
             <h3 class="display-4">Groepsdetails ${groep.groepsNaam}
-                <button id="wijzigGroepsNaam" type="button" class="btn btn-primary" data-toggle="modal" data-target="#wijzigGroepsNaam"><i
+                <button id="wijzigGroepsNaam2" type="button" class="btn btn-primary" data-toggle="modal" data-target="#wijzigGroepsNaam"><i
                         class="fas fa-edit"></i></button>
             </h3>
             <hr class="my-4">
@@ -115,7 +115,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Groepsnaam Wijzigen</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
