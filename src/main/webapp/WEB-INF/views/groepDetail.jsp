@@ -7,7 +7,8 @@
     <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/d450c035a5.js" crossorigin="anonymous"></script>
     <title>Groepsdetails ${groep.groepsNaam}
     </title>
@@ -25,12 +26,14 @@
                 <tbody>
 
 
-
                 </tbody>
             </table>
         </div>
         <div class="col-4">
-            <h3 class="display-4">Groepsdetails ${groep.groepsNaam} <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#wijzigGroepsNaam"><i class="fas fa-edit"></i></button></h3>
+            <h3 class="display-4">Groepsdetails ${groep.groepsNaam}
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#wijzigGroepsNaam"><i
+                        class="fas fa-edit"></i></button>
+            </h3>
             <hr class="my-4">
 
             <table class="table table-hover table-dark col-2">
@@ -53,7 +56,9 @@
                 </c:forEach>
                 </tbody>
             </table>
-            <a href="/gebruikerDetail"><button type="text" class="btn btn-primary mt-3" id="annuleren">Terug</button></a>
+            <a href="/gebruikerDetail">
+                <button type="text" class="btn btn-primary mt-3" id="annuleren">Terug</button>
+            </a>
         </div>
     </div>
     <div class="row">
@@ -91,22 +96,25 @@
 
 <div class="card w-75 mx-auto">
     <div class="card-body">
-        <form:form action = "/{groepId}/voegLedenToeAanGroepViaEmail" method="post" modelAttribute="groepslidEmail">
-        <h5 class="card-title">Stuur een uitnodiging naar een nog niet bestaande gebruiker.</h5>
-        <p class="card-text"><div class="form-group">
-        <div class="col">
-            <form:input type="email" class="form-control" path="email" placeholder="Email"/>
-        </div>
-    </div></p>
-        <div>
-            <button type="submit" class="btn btn-primary">Stuur</button>
-        </div>
+        <form:form action="/{groepId}/voegLedenToeAanGroepViaEmail" method="post" modelAttribute="groepslidEmail">
+            <h5 class="card-title">Stuur een uitnodiging naar een nog niet bestaande gebruiker.</h5>
+            <p class="card-text">
+            <div class="form-group">
+                <div class="col">
+                    <form:input type="email" class="form-control" path="email" placeholder="Email"/>
+                </div>
+            </div>
+            </p>
+            <div>
+                <button type="submit" class="btn btn-primary">Stuur</button>
+            </div>
         </form:form>
     </div>
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="wijzigGroepsNaam" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="wijzigGroepsNaam" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -116,7 +124,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <jsp:include page="groepWijzig.jsp" />
+                <jsp:include page="groepWijzig.jsp"/>
             </div>
         </div>
     </div>
@@ -124,8 +132,14 @@
 
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
 </body>
 </html>
