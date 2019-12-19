@@ -105,20 +105,15 @@ public class GroepViewTests {
         // Arrange
         this.driver.get("http://localhost:8080/gebruikerDetail");
         this.testsHelper.maakTestGebruiker();
-        this.testsHelper.maakTestGroep();
+        this.testsHelper.maakTestGroepen(5);
         Gebruiker testGebruiker = this.testsHelper.geefTestGebruiker();
         Groep testGroep = this.testsHelper.geefTestGroep();
         this.testsHelper.registreerTestGebruikers();
-
-
-
-
-        // this.testsHelper.registreerTestGroepen(testGebruiker);
-
-
-
         this.testsHelper.inloggen();
         this.testsHelper.wachtOpTitel("Hallo, " + testGebruiker.getVoornaam());
+        this.testsHelper.registreerTestGroepen();
+
+
 
         // Activate
         driver.findElement(By.name("groepsNaam")).sendKeys("");

@@ -4,7 +4,6 @@ import MakePlannieWork.Plannie.model.Groep;
 import MakePlannieWork.Plannie.model.reisitem.ReisItem;
 import MakePlannieWork.Plannie.repository.GroepRepository;
 import MakePlannieWork.Plannie.repository.ReisItemRepository;
-import MakePlannieWork.Plannie.service.PlannieGroepService;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -25,6 +24,10 @@ import java.util.List;
  */
 
 public class TestsHelper {
+
+    // Standaard Test Identifiers
+    private static final String URL_GEBRUIKER_DETAIL = "http://localhost:8080/gebruikerDetail";
+    private static final String GROEP_NAAM_TEXTFIELD = "groepsNaam";
 
     // Gebruikers Static Test Waarden
     private static final String GEBRUIKER_VOORNAAM = "testVoornaam";
@@ -115,17 +118,20 @@ public class TestsHelper {
     }
 
     // Test Groepen registeren
-    public void registreerTestGroepen(Gebruiker aanmaker) {
+    public void registreerTestGroepen() {
         int index = 0;
         for (Groep testGroep : testGroepen) {
-            registreerTestGroep(index, aanmaker);
+            registreerTestGroep(index);
             index++;
         }
     }
 
-    public void registreerTestGroep(int index, Gebruiker aanmaker) {
+    public void registreerTestGroep(int index) {
         Groep testGroep = this.testGroepen.get(index);
-        // TODO Mag helaas van de PlannieGroepService geen groepen direct in de database schieten, dus datn maar via de WebDriver.
+        String beginUrl = driver.getCurrentUrl();
+        this.driver.get(URL_GEBRUIKER_DETAIL);
+        driver.findElement(By.name(GROEP_NAAM_TEXTFIELD)).sendKeys(testGroep.getGroepsNaam());
+        this.driver.get(beginUrl);
     }
 
     // TODO Test ReisItems aanmaken:
@@ -155,6 +161,10 @@ public class TestsHelper {
 
     public void inloggen(int index) {
         Gebruiker testGebruiker = testGebruikers.get(index);
+        inloggen(testGebruiker);
+    }
+
+    public void inloggen(Gebruiker testGebruiker) {
         driver.findElement(By.name("username")).sendKeys(testGebruiker.getEmail());
         driver.findElement(By.name("password")).sendKeys(testGebruiker.getWachtwoord() + Keys.RETURN);
     }
