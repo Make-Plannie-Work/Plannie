@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.security.Principal;
+import java.util.Optional;
 
 @Service
 public class PlannieReisItemService {
@@ -31,5 +32,9 @@ public class PlannieReisItemService {
         groep.getReisItem().add(reisItem);
         reisItem.setAanmaker(gebruiker.getGebruikersId());
         reisItemRepository.save(reisItem);
+    }
+
+    public Optional<ReisItem> findById(Integer Id) {
+        return reisItemRepository.findById(Id);
     }
 }

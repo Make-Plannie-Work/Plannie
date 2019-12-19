@@ -1,5 +1,6 @@
 package MakePlannieWork.Plannie.controller;
 
+import MakePlannieWork.Plannie.model.Gebruiker;
 import MakePlannieWork.Plannie.model.Groep;
 import MakePlannieWork.Plannie.model.reisitem.ReisItem;
 import MakePlannieWork.Plannie.repository.GebruikerRepository;
@@ -53,6 +54,15 @@ public class ReisItemController {
 
     @GetMapping("/{groepId}/reisItemDetail/{reisItemId}")
     public String reisItemDetail(@PathVariable("groepId") Integer groepId, @PathVariable("reisItemId") Integer reisItemId, Model model, Principal principal) {
-        return "reisItemDetail";
+        Optional<Groep> groepOptional = plannieGroepService.findById(groepId);
+        Optional<ReisItem> reisItemOptional = plannieReisItemService.findById(reisItemId);
+        Gebruiker gebruiker = gebruikerRepository.findGebruikerByEmail(principal.getName());
+        model.addAttribute(gebruiker);
+        if (reisItemOptional.isPresent() && groepOptional.isPresent()) {
+            model.addAttribute("reisItem", reisItemOptional.get());
+            model.addAttribute("groep", groepOptional.get());
+            return "reisItemDetail";
+        }
+        return "redirect:/groepDetail";
     }
 }
