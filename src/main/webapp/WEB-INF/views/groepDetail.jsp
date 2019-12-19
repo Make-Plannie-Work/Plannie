@@ -32,7 +32,7 @@
         </div>
         <div class="col-4">
             <h3 class="display-4">Groepsdetails ${groep.groepsNaam}
-                <button id="wijzigGroepsNaam" type="button" class="btn btn-primary" data-toggle="modal" data-target="#wijzigGroepsNaam"><i
+                <button id="wijzigGroepsNaam2" type="button" class="btn btn-primary" data-toggle="modal" data-target="#wijzigGroepsNaam"><i
                         class="fas fa-edit"></i></button>
             </h3>
             <hr class="my-4">
