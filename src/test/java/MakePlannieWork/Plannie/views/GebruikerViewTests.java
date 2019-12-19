@@ -30,7 +30,7 @@ public class GebruikerViewTests {
     private PasswordEncoder passwordEncoder;
 
     @Autowired
-    GebruikerRepository gebruikerRepository;
+    private GebruikerRepository gebruikerRepository;
 
     @Before
     public void setUp() {

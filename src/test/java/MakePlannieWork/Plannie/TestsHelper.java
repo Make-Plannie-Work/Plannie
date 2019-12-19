@@ -1,5 +1,7 @@
 package MakePlannieWork.Plannie;
 
+import MakePlannieWork.Plannie.repository.GroepRepository;
+import MakePlannieWork.Plannie.repository.ReisItemRepository;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -27,15 +29,29 @@ public class TestsHelper {
 
     private ArrayList<Gebruiker> testGebruikers = new ArrayList<>();
     private GebruikerRepository gebruikerRepository;
+    private ReisItemRepository reisItemRepository;
+    private GroepRepository groepRepository;
     private PasswordEncoder passwordEncoder;
     private WebDriverWait wacht;
     private WebDriver driver;
 
-    // Constructors
-    public TestsHelper(WebDriver driver, GebruikerRepository gebruikerRepository, PasswordEncoder passwordEncoder) {
+    // Constructors, voor alle mogelijke opties.
+    public TestsHelper(WebDriver driver, GebruikerRepository gebruikerRepository, PasswordEncoder passwordEncoder,
+                       GroepRepository groepRepository, ReisItemRepository reisItemRepository) {
         this.driver = driver;
         this.gebruikerRepository = gebruikerRepository;
+        this.reisItemRepository = reisItemRepository;
+        this.groepRepository = groepRepository;
         this.passwordEncoder = passwordEncoder;
+    }
+
+    public TestsHelper(WebDriver driver, GebruikerRepository gebruikerRepository, PasswordEncoder passwordEncoder,
+                       GroepRepository groepRepository) {
+        this(driver, gebruikerRepository, passwordEncoder, groepRepository, null);
+    }
+
+    public TestsHelper(WebDriver driver, GebruikerRepository gebruikerRepository, PasswordEncoder passwordEncoder) {
+        this(driver, gebruikerRepository, passwordEncoder, null);
     }
 
     public TestsHelper(WebDriver driver) {
