@@ -1,5 +1,7 @@
 package MakePlannieWork.Plannie.model;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -30,6 +32,7 @@ public class Gebruiker implements UserDetails {
     private String trancientWachtwoord;
 
     @ManyToMany(mappedBy = "groepsleden")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Set<Groep> groepen;
 
     public String toString() {

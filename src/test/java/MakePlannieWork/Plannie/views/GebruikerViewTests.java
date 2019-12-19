@@ -145,8 +145,6 @@ public class GebruikerViewTests {
     public void testGebruikerWijzigen() throws InterruptedException {
         // Arrange
         this.driver.get("http://localhost:8080/gebruikerDetail");
-        WebDriverWait wait = new WebDriverWait(this.driver, 10);
-
         this.testsHelper.maakTestGebruiker();
         this.testsHelper.registreerTestGebruikers();
         Gebruiker testGebruiker = this.testsHelper.geefTestGebruiker();

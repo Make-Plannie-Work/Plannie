@@ -1,5 +1,7 @@
 package MakePlannieWork.Plannie;
 
+import MakePlannieWork.Plannie.model.Groep;
+import MakePlannieWork.Plannie.model.reisitem.ReisItem;
 import MakePlannieWork.Plannie.repository.GroepRepository;
 import MakePlannieWork.Plannie.repository.ReisItemRepository;
 import org.openqa.selenium.By;
@@ -22,12 +24,21 @@ import java.util.List;
 
 public class TestsHelper {
 
-    private static final String VOORNAAM = "testVoornaam";
-    private static final String ACHTERNAAM = "testAchternaam";
-    private static final String EMAIL = ".testing@test.com";
-    private static final String WACHTWOORD = "testWachtwoord";
+    // Gebruikers
+    private static final String GEBRUIKER_VOORNAAM = "testVoornaam";
+    private static final String GEBRUIKER_ACHTERNAAM = "testAchternaam";
+    private static final String GEBRUIKER_EMAIL = ".testing@test.com";
+    private static final String GEBRUIKER_WACHTWOORD = "testWachtwoord";
+
+    // Groepen
+    private static final String GROEP_NAAM = "testGroep";
+
+
 
     private ArrayList<Gebruiker> testGebruikers = new ArrayList<>();
+    private ArrayList<Groep> testGroepen = new ArrayList<>();
+    private ArrayList<ReisItem> reisItems = new ArrayList<>();
+
     private GebruikerRepository gebruikerRepository;
     private ReisItemRepository reisItemRepository;
     private GroepRepository groepRepository;
@@ -73,6 +84,27 @@ public class TestsHelper {
         this.wacht.until(ExpectedConditions.titleIs(titel));
     }
 
+    // TODO Test Groepen aanmaken:
+
+    // TODO Test ReisItems aanmaken:
+
+
+    // Test Gebruikers aanmaken:
+    public void maakTestGebruikers(int aantal) {
+        this.testGebruikers.clear();
+        for (int i = 0; i < aantal; i++) {
+            Gebruiker testGebruiker = new Gebruiker();
+            testGebruiker.setVoornaam(GEBRUIKER_VOORNAAM + i);
+            testGebruiker.setAchternaam(GEBRUIKER_ACHTERNAAM + i);
+            testGebruiker.setEmail(GEBRUIKER_VOORNAAM + i + GEBRUIKER_EMAIL);
+            testGebruiker.setWachtwoord(GEBRUIKER_WACHTWOORD + i);
+            this.testGebruikers.add(testGebruiker);
+        }
+    }
+    public void maakTestGebruiker() {
+        maakTestGebruikers(1);
+    }
+
     // Test Gebruiker inloggen:
     public void inloggen() {
         inloggen(0);
@@ -82,23 +114,6 @@ public class TestsHelper {
         Gebruiker testGebruiker = testGebruikers.get(index);
         driver.findElement(By.name("username")).sendKeys(testGebruiker.getEmail());
         driver.findElement(By.name("password")).sendKeys(testGebruiker.getWachtwoord() + Keys.RETURN);
-    }
-
-    // Test Gebruikers aanmaken:
-    public void maakTestGebruikers(int aantal) {
-        this.testGebruikers.clear();
-        for (int i = 0; i < aantal; i++) {
-            Gebruiker testGebruiker = new Gebruiker();
-            testGebruiker.setVoornaam(VOORNAAM + i);
-            testGebruiker.setAchternaam(ACHTERNAAM + i);
-            testGebruiker.setEmail(VOORNAAM + i + EMAIL);
-            testGebruiker.setWachtwoord(WACHTWOORD + i);
-            this.testGebruikers.add(testGebruiker);
-        }
-    }
-
-    public void maakTestGebruiker() {
-        maakTestGebruikers(1);
     }
 
     // Test Gebruikers geven: Je kan alle gebruikers, of 1 opvragen.
