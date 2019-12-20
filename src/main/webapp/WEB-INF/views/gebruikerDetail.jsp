@@ -18,7 +18,7 @@
     <body>
 
     <nav class="navbar navbar-light bg-light shadow ">
-        <span class="navbar-brand mb-0 h1"><a href="/gebruikerDetail" class="text-dark">${currentUser.voornaam}'s Plannie</a></span>
+        <span class="navbar-brand mb-0 h1"><a id="gebruikerDetail" href="/gebruikerDetail" class="text-dark">${currentUser.voornaam}'s Plannie</a></span>
 
         <ul class="nav justify-content-end">
             <li class="nav-item">
@@ -58,7 +58,7 @@
                                     <img src="https://via.placeholder.com/50.jpg" alt="">
                                 </div>
                                 <div class="card-block px-2">
-                                    <p class="card-text"><a href="/groepDetail/${groep.groepId}">${groep.groepsNaam}</a></p>
+                                    <p class="card-text"><a id="details${groep.groepsNaam}" href="/groepDetail/${groep.groepId}">${groep.groepsNaam}</a></p>
                                 </div>
                                 <div class="w-100"></div>
                             </div>
