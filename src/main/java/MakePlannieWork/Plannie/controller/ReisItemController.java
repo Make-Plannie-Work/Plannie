@@ -63,6 +63,7 @@ public class ReisItemController {
             model.addAttribute("reisItem", reisItemOptional.get());
             model.addAttribute("groepslidEmail", new Gebruiker());
             model.addAttribute("groep", groepOptional.get());
+            model.addAttribute("alleReisItemsVanReis", reisItemOptional.get().getReisItems());
             return "reisItemDetail";
         }
         return "redirect:/groepDetail";

@@ -35,38 +35,26 @@
             <div class="col-sm-8">
                 <div class="jumbotron shadow">
                     <div class="row">
-                        <div class="col-12">
-                            <table class="table table-hover table-borderless">
-                                <thead>
-                                <tr>
-                                    Activiteiten
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr><td>ReisItem 1</td></tr>
-                                <tr><td>ReisItem 2</td></tr>
-                                <tr><td>ReisItem 3</td></tr>
-                                <tr><td>ReisItem 4</td></tr>
-                                <tr><td>ReisItem 5</td></tr>
-                                <tr><td>ReisItem 6</td></tr>
-                                </tbody>
-                            </table>
-                            <div class="container mt-3" >
-                                <div class="row">
-                                    <form:form action="/${groep.groepId}/reisItemAanmaken" method="post" modelAttribute="nieuwReisItemFormulier">
-                                        <input type="text" name="naam" required="required" placeholder="Naam Reis">
-                                        <input id="reisItemAanmaken" type="submit" class="btn btn-primary" value="Maak reis aan">
-                                    </form:form>
+
+                        <c:forEach items="${alleReisItemsVanReis}" var="reisItems">
+                            <div class="card flex-row flex-wrap mb-2 mx-auto" style="width: 42rem;">
+                                <div class="card-header border-0">
+                                    <img src="https://via.placeholder.com/100.jpg" alt="">
+                                </div>
+                                <div class="card-block px-2">
+                                    <h4 class="card-title"><a href="/${groep.groepId}/reisItemsDetail/${reisItems.reisItemId}">${reisItems.naam}</a></h4>
+                                    <p class="card-text">${reisItems.naam}${reisItems.naam}${reisItems.naam}${reisItems.naam}${reisItems.naam}${reisItems.naam}</p>
                                 </div>
                             </div>
-                        </div>
+                        </c:forEach>
+
                     </div>
                 </div>
             </div>
             <div class="col-sm-4">
                 <div class="jumbotron shadow" style="background-color: #666666;">
                     <div class="row" >
-                        <p class="lead text-white">${reisItem.naam}</p>
+                        <p class="lead text-white">${reisItem.naam} - <a class ="lead text-white" href="/groepDetail/${groep.groepId}">${groep.groepsNaam}</a></p>
                     </div>
                     <hr class="my-4">
                     <div class="row">

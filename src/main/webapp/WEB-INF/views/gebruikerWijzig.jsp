@@ -26,6 +26,7 @@
                     <input id="logout" class="nav-link text-dark" style="border: none; background: transparent;" type="submit" value="Log uit" />
                 </form:form>
             </li>
+        </ul>
     </nav>
 
     <div class="container mt-3">

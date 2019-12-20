@@ -43,4 +43,6 @@ public class PlannieReisItemService {
         Groep groep = groepRepository.findByGroepId(groepId);
         return groep.getReisItem();
     }
+
+
 }
