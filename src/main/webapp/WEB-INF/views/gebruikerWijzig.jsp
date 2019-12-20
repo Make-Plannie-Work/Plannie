@@ -25,8 +25,9 @@
                 <a class="nav-link text-dark" method="post" id="gebruikerWijzigen" href="/gebruikerWijzig">Jouw gegevens</a>
             </li>
             <li class="nav-item">
-
-                <a class="nav-link text-dark" id="logout" method="post" href="/logout">Log uit</a>
+                <form:form action="${pageContext.request.contextPath}/logout" method="POST">
+                    <input id="logout" class="nav-link text-dark" style="border: none; background: transparent;" type="submit" value="Log uit" />
+                </form:form>
             </li>
     </nav>
 
@@ -41,7 +42,8 @@
                 <div class="jumbotron shadow">
                     <div class="row">
                         <p class="lead">Wijzig je gegevens</p>
-
+                    </div>
+                    <div class ="row">
                         <div>
                             <form:form action = "/wijzigen" method="post" modelAttribute="gebruikersWijzigingsFormulier">
                                 <div class="row">
@@ -124,7 +126,7 @@
             <!-- Call to action -->
             <ul class="list-unstyled list-inline text-center py-2">
 
-                <h6 class="mb-1"><small>Registreer je snel: <a href="/registreer" class="text-white">klik hier!</a></small></h6>
+
 
 
                 </li>
