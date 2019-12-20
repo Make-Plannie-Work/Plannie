@@ -24,8 +24,9 @@
                 <a class="nav-link text-dark" method="post" id="gebruikerWijzigen" href="/gebruikerWijzig">Jouw gegevens</a>
             </li>
             <li class="nav-item">
-
-                <a class="nav-link text-dark" id="logout" method="post" href="<c:url value="/logout"/>">Log uit</a>
+                <form:form action="${pageContext.request.contextPath}/logout" method="POST">
+                    <input id="logout" class="nav-link text-dark" style="border: none; background: transparent;" type="submit" value="Log uit" />
+                </form:form>
             </li>
     </nav>
     <div class="container mt-3">

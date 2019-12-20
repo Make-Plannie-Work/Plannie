@@ -17,15 +17,16 @@
     <body>
 
     <nav class="navbar navbar-light bg-light shadow">
-        <span class="navbar-brand mb-0 h1"><a id="gebruikerDetail" href="/gebruikerDetail" class="text-dark">${currentUser.voornaam}'s Plannie</a></span>
+        <span class="navbar-brand mb-0 h1"><a href="/gebruikerDetail" class="text-dark">${currentUser.voornaam}'s Plannie</a></span>
 
         <ul class="nav justify-content-end">
             <li class="nav-item">
                 <a class="nav-link text-dark" method="post" id="gebruikerWijzigen" href="/gebruikerWijzig">Jouw gegevens</a>
             </li>
             <li class="nav-item">
-
-                <a class="nav-link text-dark" id="logout" method="post" href="<c:url value="/logout"/>">Log uit</a>
+                <form:form action="${pageContext.request.contextPath}/logout" method="POST">
+                    <input id="logout" class="nav-link text-dark" style="border: none; background: transparent;" type="submit" value="Log uit" />
+                </form:form>
             </li>
     </nav>
     <div class="container mt-3">
@@ -50,7 +51,7 @@
                             <div class="container" >
                                 <div class="row">
                                     <form:form action="/${groep.groepId}/reisItemAanmaken" class="form-inline" method="post" modelAttribute="nieuwReisItemFormulier">
-                                        <input type="text" class="form-control" name="naamReis" required="required" placeholder="Naam Reis">
+                                        <input type="text" class="form-control" name="naam" required="required" placeholder="Naam Reis">
                                         <button id="reisItemAanmaken" type="submit"><i class="fas fa-plus"></i></button>
                                     </form:form>
                                 </div>
@@ -77,8 +78,8 @@
                             <tbody>
                             <c:forEach items="${groepsLedenLijst}" var="groepslid">
                                 <tr>
-                                    <td id="groepslid${groepslid.voornaam}" data-toggle="tooltip" data-placement="bottom" title="${groepslid.email}">${groepslid.voornaam} ${groepslid.achternaam}</td>
-                                    <td><a id="Verwijder${groepslid.voornaam}UitGroep" href="${groep.groepId}/VerwijderLedenUitGroep/${groepslid.gebruikersId}">
+                                    <td data-toggle="tooltip" data-placement="bottom" title="${groepslid.email}">${groepslid.voornaam} ${groepslid.achternaam}</td>
+                                    <td><a id="VerwijderLedenUitGroep" href="${groep.groepId}/VerwijderLedenUitGroep/${groepslid.gebruikersId}">
                                         <i class="far fa-trash-alt"></i>
                                     </a></td>
                                 </tr>
@@ -101,8 +102,8 @@
                             <tbody>
                             <c:forEach items="${AlleLedenLijst}" var="lid">
                                 <tr>
-                                    <td id="gebruiker${lid.voornaam}" data-toggle="tooltip" data-placement="bottom" title="${lid.email}">${lid.voornaam} ${lid.achternaam}</td>
-                                    <td><a id="voeg${lid.voornaam}ToeAanGroep" href="${groep.groepId}/voegGebruikerToeAanGroep/${lid.gebruikersId}">
+                                    <td data-toggle="tooltip" data-placement="bottom" title="${lid.email}">${lid.voornaam} ${lid.achternaam}</td>
+                                    <td><a id="voegGebruikerToeAanGroep" href="${groep.groepId}/voegGebruikerToeAanGroep/${lid.gebruikersId}">
                                         <i class="fas fa-plus"></i>
                                     </a></td>
                                 </tr>
@@ -128,7 +129,7 @@
                             </div>
                             </p>
                             <div>
-                                <button id="stuurEmail" type="submit" class="btn btn-primary">Stuur</button>
+                                <button type="submit" class="btn btn-primary">Stuur</button>
                             </div>
                         </form:form>
                     </div>
