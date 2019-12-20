@@ -22,10 +22,10 @@
 
         <ul class="nav justify-content-end">
             <li class="nav-item">
-                <a class="nav-link text-dark" href="/registreren">Registreer</a>
+                <a id="registreren" class="nav-link text-dark" href="/registreren">Registreer</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-dark" data-toggle="modal" data-target="#loginmodal">Login</a>
+                <a id="inloggen" class="nav-link text-dark" data-toggle="modal" data-target="#loginmodal">Login</a>
             </li>
     </nav>
 
