@@ -221,6 +221,8 @@ public class TestsHelper {
     }
 
     public void inloggen(Gebruiker testGebruiker) {
+        driver.findElement(By.id("inloggen")).click();
+        wachtOpElement("loginForm");
         driver.findElement(By.name("username")).sendKeys(testGebruiker.getEmail());
         driver.findElement(By.name("password")).sendKeys(testGebruiker.getWachtwoord() + Keys.RETURN);
     }

@@ -20,9 +20,7 @@
         <span class="navbar-brand mb-0 h1"><a href="/gebruikerDetail" class="text-dark">${currentUser.voornaam}'s Plannie</a></span>
 
         <ul class="nav justify-content-end">
-            <li class="nav-item">
-                <a class="nav-link text-dark" method="post" id="gebruikerWijzigen" href="/gebruikerWijzig">Jouw gegevens</a>
-            </li>
+
             <li class="nav-item">
                 <form:form action="${pageContext.request.contextPath}/logout" method="POST">
                     <input id="logout" class="nav-link text-dark" style="border: none; background: transparent;" type="submit" value="Log uit" />
