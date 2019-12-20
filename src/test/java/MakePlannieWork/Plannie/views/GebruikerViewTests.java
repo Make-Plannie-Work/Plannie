@@ -63,10 +63,10 @@ public class GebruikerViewTests {
         driver.findElement(By.name("wachtwoord")).sendKeys(testGebruiker.getWachtwoord());
         driver.findElement(By.name("trancientWachtwoord")).sendKeys(testGebruiker.getWachtwoord());
         driver.findElement(By.id("registreer")).click();
-        this.testsHelper.wachtOpTitel("Home Plannie");
+        this.testsHelper.wachtOpTitel("Welkom bij Plannie");
 
         // Assert
-        assertEquals("Home Plannie",driver.getTitle());
+        assertEquals("Welkom bij Plannie",driver.getTitle());
     }
 
     @Test
@@ -157,12 +157,13 @@ public class GebruikerViewTests {
 
         // Activate
         driver.findElement(By.id("gebruikerWijzigen")).click();
+        this.testsHelper.wachtOpElement("gebruikersWijzigingsFormulier");
         driver.findElement(By.name("voornaam")).clear();
         driver.findElement(By.name("voornaam")).sendKeys(gewijzigdeVoornaam);
         driver.findElement(By.id("gebruikerWijzigen")).click();
-        this.testsHelper.wachtOpTitel("Hallo, " + gewijzigdeVoornaam);
+        this.testsHelper.wachtOpTitel("Welkom bij Plannie - " + gewijzigdeVoornaam);
 
         // Assert
-        assertEquals("Hallo, " + gewijzigdeVoornaam, driver.getTitle());
+        assertEquals("Welkom bij Plannie - " + gewijzigdeVoornaam, driver.getTitle());
     }
 }
