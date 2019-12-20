@@ -26,7 +26,7 @@
             </li>
             <li class="nav-item">
                 <form:form action="${pageContext.request.contextPath}/logout" method="POST">
-                    <input class="nav-link text-dark" style="border: none; background: transparent;" type="submit" value="Log uit" />
+                    <input id="logout" class="nav-link text-dark" style="border: none; background: transparent;" type="submit" value="Log uit" />
                 </form:form>
             </li>
     </nav>
