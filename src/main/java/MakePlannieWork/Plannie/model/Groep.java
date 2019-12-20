@@ -19,6 +19,7 @@ public class Groep {
     private Integer aanmaker;
 
     @ManyToMany(cascade = CascadeType.ALL)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinTable(
             name = "GROEP_GEBRUIKER",
             joinColumns = {@JoinColumn(name = "groep_groepid")},
