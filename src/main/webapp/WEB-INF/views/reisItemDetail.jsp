@@ -18,7 +18,7 @@
     <body>
 
     <nav class="navbar navbar-light bg-light shadow">
-        <span class="navbar-brand mb-0 h1"><a href="/gebruikerDetail" class="text-dark">${currentUser.voornaam}'s Plannie</a></span>
+        <span class="navbar-brand mb-0 h1"><a id="gebruikerDetail" href="/gebruikerDetail" class="text-dark">${currentUser.voornaam}'s Plannie</a></span>
 
         <ul class="nav justify-content-end">
             <li class="nav-item">
@@ -90,7 +90,7 @@
                             </div>
                             </p>
                             <div>
-                                <button type="submit" class="btn btn-primary">Stuur</button>
+                                <button id="stuurEmail" type="submit" class="btn btn-primary">Stuur</button>
                             </div>
                         </form:form>
                     </div>
