@@ -78,8 +78,8 @@
                             <tbody>
                             <c:forEach items="${groepsLedenLijst}" var="groepslid">
                                 <tr>
-                                    <td data-toggle="tooltip" data-placement="bottom" title="${groepslid.email}">${groepslid.voornaam} ${groepslid.achternaam}</td>
-                                    <td><a id="VerwijderLedenUitGroep" href="${groep.groepId}/VerwijderLedenUitGroep/${groepslid.gebruikersId}">
+                                    <td id="groepslid${groepslid.voornaam}" data-toggle="tooltip" data-placement="bottom" title="${groepslid.email}">${groepslid.voornaam} ${groepslid.achternaam}</td>
+                                    <td><a id="Verwijder${groepslid.voornaam}UitGroep" href="${groep.groepId}/VerwijderLedenUitGroep/${groepslid.gebruikersId}">
                                         <i class="far fa-trash-alt"></i>
                                     </a></td>
                                 </tr>
@@ -102,8 +102,8 @@
                             <tbody>
                             <c:forEach items="${AlleLedenLijst}" var="lid">
                                 <tr>
-                                    <td data-toggle="tooltip" data-placement="bottom" title="${lid.email}">${lid.voornaam} ${lid.achternaam}</td>
-                                    <td><a id="voegGebruikerToeAanGroep" href="${groep.groepId}/voegGebruikerToeAanGroep/${lid.gebruikersId}">
+                                    <td id="gebruiker${lid.voornaam}" data-toggle="tooltip" data-placement="bottom" title="${lid.email}">${lid.voornaam} ${lid.achternaam}</td>
+                                    <td><a id="voeg${lid.voornaam}ToeAanGroep" href="${groep.groepId}/voegGebruikerToeAanGroep/${lid.gebruikersId}">
                                         <i class="fas fa-plus"></i>
                                     </a></td>
                                 </tr>

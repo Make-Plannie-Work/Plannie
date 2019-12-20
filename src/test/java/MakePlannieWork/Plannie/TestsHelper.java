@@ -145,7 +145,7 @@ public class TestsHelper {
         String beginUrl = driver.getCurrentUrl();
         this.driver.get(URL_GEBRUIKER_DETAIL);
         String inlogNaam = this.driver.getTitle();
-        inlogNaam = inlogNaam.replace("Hallo, ", "");
+        inlogNaam = inlogNaam.replace("Welkom bij Plannie - ", "");
         driver.findElement(By.name(GROEP_NAAM_TEXTFIELD)).sendKeys(testGroep.getGroepsNaam() + Keys.RETURN);
 
         // Opzoeken welke testgebruiker ingelogd is:
@@ -195,7 +195,6 @@ public class TestsHelper {
 
     // Test Gebruikers aanmaken:
     public void maakTestGebruikers(int aantal) {
-        this.testGebruikers.clear();
         for (int i = 0; i < aantal; i++) {
             Gebruiker testGebruiker = new Gebruiker();
             testGebruiker.setVoornaam(GEBRUIKER_VOORNAAM + i);
