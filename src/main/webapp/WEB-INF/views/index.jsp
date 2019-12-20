@@ -1,5 +1,7 @@
 <!doctype html>
 <html lang="en">
+<div class="view" style="background-image: url('https://images.unsplash.com/photo-1473496169904-658ba7c44d8a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80'); background-repeat: no-repeat; background-size: cover; background-position: center center;">
+
 <head>
   <!-- Required meta tags -->
   <meta charset="utf-8">
@@ -14,8 +16,7 @@
   </title>
 </head>
 <body>
-
-<nav class="navbar navbar-light bg-light">
+<nav class="navbar navbar-light bg-light shadow">
   <span class="navbar-brand mb-0 h1"><a href="/gebruikerDetail" class="text-dark">Plannie</a></span>
 
   <ul class="nav justify-content-end">
@@ -35,7 +36,7 @@
   <div class="row">
 
     <div class="col-sm-8">
-      <div class="jumbotron">
+      <div class="jumbotron shadow">
         <div class="row">
           <p class="lead">Info 3</p>
           <p>
@@ -46,7 +47,7 @@
     </div>
 
     <div class="col-sm-4">
-      <div class="jumbotron" style="background-color: #666666;">
+      <div class="jumbotron shadow" style="background-color: #666666;">
         <div class="row" >
           <p class="lead text-white">Info 1</p>
         </div>
@@ -58,14 +59,13 @@
       </div>
     </div>
   </div>
-  <div class="row">
-    <div class="col-sm-offset-1 col-sm-10">
+  <div class="row mb-3">
+    <div class="col-sm-offset-1 col-sm-10  mb-3">
       <div class="card w-75 mx-auto">
         <div class="card-body">
           <p>Contact</p>
         </div>
       </div>
-
     </div>
   </div>
 </div>

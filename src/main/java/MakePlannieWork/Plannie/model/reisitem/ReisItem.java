@@ -19,7 +19,9 @@ public class ReisItem {
     private Integer reisItemId;
 
     private String naam;
-    private String datum;
+    private String startDatum;
+    private String eindDatum;
+    private String locatie;
     private Integer aanmaker;
 
     @OneToMany
@@ -45,14 +47,6 @@ public class ReisItem {
         this.naam = naam;
     }
 
-    public String getDatum() {
-        return datum;
-    }
-
-    public void setDatum(String datum) {
-        this.datum = datum;
-    }
-
     public Integer getAanmaker() {
         return aanmaker;
     }
@@ -61,11 +55,35 @@ public class ReisItem {
         this.aanmaker = aanmaker;
     }
 
+    public String getStartDatum() {
+        return startDatum;
+    }
+
+    public void setStartDatum(String startDatum) {
+        this.startDatum = startDatum;
+    }
+
+    public String getEindDatum() {
+        return eindDatum;
+    }
+
+    public void setEindDatum(String eindDatum) {
+        this.eindDatum = eindDatum;
+    }
+
+    public String getLocatie() {
+        return locatie;
+    }
+
+    public void setLocatie(String locatie) {
+        this.locatie = locatie;
+    }
+
     public Set<ReisItem> getReisItems() {
         return reisItems;
     }
 
-    public void setReisItem(Set<ReisItem> reisItems) {
+    public void setReisItems(Set<ReisItem> reisItems) {
         this.reisItems = reisItems;
     }
 }
