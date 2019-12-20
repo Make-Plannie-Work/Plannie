@@ -23,7 +23,7 @@
         <div class="card text-white bg-primary rounded-4 mb-4">
             <div class="card-header" id="headingOne">
                 <h2 class="mb-0">
-                    <button class="btn btn-link text-white" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                    <button id="details${groep.groepsNaam}" class="btn btn-link text-white" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
                         <a href="/groepDetail/${groep.groepId}" class="text-white">${groep.groepsNaam}</a>
                     </button>
                 </h2>

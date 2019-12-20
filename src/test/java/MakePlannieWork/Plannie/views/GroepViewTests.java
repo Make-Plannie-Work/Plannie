@@ -18,8 +18,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
-import java.security.Principal;
-
 import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -54,7 +52,7 @@ public class GroepViewTests {
     @After
     public void tearDown() {
 
-        this.testsHelper.verwijderTestGebruikersUitDatabase();
+        this.testsHelper.clear();
         this.driver.quit();
         this.driver = null;
         this.testsHelper = null;
@@ -101,26 +99,66 @@ public class GroepViewTests {
     }
 
     @Test
-    public void testGroepNaamWijzigen() throws InterruptedException {
+    public void testGroepsLeden() throws InterruptedException {
         // Arrange
         this.driver.get("http://localhost:8080/gebruikerDetail");
         this.testsHelper.maakTestGebruiker();
-        this.testsHelper.maakTestGroepen(5);
-        Gebruiker testGebruiker = this.testsHelper.geefTestGebruiker();
+        this.testsHelper.zetTestGebruikerEnTestGroepKlaar();
         Groep testGroep = this.testsHelper.geefTestGroep();
-        this.testsHelper.registreerTestGebruikers();
-        this.testsHelper.inloggen();
-        this.testsHelper.wachtOpTitel("Hallo, " + testGebruiker.getVoornaam());
-        this.testsHelper.registreerTestGroepen();
-
-
+        this.driver.get("http://localhost:8080/groepDetail/" + testGroep.getGroepId());
+        String testGroepNaam = testGroep.getGroepsNaam() + "Testing";
 
         // Activate
-        driver.findElement(By.name("groepsNaam")).sendKeys("");
-        driver.findElement(By.id("groepAanmaken")).click();
+        driver.findElement(By.id("wijzigGroepsNaam2")).click();
+        this.testsHelper.wachtOpElement("groepsNaamWijzigingsFormulier");
+        driver.findElement(By.name("groepsNaam")).clear();
+        driver.findElement(By.name("groepsNaam")).sendKeys(testGroepNaam);
+        driver.findElement(By.id("groepsNaamWijzigen")).click();
         Thread.sleep(500);
 
         // Assert
-        assertEquals("Hallo, " + testGebruiker.getVoornaam(), driver.getTitle());
+        assertEquals("Groepsdetails " + testGroepNaam, driver.getTitle());
+    }
+
+    @Test
+    public void testGroepNaamWijzigenCorrect() throws InterruptedException {
+        // Arrange
+        this.driver.get("http://localhost:8080/gebruikerDetail");
+        this.testsHelper.zetTestGebruikerEnTestGroepKlaar();
+        Groep testGroep = this.testsHelper.geefTestGroep();
+        this.driver.get("http://localhost:8080/groepDetail/" + testGroep.getGroepId());
+        String testGroepNaam = testGroep.getGroepsNaam() + "Testing";
+
+        // Activate
+        driver.findElement(By.id("wijzigGroepsNaam2")).click();
+        this.testsHelper.wachtOpElement("groepsNaamWijzigingsFormulier");
+        driver.findElement(By.name("groepsNaam")).clear();
+        driver.findElement(By.name("groepsNaam")).sendKeys(testGroepNaam);
+        driver.findElement(By.id("groepsNaamWijzigen")).click();
+        Thread.sleep(500);
+
+        // Assert
+        assertEquals("Groepsdetails " + testGroepNaam, driver.getTitle());
+    }
+
+    @Test
+    public void testGroepNaamWijzigenFout() throws InterruptedException {
+        // Arrange
+        this.driver.get("http://localhost:8080/gebruikerDetail");
+        this.testsHelper.zetTestGebruikerEnTestGroepKlaar();
+        Groep testGroep = this.testsHelper.geefTestGroep();
+        this.driver.get("http://localhost:8080/groepDetail/" + testGroep.getGroepId());
+        String testGroepNaam = "";
+
+        // Activate
+        driver.findElement(By.id("wijzigGroepsNaam2")).click();
+        this.testsHelper.wachtOpElement("groepsNaamWijzigingsFormulier");
+        driver.findElement(By.name("groepsNaam")).clear();
+        driver.findElement(By.name("groepsNaam")).sendKeys(testGroepNaam);
+        driver.findElement(By.id("groepsNaamWijzigen")).click();
+        Thread.sleep(500);
+
+        // Assert
+        assertEquals("Groepsdetails " + testGroep.getGroepsNaam(), driver.getTitle());
     }
 }

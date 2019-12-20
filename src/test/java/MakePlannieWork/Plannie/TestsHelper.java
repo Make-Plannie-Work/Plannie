@@ -75,6 +75,20 @@ public class TestsHelper {
         this(driver, null, null);
     }
 
+    // Multi-actie methodes, om code herhaling te voorkomen.
+    public void clear() {
+        verwijderTestGebruikersUitDatabase();
+        verwijderTestGroepenUitDatabase();
+    }
+
+    public void zetTestGebruikerEnTestGroepKlaar() {
+        maakTestGebruiker();
+        maakTestGroep();
+        registreerTestGebruikers();
+        inloggen();
+        registreerTestGroepen();
+    }
+
     // Wachten tot de volgende pagina geladen is:
     public void wachtOpElement(String idElement) {
         if (this.wacht == null) {
@@ -130,8 +144,50 @@ public class TestsHelper {
         Groep testGroep = this.testGroepen.get(index);
         String beginUrl = driver.getCurrentUrl();
         this.driver.get(URL_GEBRUIKER_DETAIL);
-        driver.findElement(By.name(GROEP_NAAM_TEXTFIELD)).sendKeys(testGroep.getGroepsNaam());
+        String inlogNaam = this.driver.getTitle();
+        inlogNaam = inlogNaam.replace("Hallo, ", "");
+        driver.findElement(By.name(GROEP_NAAM_TEXTFIELD)).sendKeys(testGroep.getGroepsNaam() + Keys.RETURN);
+
+        // Opzoeken welke testgebruiker ingelogd is:
+        Gebruiker testGebruiker = null;
+        int iteratie = 0;
+        while (testGebruiker == null && iteratie < testGebruikers.size()) {
+            if (testGebruikers.get(iteratie).getVoornaam().equals(inlogNaam)) {
+                testGebruiker = testGebruikers.get(iteratie);
+
+                // Als deze testgebruiker nog niet opgehaald was uit de database, wordt dat nu gedaan.
+                if (testGebruiker.getGebruikersId() == null) {
+                    testGebruiker = gebruikerRepository.findGebruikerByEmail(testGebruiker.getEmail());
+                }
+
+                // De zojuist aangemaakte groep wordt in de database gevonden, zodat de GroepsID bekend is.
+                List<Groep> aangemaakteGroep = groepRepository.findByGroepsleden_GebruikersId(testGebruiker.getGebruikersId());
+                if (!aangemaakteGroep.isEmpty()) {
+                    testGroep = aangemaakteGroep.get(aangemaakteGroep.size() - 1);
+                    testGroepen.set(index, testGroep);
+                }
+            }
+            iteratie ++;
+        }
+
         this.driver.get(beginUrl);
+    }
+
+    // Test Groepen verwijderen uit database
+    public void verwijderTestGroepenUitDatabase() {
+        int index = 0;
+        for (Groep testGroep : testGroepen) {
+            verwijderTestGroepUitDatabase(index);
+            index++;
+        }
+    }
+
+    public void verwijderTestGroepUitDatabase(int index) {
+        Groep testGroep = this.testGroepen.get(index);
+        List<Groep> testGroepenInDatabase = groepRepository.findByGroepsleden_GebruikersId(testGroep.getAanmaker());
+        if (!testGroepenInDatabase.isEmpty()) {
+            groepRepository.deleteAll(testGroepenInDatabase);
+        }
     }
 
     // TODO Test ReisItems aanmaken:
@@ -200,7 +256,10 @@ public class TestsHelper {
         testGebruiker.setTrancientWachtwoord(encodedWachtwoord);
         gebruikerRepository.save(testGebruiker);
 
+        // Gebruikers ID ophalen en wachtwoord normaliseren.
+        testGebruiker = gebruikerRepository.findGebruikerByEmail(testGebruiker.getEmail());
         testGebruiker.setWachtwoord(wachtwoord);
+        testGebruikers.set(index, testGebruiker);
     }
 
     // Test Gebruikers verwijderen uit database
