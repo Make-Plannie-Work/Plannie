@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en">
-<div class="view" style="background-image: url('https://images.unsplash.com/photo-1473496169904-658ba7c44d8a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80'); background-repeat: no-repeat; background-size: cover;">
+<div class="view" style="background-image: url('https://images.unsplash.com/photo-1473496169904-658ba7c44d8a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80'); background-repeat: no-repeat; background-size: cover; background-attachment: fixed;">
 
     <head>
         <!-- Required meta tags -->
@@ -35,27 +35,24 @@
             <div class="col-sm-8">
                 <div class="jumbotron shadow">
                     <div class="row">
-                        <div class="col-12">
-                            <table class="table table-hover table-borderless">
-                                <thead>
-                                <tr>
-                                    <th scope="col">Reizen</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr><td>Reis 1</td></tr>
-                                <tr><td>Reis 2</td></tr>
-                                <tr><td>Reis 3</td></tr>
-                                <tr><td>Reis 4</td></tr>
-                                <tr><td>Reis 5</td></tr>
-                                <tr><td>Reis 6</td></tr>
-                                </tbody>
-                            </table>
-                            <div class="container mt-3" >
+                        <div>
+                            <c:forEach items="${lijstMetReisItems}" var="reisItem">
+
+                                <div class="card flex-row flex-wrap mb-2 mx-auto" style="width: 42rem;">
+                                    <div class="card-header border-0">
+                                        <img src="https://via.placeholder.com/100.jpg" alt="">
+                                    </div>
+                                    <div class="card-block px-2">
+                                        <h4 class="card-title"><a href="/${groep.groepId}/reisItemDetail/${reisItem.reisItemId}">${reisItem.naam}</a></h4>
+                                        <p class="card-text">${reisItem.naam}${reisItem.naam}${reisItem.naam}${reisItem.naam}${reisItem.naam}${reisItem.naam}</p>
+                                    </div>
+                                </div>
+                            </c:forEach>
+                            <div class="container" >
                                 <div class="row">
-                                    <form:form action="/${groep.groepId}/reisItemAanmaken" method="post" modelAttribute="nieuwReisItemFormulier">
-                                        <input type="text" name="naam" required="required" placeholder="Naam Reis">
-                                        <input id="reisItemAanmaken" type="submit" class="btn btn-primary" value="Maak reis aan">
+                                    <form:form action="/${groep.groepId}/reisItemAanmaken" class="form-inline" method="post" modelAttribute="nieuwReisItemFormulier">
+                                        <input type="text" class="form-control" name="naam" required="required" placeholder="Naam Reis">
+                                        <button id="reisItemAanmaken" type="submit"><i class="fas fa-plus"></i></button>
                                     </form:form>
                                 </div>
                             </div>
