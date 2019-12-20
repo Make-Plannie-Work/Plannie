@@ -2,10 +2,12 @@ package MakePlannieWork.Plannie.controller;
 
 import MakePlannieWork.Plannie.model.Gebruiker;
 import MakePlannieWork.Plannie.model.Groep;
+import MakePlannieWork.Plannie.model.reisitem.ReisItem;
 import MakePlannieWork.Plannie.repository.GebruikerRepository;
 import MakePlannieWork.Plannie.repository.GroepRepository;
 import MakePlannieWork.Plannie.service.PlannieGebruikersService;
 import MakePlannieWork.Plannie.service.PlannieGroepService;
+import MakePlannieWork.Plannie.service.PlannieReisItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -35,6 +37,9 @@ public class GroepController {
     @Autowired
     private PlannieGebruikersService plannieGebruikersService;
 
+    @Autowired
+    private PlannieReisItemService plannieReisItemService;
+
     @GetMapping("/groepAanmaken")
     public String nieuweGroep(Model model) {
         model.addAttribute("nieuweGroepFormulier", new Groep());
@@ -57,7 +62,9 @@ public class GroepController {
         List<Gebruiker> alleGebruikersInGroep = gebruikerRepository.findByGroepen_groepsNaam(groepRepository.findById(id).get().getGroepsNaam());
         List<Gebruiker> alleGebruikers = gebruikerRepository.findAll();
         Gebruiker gebruiker = gebruikerRepository.findGebruikerByEmail(principal.getName());
+        Set<ReisItem> alleReisItems = plannieReisItemService.getLijstMetReisItemsOpGroepId(id);
         model.addAttribute(gebruiker);
+        model.addAttribute("lijstMetReisItems", alleReisItems);
         model.addAttribute("AlleLedenLijst", alleGebruikers);
         model.addAttribute("groepsLedenLijst", alleGebruikersInGroep);
         model.addAttribute("groepslidEmail", new Gebruiker());

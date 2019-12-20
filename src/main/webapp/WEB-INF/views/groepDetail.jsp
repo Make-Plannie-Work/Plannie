@@ -1,144 +1,143 @@
 <!doctype html>
 <html lang="en">
-<head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <script src="https://kit.fontawesome.com/d450c035a5.js" crossorigin="anonymous"></script>
-    <title>Plannie - Groepsdetails ${groep.groepsNaam}
-    </title>
-</head>
-<body>
+<div class="view" style="background-image: url('https://images.unsplash.com/photo-1473496169904-658ba7c44d8a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80'); background-repeat: no-repeat; background-size: cover; background-attachment: fixed;">
 
-<nav class="navbar navbar-light bg-light">
-    <span class="navbar-brand mb-0 h1"><a href="/gebruikerDetail" class="text-dark">${currentUser.voornaam}'s Plannie</a></span>
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+        <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+              integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <script src="https://kit.fontawesome.com/d450c035a5.js" crossorigin="anonymous"></script>
+        <title>Plannie - Groepsdetails ${groep.groepsNaam}
+        </title>
+    </head>
+    <body>
 
-    <ul class="nav justify-content-end">
-        <li class="nav-item">
-            <a class="nav-link text-dark" method="post" id="gebruikerWijzigen" href="/gebruikerWijzig">Jouw gegevens</a>
-        </li>
-        <li class="nav-item">
+    <nav class="navbar navbar-light bg-light shadow">
+        <span class="navbar-brand mb-0 h1"><a href="/gebruikerDetail" class="text-dark">${currentUser.voornaam}'s Plannie</a></span>
 
-            <a class="nav-link text-dark" id="logout" method="post" href="<c:url value="/logout"/>">Log uit</a>
-        </li>
-</nav>
-<div class="container mt-3">
-    <div class="row">
+        <ul class="nav justify-content-end">
+            <li class="nav-item">
+                <a class="nav-link text-dark" method="post" id="gebruikerWijzigen" href="/gebruikerWijzig">Jouw gegevens</a>
+            </li>
+            <li class="nav-item">
 
-        <div class="col-sm-8">
-            <div class="jumbotron">
-                <div class="row">
-                    <div class="col-12">
-                        <table class="table table-hover table-borderless">
-                            <thead>
-                            <tr>
-                                <th scope="col">Reizen</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr><td>Reis 1</td></tr>
-                            <tr><td>Reis 2</td></tr>
-                            <tr><td>Reis 3</td></tr>
-                            <tr><td>Reis 4</td></tr>
-                            <tr><td>Reis 5</td></tr>
-                            <tr><td>Reis 6</td></tr>
-                            </tbody>
-                        </table>
-                        <div class="container mt-3" >
-                            <div class="row">
-                                <form:form action="/${groep.groepId}/reisItemAanmaken" method="post" modelAttribute="nieuwReisItemFormulier">
-                                    <input type="text" name="naam" required="required" placeholder="Naam Reis">
-                                    <input id="reisItemAanmaken" type="submit" class="btn btn-primary" value="Maak reis aan">
-                                </form:form>
+                <a class="nav-link text-dark" id="logout" method="post" href="<c:url value="/logout"/>">Log uit</a>
+            </li>
+    </nav>
+    <div class="container mt-3">
+        <div class="row">
+
+            <div class="col-sm-8">
+                <div class="jumbotron shadow">
+                    <div class="row">
+                        <div>
+                            <c:forEach items="${lijstMetReisItems}" var="reisItem">
+
+                                <div class="card flex-row flex-wrap mb-2 mx-auto" style="width: 42rem;">
+                                    <div class="card-header border-0">
+                                        <img src="https://via.placeholder.com/100.jpg" alt="">
+                                    </div>
+                                    <div class="card-block px-2">
+                                        <h4 class="card-title"><a href="/${groep.groepId}/reisItemDetail/${reisItem.reisItemId}">${reisItem.naam}</a></h4>
+                                        <p class="card-text">${reisItem.naam}${reisItem.naam}${reisItem.naam}${reisItem.naam}${reisItem.naam}${reisItem.naam}</p>
+                                    </div>
+                                </div>
+                            </c:forEach>
+                            <div class="container" >
+                                <div class="row">
+                                    <form:form action="/${groep.groepId}/reisItemAanmaken" class="form-inline" method="post" modelAttribute="nieuwReisItemFormulier">
+                                        <input type="text" class="form-control" name="naam" required="required" placeholder="Naam Reis">
+                                        <button id="reisItemAanmaken" type="submit"><i class="fas fa-plus"></i></button>
+                                    </form:form>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="col-sm-4">
-            <div class="jumbotron" style="background-color: #666666;">
-                <div class="row" >
-                    <p class="lead text-white strong">${groep.groepsNaam}
-                        <a id="wijzigGroepsNaam2" type="button" class="text-white" data-toggle="modal" data-target="#wijzigGroepsNaam"><i class="far fa-edit"></i></a>
-                        </h3>
-                    <table class="table table-hover table-borderless text-white">
-                        <thead>
-                        <tr>
-                            <th scope="col">Naam</th>
-
-                            <th scope="col"></th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <c:forEach items="${groepsLedenLijst}" var="groepslid">
+            <div class="col-sm-4">
+                <div class="jumbotron shadow" style="background-color: #666666;">
+                    <div class="row" >
+                        <p class="lead text-white strong">${groep.groepsNaam}
+                            <a id="wijzigGroepsNaam2" type="button" class="text-white" data-toggle="modal" data-target="#wijzigGroepsNaam"><i class="far fa-edit"></i></a>
+                            </h3>
+                        <table class="table table-hover table-borderless text-white">
+                            <thead>
                             <tr>
-                                <td data-toggle="tooltip" data-placement="bottom" title="${groepslid.email}">${groepslid.voornaam} ${groepslid.achternaam}</td>
-                                <td><a href="${groep.groepId}/VerwijderLedenUitGroep/${groepslid.gebruikersId}">
-                                    <i class="far fa-trash-alt"></i>
-                                </a></td>
+                                <th scope="col">Naam</th>
+
+                                <th scope="col"></th>
                             </tr>
-                        </c:forEach>
-                        </tbody>
-                    </table>
-                </div>
-                <hr class="my-4">
-                <div class="row">
-                    <p class="lead text-white mt-3">Alle Leden</h3>
+                            </thead>
+                            <tbody>
+                            <c:forEach items="${groepsLedenLijst}" var="groepslid">
+                                <tr>
+                                    <td data-toggle="tooltip" data-placement="bottom" title="${groepslid.email}">${groepslid.voornaam} ${groepslid.achternaam}</td>
+                                    <td><a id="VerwijderLedenUitGroep" href="${groep.groepId}/VerwijderLedenUitGroep/${groepslid.gebruikersId}">
+                                        <i class="far fa-trash-alt"></i>
+                                    </a></td>
+                                </tr>
+                            </c:forEach>
+                            </tbody>
+                        </table>
+                    </div>
                     <hr class="my-4">
+                    <div class="row">
+                        <p class="lead text-white mt-3">Alle Leden</h3>
+                        <hr class="my-4">
 
-                    <table class="table table-hover table-borderless text-white">
-                        <thead>
-                        <tr>
-                            <th scope="col">Naam</th>
-                            <th scope="col"></th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <c:forEach items="${AlleLedenLijst}" var="lid">
+                        <table class="table table-hover table-borderless text-white">
+                            <thead>
                             <tr>
-                                <td data-toggle="tooltip" data-placement="bottom" title="${lid.email}">${lid.voornaam} ${lid.achternaam}</td>
-                                <td><a href="${groep.groepId}/voegGebruikerToeAanGroep/${lid.gebruikersId}">
-                                    <i class="fas fa-plus"></i>
-                                </a></td>
+                                <th scope="col">Naam</th>
+                                <th scope="col"></th>
                             </tr>
-                        </c:forEach>
+                            </thead>
+                            <tbody>
+                            <c:forEach items="${AlleLedenLijst}" var="lid">
+                                <tr>
+                                    <td data-toggle="tooltip" data-placement="bottom" title="${lid.email}">${lid.voornaam} ${lid.achternaam}</td>
+                                    <td><a id="voegGebruikerToeAanGroep" href="${groep.groepId}/voegGebruikerToeAanGroep/${lid.gebruikersId}">
+                                        <i class="fas fa-plus"></i>
+                                    </a></td>
+                                </tr>
+                            </c:forEach>
 
-                        </tbody>
-                    </table>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-offset-1 col-sm-10">
-            <div class="card w-75 mx-auto">
-                <div class="card-body">
-                    <form:form action="/{groepId}/voegLedenToeAanGroepViaEmail" method="post" modelAttribute="groepslidEmail">
-                        <h5 class="card-title">Stuur een uitnodiging naar een nog niet bestaande gebruiker.</h5>
-                        <p class="card-text">
-                        <div class="form-group">
-                            <div class="col">
-                                <form:input type="email" class="form-control" path="email" placeholder="Email"/>
+        <div class="row">
+            <div class="col-sm-offset-1 col-sm-10 mb-5">
+                <div class="card w-75 mx-auto">
+                    <div class="card-body">
+                        <form:form action="/{groepId}/voegLedenToeAanGroepViaEmail" method="post" modelAttribute="groepslidEmail">
+                            <h5 class="card-title">Stuur een uitnodiging naar een nog niet bestaande gebruiker.</h5>
+                            <p class="card-text">
+                            <div class="form-group">
+                                <div class="col">
+                                    <form:input type="email" class="form-control" path="email" placeholder="Email"/>
+                                </div>
                             </div>
-                        </div>
-                        </p>
-                        <div>
-                            <button type="submit" class="btn btn-primary">Stuur</button>
-                        </div>
-                    </form:form>
+                            </p>
+                            <div>
+                                <button type="submit" class="btn btn-primary">Stuur</button>
+                            </div>
+                        </form:form>
+                    </div>
                 </div>
-            </div>
 
+            </div>
         </div>
     </div>
-</div>
 </div>
 
 <!-- Modal -->
@@ -158,7 +157,25 @@
         </div>
     </div>
 </div>
+<!-- Footer -->
+<footer class="py-4 bg-dark text-white-50">
 
+    <!-- Footer Elements -->
+    <div class="container">
+
+        <!-- Call to action -->
+        <ul class="list-unstyled list-inline text-center py-2">
+
+
+
+            </li>
+        </ul>
+        <!-- Call to action -->
+
+    </div>
+    <!-- Footer Elements -->
+</footer>
+<!-- Footer -->
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.security.Principal;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class PlannieReisItemService {
@@ -36,5 +37,10 @@ public class PlannieReisItemService {
 
     public Optional<ReisItem> findById(Integer Id) {
         return reisItemRepository.findById(Id);
+    }
+
+    public Set<ReisItem> getLijstMetReisItemsOpGroepId(Integer groepId) {
+        Groep groep = groepRepository.findByGroepId(groepId);
+        return groep.getReisItem();
     }
 }
