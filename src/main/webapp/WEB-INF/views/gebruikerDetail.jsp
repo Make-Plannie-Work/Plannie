@@ -17,7 +17,7 @@
     </head>
     <body>
 
-    <nav class="navbar navbar-light bg-light shadow">
+    <nav class="navbar navbar-light bg-light shadow ">
         <span class="navbar-brand mb-0 h1"><a href="/gebruikerDetail" class="text-dark">${currentUser.voornaam}'s Plannie</a></span>
 
         <ul class="nav justify-content-end">
@@ -52,31 +52,22 @@
                 <div class="jumbotron shadow" style="background-color: #666666;">
                     <div class="row" >
                         <c:forEach items="${lijstMetGroepen}" var="groep">
-                            <div class="accordion " id="lijstMetGroepen">
-                                <div class="text-white">
-                                    <div class="card-header" id="headingOne">
-                                        <h2 class="mb-0">
-                                            <button class="btn btn-link text-white" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-                                                <a href="/groepDetail/${groep.groepId}" class="text-white">${groep.groepsNaam}</a>
-                                            </button>
-                                        </h2>
-                                    </div>
 
-                                    <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
-                                        <div class="card-body text-white">
-                                            <ul class="list-group list-group-flush">
-                                                <a href="/#"><li class="list-group-item text-white bg-primary">Reis 1</li></a>
-                                            </ul>
-                                        </div>
-                                    </div>
+                            <div class="card flex-row flex-wrap mb-2 mx-auto" style="width: 18rem;">
+                                <div class="card-header border-0">
+                                    <img src="https://via.placeholder.com/50.jpg" alt="">
                                 </div>
+                                <div class="card-block px-2">
+                                    <p class="card-text"><a href="/groepDetail/${groep.groepId}">${groep.groepsNaam}</a></p>
+                                </div>
+                                <div class="w-100"></div>
                             </div>
                         </c:forEach>
                     </div>
                     <hr class="my-4">
                     <div class="row">
-                        <form:form action="/groepAanmaken" method="post" modelAttribute="nieuweGroepFormulier">
-                            <input type="text" name="groepsNaam" required="required" placeholder="Naam Groep">
+                        <form:form action="/groepAanmaken" class="mx-auto" method="post" modelAttribute="nieuweGroepFormulier">
+                            <input type="text" style="width: 18rem;" class="form-control form-control-sm " name="groepsNaam" required="required" placeholder="Naam Groep">
                             <input id="groepAanmaken" type="submit" class="btn btn-primary" value="Maak groep aan">
                         </form:form>
                         <hr class="my-4">
