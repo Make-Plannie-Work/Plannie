@@ -129,15 +129,17 @@ public class GebruikerViewTests {
     @Test
     public void testLogInGefaald() throws InterruptedException {
         //Arrange
-        this.driver.get("http://localhost:8080/gebruikerDetail");
+        this.driver.get("http://localhost:8080/index");
         this.testsHelper.maakTestGebruiker();
         this.testsHelper.registreerTestGebruikers();
         Gebruiker testGebruiker = testsHelper.geefTestGebruiker();
 
         //Activate
+        driver.findElement(By.id("inloggen")).click();
+        this.testsHelper.wachtOpElement("loginForm");
         driver.findElement(By.name("username")).sendKeys(testGebruiker.getEmail());
         driver.findElement(By.name("password")).sendKeys("foutwachtwoord" + Keys.RETURN);
-        this.testsHelper.wachtOpTitel("Home Plannie");
+        this.testsHelper.wachtOpTitel("Welkom bij Plannie");
 
         //Assert
         assertEquals("http://localhost:8080/index?error", driver.getCurrentUrl());
