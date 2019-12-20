@@ -34,8 +34,8 @@
 
             <div class="col-sm-8">
                 <div class="jumbotron shadow">
-                    <div class="row">
-                        <div>
+                    <div class="row" >
+
                             <c:forEach items="${lijstMetReisItems}" var="reisItem">
 
                                 <div class="card flex-row flex-wrap mb-2 mx-auto" style="width: 42rem;">
@@ -56,7 +56,7 @@
                                     </form:form>
                                 </div>
                             </div>
-                        </div>
+
                     </div>
                 </div>
             </div>
