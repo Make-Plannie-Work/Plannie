@@ -41,7 +41,8 @@
                 <div class="jumbotron shadow">
                     <div class="row">
                         <p class="lead">Wijzig je gegevens</p>
-
+                    </div>
+                    <div class ="row">
                         <div>
                             <form:form action = "/wijzigen" method="post" modelAttribute="gebruikersWijzigingsFormulier">
                                 <div class="row">
@@ -124,7 +125,7 @@
             <!-- Call to action -->
             <ul class="list-unstyled list-inline text-center py-2">
 
-                <h6 class="mb-1"><small>Registreer je snel: <a href="/registreer" class="text-white">klik hier!</a></small></h6>
+
 
 
                 </li>

@@ -48,6 +48,8 @@ public class PlannieSecurityConfiguration extends WebSecurityConfigurerAdapter {
                     .permitAll()
                 .and()
                     .logout()
+                    .logoutUrl("/logout")
+                    .logoutSuccessUrl("/index")
                     .permitAll()
                 ;
 

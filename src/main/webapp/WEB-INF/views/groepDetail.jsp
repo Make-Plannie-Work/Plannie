@@ -48,11 +48,11 @@
                                     </div>
                                 </div>
                             </c:forEach>
-                            <div class="container" >
-                                <div class="row">
+                            <div class="container " >
+                                <div class="row m-auto">
                                     <form:form action="/${groep.groepId}/reisItemAanmaken" class="form-inline" method="post" modelAttribute="nieuwReisItemFormulier">
                                         <input type="text" class="form-control" name="naam" required="required" placeholder="Naam Reis">
-                                        <button id="reisItemAanmaken" type="submit"><i class="fas fa-plus"></i></button>
+                                        <button id="reisItemAanmaken" class="ml-2 rounded-lg" type="submit"><i class="fas fa-plus"></i></button>
                                     </form:form>
                                 </div>
                             </div>
@@ -63,7 +63,7 @@
 
             <div class="col-sm-4">
                 <div class="jumbotron shadow" style="background-color: #666666;">
-                    <div class="row" >
+                    <div class="row ml-1" >
                         <p class="lead text-white strong">${groep.groepsNaam}
                             <a id="wijzigGroepsNaam2" type="button" class="text-white" data-toggle="modal" data-target="#wijzigGroepsNaam"><i class="far fa-edit"></i></a>
                             </h3>
@@ -88,8 +88,8 @@
                         </table>
                     </div>
                     <hr class="my-4">
-                    <div class="row">
-                        <p class="lead text-white mt-3">Alle Leden</h3>
+                    <div class="row ml-1">
+                        <p class="lead text-white mt-3 ">Alle Leden</h3>
                         <hr class="my-4">
 
                         <table class="table table-hover table-borderless text-white">

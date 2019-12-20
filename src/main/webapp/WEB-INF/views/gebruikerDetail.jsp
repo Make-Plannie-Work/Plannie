@@ -25,8 +25,9 @@
                 <a class="nav-link text-dark" method="post" id="gebruikerWijzigen" href="/gebruikerWijzig">Jouw gegevens</a>
             </li>
             <li class="nav-item">
-
-                <a class="nav-link text-dark" id="logout" method="post" href="/logout">Log uit</a>
+                <form:form action="${pageContext.request.contextPath}/logout" method="POST">
+                    <input class="nav-link text-dark" style="border: none; background: transparent;" type="submit" value="Log uit" />
+                </form:form>
             </li>
     </nav>
 
@@ -65,10 +66,10 @@
                         </c:forEach>
                     </div>
                     <hr class="my-4">
-                    <div class="row">
-                        <form:form action="/groepAanmaken" class="mx-auto" method="post" modelAttribute="nieuweGroepFormulier">
-                            <input type="text" style="width: 18rem;" class="form-control form-control-sm " name="groepsNaam" required="required" placeholder="Naam Groep">
-                            <input id="groepAanmaken" type="submit" class="btn btn-primary" value="Maak groep aan">
+                    <div class="row ">
+                        <form:form action="/groepAanmaken" class="m-auto form-inline" method="post" modelAttribute="nieuweGroepFormulier">
+                            <input type="text" class="form-control flex-row flex-wrap" name="groepsNaam" required="required" placeholder="Naam Groep">
+                            <button id="groepAanmaken" class="ml-2 rounded-lg" type="submit"><i class="fas fa-plus"></i></button>
                         </form:form>
                         <hr class="my-4">
                     </div>
