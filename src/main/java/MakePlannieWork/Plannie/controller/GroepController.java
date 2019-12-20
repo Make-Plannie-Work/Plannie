@@ -83,9 +83,16 @@ public class GroepController {
         return "redirect:/groepDetail/" + groepId;
     }
 
-    @PostMapping("/groepDetail/{groepId}/voegLedenToeAanGroepViaEmail")
-    public String voegLedenToeAanGroepViaEmail(@ModelAttribute("groepslidEmail") Gebruiker gebruiker, @PathVariable("groepId") Integer groepId, BindingResult result, Model model) {
+    @GetMapping("/groepDetail/{groepId}/voegLedenToeAanGroepViaEmail")
+    public String voegLedenToeAanGroepViaEmail(Model model) {
+        model.addAttribute("groepsLidEmail", new Gebruiker());
+        return "groepNieuw";
+    }
 
+    @PostMapping("/groepDetail/{groepId}/voegLedenToeAanGroepViaEmail")
+    public String voegLedenToeAanGroepViaEmail(Gebruiker gebruiker, @PathVariable("groepId") Integer groepId, BindingResult result, Model model) {
+        model.addAttribute(gebruiker);
+        System.out.println(gebruiker.getEmail());;
         Optional<Groep> groepOptional = plannieGroepService.findById(groepId);
         if (!groepOptional.isPresent()) {
             result.reject("Invalid group");
@@ -95,7 +102,7 @@ public class GroepController {
             model.addAttribute("error", result.getAllErrors());
             return "groepDetail";
         } else {
-
+            gebruiker.setVoornaam(gebruiker.getEmail());
             plannieGebruikersService.voegGebruikerToe(gebruiker, groepOptional.get());
         } return "redirect:/groepDetail";
     }

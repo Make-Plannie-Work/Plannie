@@ -119,7 +119,7 @@
             <div class="col-sm-offset-1 col-sm-10 mb-5">
                 <div class="card w-75 mx-auto">
                     <div class="card-body">
-                        <form:form action="/{groepId}/voegLedenToeAanGroepViaEmail" method="post" modelAttribute="groepslidEmail">
+                        <form:form action="/groepDetail/${groep.groepId}/voegLedenToeAanGroepViaEmail" method="post" modelAttribute="groepslidEmail">
                             <h5 class="card-title">Stuur een uitnodiging naar een nog niet bestaande gebruiker.</h5>
                             <p class="card-text">
                             <div class="form-group">
@@ -129,7 +129,7 @@
                             </div>
                             </p>
                             <div>
-                                <button type="submit" class="btn btn-primary">Stuur</button>
+                                <form:button type="submit" class="btn btn-primary">Stuur</form:button>
                             </div>
                         </form:form>
                     </div>
