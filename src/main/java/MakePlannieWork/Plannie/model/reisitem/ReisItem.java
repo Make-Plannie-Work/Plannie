@@ -24,12 +24,10 @@ public class ReisItem {
     private String locatie;
     private Integer aanmaker;
 
-    @OneToMany
-    @JoinColumn(
-            name = "reis_item",
-            referencedColumnName = "reisItemId"
-    )
-    private Set<ReisItem> reisItems;
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "reis_item_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private Set<Notitie> notitie;
 
     public Integer getReisItemId() {
         return reisItemId;
@@ -79,11 +77,11 @@ public class ReisItem {
         this.locatie = locatie;
     }
 
-    public Set<ReisItem> getReisItems() {
-        return reisItems;
+    public Set<Notitie> getNotitie() {
+        return notitie;
     }
 
-    public void setReisItems(Set<ReisItem> reisItems) {
-        this.reisItems = reisItems;
+    public void setNotitie(Set<Notitie> notitie) {
+        this.notitie = notitie;
     }
 }
