@@ -68,7 +68,7 @@ public class GroepViewTests {
         this.testsHelper.inloggen();
         Gebruiker testGebruiker = this.testsHelper.geefTestGebruiker();
         Groep testGroep = this.testsHelper.geefTestGroep();
-        this.testsHelper.wachtOpTitel("Hallo, " + testGebruiker.getVoornaam());
+        this.testsHelper.wachtOpTitel("Welkom bij Plannie - " + testGebruiker.getVoornaam());
 
         // Activate
         driver.findElement(By.name("groepsNaam")).sendKeys(testGroep.getGroepsNaam());
@@ -87,7 +87,7 @@ public class GroepViewTests {
         this.testsHelper.registreerTestGebruikers();
         this.testsHelper.inloggen();
         Gebruiker testGebruiker = this.testsHelper.geefTestGebruiker();
-        this.testsHelper.wachtOpTitel("Hallo, " + testGebruiker.getVoornaam());
+        this.testsHelper.wachtOpTitel("Welkom bij Plannie - " + testGebruiker.getVoornaam());
 
         // Activate
         driver.findElement(By.name("groepsNaam")).sendKeys("");
@@ -95,7 +95,7 @@ public class GroepViewTests {
         Thread.sleep(500);
 
         // Assert
-        assertEquals("Hallo, " + testGebruiker.getVoornaam(), driver.getTitle());
+        assertEquals("Welkom bij Plannie - " + testGebruiker.getVoornaam(), driver.getTitle());
     }
 
     @Test
@@ -138,7 +138,7 @@ public class GroepViewTests {
         Thread.sleep(500);
 
         // Assert
-        assertEquals("Groepsdetails " + testGroepNaam, driver.getTitle());
+        assertEquals("Plannie - Groepsdetails " + testGroepNaam, driver.getTitle());
     }
 
     @Test
@@ -159,6 +159,6 @@ public class GroepViewTests {
         Thread.sleep(500);
 
         // Assert
-        assertEquals("Groepsdetails " + testGroep.getGroepsNaam(), driver.getTitle());
+        assertEquals("Plannie - Groepsdetails " + testGroep.getGroepsNaam(), driver.getTitle());
     }
 }
