@@ -19,7 +19,7 @@ public class PlannieGebruikersService implements UserDetailsService {
         );
     }
     public void voegGebruikerToe(Gebruiker gebruiker, Groep groep) {
-        gebruiker.setIdentifier(UUID.randomUUID().toString());
+
         gebruiker.getGroepen().add(groep);
         gebruikerRepository.save(gebruiker);
     }

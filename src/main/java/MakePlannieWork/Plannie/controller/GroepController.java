@@ -17,10 +17,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.mail.MessagingException;
+import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.UUID;
 
 @Controller
 public class GroepController {
@@ -67,7 +70,6 @@ public class GroepController {
         model.addAttribute("lijstMetReisItems", alleReisItems);
         model.addAttribute("AlleLedenLijst", alleGebruikers);
         model.addAttribute("groepsLedenLijst", alleGebruikersInGroep);
-        model.addAttribute("groepslidEmail", new Gebruiker());
         if (groepOptional.isPresent()) {
             model.addAttribute("currentUser", gebruikerRepository.findGebruikerByEmail(principal.getName()));
             model.addAttribute("groep", groepOptional.get());
@@ -83,21 +85,28 @@ public class GroepController {
         return "redirect:/groepDetail/" + groepId;
     }
 
-    @PostMapping("/groepDetail/{groepId}/voegLedenToeAanGroepViaEmail")
-    public String voegLedenToeAanGroepViaEmail(@ModelAttribute("groepslidEmail") Gebruiker gebruiker, @PathVariable("groepId") Integer groepId, BindingResult result, Model model) {
+    @GetMapping("/groepDetail/{groepId}/voegLedenToeAanGroepViaEmail")
+    public String voegLedenToeAanGroepViaEmail(Model model, HttpServletRequest request) {
+        model.addAttribute("groepslidEmail", new Gebruiker());
+        return "gebruikerNieuw";
+    }
 
+    @PostMapping("/groepDetail/{groepId}/voegLedenToeAanGroepViaEmail")
+    public String voegLedenToeAanGroepViaEmail(@PathVariable("groepId") Integer groepId, @ModelAttribute("groepslidEmail") Gebruiker gebruiker,  BindingResult result, Model model, HttpServletRequest request) throws MessagingException {
         Optional<Groep> groepOptional = plannieGroepService.findById(groepId);
         if (!groepOptional.isPresent()) {
             result.reject("Invalid group");
         }
-
         if (result.hasErrors()) {
             model.addAttribute("error", result.getAllErrors());
             return "groepDetail";
         } else {
-
-            plannieGebruikersService.voegGebruikerToe(gebruiker, groepOptional.get());
-        } return "redirect:/groepDetail";
+            gebruiker.setIdentifier(UUID.randomUUID().toString());
+            gebruiker.setVoornaam(gebruiker.getEmail());
+            gebruikerRepository.save(gebruiker);
+            plannieGroepService.voegGebruikerToeAanGroep(gebruikerRepository.findGebruikerByEmail(gebruiker.getEmail()).getGebruikersId(), groepId);
+            plannieGroepService.stuurUitnodigingPerEmail(gebruiker.getEmail(), groepId, gebruikerRepository.findGebruikerByEmail(gebruiker.getEmail()).getIdentifier(), request);
+        } return "redirect:/groepDetail/" + groepOptional.get().getGroepId();
     }
 
     @GetMapping("/groepDetail/{groepId}/VerwijderLedenUitGroep/{gebruikersId}")
