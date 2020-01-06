@@ -18,7 +18,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
+import java.util.ArrayList;
+
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
@@ -73,10 +76,10 @@ public class GroepViewTests {
         // Activate
         driver.findElement(By.name("groepsNaam")).sendKeys(testGroep.getGroepsNaam());
         driver.findElement(By.id("groepAanmaken")).click();
-        this.testsHelper.wachtOpTitel("Groepsdetails " + testGroep.getGroepsNaam());
+        this.testsHelper.wachtOpTitel("Plannie - Groepsdetails " + testGroep.getGroepsNaam());
 
         // Assert
-        assertEquals("Groepsdetails " + testGroep.getGroepsNaam(), driver.getTitle());
+        assertEquals("Plannie - Groepsdetails " + testGroep.getGroepsNaam(), driver.getTitle());
     }
 
     @Test
@@ -87,37 +90,16 @@ public class GroepViewTests {
         this.testsHelper.registreerTestGebruikers();
         this.testsHelper.inloggen();
         Gebruiker testGebruiker = this.testsHelper.geefTestGebruiker();
+        String testGroepsNaam = "";
         this.testsHelper.wachtOpTitel("Welkom bij Plannie - " + testGebruiker.getVoornaam());
 
         // Activate
-        driver.findElement(By.name("groepsNaam")).sendKeys("");
+        driver.findElement(By.name("groepsNaam")).sendKeys(testGroepsNaam);
         driver.findElement(By.id("groepAanmaken")).click();
         Thread.sleep(500);
 
         // Assert
         assertEquals("Welkom bij Plannie - " + testGebruiker.getVoornaam(), driver.getTitle());
-    }
-
-    @Test
-    public void testGroepsLeden() throws InterruptedException {
-        // Arrange
-        this.driver.get("http://localhost:8080/gebruikerDetail");
-        this.testsHelper.maakTestGebruiker();
-        this.testsHelper.zetTestGebruikerEnTestGroepKlaar();
-        Groep testGroep = this.testsHelper.geefTestGroep();
-        this.driver.get("http://localhost:8080/groepDetail/" + testGroep.getGroepId());
-        String testGroepNaam = testGroep.getGroepsNaam() + "Testing";
-
-        // Activate
-        driver.findElement(By.id("wijzigGroepsNaam2")).click();
-        this.testsHelper.wachtOpElement("groepsNaamWijzigingsFormulier");
-        driver.findElement(By.name("groepsNaam")).clear();
-        driver.findElement(By.name("groepsNaam")).sendKeys(testGroepNaam);
-        driver.findElement(By.id("groepsNaamWijzigen")).click();
-        Thread.sleep(500);
-
-        // Assert
-        assertEquals("Groepsdetails " + testGroepNaam, driver.getTitle());
     }
 
     @Test
@@ -135,7 +117,7 @@ public class GroepViewTests {
         driver.findElement(By.name("groepsNaam")).clear();
         driver.findElement(By.name("groepsNaam")).sendKeys(testGroepNaam);
         driver.findElement(By.id("groepsNaamWijzigen")).click();
-        Thread.sleep(500);
+        this.testsHelper.wachtOpTitel("Plannie - Groepsdetails " + testGroepNaam);
 
         // Assert
         assertEquals("Plannie - Groepsdetails " + testGroepNaam, driver.getTitle());
@@ -160,5 +142,39 @@ public class GroepViewTests {
 
         // Assert
         assertEquals("Plannie - Groepsdetails " + testGroep.getGroepsNaam(), driver.getTitle());
+    }
+
+    @Test
+    public void testGroepsLedenToevoegenEnVerwijderen() throws InterruptedException {
+        // Arrange. 3 tests gebruikers, waarvan gebruiker 1 ingelogd wordt en een groep aanmaakt.
+        this.driver.get("http://localhost:8080/gebruikerDetail");
+        this.testsHelper.maakTestGebruikers(3);
+        this.testsHelper.registreerTestGebruikers();
+        this.testsHelper.inloggen();
+        this.testsHelper.maakTestGroep();
+        this.testsHelper.registreerTestGroepen();
+        Groep testGroep = this.testsHelper.geefTestGroep();
+        ArrayList<Gebruiker> testGebruikers = this.testsHelper.geefTestGebruikers();
+        this.driver.get("http://localhost:8080/groepDetail/" + testGroep.getGroepId());
+        boolean testGebruikerToegevoegd = false;
+        boolean testGebruikerVerwijdert = false;
+
+        // Activate, de andere testgebruikers worden toegevoegd aan de groep, en eentje wordt weer verwijdert.
+        this.driver.findElement(By.id("voeg" + testGebruikers.get(1).getVoornaam() + "ToeAanGroep")).click();
+        Thread.sleep(500);
+        this.driver.findElement(By.id("voeg" + testGebruikers.get(2).getVoornaam() + "ToeAanGroep")).click();
+        Thread.sleep(500);
+        this.driver.findElement(By.id("Verwijder" + testGebruikers.get(2).getVoornaam() + "UitGroep")).click();
+        Thread.sleep(500);
+
+        // Assert
+        if (this.driver.findElement(By.id("Verwijder" + testGebruikers.get(1).getVoornaam() + "UitGroep")).getSize().width != 0) {
+            testGebruikerToegevoegd = true;
+        }
+        if (this.driver.findElement(By.id("voeg" + testGebruikers.get(2).getVoornaam() + "ToeAanGroep")).getSize().width != 0) {
+            testGebruikerVerwijdert = true;
+        }
+        assertTrue(testGebruikerToegevoegd);
+        assertTrue(testGebruikerVerwijdert);
     }
 }

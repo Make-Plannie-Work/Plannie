@@ -1,11 +1,15 @@
 package MakePlannieWork.Plannie.views;
 import MakePlannieWork.Plannie.TestsHelper;
+import MakePlannieWork.Plannie.model.Gebruiker;
+import MakePlannieWork.Plannie.model.Groep;
 import MakePlannieWork.Plannie.repository.GebruikerRepository;
 import MakePlannieWork.Plannie.repository.GroepRepository;
 import MakePlannieWork.Plannie.repository.ReisItemRepository;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +18,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
+import java.util.ArrayList;
+
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
@@ -52,5 +59,14 @@ public class ReisViewTests {
         this.driver.quit();
         this.driver = null;
         this.testsHelper = null;
+    }
+
+    @Test
+    public void testStub() throws InterruptedException {
+        // Arrange
+
+        // Activate
+
+        // Assert
     }
 }
