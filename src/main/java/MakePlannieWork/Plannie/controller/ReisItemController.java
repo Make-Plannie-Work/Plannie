@@ -52,6 +52,12 @@ public class ReisItemController {
         return "error";
     }
 
+    @PostMapping("/{groepId}/reisItemDetail/{reisItemId}/NotitieAanmaken")
+    public String nieuwSoortReisItem(ReisItem reisItem, @PathVariable("groepId") Integer groepId, @PathVariable("reisItemId") Integer reisItemId, Model model, Principal principal){
+        Optional<Groep> groepOptional = plannieGroepService.findById(groepId);
+        return "redirect:/" + groepId + "/reisItemDetail/" + reisItem.getReisItemId() + "/notitieAanmaken";
+    }
+
     @GetMapping("/{groepId}/reisItemDetail/{reisItemId}")
     public String reisItemDetail(@PathVariable("groepId") Integer groepId, @PathVariable("reisItemId") Integer reisItemId, Model model, Principal principal) {
         Optional<Groep> groepOptional = plannieGroepService.findById(groepId);

@@ -50,6 +50,18 @@
 
                     </div>
                 </div>
+                <div class="jumbotron shadow">
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="keuzeReisItemMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Wat voor soort reisitem wil je maken?
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="/{groepId}/reisItemDetail/{reisItemId}/NotitieAanmaken">Een Notitie</a>
+                            <a class="dropdown-item" href="#">Een Poll</a>
+                            <a class="dropdown-item" href="#">Een Activiteit</a>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="col-sm-4">
                 <div class="jumbotron shadow" style="background-color: #666666;">
@@ -64,28 +76,6 @@
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-sm-offset-1 col-sm-10">
-                <div class="card w-75 mx-auto mb-5">
-                    <div class="card-body">
-                        <form:form action="/{groepId}/voegLedenToeAanGroepViaEmail" method="post" modelAttribute="groepslidEmail">
-                            <h5 class="card-title">Stuur een uitnodiging naar een nog niet bestaande gebruiker.</h5>
-                            <p class="card-text">
-                            <div class="form-group">
-                                <div class="col">
-                                    <form:input type="email" class="form-control" path="email" placeholder="Email"/>
-                                </div>
-                            </div>
-                            </p>
-                            <div>
-                                <button id="stuurEmail" type="submit" class="btn btn-primary">Stuur</button>
-                            </div>
-                        </form:form>
-                    </div>
-                </div>
-
-            </div>
-        </div>
     </div>
 </div>
 
@@ -97,9 +87,6 @@
 
         <!-- Call to action -->
         <ul class="list-unstyled list-inline text-center py-2">
-
-            <h6 class="mb-1"><small>Registreer je snel: <a href="/registreer" class="text-white">klik hier!</a></small></h6>
-
 
             </li>
         </ul>

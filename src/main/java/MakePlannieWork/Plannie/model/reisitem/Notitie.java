@@ -5,7 +5,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 
 @Entity
 @Table(name = "notitie")
-public class Notitie {
+public class Notitie extends ReisItem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
