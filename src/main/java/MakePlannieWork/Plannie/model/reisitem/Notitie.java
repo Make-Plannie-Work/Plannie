@@ -1,11 +1,10 @@
 package MakePlannieWork.Plannie.model.reisitem;
 
 import javax.persistence.*;
-import javax.persistence.criteria.CriteriaBuilder;
 
 @Entity
 @Table(name = "notitie")
-public class Notitie extends ReisItem {
+public class Notitie {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

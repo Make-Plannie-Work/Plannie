@@ -66,7 +66,7 @@
             <div class="col-sm-4">
                 <div class="jumbotron shadow" style="background-color: #666666;">
                     <div class="row" >
-                        <p class="lead text-white">${reisItem.naam} - <a class ="lead text-white" href="/groepDetail/${groep.groepId}">${groep.groepsNaam}</a></p>
+                        <p class="lead text-white">${reisItem.naam}</p> <a id="wijzigReisItem" type="button" class="text-white" data-toggle="modal" data-target="#wijzigReisItem2"><i class="far fa-edit"></i></a> <p class="lead text-white"> - <a class ="lead text-white" href="/groepDetail/${groep.groepId}">${groep.groepsNaam}</a></p>
                     </div>
                     <hr class="my-4">
                     <div class="row">
@@ -78,7 +78,23 @@
         </div>
     </div>
 </div>
-
+<!-- Modal -->
+<div class="modal fade" id="wijzigReisItem2" tabindex="-1" role="dialog" aria-labelledby="Wijzig ReisItem"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Groepsnaam Wijzigen</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <jsp:include page="reisItemWijzig.jsp"/>
+            </div>
+        </div>
+    </div>
+</div>
 <!-- Footer -->
 <footer class="py-4 bg-dark text-white-50">
 
@@ -96,6 +112,7 @@
     <!-- Footer Elements -->
 </footer>
 <!-- Footer -->
+
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
