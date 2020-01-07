@@ -126,4 +126,31 @@ public class ReisViewTests {
         // Assert
         assertEquals("Plannie - ReisDetails " + testReisNaam + "2", driver.getTitle());
     }
+
+    @Test
+    public void testReisNaamWijzigenFout() throws InterruptedException {
+        // Arrange
+        this.driver.get("http://localhost:8080/gebruikerDetail");
+        this.testsHelper.zetTestGebruikerEnTestGroepKlaar();
+        Groep testGroep = this.testsHelper.geefTestGroep();
+        this.driver.get("http://localhost:8080/groepDetail/" + testGroep.getGroepId());
+        String testReisNaam = "TestReis";
+
+        // Activate
+        Thread.sleep(500);
+        this.driver.findElement(By.id("reisNaam")).sendKeys(testReisNaam);
+        this.driver.findElement(By.id("reisItemAanmaken")).click();
+        Thread.sleep(500);
+        driver.findElement(By.id("wijzigReisItem")).click();
+        this.testsHelper.wachtOpElement("reisItemWijzigingsFormulier");
+        Thread.sleep(500);
+        driver.findElement(By.name("naam")).clear();
+        driver.findElement(By.name("naam")).sendKeys("");
+        driver.findElement(By.id("reisItemWijzigen")).click();
+        Thread.sleep(500);
+        this.testsHelper.wachtOpTitel("Plannie - ReisDetails " + testReisNaam);
+
+        // Assert
+        assertEquals("Plannie - ReisDetails " + testReisNaam, driver.getTitle());
+    }
 }
