@@ -64,9 +64,8 @@
             <div class="col-sm-4">
                 <div class="jumbotron shadow" style="background-color: #666666;">
                     <div class="row" >
-                        <p class="lead text-white strong">${groep.groepsNaam}
+                        <p class="lead text-white strong">${groep.groepsNaam} </p>
                             <a id="wijzigGroepsNaam2" type="button" class="text-white" data-toggle="modal" data-target="#wijzigGroepsNaam"><i class="far fa-edit"></i></a>
-                            </h3>
                         <table class="table table-hover table-borderless text-white">
                             <thead>
                             <tr>

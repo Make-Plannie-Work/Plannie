@@ -50,11 +50,23 @@
 
                     </div>
                 </div>
+                <div class="jumbotron shadow">
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="keuzeReisItemMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Wat voor soort reisitem wil je maken?
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="/{groepId}/reisItemDetail/{reisItemId}/NotitieAanmaken">Een Notitie</a>
+                            <a class="dropdown-item" href="#">Een Poll</a>
+                            <a class="dropdown-item" href="#">Een Activiteit</a>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="col-sm-4">
                 <div class="jumbotron shadow" style="background-color: #666666;">
                     <div class="row" >
-                        <p class="lead text-white">${reisItem.naam} - <a class ="lead text-white" href="/groepDetail/${groep.groepId}">${groep.groepsNaam}</a></p>
+                        <p class="lead text-white">${reisItem.naam}</p> <a id="wijzigReisItem" type="button" class="text-white" data-toggle="modal" data-target="#wijzigReisItem2"><i class="far fa-edit"></i></a> <p class="lead text-white"> - <a class ="lead text-white" href="/groepDetail/${groep.groepId}">${groep.groepsNaam}</a></p>
                     </div>
                     <hr class="my-4">
                     <div class="row">
@@ -64,31 +76,25 @@
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-sm-offset-1 col-sm-10">
-                <div class="card w-75 mx-auto mb-5">
-                    <div class="card-body">
-                        <form:form action="/{groepId}/voegLedenToeAanGroepViaEmail" method="post" modelAttribute="groepslidEmail">
-                            <h5 class="card-title">Stuur een uitnodiging naar een nog niet bestaande gebruiker.</h5>
-                            <p class="card-text">
-                            <div class="form-group">
-                                <div class="col">
-                                    <form:input type="email" class="form-control" path="email" placeholder="Email"/>
-                                </div>
-                            </div>
-                            </p>
-                            <div>
-                                <button id="stuurEmail" type="submit" class="btn btn-primary">Stuur</button>
-                            </div>
-                        </form:form>
-                    </div>
-                </div>
-
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="wijzigReisItem2" tabindex="-1" role="dialog" aria-labelledby="Wijzig ReisItem"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Reis Item Wijzigen</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <jsp:include page="reisItemWijzig.jsp"/>
             </div>
         </div>
     </div>
 </div>
-
 <!-- Footer -->
 <footer class="py-4 bg-dark text-white-50">
 
@@ -98,9 +104,6 @@
         <!-- Call to action -->
         <ul class="list-unstyled list-inline text-center py-2">
 
-            <h6 class="mb-1"><small>Registreer je snel: <a href="/registreer" class="text-white">klik hier!</a></small></h6>
-
-
             </li>
         </ul>
         <!-- Call to action -->
@@ -109,6 +112,7 @@
     <!-- Footer Elements -->
 </footer>
 <!-- Footer -->
+
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"

@@ -1,7 +1,6 @@
 package MakePlannieWork.Plannie.model.reisitem;
 
 import javax.persistence.*;
-import javax.persistence.criteria.CriteriaBuilder;
 
 @Entity
 @Table(name = "notitie")
