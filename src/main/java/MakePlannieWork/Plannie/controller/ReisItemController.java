@@ -11,7 +11,9 @@ import MakePlannieWork.Plannie.service.PlannieReisItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -50,6 +52,19 @@ public class ReisItemController {
             return "redirect:/" + groepId + "/reisItemDetail/" + reisItem.getReisItemId();
         }
         return "error";
+    }
+
+    @PostMapping("/{groepId}/reisItemDetail/{reisItemId}/reisItemWijzigen")
+    public String reisItemWijzigen(@ModelAttribute("reisItemWijzigingsFormulier")
+                                               ReisItem reisItem, @PathVariable("groepId") Integer groepId, @PathVariable("reisItemId") Integer reisItemId, BindingResult result) {
+        if (result.hasErrors()) {
+            return "groepDetail";
+        } else {
+            ReisItem huidigReisItem = reisItemRepository.findGebruikerByReisItemId(reisItemId);
+            huidigReisItem.setNaam(reisItem.getNaam());
+            reisItemRepository.save(huidigReisItem);
+            return "redirect:/" + groepId + "/reisItemDetail/" + reisItem.getReisItemId();
+        }
     }
 
     @PostMapping("/{groepId}/reisItemDetail/{reisItemId}/NotitieAanmaken")
