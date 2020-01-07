@@ -51,7 +51,7 @@
                             <div class="container" >
                                 <div class="row">
                                     <form:form action="/${groep.groepId}/reisItemAanmaken" class="form-inline" method="post" modelAttribute="nieuwReisItemFormulier">
-                                        <input type="text" class="form-control" name="naam" required="required" placeholder="Naam Reis">
+                                        <input id="reisNaam" type="text" class="form-control" name="naam" required="required" placeholder="Naam Reis">
                                         <button id="reisItemAanmaken" type="submit"><i class="fas fa-plus"></i></button>
                                     </form:form>
                                 </div>

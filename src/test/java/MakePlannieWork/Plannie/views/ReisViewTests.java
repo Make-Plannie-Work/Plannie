@@ -62,11 +62,40 @@ public class ReisViewTests {
     }
 
     @Test
-    public void testStub() throws InterruptedException {
+    public void testReisAanmakenCorrect() throws InterruptedException {
         // Arrange
+        this.driver.get("http://localhost:8080/gebruikerDetail");
+        this.testsHelper.zetTestGebruikerEnTestGroepKlaar();
+        Groep testGroep = this.testsHelper.geefTestGroep();
+        this.driver.get("http://localhost:8080/groepDetail/" + testGroep.getGroepId());
+        String testReisNaam = "TestReis";
 
         // Activate
+        this.driver.findElement(By.id("reisNaam")).sendKeys(testReisNaam);
+        Thread.sleep(500);
+        this.driver.findElement(By.id("reisItemAanmaken")).click();
+        Thread.sleep(500);
 
         // Assert
+        assertEquals("Plannie - ReisDetails " + testReisNaam, driver.getTitle());
+    }
+
+    @Test
+    public void testReisAanmakenFout() throws InterruptedException {
+        // Arrange
+        this.driver.get("http://localhost:8080/gebruikerDetail");
+        this.testsHelper.zetTestGebruikerEnTestGroepKlaar();
+        Groep testGroep = this.testsHelper.geefTestGroep();
+        this.driver.get("http://localhost:8080/groepDetail/" + testGroep.getGroepId());
+        String testReisNaam = "";
+
+        // Activate
+        Thread.sleep(500);
+        this.driver.findElement(By.id("reisNaam")).sendKeys(testReisNaam);
+        this.driver.findElement(By.id("reisItemAanmaken")).click();
+        Thread.sleep(500);
+
+        // Assert
+        assertEquals("Plannie - Groepsdetails " + testGroep.getGroepsNaam(), driver.getTitle());
     }
 }
