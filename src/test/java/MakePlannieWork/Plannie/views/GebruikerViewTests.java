@@ -173,14 +173,12 @@ public class GebruikerViewTests {
     }
 
     @Test
-    public void testGebruikerWijzigenFout() throws InterruptedException {
+    public void testGebruikerWijzigenVoornaamFout() throws InterruptedException {
         // Arrange Voornaam Test
         this.driver.get("http://localhost:8080/gebruikerDetail");
         this.testsHelper.maakTestGebruiker();
         this.testsHelper.registreerTestGebruikers();
         Gebruiker testGebruiker = this.testsHelper.geefTestGebruiker();
-        String gewijzigdeVoornaam = testGebruiker.getVoornaam() + "Test";
-        String gewijzigdWachtwoord = testGebruiker.getWachtwoord() + "Nieuw";
         this.testsHelper.inloggen();
 
         // Activate Voornaam Test
@@ -192,9 +190,28 @@ public class GebruikerViewTests {
 
         // Assert Voornaam Test
         assertEquals("Wijzig je gegevens - " + testGebruiker.getVoornaam(), driver.getTitle());
+    }
 
-        // Activate Wachtwoord Test
+    @Test
+    public void testGebruikerWijzigenWachtwoordFout() throws InterruptedException {
+        // Arrange Voornaam Test
+        this.driver.get("http://localhost:8080/gebruikerDetail");
+        this.testsHelper.maakTestGebruiker();
+        this.testsHelper.registreerTestGebruikers();
+        Gebruiker testGebruiker = this.testsHelper.geefTestGebruiker();
+        String gewijzigdWachtwoord = testGebruiker.getWachtwoord() + "Nieuw";
+        this.testsHelper.inloggen();
 
-        // Assert Wachtwoord Test
+        // Activate Voornaam Test
+        driver.findElement(By.id("gebruikerWijzigen")).click();
+        this.testsHelper.wachtOpElement("gebruikersWijzigingsFormulier");
+        driver.findElement(By.id("collapseWachtwoordenKnop")).click();
+        this.testsHelper.wachtOpElement("collapseWachtwoorden");
+        driver.findElement(By.name("wachtwoord")).sendKeys(gewijzigdWachtwoord);
+        driver.findElement(By.id("gebruikerWijzigen")).click();
+        Thread.sleep(500);
+
+        // Assert Voornaam Test
+        assertEquals("Wijzig je gegevens - " + testGebruiker.getVoornaam(), driver.getTitle());
     }
 }

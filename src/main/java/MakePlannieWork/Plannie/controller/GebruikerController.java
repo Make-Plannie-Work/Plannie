@@ -87,7 +87,7 @@ public class GebruikerController {
                                     BindingResult result, Principal principal) {
         if (result.hasErrors() || !gebruiker.getWachtwoord().equals(gebruiker.getTrancientWachtwoord())) {
             // TODO Als de gebruiker een niet matchend wachtwoord heeft, wordt hij nu zonder foutmelding teruggeleid naar de pagina.
-            return "/gebruikerWijzig";
+            return "redirect:/gebruikerWijzig";
         } else {
             Gebruiker huidigeGebruiker = gebruikerRepository.findGebruikerByEmail(principal.getName());
 
