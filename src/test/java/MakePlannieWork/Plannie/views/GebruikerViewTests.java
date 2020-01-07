@@ -146,13 +146,14 @@ public class GebruikerViewTests {
     }
 
     @Test
-    public void testGebruikerWijzigen() throws InterruptedException {
+    public void testGebruikerWijzigenCorrect() throws InterruptedException {
         // Arrange
         this.driver.get("http://localhost:8080/gebruikerDetail");
         this.testsHelper.maakTestGebruiker();
         this.testsHelper.registreerTestGebruikers();
         Gebruiker testGebruiker = this.testsHelper.geefTestGebruiker();
         String gewijzigdeVoornaam = testGebruiker.getVoornaam() + "Test";
+        String gewijzigdWachtwoord = testGebruiker.getWachtwoord() + "Nieuw";
         this.testsHelper.inloggen();
 
         // Activate
@@ -160,10 +161,40 @@ public class GebruikerViewTests {
         this.testsHelper.wachtOpElement("gebruikersWijzigingsFormulier");
         driver.findElement(By.name("voornaam")).clear();
         driver.findElement(By.name("voornaam")).sendKeys(gewijzigdeVoornaam);
+        driver.findElement(By.id("collapseWachtwoordenKnop")).click();
+        this.testsHelper.wachtOpElement("collapseWachtwoorden");
+        driver.findElement(By.name("wachtwoord")).sendKeys(gewijzigdWachtwoord);
+        driver.findElement(By.name("trancientWachtwoord")).sendKeys(gewijzigdWachtwoord);
         driver.findElement(By.id("gebruikerWijzigen")).click();
         this.testsHelper.wachtOpTitel("Welkom bij Plannie - " + gewijzigdeVoornaam);
 
         // Assert
         assertEquals("Welkom bij Plannie - " + gewijzigdeVoornaam, driver.getTitle());
+    }
+
+    @Test
+    public void testGebruikerWijzigenFout() throws InterruptedException {
+        // Arrange Voornaam Test
+        this.driver.get("http://localhost:8080/gebruikerDetail");
+        this.testsHelper.maakTestGebruiker();
+        this.testsHelper.registreerTestGebruikers();
+        Gebruiker testGebruiker = this.testsHelper.geefTestGebruiker();
+        String gewijzigdeVoornaam = testGebruiker.getVoornaam() + "Test";
+        String gewijzigdWachtwoord = testGebruiker.getWachtwoord() + "Nieuw";
+        this.testsHelper.inloggen();
+
+        // Activate Voornaam Test
+        driver.findElement(By.id("gebruikerWijzigen")).click();
+        this.testsHelper.wachtOpElement("gebruikersWijzigingsFormulier");
+        driver.findElement(By.name("voornaam")).clear();
+        driver.findElement(By.id("gebruikerWijzigen")).click();
+        Thread.sleep(500);
+
+        // Assert Voornaam Test
+        assertEquals("Wijzig je gegevens - " + testGebruiker.getVoornaam(), driver.getTitle());
+
+        // Activate Wachtwoord Test
+
+        // Assert Wachtwoord Test
     }
 }

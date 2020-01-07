@@ -14,7 +14,7 @@
               integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
               crossorigin="anonymous">
         <script src="https://kit.fontawesome.com/d450c035a5.js" crossorigin="anonymous"></script>
-        <title>Welkom bij Plannie - ${currentUser.voornaam}</title>
+        <title>Wijzig je gegevens - ${currentUser.voornaam}</title>
     </head>
     <body>
 
@@ -65,7 +65,7 @@
                                 </div>
 
                                 <p>
-                                    <button class="btn btn-primary" type="button" data-toggle="collapse"
+                                    <button id="collapseWachtwoordenKnop" class="btn btn-primary" type="button" data-toggle="collapse"
                                             data-target="#collapseWachtwoorden" aria-expanded="false"
                                             aria-controls="collapseExample">
                                         Wachtwoord wijzigen
