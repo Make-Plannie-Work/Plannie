@@ -85,13 +85,21 @@ public class GebruikerController {
     @PostMapping("/wijzigen")
     public String wijzigenHuidigeGebruiker(@ModelAttribute("gebruikersWijzigingsFormulier") Gebruiker gebruiker,
                                     BindingResult result, Principal principal) {
-        if (result.hasErrors()) {
-            return "gebruikerDetail";
+        if (result.hasErrors() || !gebruiker.getWachtwoord().equals(gebruiker.getTrancientWachtwoord())) {
+            // TODO Als de gebruiker een niet matchend wachtwoord heeft, wordt hij nu zonder foutmelding teruggeleid naar de pagina.
+            return "/gebruikerWijzig";
         } else {
             Gebruiker huidigeGebruiker = gebruikerRepository.findGebruikerByEmail(principal.getName());
+
+            // Als het wachtwoord, en het bevestigde wachtwoord matchen, wordt deze opgeslagen voor de gebruiker.
+            if (!gebruiker.getWachtwoord().equals("") && !gebruiker.getTrancientWachtwoord().equals("")) {
+                huidigeGebruiker.setWachtwoord(passwordEncoder.encode(gebruiker.getWachtwoord()));
+            }
+
             huidigeGebruiker.setVoornaam(gebruiker.getVoornaam());
             huidigeGebruiker.setAchternaam(gebruiker.getAchternaam());
             huidigeGebruiker.setEmail(gebruiker.getEmail());
+
             gebruikerRepository.save(huidigeGebruiker);
             return "redirect:/gebruikerDetail";
         }
