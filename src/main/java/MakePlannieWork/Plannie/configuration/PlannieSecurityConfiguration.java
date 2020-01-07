@@ -38,7 +38,7 @@ public class PlannieSecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                     .authorizeRequests()
-                    .antMatchers("/registreren", "/resources/**").permitAll()
+                    .antMatchers("/registreren", "/resources/**", "/src/main/webapp/static/**").permitAll()
                     .anyRequest().authenticated()
                 .and()
                     .formLogin()
