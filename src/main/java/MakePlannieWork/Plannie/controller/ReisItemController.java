@@ -39,12 +39,7 @@ public class ReisItemController {
     @Autowired
     private PlannieReisItemService plannieReisItemService;
 
-    @GetMapping("{groepId}/reisItemAanmaken")
-    public String nieuwReisItem(Model model) {
-        model.addAttribute("nieuwReisItemFormulier");
-        return "reisItemNieuw";
-    }
-
+    // Vanuit een Groep een Reis aanmaken
     @PostMapping("{groepId}/reisItemAanmaken")
     public String nieuwReisItem(ReisItem reisItem, @PathVariable("groepId") Integer groepId, Model model, Principal principal) {
         Optional<Groep> groepOptional = plannieGroepService.findById(groepId);
@@ -55,8 +50,9 @@ public class ReisItemController {
         return "error";
     }
 
-    @PostMapping("/{groepId}/reisItemDetail/{reisItemId}/reisItemWijzigen")
-    public String reisItemWijzigen(@ModelAttribute("reisItemWijzigingsFormulier")
+    // Vanuit een ReisItem de naam van het ReisItem wijzigen
+    @PostMapping("/{groepId}/reisItemDetail/{reisItemId}/reisNaamWijzigen")
+    public String reisNaamWijzigen(@ModelAttribute("reisNaamWijzigingsFormulier")
                                                ReisItem reisItem, @PathVariable("groepId") Integer groepId, @PathVariable("reisItemId") Integer reisItemId, BindingResult result) {
         if (result.hasErrors()) {
             return "groepDetail";
@@ -68,12 +64,7 @@ public class ReisItemController {
         }
     }
 
-    @PostMapping("/{groepId}/reisItemDetail/{reisItemId}/NotitieAanmaken")
-    public String nieuwSoortReisItem(ReisItem reisItem, @PathVariable("groepId") Integer groepId, @PathVariable("reisItemId") Integer reisItemId, Model model, Principal principal){
-        Optional<Groep> groepOptional = plannieGroepService.findById(groepId);
-        return "redirect:/" + groepId + "/reisItemDetail/" + reisItem.getReisItemId() + "/notitieAanmaken";
-    }
-
+    // Klaarzetten van het Reis Detail Overzicht
     @GetMapping("/{groepId}/reisItemDetail/{reisItemId}")
     public String reisItemDetail(@PathVariable("groepId") Integer groepId, @PathVariable("reisItemId") Integer reisItemId, Model model, Principal principal) {
         Optional<Groep> groepOptional = plannieGroepService.findById(groepId);
@@ -93,9 +84,29 @@ public class ReisItemController {
 
     // Ga naar pagina waar je notitie kan aanmaken
     @GetMapping("/{groepId}/reisItemDetail/{reisItemId}/NotitieAanmaken")
-    public String notitieAanmaken(Model model, Principal principal) {
-        model.addAttribute("currentUser", gebruikerRepository.findGebruikerByEmail(principal.getName()));
-        model.addAttribute("notitieAanmakenFormulier", new Notitie());
-        return "notitieNieuw";
+    public String notitieAanmaken(@PathVariable("groepId") Integer groepId, @PathVariable("reisItemId") Integer reisItemId, Model model, Principal principal) {
+
+        Optional<Groep> groepOptional = plannieGroepService.findById(groepId);
+        Optional<ReisItem> reisItemOptional = plannieReisItemService.findById(reisItemId);
+        Gebruiker gebruiker = gebruikerRepository.findGebruikerByEmail(principal.getName());
+        model.addAttribute(gebruiker);
+
+        if (reisItemOptional.isPresent() && groepOptional.isPresent()) {
+            model.addAttribute("currentUser", gebruikerRepository.findGebruikerByEmail(principal.getName()));
+            model.addAttribute("reisItem", reisItemOptional.get());
+            model.addAttribute("groepslidEmail", new Gebruiker());
+            model.addAttribute("groep", groepOptional.get());
+
+            model.addAttribute("notitieAanmakenFormulier", new Notitie());
+            return "notitieNieuw";
+        }
+
+        return "reisItemDetail";
     }
+
+//    @PostMapping("/{groepId}/reisItemDetail/{reisItemId}/NotitieAanmaken")
+//    public String nieuwSoortReisItem(ReisItem reisItem, @PathVariable("groepId") Integer groepId, @PathVariable("reisItemId") Integer reisItemId, Model model, Principal principal){
+//        Optional<Groep> groepOptional = plannieGroepService.findById(groepId);
+//        return "redirect:/" + groepId + "/reisItemDetail/" + reisItem.getReisItemId() + "/notitieAanmaken";
+//    }
 }

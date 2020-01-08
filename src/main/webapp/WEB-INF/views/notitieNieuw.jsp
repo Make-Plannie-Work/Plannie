@@ -46,15 +46,13 @@
                     </div>
                     <div class="row">
                         <div>
-                            <form:form action="/wijzigen" method="post" modelAttribute="notitieAanmakenFormulier">
+                            <form:form action="/nieuweNotitie" method="post" modelAttribute="notitieAanmakenFormulier">
                                 <div class="row">
                                     <div class="col">
-                                        <form:input type="text" class="form-control" path="tekst" required="required"
-                                                    placeholder="tekst" value="Vul hier uw notitie in"/>
+                                        <form:input id="nieuweNotitie" type="text" class="form-control" path="tekst" required="required"
+                                                    placeholder="Vul hier uw notitie in"/>
                                     </div>
-
                                 </div>
-
 
                                 <hr class="my-4">
 
