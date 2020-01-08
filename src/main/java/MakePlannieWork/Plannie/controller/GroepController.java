@@ -9,6 +9,8 @@ import MakePlannieWork.Plannie.service.PlannieGebruikersService;
 import MakePlannieWork.Plannie.service.PlannieGroepService;
 import MakePlannieWork.Plannie.service.PlannieReisItemService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PostAuthorize;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -120,7 +122,9 @@ public class GroepController {
     }
 
     // Gebruiker gaat naar scherm waar naam van groep gewijzigd kan worden
+    //@PostAuthorize("returnObject.owner == principal.username")
     @GetMapping("/groepDetail/{groepId}/groepWijzig")
+    @PostAuthorize("hasPermission(id, 'MakePlannieWork.Plannie.model.Groep', 'view')")
     public String huidigeGroep(@PathVariable("groepId") Integer id, Model model) {
         Optional<Groep> groepOptional = plannieGroepService.findById(id);
         model.addAttribute("groep", groepOptional.get());
