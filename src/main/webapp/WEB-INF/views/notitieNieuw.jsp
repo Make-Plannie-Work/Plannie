@@ -46,7 +46,7 @@
                     </div>
                     <div class="row">
                         <div>
-                            <form:form action="/nieuweNotitie" method="post" modelAttribute="notitieAanmakenFormulier">
+                            <form:form action="/${groep.groepId}/reisItemDetail/${reisItem.reisItemId}/nieuweNotitie" method="post" modelAttribute="notitieAanmakenFormulier">
                                 <div class="row">
                                     <div class="col">
                                         <form:input id="nieuweNotitie" type="text" class="form-control" path="tekst" required="required"
@@ -61,7 +61,7 @@
 
                             </form:form>
 
-                            <a href="/reisItemDetail/{reisItemId}">
+                            <a href="/reisItemDetail/{reisItem.reisItemId}">
                                 <button type="text" class="btn btn-primary mt-3" id="annuleren">Annuleren</button>
                             </a>
                         </div>

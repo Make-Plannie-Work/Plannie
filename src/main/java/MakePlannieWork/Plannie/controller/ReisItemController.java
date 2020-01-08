@@ -53,7 +53,7 @@ public class ReisItemController {
     // Vanuit een ReisItem de naam van het ReisItem wijzigen
     @PostMapping("/{groepId}/reisItemDetail/{reisItemId}/reisNaamWijzigen")
     public String reisNaamWijzigen(@ModelAttribute("reisNaamWijzigingsFormulier")
-                                               ReisItem reisItem, @PathVariable("groepId") Integer groepId, @PathVariable("reisItemId") Integer reisItemId, BindingResult result) {
+                                           ReisItem reisItem, @PathVariable("groepId") Integer groepId, @PathVariable("reisItemId") Integer reisItemId, BindingResult result) {
         if (result.hasErrors()) {
             return "groepDetail";
         } else {
@@ -102,6 +102,28 @@ public class ReisItemController {
         }
 
         return "reisItemDetail";
+    }
+
+    @PostMapping("/{groepId}/reisItemDetail/{reisItemId}/nieuweNotitie")
+    public String notitieOpslaan(@ModelAttribute("notitieAanmakenFormulier") @PathVariable("groepId") Integer groepId, @PathVariable("reisItemId") Integer reisItemId, Model model, Notitie notitie, Principal principal, BindingResult result) {
+
+        Optional<ReisItem> reisItemOptional = plannieReisItemService.findById(reisItemId);
+        Gebruiker gebruiker = gebruikerRepository.findGebruikerByEmail(principal.getName());
+        model.addAttribute(gebruiker);
+
+        if (reisItemOptional.isPresent() && !notitie.getTekst().equals("")) {
+            model.addAttribute("currentUser", gebruikerRepository.findGebruikerByEmail(principal.getName()));
+            model.addAttribute("reisItem", reisItemOptional.get());
+            model.addAttribute("groepslidEmail", new Gebruiker());
+            model.addAttribute("groep", reisItemOptional.get());
+
+            // TODO
+            System.out.println("Opslaan notitie komt hier" + notitie.getTekst());
+
+        }
+
+        // Terug naar reis overzicht.
+        return "redirect:/" + groepId + "/reisItemDetail/" + reisItemId;
     }
 
 //    @PostMapping("/{groepId}/reisItemDetail/{reisItemId}/NotitieAanmaken")
