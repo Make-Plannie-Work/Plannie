@@ -2,6 +2,7 @@ package MakePlannieWork.Plannie.controller;
 
 import MakePlannieWork.Plannie.model.Gebruiker;
 import MakePlannieWork.Plannie.model.Groep;
+import MakePlannieWork.Plannie.model.reisitem.Notitie;
 import MakePlannieWork.Plannie.model.reisitem.ReisItem;
 import MakePlannieWork.Plannie.repository.GebruikerRepository;
 import MakePlannieWork.Plannie.repository.GroepRepository;
@@ -88,5 +89,13 @@ public class ReisItemController {
             return "reisItemDetail";
         }
         return "redirect:/groepDetail";
+    }
+
+    // Ga naar pagina waar je notitie kan aanmaken
+    @GetMapping("/{groepId}/reisItemDetail/{reisItemId}/NotitieAanmaken")
+    public String notitieAanmaken(Model model, Principal principal) {
+        model.addAttribute("currentUser", gebruikerRepository.findGebruikerByEmail(principal.getName()));
+        model.addAttribute("notitieAanmakenFormulier", new Notitie());
+        return "notitieNieuw";
     }
 }
