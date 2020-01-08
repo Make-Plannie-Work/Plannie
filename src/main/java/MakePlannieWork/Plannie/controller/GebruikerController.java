@@ -2,6 +2,7 @@ package MakePlannieWork.Plannie.controller;
 
 import MakePlannieWork.Plannie.model.Gebruiker;
 import MakePlannieWork.Plannie.model.Groep;
+import MakePlannieWork.Plannie.repository.RolRepository;
 import MakePlannieWork.Plannie.service.PlannieGroepService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -12,8 +13,10 @@ import org.springframework.web.bind.annotation.*;
 import MakePlannieWork.Plannie.repository.GebruikerRepository;
 
 import java.security.Principal;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 @Controller
 public class GebruikerController {
@@ -25,6 +28,9 @@ public class GebruikerController {
     private GebruikerRepository gebruikerRepository;
 
     @Autowired
+    private RolRepository rolRepository;
+
+    @Autowired
     private PlannieGroepService plannieGroepService;
 
     @GetMapping({"/index" , "/"})
@@ -34,11 +40,11 @@ public class GebruikerController {
     }
 
     @GetMapping("/registreren")
-        public String registreren(@RequestParam(name="groepUUID", required = false) String groepUUID, Model model) {
+        public String registreren(@RequestParam(name="gebruikerUUID", required = false) String gebruikerUUID, Model model) {
         model.addAttribute("registratieFormulier", new Gebruiker());
         model.addAttribute("loginForm", new Gebruiker());
-        if (groepUUID != null) {
-            model.addAttribute("groepUUID", groepUUID);
+        if (gebruikerUUID != null) {
+            model.addAttribute("gebruikerUUID", gebruikerUUID);
 
         }
         return "gebruikerNieuw";
@@ -54,6 +60,8 @@ public class GebruikerController {
             model.addAttribute("loginForm", new Gebruiker());
             return "gebruikerNieuw";
         } else {
+            gebruiker.setIdentifier(UUID.randomUUID().toString());
+            gebruiker.setRollen(Arrays.asList(rolRepository.findByRolNaam("ROLE_USER")));
             gebruiker.setWachtwoord(passwordEncoder.encode(gebruiker.getWachtwoord()));
             gebruikerRepository.save(gebruiker);
             model.addAttribute("loginForm", new Gebruiker());
