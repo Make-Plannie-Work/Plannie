@@ -49,7 +49,11 @@
                             <form:form action="/${groep.groepId}/reisItemDetail/${reisItem.reisItemId}/nieuweNotitie" method="post" modelAttribute="notitieAanmakenFormulier">
                                 <div class="row">
                                     <div class="col">
-                                        <form:input id="nieuweNotitie" type="text" class="form-control" path="tekst" required="required"
+                                        <form:input id="notitieTitel" type="text" class="form-control" path="naam" required="required"
+                                                    placeholder="Titel"/>
+                                        <form:input id="notitieDatum" type="date" class="form-control" path="startDatum" required="required"
+                                                    placeholder="Datum"/>
+                                        <form:input id="notitieTekst" type="text" class="form-control" path="tekst" required="required"
                                                     placeholder="Vul hier uw notitie in"/>
                                     </div>
                                 </div>

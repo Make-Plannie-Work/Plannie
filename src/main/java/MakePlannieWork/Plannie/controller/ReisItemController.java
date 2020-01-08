@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import java.security.Principal;
 import java.util.Optional;
+import java.util.Set;
 
 @Controller
 public class ReisItemController {
@@ -77,6 +78,11 @@ public class ReisItemController {
             model.addAttribute("groepslidEmail", new Gebruiker());
             model.addAttribute("groep", groepOptional.get());
             model.addAttribute("alleReisItemsVanReis", reisItemOptional.get().getReisItems());
+
+            for (ReisItem item : reisItemOptional.get().getReisItems()) {
+                System.out.println("Test Item: " + item.getReisItemId() + ", " + item.getNaam());
+            }
+
             return "reisItemDetail";
         }
         return "redirect:/groepDetail";
@@ -112,14 +118,19 @@ public class ReisItemController {
         model.addAttribute(gebruiker);
 
         if (reisItemOptional.isPresent() && !notitie.getTekst().equals("")) {
+            ReisItem reis = reisItemOptional.get();
+
             model.addAttribute("currentUser", gebruikerRepository.findGebruikerByEmail(principal.getName()));
-            model.addAttribute("reisItem", reisItemOptional.get());
+            model.addAttribute("reisItem", reis);
             model.addAttribute("groepslidEmail", new Gebruiker());
-            model.addAttribute("groep", reisItemOptional.get());
+            model.addAttribute("groep", reis);
 
             // TODO
-            System.out.println("Opslaan notitie komt hier" + notitie.getTekst());
+            notitie.setGekoppeldeReisItemId(reis);
+            reis.voegReisItemToe(notitie);
 
+            reisItemRepository.save(notitie);
+            reisItemRepository.save(reis);
         }
 
         // Terug naar reis overzicht.
