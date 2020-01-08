@@ -32,7 +32,7 @@ public class Gebruiker implements UserDetails {
     private String trancientWachtwoord;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "gebruikersrollen", joinColumns = @JoinColumn(name = "gebruikersid", referencedColumnName = "gebruikersId"), inverseJoinColumns = @JoinColumn(name = "rolId", referencedColumnName = "rolId"))
+    @JoinTable(name = "gebruikers_rollen", joinColumns = @JoinColumn(name = "gebruikersid", referencedColumnName = "gebruikersId"), inverseJoinColumns = @JoinColumn(name = "rolId", referencedColumnName = "rolId"))
     private Collection<Rol> rollen;
 
     @ManyToMany(mappedBy = "groepsleden")

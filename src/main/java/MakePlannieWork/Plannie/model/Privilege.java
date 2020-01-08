@@ -12,7 +12,7 @@ public class Privilege {
 
     private String privilegenaam;
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "privileges")
     private Collection<Rol> rollen;
 
     public Integer getPrivilegeId() {
