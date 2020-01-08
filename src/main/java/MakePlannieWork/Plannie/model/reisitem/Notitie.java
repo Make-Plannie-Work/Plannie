@@ -4,21 +4,9 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "notitie")
-public class Notitie {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer notitieId;
+public class Notitie extends ReisItem{
 
     private String tekst;
-
-    public Integer getNotitieId() {
-        return notitieId;
-    }
-
-    public void setNotitieId(Integer notitieId) {
-        this.notitieId = notitieId;
-    }
 
     public String getTekst() {
         return tekst;

@@ -31,11 +31,6 @@ public class ReisItem {
     )
     private Set<ReisItem> reisItems;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "reis_item_id")
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    private Set<Notitie> notitie;
-
     public Integer getReisItemId() {
         return reisItemId;
     }
@@ -82,14 +77,6 @@ public class ReisItem {
 
     public void setLocatie(String locatie) {
         this.locatie = locatie;
-    }
-
-    public Set<Notitie> getNotitie() {
-        return notitie;
-    }
-
-    public void setNotitie(Set<Notitie> notitie) {
-        this.notitie = notitie;
     }
 
     public Set<ReisItem> getReisItems() {
