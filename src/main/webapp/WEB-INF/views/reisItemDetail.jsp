@@ -48,7 +48,7 @@
                                             Notitie
                                         </div>
                                         <div class="card-block px-2">
-                                            <h4 class="card-title"><a href="/${groep.groepId}/reisItemsDetail/${reisItems.reisItemId}">${reisItems.naam}</a></h4>
+                                            <h4 class="card-title"><a id="NotitieDetails${reisItems.reisItemId}" href="/${groep.groepId}/reisItemsDetail/${reisItems.reisItemId}">${reisItems.naam}</a></h4>
                                             <p class="card-text">${reisItems.tekst}</p>
                                         </div>
 
@@ -58,7 +58,7 @@
                                             <img src="https://via.placeholder.com/100.jpg" alt="">
                                         </div>
                                         <div class="card-block px-2">
-                                            <h4 class="card-title"><a href="/${groep.groepId}/reisItemsDetail/${reisItems.reisItemId}">${reisItems.naam}</a></h4>
+                                            <h4 class="card-title"><a id="reisItemDetails${reisItems.reisItemId}" href="/${groep.groepId}/reisItemsDetail/${reisItems.reisItemId}">${reisItems.naam}</a></h4>
                                             <p class="card-text">${reisItems.getClass().name}</p>
                                         </div>
                                     </c:otherwise>
