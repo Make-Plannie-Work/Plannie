@@ -106,6 +106,7 @@ public class ReisItemController {
         return "reisItemDetail";
     }
 
+    // Nieuwe notitie opslaan
     @PostMapping("/{groepId}/reisItemDetail/{reisItemId}/nieuweNotitie")
     public String notitieOpslaan(@ModelAttribute("notitieAanmakenFormulier") @PathVariable("groepId") Integer groepId, @PathVariable("reisItemId") Integer reisItemId, Model model, Notitie notitie, Principal principal, BindingResult result) {
 
@@ -132,4 +133,32 @@ public class ReisItemController {
         // Terug naar reis overzicht.
         return "redirect:/" + groepId + "/reisItemDetail/" + reisItemId;
     }
-}
+
+    // Gebruiker gaat naar scherm waar reisItem gewijzigd kan worden
+    @GetMapping("/{groepId}/reisItemDetail/{reisItemId}/notitieWijzig")
+    public String huidigeNotitie(@PathVariable("reisItemId") Integer reisItemid, Model model) {
+        Optional<ReisItem> huidigeNotitie = reisItemRepository.findById(reisItemid);
+        model.addAttribute("notitieWijzigingsFormulier", huidigeNotitie);
+        return "notitieWijzig";
+    }
+
+//    @PostMapping("/{groepId}/reisItemDetail/{reisItemId}/notitieWijzigen")
+//    public String notitieWijzigen(@ModelAttribute("notitieWijzigingsFormulier")
+//                                          ReisItem reisItem, @PathVariable("groepId") Integer groepId, @PathVariable("reisItemId") Integer reisItemId, BindingResult result) {
+//        if (result.hasErrors()) {
+//            return "groepDetail";
+//        } else {
+//            ReisItem huidigReisItem = reisItemRepository.findGebruikerByReisItemId(reisItemId);
+//            Notitie huidigeNotitie = (Notitie) huidigReisItem.getGekoppeldeReisItemId();
+//            //Notitie huidigeNotitie = (Notitie) reisItemRepository.findGebruikerByReisItemId(reisItemId);
+//            Optional<ReisItem> huidigeNotitie = reisItemRepository.findById(reisItemId);
+//
+//            if (huidigeNotitie.isPresent()) {
+//                huidigeNotitie.setNaam(huidigeNotitie.getNaam());
+//                huidigeNotitie.setStartDatum(huidigeNotitie.getStartDatum());
+//                huidigeNotitie.setTekst(huidigeNotitie.getTekst());
+//                reisItemRepository.save(huidigeNotitie);
+//                return "redirect:/" + groepId + "/reisItemDetail/" + reisItem.getReisItemId();
+//            }
+//        }
+    }
