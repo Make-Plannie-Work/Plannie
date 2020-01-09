@@ -75,9 +75,9 @@
                             Wat voor soort reisitem wil je maken?
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="/${groep.groepId}/reisItemDetail/${reisItem.reisItemId}/NotitieAanmaken">Een Notitie</a>
-                            <a class="dropdown-item" href="#">Een Poll</a>
-                            <a class="dropdown-item" href="#">Een Activiteit</a>
+                            <a class="dropdown-item" id="notitieKeuze" href="/${groep.groepId}/reisItemDetail/${reisItem.reisItemId}/NotitieAanmaken">Een Notitie</a>
+                            <a class="dropdown-item" id="pollKeuze" href="#">Een Poll</a>
+                            <a class="dropdown-item" id="activiteitKeuze" href="#">Een Activiteit</a>
                         </div>
                     </div>
                 </div>
