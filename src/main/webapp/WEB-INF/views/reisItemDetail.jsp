@@ -45,7 +45,7 @@
                                     <c:when test="${soortReisItem == 'MakePlannieWork.Plannie.model.reisitem.Notitie'}">
 
                                         <div class="card-header border-0">
-                                            Notitie
+                                            Notitie <a id="NotitieDatum${reisItems.reisItemId}" href="/${groep.groepId}/reisItemsDetail/${reisItems.reisItemId}">${reisItems.startDatum}</a>
                                         </div>
                                         <div class="card-block px-2">
                                             <h4 class="card-title"><a id="NotitieDetails${reisItems.reisItemId}" href="/${groep.groepId}/reisItemsDetail/${reisItems.reisItemId}">${reisItems.naam}</a></h4>
