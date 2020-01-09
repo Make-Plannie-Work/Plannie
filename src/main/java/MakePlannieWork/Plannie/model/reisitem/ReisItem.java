@@ -25,7 +25,6 @@ public class ReisItem {
     private Integer aanmaker;
 
     @OneToMany
-    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(
             name = "reis_item",
             referencedColumnName = "reisItemId"
