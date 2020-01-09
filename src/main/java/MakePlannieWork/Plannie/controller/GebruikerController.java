@@ -61,7 +61,7 @@ public class GebruikerController {
             return "gebruikerNieuw";
         } else {
             gebruiker.setIdentifier(UUID.randomUUID().toString());
-            gebruiker.setRollen(Arrays.asList(rolRepository.findByRolNaam("ROLE_USER")));
+            gebruiker.setRollen(Arrays.asList(rolRepository.findRolByRolNaam("ROLE_USER")));
             gebruiker.setWachtwoord(passwordEncoder.encode(gebruiker.getWachtwoord()));
             gebruikerRepository.save(gebruiker);
             model.addAttribute("loginForm", new Gebruiker());

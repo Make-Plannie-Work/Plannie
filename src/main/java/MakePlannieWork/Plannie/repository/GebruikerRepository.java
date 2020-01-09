@@ -12,6 +12,8 @@ public interface GebruikerRepository extends JpaRepository<Gebruiker, Integer> {
 
     Gebruiker findGebruikerByEmail (String email);
 
+    Boolean existsByEmail (String email);
+
     Gebruiker findGebruikerByGebruikersId (Integer Id);
 
     List<Gebruiker> findGebruikersByEmail(String email);
