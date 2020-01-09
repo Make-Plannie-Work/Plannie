@@ -10,6 +10,7 @@ import MakePlannieWork.Plannie.repository.ReisItemRepository;
 import MakePlannieWork.Plannie.service.PlannieGroepService;
 import MakePlannieWork.Plannie.service.PlannieReisItemService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -136,29 +137,20 @@ public class ReisItemController {
 
     // Gebruiker gaat naar scherm waar reisItem gewijzigd kan worden
     @GetMapping("/{groepId}/reisItemDetail/{reisItemId}/notitieWijzig")
-    public String huidigeNotitie(@PathVariable("reisItemId") Integer reisItemid, Model model) {
-        Optional<ReisItem> huidigeNotitie = reisItemRepository.findById(reisItemid);
-        model.addAttribute("notitieWijzigingsFormulier", huidigeNotitie);
+    public String huidigeNotitie(@PathVariable("notitie") Integer reisItemid, Model model, Principal principal) {
+        //Optional<ReisItem> reisItemOptional = reisItemRepository.findById(reisItemid);
+        //System.out.println("Titel?" + reisItemOptional.get().getNaam());
+        model.addAttribute("notitie", reisItemRepository.findReisItemByReisItemId(reisItemid));
+        model.addAttribute("notitieWijzigingsFormulier", new Notitie());
         return "notitieWijzig";
     }
 
-//    @PostMapping("/{groepId}/reisItemDetail/{reisItemId}/notitieWijzigen")
-//    public String notitieWijzigen(@ModelAttribute("notitieWijzigingsFormulier")
-//                                          ReisItem reisItem, @PathVariable("groepId") Integer groepId, @PathVariable("reisItemId") Integer reisItemId, BindingResult result) {
-//        if (result.hasErrors()) {
-//            return "groepDetail";
-//        } else {
-//            ReisItem huidigReisItem = reisItemRepository.findGebruikerByReisItemId(reisItemId);
-//            Notitie huidigeNotitie = (Notitie) huidigReisItem.getGekoppeldeReisItemId();
-//            //Notitie huidigeNotitie = (Notitie) reisItemRepository.findGebruikerByReisItemId(reisItemId);
-//            Optional<ReisItem> huidigeNotitie = reisItemRepository.findById(reisItemId);
-//
-//            if (huidigeNotitie.isPresent()) {
-//                huidigeNotitie.setNaam(huidigeNotitie.getNaam());
-//                huidigeNotitie.setStartDatum(huidigeNotitie.getStartDatum());
-//                huidigeNotitie.setTekst(huidigeNotitie.getTekst());
-//                reisItemRepository.save(huidigeNotitie);
-//                return "redirect:/" + groepId + "/reisItemDetail/" + reisItem.getReisItemId();
-//            }
-//        }
+    //    @GetMapping("/{groepId}/reisItemDetail/{reisItemId}/notitieWijzig")
+    //    public String huidigeNotitie(@PathVariable("reisItemId") Integer reisItemid, Model model) {
+    //        Notitie huidigeNotitie = reisItemRepository.findReisItemByReisItemId(reisItemid);
+    //
+    //        model.addAttribute("notitie", huidigeNotitie);
+    //        model.addAttribute("notitieWijzigingsFormulier", new Notitie());
+
+
     }
