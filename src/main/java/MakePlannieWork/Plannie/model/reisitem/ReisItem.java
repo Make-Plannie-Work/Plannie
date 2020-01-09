@@ -32,6 +32,15 @@ public class ReisItem {
     )
     private Set<ReisItem> reisItems;
 
+    @ManyToOne
+    @JoinColumn(name = "reis_item")
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private ReisItem gekoppeldeReisItem;
+
+    public void voegReisItemToe(ReisItem reisItem) {
+        reisItems.add(reisItem);
+    }
+
     public Integer getReisItemId() {
         return reisItemId;
     }
@@ -86,5 +95,13 @@ public class ReisItem {
 
     public void setReisItems(Set<ReisItem> reisItems) {
         this.reisItems = reisItems;
+    }
+
+    public ReisItem getGekoppeldeReisItemId() {
+        return gekoppeldeReisItem;
+    }
+
+    public void setGekoppeldeReisItemId(ReisItem gekoppeldeReisItemId) {
+        this.gekoppeldeReisItem = gekoppeldeReisItemId;
     }
 }
