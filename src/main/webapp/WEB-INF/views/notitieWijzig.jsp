@@ -6,7 +6,7 @@
     <div class="row">
         <form:form action = "/${groepId}/reisItemDetail/${reisItemId}/notitieWijzigen" method="post" modelAttribute="notitieWijzigingsFormulier">
             <input type="text" name="naam" required="required" value="${notitie.naam}">
-            <input type="text" name="startDatum" required="required" value="${notitie.startDatum}">
+            <input type="date" name="startDatum" required="required" value="${notitie.startDatum}">
             <input type="text" name="tekst" required="required" value="${notitie.tekst}">
             <input id="notitieWijzigen" type="submit" class="btn btn-primary" value="Wijzig notitie">
         </form:form>
