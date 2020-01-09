@@ -79,10 +79,6 @@ public class ReisItemController {
             model.addAttribute("groep", groepOptional.get());
             model.addAttribute("alleReisItemsVanReis", reisItemOptional.get().getReisItems());
 
-            for (ReisItem item : reisItemOptional.get().getReisItems()) {
-                System.out.println("Test Item: " + item.getReisItemId() + ", " + item.getNaam());
-            }
-
             return "reisItemDetail";
         }
         return "redirect:/groepDetail";
@@ -125,7 +121,7 @@ public class ReisItemController {
             model.addAttribute("groepslidEmail", new Gebruiker());
             model.addAttribute("groep", reis);
 
-            // TODO
+            // ReisItem aan reis koppelen, en ReisItem aan reis toevoegen.
             notitie.setGekoppeldeReisItemId(reis);
             reis.voegReisItemToe(notitie);
 
@@ -136,10 +132,4 @@ public class ReisItemController {
         // Terug naar reis overzicht.
         return "redirect:/" + groepId + "/reisItemDetail/" + reisItemId;
     }
-
-//    @PostMapping("/{groepId}/reisItemDetail/{reisItemId}/NotitieAanmaken")
-//    public String nieuwSoortReisItem(ReisItem reisItem, @PathVariable("groepId") Integer groepId, @PathVariable("reisItemId") Integer reisItemId, Model model, Principal principal){
-//        Optional<Groep> groepOptional = plannieGroepService.findById(groepId);
-//        return "redirect:/" + groepId + "/reisItemDetail/" + reisItem.getReisItemId() + "/notitieAanmaken";
-//    }
 }
