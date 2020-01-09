@@ -14,7 +14,7 @@
               integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
               crossorigin="anonymous">
         <script src="https://kit.fontawesome.com/d450c035a5.js" crossorigin="anonymous"></script>
-        <title>Notitie aanmaken - ${currentUser.voornaam}</title>
+        <title>Poll aanmaken - ${currentUser.voornaam}</title>
     </head>
     <body>
 
@@ -42,30 +42,28 @@
             <div class="col-sm-8">
                 <div class="jumbotron shadow">
                     <div class="row">
-                        <p class="lead">Notitie aanmaken</p>
+                        <p class="lead">Poll aanmaken</p>
                     </div>
                     <div class="row">
                         <div>
-                            <form:form action="/${groep.groepId}/reisItemDetail/${reisItem.reisItemId}/nieuweNotitie" method="post" modelAttribute="notitieAanmakenFormulier">
+                            <form:form action="/${groep.groepId}/reisItemDetail/${reisItem.reisItemId}/nieuwePoll" method="post" modelAttribute="pollAanmakenFormulier">
                                 <div class="row">
                                     <div class="col">
-                                        <form:input id="notitieTitel" type="text" class="form-control" path="naam" required="required"
+                                        <form:input id="pollTitel" type="text" class="form-control" path="naam" required="required"
                                                     placeholder="Titel"/>
-                                        <form:input id="notitieDatum" type="date" class="form-control" path="startDatum" required="required"
+                                        <form:input id="pollDatum" type="date" class="form-control" path="startDatum" required="required"
                                                     placeholder="Datum"/>
-                                        <form:input id="notitieTekst" type="text" class="form-control" path="tekst" required="required"
-                                                    placeholder="Vul hier uw notitie in"/>
                                     </div>
                                 </div>
 
                                 <hr class="my-4">
 
-                                <form:button id="notitieAanmaken" type="submit" class="btn btn-primary mt-3">Notitie opslaan
+                                <form:button id="pollAanmaken" type="submit" class="btn btn-primary mt-3">Poll opslaan
                                 </form:button>
 
                             </form:form>
 
-                            <a href= "/${groep.groepId}/reisItemDetail/${reisItem.reisItemId}">
+                            <a href="/${groep.groepId}/reisItemDetail/${reisItem.reisItemId}">
                                 <button type="text" class="btn btn-primary mt-3" id="annuleren">Annuleren</button>
                             </a>
                         </div>

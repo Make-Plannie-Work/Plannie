@@ -76,7 +76,7 @@
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                             <a class="dropdown-item" id="notitieKeuze" href="/${groep.groepId}/reisItemDetail/${reisItem.reisItemId}/NotitieAanmaken">Een Notitie</a>
-                            <a class="dropdown-item" id="pollKeuze" href="#">Een Poll</a>
+                            <a class="dropdown-item" id="pollKeuze" href="/${groep.groepId}/reisItemDetail/${reisItem.reisItemId}/PollAanmaken">Een Poll</a>
                             <a class="dropdown-item" id="activiteitKeuze" href="#">Een Activiteit</a>
                         </div>
                     </div>

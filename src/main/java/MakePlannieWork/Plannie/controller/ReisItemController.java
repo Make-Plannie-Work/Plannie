@@ -3,6 +3,7 @@ package MakePlannieWork.Plannie.controller;
 import MakePlannieWork.Plannie.model.Gebruiker;
 import MakePlannieWork.Plannie.model.Groep;
 import MakePlannieWork.Plannie.model.reisitem.Notitie;
+import MakePlannieWork.Plannie.model.reisitem.Poll;
 import MakePlannieWork.Plannie.model.reisitem.ReisItem;
 import MakePlannieWork.Plannie.repository.GebruikerRepository;
 import MakePlannieWork.Plannie.repository.GroepRepository;
@@ -131,5 +132,27 @@ public class ReisItemController {
 
         // Terug naar reis overzicht.
         return "redirect:/" + groepId + "/reisItemDetail/" + reisItemId;
+    }
+
+    // Navigeer naar de pagina waar je een poll aan kunt maken
+    @GetMapping("/{groepId}/reisItemDetail/{reisItemId}/PollAanmaken")
+    public String pollAanmaken(@PathVariable("groepId") Integer groepId, @PathVariable("reisItemId") Integer reisItemId, Model model, Principal principal) {
+
+        Optional<Groep> groepOptional = plannieGroepService.findById(groepId);
+        Optional<ReisItem> reisItemOptional = plannieReisItemService.findById(reisItemId);
+        Gebruiker gebruiker = gebruikerRepository.findGebruikerByEmail(principal.getName());
+        model.addAttribute(gebruiker);
+
+        if (reisItemOptional.isPresent() && groepOptional.isPresent()) {
+            model.addAttribute("currentUser", gebruikerRepository.findGebruikerByEmail(principal.getName()));
+            model.addAttribute("reisItem", reisItemOptional.get());
+            model.addAttribute("groepslidEmail", new Gebruiker());
+            model.addAttribute("groep", groepOptional.get());
+
+            model.addAttribute("pollAanmakenFormulier", new Poll());
+            return "pollNieuw";
+        }
+
+        return "reisItemDetail";
     }
 }
