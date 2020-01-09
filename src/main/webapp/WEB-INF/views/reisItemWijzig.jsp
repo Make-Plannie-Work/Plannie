@@ -4,9 +4,9 @@
 
 <div class="container mt-4">
     <div class="row">
-        <form:form action = "/${groepId}/reisItemDetail/${reisItemId}/reisItemWijzigen" method="post" modelAttribute="reisItemWijzigingsFormulier">
+        <form:form action = "/${groepId}/reisItemDetail/${reisItemId}/reisNaamWijzigen" method="post" modelAttribute="reisNaamWijzigingsFormulier">
             <input type="text" name="naam" required="required" value="${reisItem.naam}">
-            <input id="reisItemWijzigen" type="submit" class="btn btn-primary" value="Wijzig reisitem">
+            <input id="reisNaamWijzigen" type="submit" class="btn btn-primary" value="Wijzig reisitem">
         </form:form>
     </div>
 

@@ -38,13 +38,32 @@
 
                         <c:forEach items="${alleReisItemsVanReis}" var="reisItems">
                             <div class="card flex-row flex-wrap mb-2 mx-auto" style="width: 42rem;">
-                                <div class="card-header border-0">
-                                    <img src="https://via.placeholder.com/100.jpg" alt="">
-                                </div>
-                                <div class="card-block px-2">
-                                    <h4 class="card-title"><a href="/${groep.groepId}/reisItemsDetail/${reisItems.reisItemId}">${reisItems.naam}</a></h4>
-                                    <p class="card-text">${reisItems.naam}${reisItems.naam}${reisItems.naam}${reisItems.naam}${reisItems.naam}${reisItems.naam}</p>
-                                </div>
+
+                                <c:set var = "soortReisItem" scope = "session" value = "${reisItems.getClass().name}"/>
+
+                                <c:choose>
+                                    <c:when test="${soortReisItem == 'MakePlannieWork.Plannie.model.reisitem.Notitie'}">
+
+                                        <div class="card-header border-0">
+                                            Notitie ${reisItems.startDatum}
+                                        </div>
+                                        <div class="card-block px-2">
+                                            <h4 class="card-title"><a id="NotitieDetails${reisItems.reisItemId}" href="/${groep.groepId}/reisItemsDetail/${reisItems.reisItemId}">${reisItems.naam}</a></h4>
+                                            <p class="card-text">${reisItems.tekst}</p>
+                                        </div>
+
+                                    </c:when>
+                                    <c:otherwise>
+                                        <div class="card-header border-0">
+                                            <img src="https://via.placeholder.com/100.jpg" alt="">
+                                        </div>
+                                        <div class="card-block px-2">
+                                            <h4 class="card-title"><a id="reisItemDetails${reisItems.reisItemId}" href="/${groep.groepId}/reisItemsDetail/${reisItems.reisItemId}">${reisItems.naam}</a></h4>
+                                            <p class="card-text">${reisItems.getClass().name}</p>
+                                        </div>
+                                    </c:otherwise>
+                                </c:choose>
+
                             </div>
                         </c:forEach>
 
@@ -56,9 +75,9 @@
                             Wat voor soort reisitem wil je maken?
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="/{groepId}/reisItemDetail/{reisItemId}/NotitieAanmaken">Een Notitie</a>
-                            <a class="dropdown-item" href="#">Een Poll</a>
-                            <a class="dropdown-item" href="#">Een Activiteit</a>
+                            <a class="dropdown-item" id="notitieKeuze" href="/${groep.groepId}/reisItemDetail/${reisItem.reisItemId}/NotitieAanmaken">Een Notitie</a>
+                            <a class="dropdown-item" id="pollKeuze" href="#">Een Poll</a>
+                            <a class="dropdown-item" id="activiteitKeuze" href="#">Een Activiteit</a>
                         </div>
                     </div>
                 </div>
