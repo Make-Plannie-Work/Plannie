@@ -4,10 +4,10 @@
 
 <div class="container mt-4">
     <div class="row">
-        <form:form action = "/${groepId}/reisItemDetail/${reisItemId}/notitieWijzigen" method="post" modelAttribute="notitieWijzigingsFormulier">
-            <input type="text" name="naam" required="required" value="${notitie.naam}">
-            <input type="date" name="startDatum" required="required" value="${notitie.startDatum}">
-            <input type="text" name="tekst" required="required" value="${notitie.tekst}">
+        <form:form action = "/${groepId}/reisItemDetail/${reisItem.reisItemId}/notitieWijzig" method="post" modelAttribute="notitieWijzigingsFormulier">
+            <input type="text" name="naam" required="required" value="${reisItems.naam}">
+            <input type="date" name="startDatum" required="required" value="${reisItems.startDatum}">
+            <input type="text" name="tekst" required="required" value="${reisItems.tekst}">
             <input id="notitieWijzigen" type="submit" class="btn btn-primary" value="Wijzig notitie">
         </form:form>
     </div>

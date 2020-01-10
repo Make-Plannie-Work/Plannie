@@ -79,7 +79,6 @@ public class ReisItemController {
             model.addAttribute("groepslidEmail", new Gebruiker());
             model.addAttribute("groep", groepOptional.get());
             model.addAttribute("alleReisItemsVanReis", reisItemOptional.get().getReisItems());
-
             return "reisItemDetail";
         }
         return "redirect:/groepDetail";
@@ -118,39 +117,46 @@ public class ReisItemController {
         if (reisItemOptional.isPresent() && !notitie.getTekst().equals("")) {
             ReisItem reis = reisItemOptional.get();
 
+            System.out.println("Voor add " + reis.getNaam());
+
             model.addAttribute("currentUser", gebruikerRepository.findGebruikerByEmail(principal.getName()));
             model.addAttribute("reisItem", reis);
             model.addAttribute("groepslidEmail", new Gebruiker());
             model.addAttribute("groep", reis);
 
+            System.out.println("Na add " + reis.getNaam());
+
             // ReisItem aan reis koppelen, en ReisItem aan reis toevoegen.
             notitie.setGekoppeldeReisItemId(reis);
             reis.voegReisItemToe(notitie);
 
+
+
             reisItemRepository.save(notitie);
             reisItemRepository.save(reis);
+            System.out.println("na opslaan notitie " + notitie.getNaam());
         }
 
         // Terug naar reis overzicht.
         return "redirect:/" + groepId + "/reisItemDetail/" + reisItemId;
     }
 
-    // Gebruiker gaat naar scherm waar reisItem gewijzigd kan worden
-    @GetMapping("/{groepId}/reisItemDetail/{reisItemId}/notitieWijzig")
-    public String huidigeNotitie(@PathVariable("notitie") Integer reisItemid, Model model, Principal principal) {
-        //Optional<ReisItem> reisItemOptional = reisItemRepository.findById(reisItemid);
-        //System.out.println("Titel?" + reisItemOptional.get().getNaam());
-        model.addAttribute("notitie", reisItemRepository.findReisItemByReisItemId(reisItemid));
-        model.addAttribute("notitieWijzigingsFormulier", new Notitie());
-        return "notitieWijzig";
+    @PostMapping("/{groepId}/reisItemDetail/{reisItemId}/notitieWijzig")
+    public String wijzigenNotitie(@ModelAttribute("notitieWijzigingsFormulier")
+                                             Notitie notitie, @PathVariable("groepId") Integer groepId, @PathVariable("reisItemId") Integer reisItemId,
+                                    BindingResult result) {
+        if (result.hasErrors()) {
+            return "reisItemDetail";
+        } else {
+            Notitie huidigeNotitie = reisItemRepository.findReisItemByReisItemId(reisItemId);
+            huidigeNotitie.setStartDatum(notitie.getStartDatum());
+            huidigeNotitie.setNaam(notitie.getNaam());
+            huidigeNotitie.setTekst(notitie.getTekst());
+
+
+
+            return "redirect:/" + groepId + "/reisItemDetail/" + reisItemId;
+        }
     }
 
-    //    @GetMapping("/{groepId}/reisItemDetail/{reisItemId}/notitieWijzig")
-    //    public String huidigeNotitie(@PathVariable("reisItemId") Integer reisItemid, Model model) {
-    //        Notitie huidigeNotitie = reisItemRepository.findReisItemByReisItemId(reisItemid);
-    //
-    //        model.addAttribute("notitie", huidigeNotitie);
-    //        model.addAttribute("notitieWijzigingsFormulier", new Notitie());
-
-
-    }
+}

@@ -119,14 +119,15 @@ public class GroepController {
         }
     }
 
-    // Gebruiker gaat naar scherm waar naam van groep gewijzigd kan worden
-    @GetMapping("/groepDetail/{groepId}/groepWijzig")
-    public String huidigeGroep(@PathVariable("groepId") Integer id, Model model) {
-        Optional<Groep> groepOptional = plannieGroepService.findById(id);
-        model.addAttribute("groep", groepOptional.get());
-        model.addAttribute("groepsNaamWijzigingsFormulier", new Groep());
-        return "groepWijzig";
-    }
+//    // Gebruiker gaat naar scherm waar naam van groep gewijzigd kan worden
+//    @GetMapping("/groepDetail/{groepId}/groepWijzig")
+//    public String huidigeGroep(@PathVariable("groepId") Integer id, Model model) {
+//        Optional<Groep> groepOptional = plannieGroepService.findById(id);
+//        model.addAttribute("groep", groepOptional.get());
+//        System.out.println("Getmapping" + groepOptional.get().getGroepsNaam());
+//        model.addAttribute("groepsNaamWijzigingsFormulier", new Groep());
+//        return "groepWijzig";
+//    }
 
 
     @PostMapping("/groepDetail/{groepId}/groepWijzig")
@@ -136,8 +137,10 @@ public class GroepController {
             return "groepDetail";
         } else {
             Groep huidigeGroep = groepRepository.findByGroepId(groepId);
+            System.out.println("Postmapping" + huidigeGroep.getGroepsNaam());
             huidigeGroep.setGroepsNaam(groep.getGroepsNaam());
             groepRepository.save(huidigeGroep);
+            System.out.println("Save" + huidigeGroep.getGroepsNaam());
             return "redirect:/groepDetail/" + groepId;
         }
     }
