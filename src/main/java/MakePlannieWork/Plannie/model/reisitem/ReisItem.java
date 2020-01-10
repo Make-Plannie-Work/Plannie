@@ -39,6 +39,10 @@ public class ReisItem {
         this.reisItemId = reisItemId;
     }
 
+    public Integer getId() {
+        return this.reisItemId;
+    }
+
     public String getNaam() {
         return naam;
     }
