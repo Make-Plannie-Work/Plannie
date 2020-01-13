@@ -48,7 +48,7 @@
                                             Notitie ${reisItems.startDatum}
                                         </div>
                                         <div class="card-block px-2">
-                                            <h4 class="card-title"><a id="NotitieDetails${reisItems.reisItemId}" href="/${groepId}/${reisItemId}/${reisItems.reisItemId}/NotitieWijzigen">${reisItems.naam}</a></h4>
+                                            <h4 class="card-title"><a id="NotitieDetails${reisItems.naam}" href="/${groepId}/${reisItemId}/${reisItems.reisItemId}/NotitieWijzigen">${reisItems.naam}</a></h4>
                                             <p class="card-text">${reisItems.tekst}</p>
                                         </div>
 

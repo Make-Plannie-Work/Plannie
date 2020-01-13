@@ -2,13 +2,18 @@ package MakePlannieWork.Plannie.views;
 
 
 import MakePlannieWork.Plannie.TestsHelper;
+import MakePlannieWork.Plannie.model.Gebruiker;
+import MakePlannieWork.Plannie.model.Groep;
+import MakePlannieWork.Plannie.model.reisitem.ReisItem;
 import MakePlannieWork.Plannie.repository.GebruikerRepository;
 import MakePlannieWork.Plannie.repository.GroepRepository;
 import MakePlannieWork.Plannie.repository.ReisItemRepository;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +21,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
@@ -50,14 +58,40 @@ public class ReisItemViewTests {
     public void tearDown() {
 
         this.testsHelper.verwijderTestGebruikersUitDatabase();
+        this.testsHelper.verwijderTestGroepenUitDatabase();
         this.driver.quit();
         this.driver = null;
         this.testsHelper = null;
     }
 
     @Test
-    public void zetTestReisKlaar() throws InterruptedException {
+    public void testNotitieAanmakenCorrect() throws InterruptedException {
+        // Arrange
+        this.driver.get("http://localhost:8080/gebruikerDetail");
         this.testsHelper.zetTestGebruikerEnGroepEnReisKlaar();
-        Thread.sleep(5000);
+        Groep testGroep = this.testsHelper.geefTestGroep();
+        ReisItem testReisItem = this.testsHelper.geefTestReis();
+        this.driver.get("http://localhost:8080/" + testGroep.getGroepId() + "/reisItemDetail/" + testReisItem.getReisItemId());
+        String testNotitieNaam = "TestNotitie";
+        String testNotitieStartDatum = "2020-01-01";
+        String testNotitieTekst = "Test tekst notitie";
+        boolean testNotitieToegevoegd = false;
+
+        // Activate
+        this.driver.findElement(By.id("notitieKeuze")).click();
+        Thread.sleep(500);
+        this.driver.findElement(By.id("notitieTitel")).sendKeys(testNotitieNaam);
+        this.driver.findElement(By.id("notitieDatum")).sendKeys(testNotitieStartDatum);
+        this.driver.findElement(By.id("notitieTekst")).sendKeys(testNotitieTekst);
+        this.driver.findElement(By.id("notitieAanmaken")).click();
+        Thread.sleep(500);
+
+        // Assert
+        if (this.driver.findElement(By.id("NotitieDetails" + testNotitieNaam)).getSize().width != 0) {
+            testNotitieToegevoegd = true;
+        }
+        assertTrue(testNotitieToegevoegd);
+
+
     }
 }
