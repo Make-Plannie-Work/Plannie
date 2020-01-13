@@ -117,25 +117,17 @@ public class ReisItemController {
 
         if (reisItemOptional.isPresent() && !notitie.getTekst().equals("")) {
             ReisItem reis = reisItemOptional.get();
-
-            System.out.println("Voor add " + reis.getNaam());
-
             model.addAttribute("currentUser", gebruikerRepository.findGebruikerByEmail(principal.getName()));
             model.addAttribute("reisItem", reis);
             model.addAttribute("groepslidEmail", new Gebruiker());
             model.addAttribute("groep", reis);
 
-            System.out.println("Na add " + reis.getNaam());
-
             // ReisItem aan reis koppelen, en ReisItem aan reis toevoegen.
             notitie.setGekoppeldeReisItemId(reis);
             reis.voegReisItemToe(notitie);
 
-
-
             reisItemRepository.save(notitie);
             reisItemRepository.save(reis);
-            System.out.println("na opslaan notitie " + notitie.getNaam());
         }
 
         // Terug naar reis overzicht.
@@ -161,8 +153,10 @@ public class ReisItemController {
         return "redirect:/" + groepId + "/reisItemDetail/" + reisItemId;
     }
 
+    // Opslaan van gewijzigde notitie
     @PostMapping("/{groepId}/{reisItemId}/{reisItemsId}/notitieWijzigen")
-    public String notitieWijzigen(@ModelAttribute("notitieWijzigingsFormulier") Notitie notitie, @PathVariable("groepId") Integer groepId, @PathVariable("reisItemId") Integer reisItemId,
+    public String notitieWijzigen(@ModelAttribute("notitieWijzigingsFormulier") Notitie notitie, @PathVariable("groepId")
+                                  Integer groepId, @PathVariable("reisItemId") Integer reisItemId,
                                   @PathVariable("reisItemsId") Integer notitieId, BindingResult result, Principal principal, Model model) {
 
         Optional<ReisItem> reisItemOptional = plannieReisItemService.findById(reisItemId);
@@ -177,60 +171,11 @@ public class ReisItemController {
             return "redirect:/notitieWijzig";
         } else {
             Notitie huidigeNotitie = reisItemRepository.findReisItemByReisItemId(notitieId);
-            System.out.println("Voor save notitienaam = " + huidigeNotitie.getNaam());
-            System.out.println("Voor save notitietekst = " + huidigeNotitie.getTekst());
-            System.out.println("Voor save notitiedatum = " + huidigeNotitie.getStartDatum());
             huidigeNotitie.setNaam(notitie.getNaam());
             huidigeNotitie.setTekst(notitie.getTekst());
             huidigeNotitie.setStartDatum(notitie.getStartDatum());
             reisItemRepository.save(huidigeNotitie);
-
-            System.out.println("Na save notitienaam = " + huidigeNotitie.getNaam());
-            System.out.println("Na save notitietekst = " + huidigeNotitie.getTekst());
-            System.out.println("Na save notitiedatum = " + huidigeNotitie.getStartDatum());
         }
         return "redirect:/" + groepId + "/reisItemDetail/" + reisItemId;
-
-
     }
-
-
 }
-//    @PostMapping("/groepDetail/{groepId}/groepWijzig")
-//    public String wijzigenGroepsNaam(@ModelAttribute("groepsNaamWijzigingsFormulier")
-//                                     Groep groep, @PathVariable("groepId") Integer groepId, BindingResult result) {
-//        if (result.hasErrors()) {
-//            return "groepDetail";
-//        } else {
-//            Groep huidigeGroep = groepRepository.findByGroepId(groepId);
-//            System.out.println("Postmapping" + huidigeGroep.getGroepsNaam());
-//            huidigeGroep.setGroepsNaam(groep.getGroepsNaam());
-//            groepRepository.save(huidigeGroep);
-//            System.out.println("Save" + huidigeGroep.getGroepsNaam());
-//            return "redirect:/groepDetail/" + groepId;
-//        }
-//    }
-
-
-//    @PostMapping("/wijzigen")
-//    public String wijzigenHuidigeGebruiker(@ModelAttribute("gebruikersWijzigingsFormulier") Gebruiker gebruiker,
-//                                    BindingResult result, Principal principal) {
-//        if (result.hasErrors() || !gebruiker.getWachtwoord().equals(gebruiker.getTrancientWachtwoord())) {
-//            // TODO Als de gebruiker een niet matchend wachtwoord heeft, wordt hij nu zonder foutmelding teruggeleid naar de pagina.
-//            return "redirect:/gebruikerWijzig";
-//        } else {
-//            Gebruiker huidigeGebruiker = gebruikerRepository.findGebruikerByEmail(principal.getName());
-//
-//            // Als het wachtwoord, en het bevestigde wachtwoord matchen, wordt deze opgeslagen voor de gebruiker.
-//            if (!gebruiker.getWachtwoord().equals("") && !gebruiker.getTrancientWachtwoord().equals("")) {
-//                huidigeGebruiker.setWachtwoord(passwordEncoder.encode(gebruiker.getWachtwoord()));
-//            }
-//
-//            huidigeGebruiker.setVoornaam(gebruiker.getVoornaam());
-//            huidigeGebruiker.setAchternaam(gebruiker.getAchternaam());
-//            huidigeGebruiker.setEmail(gebruiker.getEmail());
-//
-//            gebruikerRepository.save(huidigeGebruiker);
-//            return "redirect:/gebruikerDetail";
-//        }
-//    }
