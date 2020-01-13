@@ -25,6 +25,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
+import java.util.ArrayList;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -60,8 +62,8 @@ public class ReisItemViewTests {
     @After
     public void tearDown() {
 
-        this.testsHelper.verwijderTestGebruikersUitDatabase();
         this.testsHelper.verwijderTestGroepenUitDatabase();
+        this.testsHelper.verwijderTestGebruikersUitDatabase();
         this.driver.quit();
         this.driver = null;
         this.testsHelper = null;
@@ -72,6 +74,7 @@ public class ReisItemViewTests {
         // Arrange
         this.driver.get("http://localhost:8080/gebruikerDetail");
         this.testsHelper.zetTestGebruikerEnGroepEnReisKlaar();
+        Gebruiker testGebruiker = this.testsHelper.geefTestGebruiker();
         Groep testGroep = this.testsHelper.geefTestGroep();
         ReisItem testReisItem = this.testsHelper.geefTestReis();
         this.driver.get("http://localhost:8080/" + testGroep.getGroepId() + "/reisItemDetail/" + testReisItem.getReisItemId());
@@ -81,21 +84,20 @@ public class ReisItemViewTests {
         boolean testNotitieToegevoegd = false;
 
         // Activate
+        this.driver.findElement(By.id("keuzeReisItemMenu")).click();
         this.driver.findElement(By.id("notitieKeuze")).click();
-        Thread.sleep(500);
+        this.testsHelper.wachtOpTitel("Notitie aanmaken - " + testGebruiker.getVoornaam());
         this.driver.findElement(By.id("notitieTitel")).sendKeys(testNotitieNaam);
         this.driver.findElement(By.id("notitieDatum")).sendKeys(testNotitieStartDatum);
         this.driver.findElement(By.id("notitieTekst")).sendKeys(testNotitieTekst);
         this.driver.findElement(By.id("notitieAanmaken")).click();
-        Thread.sleep(500);
+        this.testsHelper.wachtOpTitel("Plannie - ReisDetails " + testReisItem.getNaam());
 
         // Assert
         if (this.driver.findElement(By.id("NotitieDetails" + testNotitieNaam)).getSize().width != 0) {
             testNotitieToegevoegd = true;
         }
         assertTrue(testNotitieToegevoegd);
-
-
     }
 
     @Test
@@ -104,18 +106,30 @@ public class ReisItemViewTests {
         this.testsHelper.zetTestGebruikerEnGroepEnReisKlaar();
         Groep testGroep = this.testsHelper.geefTestGroep();
         ReisItem testReis = this.testsHelper.geefTestReis();
+        Gebruiker testGebruiker = this.testsHelper.geefTestGebruiker();
         this.testsHelper.maakTestPoll();
         Poll testPoll = this.testsHelper.geefTestPoll();
+        ArrayList<String> pollOpties = this.testsHelper.geefTestPollStemOpties();
+        boolean testPollToegevoegd = false;
 
         // Activate
+        this.driver.get("http://localhost:8080/" + testGroep.getGroepId() + "/reisItemDetail/" + testReis.getReisItemId());
         this.driver.findElement(By.id("keuzeReisItemMenu")).click();
         this.driver.findElement(By.id("pollKeuze")).click();
-        this.testsHelper.wachtOpTitel("Poll aanmaken");
-
-
-
+        this.testsHelper.wachtOpTitel("Poll aanmaken - " + testGebruiker.getVoornaam());
+        this.driver.findElement(By.id("pollTitel")).sendKeys(testPoll.getNaam());
+        this.driver.findElement(By.id("pollDatum")).sendKeys(testPoll.getStartDatum());
+        for (String optie : pollOpties) {
+            this.driver.findElement(By.id("pollOpties")).sendKeys(optie + ", ");
+        }
+        this.driver.findElement(By.id("pollAanmaken")).click();
+        this.testsHelper.wachtOpTitel("Plannie - ReisDetails " + testReis.getNaam());
 
         // Assert
+        if (this.driver.findElement(By.id("PollDetails" + testPoll.getNaam())).getSize().width != 0) {
+            testPollToegevoegd = true;
+        }
+        assertTrue(testPollToegevoegd);
     }
 
     @Test
@@ -132,9 +146,6 @@ public class ReisItemViewTests {
         this.driver.findElement(By.id("keuzeReisItemMenu")).click();
         this.driver.findElement(By.id("pollKeuze")).click();
         this.testsHelper.wachtOpTitel("Poll aanmaken");
-        this.driver.findElement(By.id("pollTitel")).sendKeys(testPoll.getNaam());
-
-        this.driver.findElement(By.id("pollDatum")).sendKeys(testPoll.getStartDatum());
 
 
 

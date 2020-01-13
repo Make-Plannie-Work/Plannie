@@ -173,11 +173,14 @@ public class ReisItemController {
 
             for (String tekst : opties) {
                 // Elke poll optie wordt ingevuld met een getrimde versie van de gebruikers invoer, en daarna opgeslagen.
-                PollOptie optie = new PollOptie();
-                optie.setPoll(poll);
-                optie.setStemOptie(tekst.trim());
+                tekst = tekst.trim();
+                if (!tekst.equals("")) {
+                    PollOptie optie = new PollOptie();
+                    optie.setPoll(poll);
+                    optie.setStemOptie(tekst.trim());
 
-                poll.voegPollOptieToe(optie);
+                    poll.voegPollOptieToe(optie);
+                }
             }
 
             // ReisItem aan reis koppelen, en ReisItem aan reis toevoegen.

@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en">
-<div class="view" style="background-image: url('https://images.unsplash.com/photo-1473496169904-658ba7c44d8a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80'); background-repeat: no-repeat; background-size: cover; background-attachment: fixed;">
+<div class="view"
+     style="background-image: url('https://images.unsplash.com/photo-1473496169904-658ba7c44d8a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80'); background-repeat: no-repeat; background-size: cover; background-attachment: fixed;">
 
     <head>
         <!-- Required meta tags -->
@@ -10,7 +11,8 @@
         <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-              integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+              integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+              crossorigin="anonymous">
         <script src="https://kit.fontawesome.com/d450c035a5.js" crossorigin="anonymous"></script>
         <title>Plannie - ReisDetails ${reisItem.naam}</title>
     </head>
@@ -21,11 +23,13 @@
 
         <ul class="nav justify-content-end">
             <li class="nav-item">
-                <a class="nav-link text-dark" method="post" id="gebruikerWijzigen" href="/gebruikerWijzig">Jouw gegevens</a>
+                <a class="nav-link text-dark" method="post" id="gebruikerWijzigen" href="/gebruikerWijzig">Jouw
+                    gegevens</a>
             </li>
             <li class="nav-item">
                 <form:form action="${pageContext.request.contextPath}/logout" method="POST">
-                    <input id="logout" class="nav-link text-dark" style="border: none; background: transparent;" type="submit" value="Log uit" />
+                    <input id="logout" class="nav-link text-dark" style="border: none; background: transparent;"
+                           type="submit" value="Log uit"/>
                 </form:form>
             </li>
     </nav>
@@ -39,7 +43,7 @@
                         <c:forEach items="${alleReisItemsVanReis}" var="reisItems">
                             <div class="card flex-row flex-wrap mb-2 mx-auto" style="width: 42rem;">
 
-                                <c:set var = "soortReisItem" scope = "session" value = "${reisItems.getClass().name}"/>
+                                <c:set var="soortReisItem" scope="session" value="${reisItems.getClass().name}"/>
 
                                 <c:choose>
                                     <c:when test="${soortReisItem == 'MakePlannieWork.Plannie.model.reisitem.Notitie'}">
@@ -48,54 +52,85 @@
                                             Notitie ${reisItems.startDatum}
                                         </div>
                                         <div class="card-block px-2">
-                                            <h4 class="card-title"><a id="NotitieDetails${reisItems.naam}" href="/${groepId}/${reisItemId}/${reisItems.reisItemId}/NotitieWijzigen">${reisItems.naam}</a></h4>
+                                            <h4 class="card-title"><a id="NotitieDetails${reisItems.naam}"
+                                                                      href="/${groepId}/${reisItemId}/${reisItems.reisItemId}/NotitieWijzigen">${reisItems.naam}</a>
+                                            </h4>
                                             <p class="card-text">${reisItems.tekst}</p>
                                         </div>
 
                                     </c:when>
-                                    <c:otherwise>
+                                    <c:when test="${soortReisItem == 'MakePlannieWork.Plannie.model.reisitem.Poll'}">
+
                                         <div class="card-header border-0">
-                                            <img src="https://via.placeholder.com/100.jpg" alt="">
+                                            Poll ${reisItems.startDatum}
                                         </div>
                                         <div class="card-block px-2">
-                                            <h4 class="card-title"><a id="reisItemDetails${reisItems.reisItemId}" href="/${groep.groepId}/reisItemsDetail/${reisItems.reisItemId}">${reisItems.naam}</a></h4>
-                                            <p class="card-text">${reisItems.getClass().name}</p>
+                                            <h4 class="card-title"><a id="PollDetails${reisItems.naam}"
+                                                                      href="/${groepId}/${reisItemId}/${reisItems.reisItemId}/PollWijzigen">${reisItems.naam}</a>
+                                            </h4>
+                                            <p class="card-text">
+                                                <c:forEach items="${reisItems.pollOpties}" var="pollOptie">
+                                                    <p class="card-text">
+                                                        Stem op:
+                                                        <a id="stemmenOpPoll${reisItems.naam}Optie${pollOptie.stemOptie}"
+                                                           href="/${groepId}/${reisItemId}/${reisItems.reisItemId}/PollStemmen/${pollOptie.pollOptieId}">${pollOptie.stemOptie}</a>
+                                                    </p>
+                                                </c:forEach>
+                                            </p>
                                         </div>
-                                    </c:otherwise>
-                                </c:choose>
-
-                            </div>
-                        </c:forEach>
-
-                    </div>
-                </div>
-                <div class="jumbotron shadow">
-                    <div class="dropdown">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" id="keuzeReisItemMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Wat voor soort reisitem wil je maken?
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" id="notitieKeuze" href="/${groep.groepId}/reisItemDetail/${reisItem.reisItemId}/NotitieAanmaken">Een Notitie</a>
-                            <a class="dropdown-item" id="pollKeuze" href="/${groep.groepId}/reisItemDetail/${reisItem.reisItemId}/PollAanmaken">Een Poll</a>
-                            <a class="dropdown-item" id="activiteitKeuze" href="#">Een Activiteit</a>
+                                    </c:when>
+                    <c:otherwise>
+                        <div class="card-header border-0">
+                            <img src="https://via.placeholder.com/100.jpg" alt="">
                         </div>
-                    </div>
+                        <div class="card-block px-2">
+                            <h4 class="card-title"><a id="reisItemDetails${reisItems.reisItemId}"
+                                                      href="/${groep.groepId}/reisItemsDetail/${reisItems.reisItemId}">${reisItems.naam}</a>
+                            </h4>
+                            <p class="card-text">${reisItems.getClass().name}</p>
+                        </div>
+                    </c:otherwise>
+                    </c:choose>
+
                 </div>
+                </c:forEach>
+
             </div>
-            <div class="col-sm-4">
-                <div class="jumbotron shadow" style="background-color: #666666;">
-                    <div class="row" >
-                        <p class="lead text-white">${reisItem.naam}</p> <a id="wijzigReisItem" type="button" class="text-white" data-toggle="modal" data-target="#wijzigReisItem2"><i class="far fa-edit"></i></a> <p class="lead text-white"> - <a class ="lead text-white" href="/groepDetail/${groep.groepId}">${groep.groepsNaam}</a></p>
-                    </div>
-                    <hr class="my-4">
-                    <div class="row">
-                        <p class="lead text-white mt-3">Locatie / Datum etc..</hp>
-                        <hr class="my-4">
-                    </div>
+        </div>
+        <div class="jumbotron shadow">
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="keuzeReisItemMenu"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Wat voor soort reisitem wil je maken?
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" id="notitieKeuze"
+                       href="/${groep.groepId}/reisItemDetail/${reisItem.reisItemId}/NotitieAanmaken">Een Notitie</a>
+                    <a class="dropdown-item" id="pollKeuze"
+                       href="/${groep.groepId}/reisItemDetail/${reisItem.reisItemId}/PollAanmaken">Een Poll</a>
+                    <a class="dropdown-item" id="activiteitKeuze" href="#">Een Activiteit</a>
                 </div>
             </div>
         </div>
     </div>
+    <div class="col-sm-4">
+        <div class="jumbotron shadow" style="background-color: #666666;">
+            <div class="row">
+                <p class="lead text-white">${reisItem.naam}</p> <a id="wijzigReisItem" type="button" class="text-white"
+                                                                   data-toggle="modal" data-target="#wijzigReisItem2"><i
+                    class="far fa-edit"></i></a>
+                <p class="lead text-white"> - <a class="lead text-white" href="/groepDetail/${groep.groepId}">${groep.groepsNaam}</a>
+                </p>
+            </div>
+            <hr class="my-4">
+            <div class="row">
+                <p class="lead text-white mt-3">Locatie / Datum etc..</hp>
+                <hr class="my-4">
+            </div>
+        </div>
+    </div>
+</div>
+</div>
 </div>
 <!-- Modal Reis wijzigen -->
 <div class="modal fade" id="wijzigReisItem2" tabindex="-1" role="dialog" aria-labelledby="Wijzig ReisItem"
