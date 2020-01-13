@@ -71,13 +71,16 @@ public class ReisItemViewTests {
         this.testsHelper.zetTestGebruikerEnGroepEnReisKlaar();
         Groep testGroep = this.testsHelper.geefTestGroep();
         ReisItem testReisItem = this.testsHelper.geefTestReis();
-        this.driver.get("http://localhost:8080/" + testGroep.getGroepId() + "/reisItemDetail/" + testReisItem.getReisItemId());
+//        this.driver.get("http://localhost:8080/" + testGroep.getGroepId() + "/reisItemDetail/" + testReisItem.getReisItemId());
         String testNotitieNaam = "TestNotitie";
         String testNotitieStartDatum = "2020-01-01";
         String testNotitieTekst = "Test tekst notitie";
         boolean testNotitieToegevoegd = false;
 
         // Activate
+        Thread.sleep(5000);
+        this.driver.findElement(By.id("keuzeReisItemMenu")).click();
+        Thread.sleep(5000);
         this.driver.findElement(By.id("notitieKeuze")).click();
         Thread.sleep(500);
         this.driver.findElement(By.id("notitieTitel")).sendKeys(testNotitieNaam);
