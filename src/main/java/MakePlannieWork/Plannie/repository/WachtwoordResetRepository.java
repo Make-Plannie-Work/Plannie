@@ -14,7 +14,7 @@ public interface WachtwoordResetRepository extends JpaRepository<WachtwoordReset
 
     WachtwoordResetToken findByToken(String token);
 
-    WachtwoordResetToken findByUser(Gebruiker gebruiker);
+    WachtwoordResetToken findByGebruiker(Gebruiker gebruiker);
 
     Stream<WachtwoordResetToken> findAllByExpiryDateLessThan(Date now);
 

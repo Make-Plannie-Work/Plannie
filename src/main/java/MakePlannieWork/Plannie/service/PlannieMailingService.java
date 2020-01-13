@@ -1,7 +1,10 @@
 package MakePlannieWork.Plannie.service;
 
+import MakePlannieWork.Plannie.model.Gebruiker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.MessageSource;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Component;
@@ -9,6 +12,8 @@ import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpServletRequest;
+import java.util.Locale;
 
 @Service
 @Component
@@ -19,6 +24,14 @@ public class PlannieMailingService {
 
     @Autowired
     private JavaMailSender javaMailSender;
+    @Autowired
+    private MessageSource messages;
+
+    public void maakWachtwoordResetTokenEmail(final String contextPath, final Locale locale, final String token, final Gebruiker gebruiker) throws MessagingException {
+        final String url = contextPath + "/user/changePassword?id=" + gebruiker.getIdentifier() + "&token=" + token;
+        final String message = messages.getMessage("message.resetPassword", null, locale);
+        sendEmail(gebruiker.getEmail(), message + " \r\n" + url, "Wachtwoord resetten");
+    }
 
     public void sendEmail(String toWhom, String content, String subject) throws MessagingException {
         final MimeMessage mimeMessage = this.javaMailSender.createMimeMessage();
@@ -29,5 +42,9 @@ public class PlannieMailingService {
         message.setText(content, true);
 
         javaMailSender.send(mimeMessage);
+    }
+
+    public String getAppUrl(HttpServletRequest request) {
+        return "http://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
     }
 }

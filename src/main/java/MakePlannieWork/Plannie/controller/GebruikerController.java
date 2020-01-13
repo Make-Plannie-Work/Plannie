@@ -4,8 +4,13 @@ import MakePlannieWork.Plannie.model.Gebruiker;
 import MakePlannieWork.Plannie.model.Groep;
 import MakePlannieWork.Plannie.repository.RolRepository;
 import MakePlannieWork.Plannie.repository.WachtwoordResetRepository;
+import MakePlannieWork.Plannie.service.PlannieGebruikerSecurityService;
+import MakePlannieWork.Plannie.service.PlannieGebruikersService;
 import MakePlannieWork.Plannie.service.PlannieGroepService;
+import MakePlannieWork.Plannie.service.PlannieMailingService;
+import MakePlannieWork.Plannie.util.GenericResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +18,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import MakePlannieWork.Plannie.repository.GebruikerRepository;
 
+import javax.mail.MessagingException;
+import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
 import java.util.Arrays;
 import java.util.List;
@@ -32,14 +39,27 @@ public class GebruikerController {
     private RolRepository rolRepository;
 
     @Autowired
+    private PlannieGebruikersService plannieGebruikersService;
+
+    @Autowired
     private PlannieGroepService plannieGroepService;
 
     @Autowired
     private WachtwoordResetRepository wachtwoordResetRepository;
 
+    @Autowired
+    private PlannieGebruikerSecurityService plannieGebruikerSecurityService;
+
+    @Autowired
+    private MessageSource messages;
+
+    @Autowired
+    PlannieMailingService plannieMailingService;
+
     @GetMapping({"/index" , "/"})
     String index(Model model) {
         model.addAttribute("loginForm", new Gebruiker());
+        model.addAttribute("updatePasswordForm", new Gebruiker());
         return "index";
     }
 
@@ -62,6 +82,7 @@ public class GebruikerController {
         if (!bestaandeGebruiker.isEmpty() || result.hasErrors() || !gebruiker.getWachtwoord().equals(gebruiker.getTrancientWachtwoord())) {
             model.addAttribute("registratieFormulier", new Gebruiker());
             model.addAttribute("loginForm", new Gebruiker());
+            model.addAttribute("updatePasswordForm", new Gebruiker());
             return "gebruikerNieuw";
         } else {
             gebruiker.setIdentifier(UUID.randomUUID().toString());
@@ -117,5 +138,26 @@ public class GebruikerController {
         }
     }
 
+    @PostMapping("/wachtwoordreset")
+    @ResponseBody
+    public GenericResponse resetWachtwoord(final HttpServletRequest request, @ModelAttribute("updatePasswordForm") Gebruiker gebruiker) throws MessagingException {
+        System.out.println(gebruiker.getEmail());
+        final Gebruiker gebruikerZonderWachtwoord = gebruikerRepository.findGebruikerByEmail(gebruiker.getEmail());
+        if (gebruikerZonderWachtwoord != null) {
+            final String token = UUID.randomUUID().toString();
+            plannieGebruikersService.maakWachtWoordResetTokenVoorGebruiker(gebruiker, token);
+            plannieMailingService.maakWachtwoordResetTokenEmail(plannieMailingService.getAppUrl(request), request.getLocale(), token, gebruiker);
+        }
+        return new GenericResponse("U ontvangt binnenkort een email");
+    }
+
+    @GetMapping("/wijzigWachtwoord")
+    public String showWijzigWachtwoordPagina(final Model model, @RequestParam("id") final String id, @RequestParam("token") final String token) {
+        final String result = plannieGebruikerSecurityService.valideerWachtwoordResetToken(id, token);
+        if (result != null) {
+            return "redirect:/index";
+        }
+        return "redirect:/gebruikerWachtwoordUpdate";
+    }
 
 }
