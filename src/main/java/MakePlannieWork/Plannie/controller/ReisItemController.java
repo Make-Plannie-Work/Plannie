@@ -162,7 +162,7 @@ public class ReisItemController {
     }
 
     @PostMapping("/{groepId}/reisItemDetail/{reisItemId}/nieuwePoll")
-    public String pollOpslaan(@ModelAttribute("pollAanmakenFormulier") @PathVariable("groepId") Integer groepId, @PathVariable("reisItemId") Integer reisItemId, Model model, Poll poll, Principal principal, BindingResult result) {
+    public String pollOpslaan(@ModelAttribute("pollAanmakenFormulier") Poll poll, @PathVariable("groepId") Integer groepId, @PathVariable("reisItemId") Integer reisItemId, Model model, Principal principal, BindingResult result) {
 
         Optional<ReisItem> reisItemOptional = plannieReisItemService.findById(reisItemId);
         Gebruiker gebruiker = gebruikerRepository.findGebruikerByEmail(principal.getName());
@@ -194,10 +194,10 @@ public class ReisItemController {
                 optie.setStemOptie(tekst.trim());
 
                 poll.voegPollOptieToe(optie);
-                pollOptiesRepository.save(optie);
                 System.out.println("Optie toegevoegd: " + optie.getPollOptieId() + ", " + optie.getStemOptie());
             }
 
+            reisItemRepository.save(poll);
 
         }
 
