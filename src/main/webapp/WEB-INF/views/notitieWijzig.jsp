@@ -39,22 +39,22 @@
                     </div>
                     <div class="row">
                         <div>
-                            <form:form action="/notitieWijzigen" method="post" modelAttribute="notitieWijzigingsFormulier">
+                            <form:form action="/${groep.groepId}/${reisItem.reisItemId}/${reisItems.reisItemId}/notitieWijzigen" method="post" modelAttribute="notitieWijzigingsFormulier">
                                 <div class="row">
                                     <div class="col">
                                         <form:input type="text" class="form-control" path="naam" required="required"
-                                                    placeholder="notitieNaam" value="${notitie.naam}"/>
+                                                    placeholder="notitieNaam" value="${reisItems.naam}"/>
                                     </div>
                                     <div class="col">
-                                        <form:input type="text" class="form-control" path="startDatum"
+                                        <form:input type="date" class="form-control" path="startDatum"
                                                     required="required" placeholder="startDatum"
-                                                    value="${notitie.startDatum}"/>
+                                                    value="${reisItems.startDatum}"/>
                                     </div>
                                 </div>
 
                                 <div class="form-group mt-3">
-                                    <form:input type="email" class="form-control" path="tekst" required="required"
-                                                placeholder="Tekst" value="${notitie.tekst}"/>
+                                    <form:input type="text" class="form-control" path="tekst" required="required"
+                                                placeholder="Tekst" value="${reisItems.tekst}"/>
                                 </div>
 
                               <hr class="my-4">

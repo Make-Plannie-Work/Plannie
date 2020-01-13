@@ -119,17 +119,6 @@ public class GroepController {
         }
     }
 
-//    // Gebruiker gaat naar scherm waar naam van groep gewijzigd kan worden
-//    @GetMapping("/groepDetail/{groepId}/groepWijzig")
-//    public String huidigeGroep(@PathVariable("groepId") Integer id, Model model) {
-//        Optional<Groep> groepOptional = plannieGroepService.findById(id);
-//        model.addAttribute("groep", groepOptional.get());
-//        System.out.println("Getmapping" + groepOptional.get().getGroepsNaam());
-//        model.addAttribute("groepsNaamWijzigingsFormulier", new Groep());
-//        return "groepWijzig";
-//    }
-
-
     @PostMapping("/groepDetail/{groepId}/groepWijzig")
     public String wijzigenGroepsNaam(@ModelAttribute("groepsNaamWijzigingsFormulier")
                                      Groep groep, @PathVariable("groepId") Integer groepId, BindingResult result) {

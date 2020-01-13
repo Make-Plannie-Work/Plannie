@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.security.Principal;
 import java.util.Optional;
 import java.util.Set;
@@ -141,31 +142,14 @@ public class ReisItemController {
         return "redirect:/" + groepId + "/reisItemDetail/" + reisItemId;
     }
 
-//    @PostMapping("/{groepId}/reisItemDetail/{reisItemId}/notitieWijzig")
-////    public String wijzigenNotitie(@ModelAttribute("notitieWijzigingsFormulier")
-////                                             Notitie notitie, @PathVariable("groepId") Integer groepId, @PathVariable("reisItemId") Integer reisItemId,
-////                                    BindingResult result) {
-////        if (result.hasErrors()) {
-////            return "reisItemDetail";
-////        } else {
-////            Notitie huidigeNotitie = reisItemRepository.findReisItemByReisItemId(reisItemId);
-////            huidigeNotitie.setStartDatum(notitie.getStartDatum());
-////            huidigeNotitie.setNaam(notitie.getNaam());
-////            huidigeNotitie.setTekst(notitie.getTekst());
-////
-////
-////
-////            return "redirect:/" + groepId + "/reisItemDetail/" + reisItemId;
-////        }
-////    }
-
     // Klaarzetten van het Notitie wijzigen Overzicht
-    @GetMapping("/{groepId}/{reisItemId}/notitieWijzig/{reisItemId}")
-    public String notitieWijzigen(@PathVariable("groepId") Integer groepId, @PathVariable("reisItemId") Integer reisItemId, Model model, Principal principal) {
+    @GetMapping("/{groepId}/{reisItemId}/{reisItemsId}/NotitieWijzigen")
+    public String huidigeNotitie(@PathVariable("groepId") Integer groepId, @PathVariable("reisItemId") Integer reisItemId, @PathVariable("reisItemsId") Integer notitieId, Model model, Principal principal) {
         Optional<Groep> groepOptional = plannieGroepService.findById(groepId);
         Optional<ReisItem> reisItemOptional = plannieReisItemService.findById(reisItemId);
         Gebruiker gebruiker = gebruikerRepository.findGebruikerByEmail(principal.getName());
         model.addAttribute(gebruiker);
+        model.addAttribute("reisItems", reisItemRepository.findReisItemByReisItemId(notitieId));
         if (reisItemOptional.isPresent() && groepOptional.isPresent()) {
             model.addAttribute("currentUser", gebruikerRepository.findGebruikerByEmail(principal.getName()));
             model.addAttribute("reisItem", reisItemOptional.get());
@@ -177,11 +161,76 @@ public class ReisItemController {
         return "redirect:/" + groepId + "/reisItemDetail/" + reisItemId;
     }
 
-    //    @GetMapping("/gebruikerWijzig")
-    //    public String huidigeGebruiker(Model model, Principal principal) {
-    //        model.addAttribute("currentUser", gebruikerRepository.findGebruikerByEmail(principal.getName()));
-    //        model.addAttribute("gebruikersWijzigingsFormulier", new Gebruiker());
-    //        return "gebruikerWijzig";
-    //    }
+    @PostMapping("/{groepId}/{reisItemId}/{reisItemsId}/notitieWijzigen")
+    public String notitieWijzigen(@ModelAttribute("notitieWijzigingsFormulier") Notitie notitie, @PathVariable("groepId") Integer groepId, @PathVariable("reisItemId") Integer reisItemId,
+                                  @PathVariable("reisItemsId") Integer notitieId, BindingResult result, Principal principal, Model model) {
+
+        Optional<ReisItem> reisItemOptional = plannieReisItemService.findById(reisItemId);
+        Gebruiker gebruiker = gebruikerRepository.findGebruikerByEmail(principal.getName());
+        model.addAttribute(gebruiker);
+        ReisItem reis = reisItemOptional.get();
+        model.addAttribute("reisItem", reis);
+        model.addAttribute("groep", reis);
+        model.addAttribute("reisItems", reisItemRepository.findReisItemByReisItemId(notitieId));
+
+        if (result.hasErrors()) {
+            return "redirect:/notitieWijzig";
+        } else {
+            Notitie huidigeNotitie = reisItemRepository.findReisItemByReisItemId(notitieId);
+            System.out.println("Voor save notitienaam = " + huidigeNotitie.getNaam());
+            System.out.println("Voor save notitietekst = " + huidigeNotitie.getTekst());
+            System.out.println("Voor save notitiedatum = " + huidigeNotitie.getStartDatum());
+            huidigeNotitie.setNaam(notitie.getNaam());
+            huidigeNotitie.setTekst(notitie.getTekst());
+            huidigeNotitie.setStartDatum(notitie.getStartDatum());
+            reisItemRepository.save(huidigeNotitie);
+
+            System.out.println("Na save notitienaam = " + huidigeNotitie.getNaam());
+            System.out.println("Na save notitietekst = " + huidigeNotitie.getTekst());
+            System.out.println("Na save notitiedatum = " + huidigeNotitie.getStartDatum());
+        }
+        return "redirect:/" + groepId + "/reisItemDetail/" + reisItemId;
+
+
+    }
+
 
 }
+//    @PostMapping("/groepDetail/{groepId}/groepWijzig")
+//    public String wijzigenGroepsNaam(@ModelAttribute("groepsNaamWijzigingsFormulier")
+//                                     Groep groep, @PathVariable("groepId") Integer groepId, BindingResult result) {
+//        if (result.hasErrors()) {
+//            return "groepDetail";
+//        } else {
+//            Groep huidigeGroep = groepRepository.findByGroepId(groepId);
+//            System.out.println("Postmapping" + huidigeGroep.getGroepsNaam());
+//            huidigeGroep.setGroepsNaam(groep.getGroepsNaam());
+//            groepRepository.save(huidigeGroep);
+//            System.out.println("Save" + huidigeGroep.getGroepsNaam());
+//            return "redirect:/groepDetail/" + groepId;
+//        }
+//    }
+
+
+//    @PostMapping("/wijzigen")
+//    public String wijzigenHuidigeGebruiker(@ModelAttribute("gebruikersWijzigingsFormulier") Gebruiker gebruiker,
+//                                    BindingResult result, Principal principal) {
+//        if (result.hasErrors() || !gebruiker.getWachtwoord().equals(gebruiker.getTrancientWachtwoord())) {
+//            // TODO Als de gebruiker een niet matchend wachtwoord heeft, wordt hij nu zonder foutmelding teruggeleid naar de pagina.
+//            return "redirect:/gebruikerWijzig";
+//        } else {
+//            Gebruiker huidigeGebruiker = gebruikerRepository.findGebruikerByEmail(principal.getName());
+//
+//            // Als het wachtwoord, en het bevestigde wachtwoord matchen, wordt deze opgeslagen voor de gebruiker.
+//            if (!gebruiker.getWachtwoord().equals("") && !gebruiker.getTrancientWachtwoord().equals("")) {
+//                huidigeGebruiker.setWachtwoord(passwordEncoder.encode(gebruiker.getWachtwoord()));
+//            }
+//
+//            huidigeGebruiker.setVoornaam(gebruiker.getVoornaam());
+//            huidigeGebruiker.setAchternaam(gebruiker.getAchternaam());
+//            huidigeGebruiker.setEmail(gebruiker.getEmail());
+//
+//            gebruikerRepository.save(huidigeGebruiker);
+//            return "redirect:/gebruikerDetail";
+//        }
+//    }
