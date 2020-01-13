@@ -162,43 +162,32 @@ public class ReisItemController {
     }
 
     @PostMapping("/{groepId}/reisItemDetail/{reisItemId}/nieuwePoll")
-    public String pollOpslaan(@ModelAttribute("pollAanmakenFormulier") Poll poll, @PathVariable("groepId") Integer groepId, @PathVariable("reisItemId") Integer reisItemId, Model model, Principal principal, BindingResult result) {
+    public String pollOpslaan(@ModelAttribute("pollAanmakenFormulier") Poll poll, @PathVariable("groepId") Integer groepId, @PathVariable("reisItemId") Integer reisItemId) {
 
         Optional<ReisItem> reisItemOptional = plannieReisItemService.findById(reisItemId);
-        Gebruiker gebruiker = gebruikerRepository.findGebruikerByEmail(principal.getName());
-        model.addAttribute(gebruiker);
 
         if (reisItemOptional.isPresent()) {
             ReisItem reis = reisItemOptional.get();
-
-            model.addAttribute("currentUser", gebruikerRepository.findGebruikerByEmail(principal.getName()));
-            model.addAttribute("reisItem", reis);
-            model.addAttribute("groepslidEmail", new Gebruiker());
-            model.addAttribute("groep", reis);
-
-            System.out.println(poll.getNaam());
-            System.out.println(poll.getEindDatum());
 
             // We gebruiken de String eindDatum om tijdelijk de keuze van de gebruiker op te slaan.
             // Deze wordt hier uitgelezen naar poll opties, en daarna weer leeggehaald.
             String[] opties = poll.getEindDatum().split(",");
             poll.setEindDatum(null);
 
-            reisItemRepository.save(poll);
-            System.out.println("Poll opgeslagen: " + poll.getReisItemId() + ", " + poll.getNaam());
-
             for (String tekst : opties) {
-                // Elke poll optie wordt ingevuld met een getrimde versie van de gebruikers invoer, en opgeslagen.
+                // Elke poll optie wordt ingevuld met een getrimde versie van de gebruikers invoer, en daarna opgeslagen.
                 PollOptie optie = new PollOptie();
                 optie.setPoll(poll);
                 optie.setStemOptie(tekst.trim());
 
                 poll.voegPollOptieToe(optie);
-                System.out.println("Optie toegevoegd: " + optie.getPollOptieId() + ", " + optie.getStemOptie());
             }
 
+            // ReisItem aan reis koppelen, en ReisItem aan reis toevoegen.
+            poll.setGekoppeldeReisItemId(reis);
+            reis.voegReisItemToe(poll);
             reisItemRepository.save(poll);
-
+            reisItemRepository.save(reis);
         }
 
         // Terug naar reis overzicht.

@@ -24,12 +24,7 @@ public class ReisItem {
     private String locatie;
     private Integer aanmaker;
 
-    @OneToMany
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(
-            name = "reis_item",
-            referencedColumnName = "reisItemId"
-    )
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "gekoppeldeReisItem")
     private Set<ReisItem> reisItems;
 
     @ManyToOne
