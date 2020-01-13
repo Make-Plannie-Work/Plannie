@@ -9,11 +9,7 @@ import java.util.Set;
 @Entity
 public class Poll extends ReisItem {
 
-    @OneToMany(cascade=CascadeType.PERSIST)
-    @JoinTable(
-            name = "POLL_STEMMEN",
-            joinColumns = {@JoinColumn(name = "reisItemId")}
-            )
+    @OneToMany(cascade=CascadeType.ALL, mappedBy = "poll")
     private Set<PollOptie> pollOpties = new HashSet<>();
 
     public void voegPollOptieToe(PollOptie pollOptie) {

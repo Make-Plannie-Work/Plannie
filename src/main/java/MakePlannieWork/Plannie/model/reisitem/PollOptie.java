@@ -15,18 +15,14 @@ public class PollOptie {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer pollOptieId;
+
     private String stemOptie;
 
     @ManyToOne
     @JoinColumn(name = "reisItemId")
     private Poll poll;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinTable(
-            name = "POLL_STEMMEN",
-            joinColumns = {@JoinColumn(name = "pollOptieId")},
-            inverseJoinColumns = {@JoinColumn(name = "gebruiker_gebruikersid")})
+    @ManyToMany
     private Set<Gebruiker> stemmen = new HashSet<>();
 
     public Integer getPollOptieId() {
