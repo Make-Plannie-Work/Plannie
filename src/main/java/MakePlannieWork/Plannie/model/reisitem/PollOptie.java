@@ -13,11 +13,11 @@ import java.util.Set;
 public class PollOptie {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer pollOptieId;
     private String stemOptie;
 
-    @OneToOne
+    @ManyToOne(cascade=CascadeType.ALL)
     @JoinColumn(name = "reisItemId")
     private Poll poll;
 

@@ -8,6 +8,7 @@ import MakePlannieWork.Plannie.model.reisitem.PollOptie;
 import MakePlannieWork.Plannie.model.reisitem.ReisItem;
 import MakePlannieWork.Plannie.repository.GebruikerRepository;
 import MakePlannieWork.Plannie.repository.GroepRepository;
+import MakePlannieWork.Plannie.repository.PollOptiesRepository;
 import MakePlannieWork.Plannie.repository.ReisItemRepository;
 import MakePlannieWork.Plannie.service.PlannieGroepService;
 import MakePlannieWork.Plannie.service.PlannieReisItemService;
@@ -35,6 +36,9 @@ public class ReisItemController {
 
     @Autowired
     private ReisItemRepository reisItemRepository;
+
+    @Autowired
+    private PollOptiesRepository pollOptiesRepository;
 
     @Autowired
     private PlannieGroepService plannieGroepService;
@@ -172,14 +176,27 @@ public class ReisItemController {
             model.addAttribute("groepslidEmail", new Gebruiker());
             model.addAttribute("groep", reis);
 
-            String[] split = poll.getEindDatum().split(",");
-            for (String tekst : split) {
+            System.out.println(poll.getNaam());
+            System.out.println(poll.getEindDatum());
+
+            // We gebruiken de String eindDatum om tijdelijk de keuze van de gebruiker op te slaan.
+            // Deze wordt hier uitgelezen naar poll opties, en daarna weer leeggehaald.
+            String[] opties = poll.getEindDatum().split(",");
+            poll.setEindDatum(null);
+
+            reisItemRepository.save(poll);
+            System.out.println("Poll opgeslagen: " + poll.getReisItemId() + ", " + poll.getNaam());
+
+            for (String tekst : opties) {
+                // Elke poll optie wordt ingevuld met een getrimde versie van de gebruikers invoer, en opgeslagen.
                 PollOptie optie = new PollOptie();
                 optie.setPoll(poll);
-                optie.setStemOptie(tekst);
-                poll.voegPollOptieToe(optie);
-            }
+                optie.setStemOptie(tekst.trim());
 
+                poll.voegPollOptieToe(optie);
+                pollOptiesRepository.save(optie);
+                System.out.println("Optie toegevoegd: " + optie.getPollOptieId() + ", " + optie.getStemOptie());
+            }
 
 
         }
