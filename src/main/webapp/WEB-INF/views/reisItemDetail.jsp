@@ -48,7 +48,7 @@
                                             Notitie ${reisItems.startDatum}
                                         </div>
                                         <div class="card-block px-2">
-                                            <h4 class="card-title"><a id="NotitieDetails${reisItems.reisItemId}" href="/${groep.groepId}/reisItemsDetail/${reisItems.reisItemId}">${reisItems.naam}</a></h4>
+                                            <h4 class="card-title"><a id="NotitieDetails${reisItems.reisItemId}" href="/${groepId}/${reisItemId}/${reisItems.reisItemId}/NotitieWijzigen">${reisItems.naam}</a></h4>
                                             <p class="card-text">${reisItems.tekst}</p>
                                         </div>
 
@@ -97,7 +97,7 @@
         </div>
     </div>
 </div>
-<!-- Modal -->
+<!-- Modal Reis wijzigen -->
 <div class="modal fade" id="wijzigReisItem2" tabindex="-1" role="dialog" aria-labelledby="Wijzig ReisItem"
      aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -114,6 +114,7 @@
         </div>
     </div>
 </div>
+
 <!-- Footer -->
 <footer class="py-4 bg-dark text-white-50">
 
