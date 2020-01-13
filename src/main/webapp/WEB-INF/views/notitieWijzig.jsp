@@ -78,7 +78,7 @@
             <div class="col-sm-4">
                 <div class="jumbotron shadow" style="background-color: #666666;">
                     <div class="row" >
-                        <p class="lead text-white">${reisItem.naam}</p> <a id="wijzigReisItem" type="button" class="text-white" data-toggle="modal" data-target="#wijzigReisItem2"><i class="far fa-edit"></i></a> <p class="lead text-white"> - <a class ="lead text-white" href="/groepDetail/${groep.groepId}">${groep.groepsNaam}</a></p>
+                        <p class="lead text-white"><a class ="lead text-white" href="/${groep.groepId}/reisItemDetail/${reisItem.reisItemId}">${reisItem.naam} </a> <p class="lead text-white">  - <a class ="lead text-white" href="/groepDetail/${groep.groepId}">${groep.groepsNaam}</a></p>
                     </div>
                     <hr class="my-4">
                     <div class="row">
