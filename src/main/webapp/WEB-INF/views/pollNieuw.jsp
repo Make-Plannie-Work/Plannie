@@ -44,16 +44,25 @@
                     <div class="row">
                         <p class="lead">Poll aanmaken</p>
                     </div>
-                    <div class="row">
                         <div>
-                            <form:form action="/${groep.groepId}/reisItemDetail/${reisItem.reisItemId}/nieuwePoll" method="post" modelAttribute="pollAanmakenFormulier">
+                            <form:form action="/${groep.groepId}/reisItemDetail/${reisItem.reisItemId}/nieuwePoll"
+                                       method="post" modelAttribute="pollAanmakenFormulier">
                                 <div class="row">
-                                    <div class="col">
-                                        <form:input id="pollTitel" type="text" class="form-control" path="naam" required="required"
+                                    <div class="col-md-" >
+                                        <form:input id="pollTitel" type="text" class="form-control" path="naam"
+                                                    required="required"
                                                     placeholder="Titel"/>
-                                        <form:input id="pollDatum" type="date" class="form-control" path="startDatum" required="required"
-                                                    placeholder="Datum"/>
+                                        <form:input id="pollDatum" type="date" class="form-control" path="startDatum"
+                                                    required="required"/>
                                     </div>
+                                </div>
+
+                                <hr class="my-4">
+
+                                <div class="row">
+                                    <form:input id="pollOpties" type="text" class="form-control" path="eindDatum"
+                                                required="required"
+                                                placeholder="Vul stemopties in, gescheiden door komma's"/>
                                 </div>
 
                                 <hr class="my-4">
@@ -68,7 +77,6 @@
                             </a>
                         </div>
 
-                    </div>
                 </div>
             </div>
 

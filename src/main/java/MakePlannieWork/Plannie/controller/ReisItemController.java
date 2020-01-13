@@ -4,6 +4,7 @@ import MakePlannieWork.Plannie.model.Gebruiker;
 import MakePlannieWork.Plannie.model.Groep;
 import MakePlannieWork.Plannie.model.reisitem.Notitie;
 import MakePlannieWork.Plannie.model.reisitem.Poll;
+import MakePlannieWork.Plannie.model.reisitem.PollOptie;
 import MakePlannieWork.Plannie.model.reisitem.ReisItem;
 import MakePlannieWork.Plannie.repository.GebruikerRepository;
 import MakePlannieWork.Plannie.repository.GroepRepository;
@@ -154,5 +155,36 @@ public class ReisItemController {
         }
 
         return "reisItemDetail";
+    }
+
+    @PostMapping("/{groepId}/reisItemDetail/{reisItemId}/nieuwePoll")
+    public String pollOpslaan(@ModelAttribute("pollAanmakenFormulier") @PathVariable("groepId") Integer groepId, @PathVariable("reisItemId") Integer reisItemId, Model model, Poll poll, Principal principal, BindingResult result) {
+
+        Optional<ReisItem> reisItemOptional = plannieReisItemService.findById(reisItemId);
+        Gebruiker gebruiker = gebruikerRepository.findGebruikerByEmail(principal.getName());
+        model.addAttribute(gebruiker);
+
+        if (reisItemOptional.isPresent()) {
+            ReisItem reis = reisItemOptional.get();
+
+            model.addAttribute("currentUser", gebruikerRepository.findGebruikerByEmail(principal.getName()));
+            model.addAttribute("reisItem", reis);
+            model.addAttribute("groepslidEmail", new Gebruiker());
+            model.addAttribute("groep", reis);
+
+            String[] split = poll.getEindDatum().split(",");
+            for (String tekst : split) {
+                PollOptie optie = new PollOptie();
+                optie.setPoll(poll);
+                optie.setStemOptie(tekst);
+                poll.voegPollOptieToe(optie);
+            }
+
+
+
+        }
+
+        // Terug naar reis overzicht.
+        return "redirect:/" + groepId + "/reisItemDetail/" + reisItemId;
     }
 }

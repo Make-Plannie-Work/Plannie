@@ -14,6 +14,10 @@ public class Poll extends ReisItem {
             )
     private Set<PollOptie> pollOpties = new HashSet<>();
 
+    public void voegPollOptieToe(PollOptie pollOptie) {
+        this.pollOpties.add(pollOptie);
+    }
+
     public Set<PollOptie> getPollOpties() {
         return pollOpties;
     }
