@@ -1,6 +1,8 @@
 package MakePlannieWork.Plannie;
 
 import MakePlannieWork.Plannie.model.Groep;
+import MakePlannieWork.Plannie.model.reisitem.Notitie;
+import MakePlannieWork.Plannie.model.reisitem.Poll;
 import MakePlannieWork.Plannie.model.reisitem.ReisItem;
 import MakePlannieWork.Plannie.repository.GroepRepository;
 import MakePlannieWork.Plannie.repository.ReisItemRepository;
@@ -11,6 +13,7 @@ import MakePlannieWork.Plannie.model.Gebruiker;
 import MakePlannieWork.Plannie.repository.GebruikerRepository;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.springframework.security.core.SpringSecurityCoreVersion;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.ArrayList;
@@ -27,6 +30,8 @@ public class TestsHelper {
 
     // Standaard Test Identifiers
     private static final String URL_GEBRUIKER_DETAIL = "http://localhost:8080/gebruikerDetail";
+    private static final String URL_GROEP_DETAIL = "http://localhost:8080/groepDetail/";
+    private static final String URL_INDEX = "http://localhost:8080/index";
     private static final String GROEP_NAAM_TEXTFIELD = "groepsNaam";
 
     // Gebruikers Static Test Waarden
@@ -38,11 +43,24 @@ public class TestsHelper {
     // Groepen Static Test Waarden
     private static final String GROEP_NAAM = "testGroep";
 
-    // TODO ReisItems Static Test Waarden
+    // ReisItems Static Test Waarden
+    private static final String REIS_NAAM = "testReis";
+    private static final String REIS_DATUM = "2020-06-10";
+    // Notitie items Static Test Waarden
+    private static final String NOTITIE_NAAM = "testNotitie";
+    private static final String NOTITIE_TEKST = "Test tekst, die heel lang is.";
+    private static final String NOTITIE_STARTDATUM = REIS_DATUM;
+    // Poll items Static Test Waarden
+    private static final String POLL_NAAM = "testPoll";
+    private static final String POLL_STARTDATUM = REIS_DATUM;
+    private static final String[] POLL_OPTIES = {"stem1","stem2","stem3"};
 
     private ArrayList<Gebruiker> testGebruikers = new ArrayList<>();
     private ArrayList<Groep> testGroepen = new ArrayList<>();
-    private ArrayList<ReisItem> reisItems = new ArrayList<>();
+    private ArrayList<ReisItem> testReizen = new ArrayList<>();
+    private ArrayList<Notitie> testNotities = new ArrayList<>();
+    private ArrayList<Poll> testPolls = new ArrayList<>();
+
 
     private GebruikerRepository gebruikerRepository;
     private ReisItemRepository reisItemRepository;
@@ -87,6 +105,13 @@ public class TestsHelper {
         registreerTestGebruikers();
         inloggen();
         registreerTestGroepen();
+    }
+
+    public void zetTestGebruikerEnGroepEnReisKlaar() {
+        zetTestGebruikerEnTestGroepKlaar();
+        this.driver.get(URL_GROEP_DETAIL + geefTestGroep().getGroepId());
+        maakTestReis();
+        registreerTestReizen();
     }
 
     // Wachten tot de volgende pagina geladen is:
@@ -190,8 +215,48 @@ public class TestsHelper {
         }
     }
 
-    // TODO Test ReisItems aanmaken:
+    // Test Reizen aanmaken:
+    public void maakTestReizen(int aantal) {
+        this.testGroepen.clear();
+        for (int i = 0; i < aantal; i++) {
+            ReisItem testReis = new ReisItem();
+            testReis.setNaam(REIS_NAAM + i);
+            this.testReizen.add(testReis);
+        }
+    }
 
+    public void maakTestReis() {
+        maakTestReizen(1);
+    }
+
+    // Test Reizen registreren
+    public void registreerTestReizen() {
+        int index = 0;
+        for (ReisItem testReis : testReizen) {
+            registreerTestReis(index);
+            index++;
+        }
+    }
+
+    public void registreerTestReis(int reisIndex) {
+        // Alleen te gebruiken vanuit een groepDetail pagina.
+        String beginUrl = driver.getCurrentUrl();
+        driver.findElement(By.id("reisNaam")).sendKeys(testReizen.get(reisIndex).getNaam() + Keys.ENTER);
+        driver.get(beginUrl);
+    }
+
+    // Test Reizen geven: Je kan alle groepen, of 1 opvragen.
+    public ArrayList<ReisItem> geefTestReizen() {
+        return this.testReizen;
+    }
+
+    public ReisItem geefTestReis() {
+        return geefTestReis(0);
+    }
+
+    public ReisItem geefTestReis(int index) {
+        return this.testReizen.get(index);
+    }
 
     // Test Gebruikers aanmaken:
     public void maakTestGebruikers(int aantal) {
@@ -220,10 +285,13 @@ public class TestsHelper {
     }
 
     public void inloggen(Gebruiker testGebruiker) {
+        String beginUrl = driver.getCurrentUrl();
+        this.driver.get(URL_INDEX);
         driver.findElement(By.id("inloggen")).click();
         wachtOpElement("loginForm");
         driver.findElement(By.name("username")).sendKeys(testGebruiker.getEmail());
         driver.findElement(By.name("password")).sendKeys(testGebruiker.getWachtwoord() + Keys.RETURN);
+        this.driver.get(beginUrl);
     }
 
     // Test Gebruikers geven: Je kan alle gebruikers, of 1 opvragen.
@@ -279,4 +347,21 @@ public class TestsHelper {
             gebruikerRepository.deleteAll(testGebruikersInDatabase);
         }
     }
+
+    // Test Groepen verwijderen uit database
+//    public void verwijderTestGroepenUitDatabase() {
+//        int index = 0;
+//        for (Gebruiker testGebruiker : testGebruikers) {
+//            verwijderTestGroepUitDatabase(index);
+//            index++;
+//        }
+//    }
+//
+//    public void verwijderTestGroepUitDatabase(int index) {
+//        Groep testGroep = this.testGroepen.get(index);
+//        testGroep = groepRepository.findByGroepId(testGroep.getGroepId());
+//        if (!testGebruikersInDatabase.isEmpty()) {
+//            gebruikerRepository.deleteAll(testGebruikersInDatabase);
+//        }
+//    }
 }
