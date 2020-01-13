@@ -10,4 +10,6 @@ public interface ReisItemRepository extends JpaRepository<ReisItem, Integer> {
     ReisItem findGebruikerByReisItemId (Integer Id);
 
     Notitie findReisItemByReisItemId (Integer Id);
+
+    ReisItem findReisItemByNaam (String naam);
 }
