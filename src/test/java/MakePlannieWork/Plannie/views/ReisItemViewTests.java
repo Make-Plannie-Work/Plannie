@@ -72,33 +72,58 @@ public class ReisItemViewTests {
     @Test
     public void testNotitieAanmakenCorrect() throws InterruptedException {
         // Arrange
-        this.driver.get("http://localhost:8080/gebruikerDetail");
         this.testsHelper.zetTestGebruikerEnGroepEnReisKlaar();
         Gebruiker testGebruiker = this.testsHelper.geefTestGebruiker();
         Groep testGroep = this.testsHelper.geefTestGroep();
         ReisItem testReisItem = this.testsHelper.geefTestReis();
-//        this.driver.get("http://localhost:8080/" + testGroep.getGroepId() + "/reisItemDetail/" + testReisItem.getReisItemId());
-        String testNotitieNaam = "TestNotitie";
-        String testNotitieStartDatum = "2020-01-01";
-        String testNotitieTekst = "Test tekst notitie";
+        this.testsHelper.maakTestNotitie();
+        Notitie testNotitie = this.testsHelper.geefTestNotitie();
         boolean testNotitieToegevoegd = false;
 
+
         // Activate
+        this.driver.get("http://localhost:8080/" + testGroep.getGroepId() + "/reisItemDetail/" + testReisItem.getReisItemId());
         this.driver.findElement(By.id("keuzeReisItemMenu")).click();
         this.driver.findElement(By.id("notitieKeuze")).click();
         this.testsHelper.wachtOpTitel("Notitie aanmaken - " + testGebruiker.getVoornaam());
-        this.driver.findElement(By.id("notitieTitel")).sendKeys(testNotitieNaam);
-        this.driver.findElement(By.id("notitieDatum")).sendKeys(testNotitieStartDatum);
-        this.driver.findElement(By.id("notitieTekst")).sendKeys(testNotitieTekst);
+        this.driver.findElement(By.id("notitieTitel")).sendKeys(testNotitie.getNaam());
+        this.driver.findElement(By.id("notitieDatum")).sendKeys(testNotitie.getStartDatum());
+        this.driver.findElement(By.id("notitieTekst")).sendKeys(testNotitie.getTekst());
         this.driver.findElement(By.id("notitieAanmaken")).click();
         this.testsHelper.wachtOpTitel("Plannie - ReisDetails " + testReisItem.getNaam());
 
         // Assert
-        if (this.driver.findElement(By.id("NotitieDetails" + testNotitieNaam)).getSize().width != 0) {
+        if (this.driver.findElement(By.id("NotitieDetails" + testNotitie.getNaam())).getSize().width != 0) {
             testNotitieToegevoegd = true;
         }
         assertTrue(testNotitieToegevoegd);
     }
+
+    @Test
+    public void testNotitieAanmakenFout() throws InterruptedException {
+        // Arrange
+        this.testsHelper.zetTestGebruikerEnGroepEnReisKlaar();
+        Gebruiker testGebruiker = this.testsHelper.geefTestGebruiker();
+        Groep testGroep = this.testsHelper.geefTestGroep();
+        ReisItem testReisItem = this.testsHelper.geefTestReis();
+        String testNotitieTitel = "";
+        String testNotitieDatum = "";
+        String testNotitieTekst = "";
+
+        // Activate
+        this.driver.get("http://localhost:8080/" + testGroep.getGroepId() + "/reisItemDetail/" + testReisItem.getReisItemId());
+        this.driver.findElement(By.id("keuzeReisItemMenu")).click();
+        this.driver.findElement(By.id("notitieKeuze")).click();
+        this.testsHelper.wachtOpTitel("Notitie aanmaken - " + testGebruiker.getVoornaam());
+        this.driver.findElement(By.id("notitieTitel")).sendKeys(testNotitieTitel);
+        this.driver.findElement(By.id("notitieDatum")).sendKeys(testNotitieDatum);
+        this.driver.findElement(By.id("notitieTekst")).sendKeys(testNotitieTekst);
+        this.driver.findElement(By.id("notitieAanmaken")).click();
+
+        // Assert
+        assertEquals("Notitie aanmaken - " + testGebruiker.getVoornaam(), driver.getTitle());
+    }
+
 
     @Test
     public void testPollAanmakenCorrect() throws InterruptedException {
