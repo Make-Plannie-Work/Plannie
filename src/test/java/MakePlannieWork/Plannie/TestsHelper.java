@@ -3,6 +3,7 @@ package MakePlannieWork.Plannie;
 import MakePlannieWork.Plannie.model.Groep;
 import MakePlannieWork.Plannie.model.reisitem.Notitie;
 import MakePlannieWork.Plannie.model.reisitem.Poll;
+import MakePlannieWork.Plannie.model.reisitem.PollOptie;
 import MakePlannieWork.Plannie.model.reisitem.ReisItem;
 import MakePlannieWork.Plannie.repository.GroepRepository;
 import MakePlannieWork.Plannie.repository.ReisItemRepository;
@@ -54,7 +55,7 @@ public class TestsHelper {
     // Poll items Static Test Waarden
     private static final String POLL_NAAM = "testPoll";
     private static final String POLL_STARTDATUM = REIS_DATUM;
-    private static final String[] POLL_OPTIES = {"stem1","stem2","stem3"};
+    private static final String[] POLL_OPTIES = {"stem optie 1","stem optie 2","stem optie 3"};
 
     private ArrayList<Gebruiker> testGebruikers = new ArrayList<>();
     private ArrayList<Groep> testGroepen = new ArrayList<>();
@@ -301,6 +302,40 @@ public class TestsHelper {
 
     public Notitie geefTestNotitie(int index) {
         return this.testNotities.get(0);
+    }
+
+    // Test Polls aanmaken:
+    public void maakTestPolls(int aantal) {
+        for (int i = 0; i < aantal; i++) {
+            Poll testPoll = new Poll();
+            testPoll.setNaam(POLL_NAAM + i);
+            testPoll.setStartDatum(POLL_STARTDATUM);
+
+            for (String optie : POLL_OPTIES) {
+                PollOptie pollOptie = new PollOptie();
+                pollOptie.setStemOptie(optie + i);
+                testPoll.voegPollOptieToe(pollOptie);
+            }
+
+            this.testPolls.add(testPoll);
+        }
+    }
+
+    public void maakTestPoll() {
+        maakTestPolls(1);
+    }
+
+    // Test Polls geven: Je kan alle polls, of 1 opvragen.
+    public ArrayList<Poll> geefTestPolls() {
+        return this.testPolls;
+    }
+
+    public Poll geefTestPoll() {
+        return geefTestPoll(0);
+    }
+
+    public Poll geefTestPoll(int index) {
+        return this.testPolls.get(0);
     }
 
     // Test Gebruikers aanmaken:
