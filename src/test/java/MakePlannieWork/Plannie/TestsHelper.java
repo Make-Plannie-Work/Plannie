@@ -20,6 +20,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 /**
  * TestsHelper kan worden aangeroepen door alle tests, om herhaling van code te voorkomen.
@@ -244,6 +245,7 @@ public class TestsHelper {
         // Alleen te gebruiken vanuit een groepDetail pagina.
         String beginUrl = driver.getCurrentUrl();
         driver.findElement(By.id("reisNaam")).sendKeys(testReizen.get(reisIndex).getNaam() + Keys.ENTER);
+        testReizen.set(reisIndex, reisItemRepository.findReisItemByNaam(testReizen.get(reisIndex).getNaam()));
         driver.get(beginUrl);
     }
 
@@ -336,6 +338,21 @@ public class TestsHelper {
 
     public Poll geefTestPoll(int index) {
         return this.testPolls.get(0);
+    }
+
+    // Test Poll stem opties geven:
+    public ArrayList<String> geefTestPollStemOpties () {
+        return geefTestPollStemOpties(0);
+    }
+
+    public ArrayList<String> geefTestPollStemOpties (int index) {
+        Set<PollOptie> pollOpties = testPolls.get(index).getPollOpties();
+        ArrayList<String> stemopties = new ArrayList<>();
+        for (PollOptie optie : pollOpties) {
+            stemopties.add(optie.getStemOptie());
+        }
+
+        return stemopties;
     }
 
     // Test Gebruikers aanmaken:

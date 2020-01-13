@@ -4,6 +4,9 @@ package MakePlannieWork.Plannie.views;
 import MakePlannieWork.Plannie.TestsHelper;
 import MakePlannieWork.Plannie.model.Gebruiker;
 import MakePlannieWork.Plannie.model.Groep;
+import MakePlannieWork.Plannie.model.reisitem.Notitie;
+import MakePlannieWork.Plannie.model.reisitem.Poll;
+import MakePlannieWork.Plannie.model.reisitem.PollOptie;
 import MakePlannieWork.Plannie.model.reisitem.ReisItem;
 import MakePlannieWork.Plannie.repository.GebruikerRepository;
 import MakePlannieWork.Plannie.repository.GroepRepository;
@@ -93,5 +96,49 @@ public class ReisItemViewTests {
         assertTrue(testNotitieToegevoegd);
 
 
+    }
+
+    @Test
+    public void testPollAanmakenCorrect() throws InterruptedException {
+        // Arrange
+        this.testsHelper.zetTestGebruikerEnGroepEnReisKlaar();
+        Groep testGroep = this.testsHelper.geefTestGroep();
+        ReisItem testReis = this.testsHelper.geefTestReis();
+        this.testsHelper.maakTestPoll();
+        Poll testPoll = this.testsHelper.geefTestPoll();
+
+        // Activate
+        this.driver.findElement(By.id("keuzeReisItemMenu")).click();
+        this.driver.findElement(By.id("pollKeuze")).click();
+        this.testsHelper.wachtOpTitel("Poll aanmaken");
+
+
+
+
+        // Assert
+    }
+
+    @Test
+    public void testPollAanmakenFout() throws InterruptedException {
+        // Arrange
+        this.testsHelper.zetTestGebruikerEnGroepEnReisKlaar();
+        Groep testGroep = this.testsHelper.geefTestGroep();
+        ReisItem testReis = this.testsHelper.geefTestReis();
+        this.testsHelper.maakTestPoll();
+        Poll testPoll = this.testsHelper.geefTestPoll();
+
+
+        // Activate
+        this.driver.findElement(By.id("keuzeReisItemMenu")).click();
+        this.driver.findElement(By.id("pollKeuze")).click();
+        this.testsHelper.wachtOpTitel("Poll aanmaken");
+        this.driver.findElement(By.id("pollTitel")).sendKeys(testPoll.getNaam());
+
+        this.driver.findElement(By.id("pollDatum")).sendKeys(testPoll.getStartDatum());
+
+
+
+
+        // Assert
     }
 }
