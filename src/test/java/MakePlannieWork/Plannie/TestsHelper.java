@@ -3,6 +3,7 @@ package MakePlannieWork.Plannie;
 import MakePlannieWork.Plannie.model.Groep;
 import MakePlannieWork.Plannie.model.reisitem.Notitie;
 import MakePlannieWork.Plannie.model.reisitem.Poll;
+import MakePlannieWork.Plannie.model.reisitem.PollOptie;
 import MakePlannieWork.Plannie.model.reisitem.ReisItem;
 import MakePlannieWork.Plannie.repository.GroepRepository;
 import MakePlannieWork.Plannie.repository.ReisItemRepository;
@@ -18,6 +19,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * TestsHelper kan worden aangeroepen door alle tests, om herhaling van code te voorkomen.
@@ -53,7 +55,7 @@ public class TestsHelper {
     // Poll items Static Test Waarden
     private static final String POLL_NAAM = "testPoll";
     private static final String POLL_STARTDATUM = REIS_DATUM;
-    private static final String[] POLL_OPTIES = {"stem1","stem2","stem3"};
+    private static final String[] POLL_OPTIES = {"stem optie 1","stem optie 2","stem optie 3"};
 
     private ArrayList<Gebruiker> testGebruikers = new ArrayList<>();
     private ArrayList<Groep> testGroepen = new ArrayList<>();
@@ -245,7 +247,7 @@ public class TestsHelper {
         driver.get(beginUrl);
     }
 
-    // Test Reizen geven: Je kan alle groepen, of 1 opvragen.
+    // Test Reizen geven: Je kan alle reizen, of 1 opvragen.
     public ArrayList<ReisItem> geefTestReizen() {
         return this.testReizen;
     }
@@ -256,6 +258,84 @@ public class TestsHelper {
 
     public ReisItem geefTestReis(int index) {
         return this.testReizen.get(index);
+    }
+
+    // Test Reizen verwijderen uit database
+    public void verwijderTestReizenUitDatabase() {
+        int index = 0;
+        for (ReisItem testreis : testReizen) {
+            verwijderTestReisUitDatabase(index);
+            index++;
+        }
+    }
+
+    public void verwijderTestReisUitDatabase(int index) {
+        Optional<ReisItem> testReis = reisItemRepository.findById(testReizen.get(index).getReisItemId());
+        if (testReis.isPresent()) {
+            reisItemRepository.deleteById(testReis.get().getReisItemId());
+        }
+    }
+
+    // Test Notities aanmaken:
+    public void maakTestNotities(int aantal) {
+        for (int i = 0; i < aantal; i++) {
+            Notitie testNotitie = new Notitie();
+            testNotitie.setNaam(NOTITIE_NAAM + i);
+            testNotitie.setStartDatum(NOTITIE_STARTDATUM);
+            testNotitie.setTekst(NOTITIE_TEKST + i);
+            this.testNotities.add(testNotitie);
+        }
+    }
+
+    public void maakTestNotitie() {
+        maakTestNotities(1);
+    }
+
+    // Test Notities geven: Je kan alle notities, of 1 opvragen.
+    public ArrayList<Notitie> geefTestNotities() {
+        return this.testNotities;
+    }
+
+    public Notitie geefTestNotitie() {
+        return geefTestNotitie(0);
+    }
+
+    public Notitie geefTestNotitie(int index) {
+        return this.testNotities.get(0);
+    }
+
+    // Test Polls aanmaken:
+    public void maakTestPolls(int aantal) {
+        for (int i = 0; i < aantal; i++) {
+            Poll testPoll = new Poll();
+            testPoll.setNaam(POLL_NAAM + i);
+            testPoll.setStartDatum(POLL_STARTDATUM);
+
+            for (String optie : POLL_OPTIES) {
+                PollOptie pollOptie = new PollOptie();
+                pollOptie.setStemOptie(optie + i);
+                testPoll.voegPollOptieToe(pollOptie);
+            }
+
+            this.testPolls.add(testPoll);
+        }
+    }
+
+    public void maakTestPoll() {
+        maakTestPolls(1);
+    }
+
+    // Test Polls geven: Je kan alle polls, of 1 opvragen.
+    public ArrayList<Poll> geefTestPolls() {
+        return this.testPolls;
+    }
+
+    public Poll geefTestPoll() {
+        return geefTestPoll(0);
+    }
+
+    public Poll geefTestPoll(int index) {
+        return this.testPolls.get(0);
     }
 
     // Test Gebruikers aanmaken:
@@ -347,21 +427,4 @@ public class TestsHelper {
             gebruikerRepository.deleteAll(testGebruikersInDatabase);
         }
     }
-
-    // Test Groepen verwijderen uit database
-//    public void verwijderTestGroepenUitDatabase() {
-//        int index = 0;
-//        for (Gebruiker testGebruiker : testGebruikers) {
-//            verwijderTestGroepUitDatabase(index);
-//            index++;
-//        }
-//    }
-//
-//    public void verwijderTestGroepUitDatabase(int index) {
-//        Groep testGroep = this.testGroepen.get(index);
-//        testGroep = groepRepository.findByGroepId(testGroep.getGroepId());
-//        if (!testGebruikersInDatabase.isEmpty()) {
-//            gebruikerRepository.deleteAll(testGebruikersInDatabase);
-//        }
-//    }
 }
