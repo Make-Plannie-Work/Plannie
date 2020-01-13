@@ -48,7 +48,7 @@
                                             Notitie ${reisItems.startDatum}
                                         </div>
                                         <div class="card-block px-2">
-                                            <h4 class="card-title"><a id="NotitieDetails${reisItems.reisItemId}" href="/${groep.groepId}/reisItemsDetail/${reisItems.reisItemId}" data-toggle="modal" data-target="#wijzigReisItems">${reisItems.naam}</a></h4>
+                                            <h4 class="card-title"><a id="NotitieDetails${reisItems.reisItemId}" href="/${groepId}/${reisItemId}/notitieWijzig/${reisItemId}">${reisItems.naam}</a></h4>
                                             <p class="card-text">${reisItems.tekst}</p>
                                         </div>
 
@@ -110,25 +110,6 @@
             </div>
             <div class="modal-body">
                 <jsp:include page="reisItemWijzig.jsp"/>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Modal ReisItem wijzigen -->
-
-<div class="modal fade" id="wijzigReisItems" tabindex="-1" role="dialog" aria-labelledby="Wijzig ReisItems"
-     aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Notitie Wijzigen</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <jsp:include page="notitieWijzig.jsp"/>
             </div>
         </div>
     </div>
