@@ -27,6 +27,8 @@ public class TestsHelper {
 
     // Standaard Test Identifiers
     private static final String URL_GEBRUIKER_DETAIL = "http://localhost:8080/gebruikerDetail";
+    private static final String URL_GROEP_DETAIL = "http://localhost:8080/groepDetail/";
+    private static final String URL_INDEX = "http://localhost:8080/index";
     private static final String GROEP_NAAM_TEXTFIELD = "groepsNaam";
 
     // Gebruikers Static Test Waarden
@@ -38,11 +40,13 @@ public class TestsHelper {
     // Groepen Static Test Waarden
     private static final String GROEP_NAAM = "testGroep";
 
-    // TODO ReisItems Static Test Waarden
+    // ReisItems Static Test Waarden
+    private static final String REIS_NAAM = "testReis";
+    private static final String REIS_DATUM = "2020-06-";
 
     private ArrayList<Gebruiker> testGebruikers = new ArrayList<>();
     private ArrayList<Groep> testGroepen = new ArrayList<>();
-    private ArrayList<ReisItem> reisItems = new ArrayList<>();
+    private ArrayList<ReisItem> testReizen = new ArrayList<>();
 
     private GebruikerRepository gebruikerRepository;
     private ReisItemRepository reisItemRepository;
@@ -87,6 +91,13 @@ public class TestsHelper {
         registreerTestGebruikers();
         inloggen();
         registreerTestGroepen();
+    }
+
+    public void zetTestGebruikerEnGroepEnReisKlaar() {
+        zetTestGebruikerEnTestGroepKlaar();
+        this.driver.get(URL_GROEP_DETAIL + geefTestGroep().getGroepId());
+
+        this.driver.findElement(By.id("reisNaam")).sendKeys();
     }
 
     // Wachten tot de volgende pagina geladen is:
@@ -190,8 +201,19 @@ public class TestsHelper {
         }
     }
 
-    // TODO Test ReisItems aanmaken:
+    // Test ReisItems aanmaken:
+    public void maakReizen(int aantal) {
+        this.testGroepen.clear();
+        for (int i = 0; i < aantal; i++) {
+            ReisItem testReis = new ReisItem();
+            testReis.setNaam(REIS_NAAM + i);
+            this.testReizen.add(testReis);
+        }
+    }
 
+    public void maakReis() {
+        maakReizen(1);
+    }
 
     // Test Gebruikers aanmaken:
     public void maakTestGebruikers(int aantal) {
@@ -220,10 +242,13 @@ public class TestsHelper {
     }
 
     public void inloggen(Gebruiker testGebruiker) {
+        String beginUrl = driver.getCurrentUrl();
+        this.driver.get(URL_INDEX);
         driver.findElement(By.id("inloggen")).click();
         wachtOpElement("loginForm");
         driver.findElement(By.name("username")).sendKeys(testGebruiker.getEmail());
         driver.findElement(By.name("password")).sendKeys(testGebruiker.getWachtwoord() + Keys.RETURN);
+        this.driver.get(beginUrl);
     }
 
     // Test Gebruikers geven: Je kan alle gebruikers, of 1 opvragen.
