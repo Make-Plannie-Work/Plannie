@@ -44,7 +44,7 @@ public class ReisItemController {
 
     // Vanuit een Groep een Reis aanmaken
     @PostMapping("{groepId}/reisItemAanmaken")
-    public String nieuwReisItem(ReisItem reisItem, @PathVariable("groepId") Integer groepId, Model model, Principal principal) {
+    public String nieuwReisItem(ReisItem reisItem, @PathVariable("groepId") Integer groepId, Principal principal) {
         Optional<Groep> groepOptional = plannieGroepService.findById(groepId);
         if (reisItem != null && !reisItem.getNaam().isEmpty()) {
             plannieReisItemService.voegReisItemToe(groepOptional.get(), reisItem, principal);
@@ -109,23 +109,18 @@ public class ReisItemController {
 
     // Nieuwe notitie opslaan
     @PostMapping("/{groepId}/reisItemDetail/{reisItemId}/nieuweNotitie")
-    public String notitieOpslaan(@ModelAttribute("notitieAanmakenFormulier") @PathVariable("groepId") Integer groepId, @PathVariable("reisItemId") Integer reisItemId, Model model, Notitie notitie, Principal principal, BindingResult result) {
+    public String notitieOpslaan(@ModelAttribute("notitieAanmakenFormulier") Notitie notitie,
+                                 @PathVariable("groepId") Integer groepId,
+                                 @PathVariable("reisItemId") Integer reisItemId) {
 
         Optional<ReisItem> reisItemOptional = plannieReisItemService.findById(reisItemId);
-        Gebruiker gebruiker = gebruikerRepository.findGebruikerByEmail(principal.getName());
-        model.addAttribute(gebruiker);
 
         if (reisItemOptional.isPresent() && !notitie.getTekst().equals("")) {
             ReisItem reis = reisItemOptional.get();
-            model.addAttribute("currentUser", gebruikerRepository.findGebruikerByEmail(principal.getName()));
-            model.addAttribute("reisItem", reis);
-            model.addAttribute("groepslidEmail", new Gebruiker());
-            model.addAttribute("groep", reis);
 
             // ReisItem aan reis koppelen, en ReisItem aan reis toevoegen.
             notitie.setGekoppeldeReisItemId(reis);
             reis.voegReisItemToe(notitie);
-
             reisItemRepository.save(notitie);
             reisItemRepository.save(reis);
         }
@@ -136,7 +131,9 @@ public class ReisItemController {
 
     // Klaarzetten van het Notitie wijzigen Overzicht
     @GetMapping("/{groepId}/{reisItemId}/{reisItemsId}/NotitieWijzigen")
-    public String huidigeNotitie(@PathVariable("groepId") Integer groepId, @PathVariable("reisItemId") Integer reisItemId, @PathVariable("reisItemsId") Integer notitieId, Model model, Principal principal) {
+    public String huidigeNotitie(@PathVariable("groepId") Integer groepId, @PathVariable("reisItemId") Integer reisItemId,
+                                 @PathVariable("reisItemsId") Integer notitieId, Model model, Principal principal) {
+
         Optional<Groep> groepOptional = plannieGroepService.findById(groepId);
         Optional<ReisItem> reisItemOptional = plannieReisItemService.findById(reisItemId);
         Gebruiker gebruiker = gebruikerRepository.findGebruikerByEmail(principal.getName());
@@ -157,16 +154,7 @@ public class ReisItemController {
     @PostMapping("/{groepId}/{reisItemId}/{reisItemsId}/notitieWijzigen")
     public String notitieWijzigen(@ModelAttribute("notitieWijzigingsFormulier") Notitie notitie, @PathVariable("groepId")
                                   Integer groepId, @PathVariable("reisItemId") Integer reisItemId,
-                                  @PathVariable("reisItemsId") Integer notitieId, BindingResult result, Principal principal, Model model) {
-
-        Optional<ReisItem> reisItemOptional = plannieReisItemService.findById(reisItemId);
-        Gebruiker gebruiker = gebruikerRepository.findGebruikerByEmail(principal.getName());
-        model.addAttribute(gebruiker);
-        ReisItem reis = reisItemOptional.get();
-        model.addAttribute("reisItem", reis);
-        model.addAttribute("groep", reis);
-        model.addAttribute("reisItems", reisItemRepository.findReisItemByReisItemId(notitieId));
-
+                                  @PathVariable("reisItemsId") Integer notitieId, BindingResult result) {
         if (result.hasErrors()) {
             return "redirect:/notitieWijzig";
         } else {
