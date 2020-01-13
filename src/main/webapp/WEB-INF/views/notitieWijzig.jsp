@@ -65,7 +65,7 @@
 
                             </form:form>
 
-                            <a href="/reisItemDetail">
+                            <a href="/${groep.groepId}/reisItemDetail/${reisItem.reisItemId}">
                                 <button type="text" class="btn btn-primary mt-3" id="annuleren">Annuleren</button>
                             </a>
                         </div>
