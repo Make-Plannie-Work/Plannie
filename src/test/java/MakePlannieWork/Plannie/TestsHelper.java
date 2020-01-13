@@ -245,7 +245,7 @@ public class TestsHelper {
         // Alleen te gebruiken vanuit een groepDetail pagina.
         String beginUrl = driver.getCurrentUrl();
         driver.findElement(By.id("reisNaam")).sendKeys(testReizen.get(reisIndex).getNaam() + Keys.ENTER);
-        testReizen.set(reisIndex, reisItemRepository.findReisItemByNaam(testReizen.get(reisIndex).getNaam()));
+        testReizen.set(reisIndex, reisItemRepository.findReisItemByNaam(testReizen.get(reisIndex).getNaam()).get(0));
         driver.get(beginUrl);
     }
 
