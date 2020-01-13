@@ -219,7 +219,7 @@ public class TestsHelper {
 
     // Test Reizen aanmaken:
     public void maakTestReizen(int aantal) {
-        this.testGroepen.clear();
+        this.testReizen.clear();
         for (int i = 0; i < aantal; i++) {
             ReisItem testReis = new ReisItem();
             testReis.setNaam(REIS_NAAM + i);
