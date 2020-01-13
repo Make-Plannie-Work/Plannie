@@ -3,6 +3,7 @@ package MakePlannieWork.Plannie.controller;
 import MakePlannieWork.Plannie.model.Gebruiker;
 import MakePlannieWork.Plannie.model.Groep;
 import MakePlannieWork.Plannie.repository.RolRepository;
+import MakePlannieWork.Plannie.repository.WachtwoordResetRepository;
 import MakePlannieWork.Plannie.service.PlannieGroepService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -32,6 +33,9 @@ public class GebruikerController {
 
     @Autowired
     private PlannieGroepService plannieGroepService;
+
+    @Autowired
+    private WachtwoordResetRepository wachtwoordResetRepository;
 
     @GetMapping({"/index" , "/"})
     String index(Model model) {
@@ -112,4 +116,6 @@ public class GebruikerController {
             return "redirect:/gebruikerDetail";
         }
     }
+
+
 }

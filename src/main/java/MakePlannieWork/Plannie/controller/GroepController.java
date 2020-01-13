@@ -73,7 +73,7 @@ public class GroepController {
         model.addAttribute("AlleLedenLijst", alleGebruikers);
         model.addAttribute("groepsLedenLijst", alleGebruikersInGroep);
         if (groepOptional.isPresent()) {
-            model.addAttribute("currentUser", gebruikerRepository.findGebruikerByEmail(principal.getName()));
+            model.addAttribute("currentUser", gebruiker);
             model.addAttribute("groep", groepOptional.get());
             return "groepDetail";
         }

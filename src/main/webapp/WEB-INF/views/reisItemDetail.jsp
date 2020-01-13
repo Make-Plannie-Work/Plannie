@@ -38,13 +38,32 @@
 
                         <c:forEach items="${alleReisItemsVanReis}" var="reisItems">
                             <div class="card flex-row flex-wrap mb-2 mx-auto" style="width: 42rem;">
-                                <div class="card-header border-0">
-                                    <img src="https://via.placeholder.com/100.jpg" alt="">
-                                </div>
-                                <div class="card-block px-2">
-                                    <h4 class="card-title"><a href="/${groep.groepId}/reisItemsDetail/${reisItems.reisItemId}">${reisItems.naam}</a></h4>
-                                    <p class="card-text">${reisItems.naam}${reisItems.naam}${reisItems.naam}${reisItems.naam}${reisItems.naam}${reisItems.naam}</p>
-                                </div>
+
+                                <c:set var = "soortReisItem" scope = "session" value = "${reisItems.getClass().name}"/>
+
+                                <c:choose>
+                                    <c:when test="${soortReisItem == 'MakePlannieWork.Plannie.model.reisitem.Notitie'}">
+
+                                        <div class="card-header border-0">
+                                            Notitie ${reisItems.startDatum}
+                                        </div>
+                                        <div class="card-block px-2">
+                                            <h4 class="card-title"><a id="NotitieDetails${reisItems.reisItemId}" href="/${groep.groepId}/reisItemsDetail/${reisItems.reisItemId}" data-toggle="modal" data-target="#wijzigReisItems">${reisItems.naam}</a></h4>
+                                            <p class="card-text">${reisItems.tekst}</p>
+                                        </div>
+
+                                    </c:when>
+                                    <c:otherwise>
+                                        <div class="card-header border-0">
+                                            <img src="https://via.placeholder.com/100.jpg" alt="">
+                                        </div>
+                                        <div class="card-block px-2">
+                                            <h4 class="card-title"><a id="reisItemDetails${reisItems.reisItemId}" href="/${groep.groepId}/reisItemsDetail/${reisItems.reisItemId}">${reisItems.naam}</a></h4>
+                                            <p class="card-text">${reisItems.getClass().name}</p>
+                                        </div>
+                                    </c:otherwise>
+                                </c:choose>
+
                             </div>
                         </c:forEach>
 
@@ -56,9 +75,9 @@
                             Wat voor soort reisitem wil je maken?
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="/{groepId}/reisItemDetail/{reisItemId}/NotitieAanmaken">Een Notitie</a>
-                            <a class="dropdown-item" href="#">Een Poll</a>
-                            <a class="dropdown-item" href="#">Een Activiteit</a>
+                            <a class="dropdown-item" id="notitieKeuze" href="/${groep.groepId}/reisItemDetail/${reisItem.reisItemId}/NotitieAanmaken">Een Notitie</a>
+                            <a class="dropdown-item" id="pollKeuze" href="#">Een Poll</a>
+                            <a class="dropdown-item" id="activiteitKeuze" href="#">Een Activiteit</a>
                         </div>
                     </div>
                 </div>
@@ -78,7 +97,7 @@
         </div>
     </div>
 </div>
-<!-- Modal -->
+<!-- Modal Reis wijzigen -->
 <div class="modal fade" id="wijzigReisItem2" tabindex="-1" role="dialog" aria-labelledby="Wijzig ReisItem"
      aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -95,6 +114,26 @@
         </div>
     </div>
 </div>
+
+<!-- Modal ReisItem wijzigen -->
+
+<div class="modal fade" id="wijzigReisItems" tabindex="-1" role="dialog" aria-labelledby="Wijzig ReisItems"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Notitie Wijzigen</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <jsp:include page="notitieWijzig.jsp"/>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- Footer -->
 <footer class="py-4 bg-dark text-white-50">
 

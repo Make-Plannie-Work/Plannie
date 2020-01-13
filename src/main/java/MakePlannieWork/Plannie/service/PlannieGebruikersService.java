@@ -1,10 +1,8 @@
 package MakePlannieWork.Plannie.service;
-import MakePlannieWork.Plannie.model.Gebruiker;
-import MakePlannieWork.Plannie.model.Groep;
-import MakePlannieWork.Plannie.model.Privilege;
-import MakePlannieWork.Plannie.model.Rol;
+import MakePlannieWork.Plannie.model.*;
 import MakePlannieWork.Plannie.repository.GebruikerRepository;
 import MakePlannieWork.Plannie.repository.RolRepository;
+import MakePlannieWork.Plannie.repository.WachtwoordResetRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -22,6 +20,9 @@ public class PlannieGebruikersService implements UserDetailsService {
 
     @Autowired
     RolRepository rolRepository;
+
+    @Autowired
+    WachtwoordResetRepository wachtwoordResetRepository;
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
@@ -75,4 +76,20 @@ public class PlannieGebruikersService implements UserDetailsService {
         }
         return authorities;
     }
+
+    // Hier staan alle handelingen voor wachtwoordreset tokens
+
+    public void maakWachtWoordResetTokenVoorGebruiker(final Gebruiker gebruiker, final String token) {
+        final WachtwoordResetToken mijnToken = new WachtwoordResetToken(token, gebruiker);
+        wachtwoordResetRepository.save(mijnToken);
+    }
+
+    public WachtwoordResetToken getWachtwoordResetToken(final String token) {
+        return wachtwoordResetRepository.findByToken(token);
+    }
+
+    public Gebruiker krijgGebruikerBijWachtwoordResetToken(final String token) {
+        return wachtwoordResetRepository.findByToken(token).getGebruiker();
+    }
+
 }
