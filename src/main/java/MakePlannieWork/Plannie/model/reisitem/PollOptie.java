@@ -30,6 +30,7 @@ public class PollOptie {
         return stemmen.size();
     }
 
+    // Kijkt of een gebruiker op deze optie heeft gestemd
     public boolean gebruikerHeeftGestemd(int gebruikerID) {
         boolean gestemd = false;
         Iterator<Gebruiker> gebruikers = stemmen.iterator();
