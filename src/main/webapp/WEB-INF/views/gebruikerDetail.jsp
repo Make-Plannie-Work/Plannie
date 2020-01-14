@@ -12,13 +12,15 @@
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
               integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon16px.ico">
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon32px.ico">
         <script src="https://kit.fontawesome.com/d450c035a5.js" crossorigin="anonymous"></script>
         <title>Welkom bij Plannie - ${currentUser.voornaam}</title>
     </head>
     <body>
 
-    <nav class="navbar navbar-light bg-light shadow ">
-        <span class="navbar-brand mb-0 h1"><a id="gebruikerDetail" href="/gebruikerDetail" class="text-dark">${currentUser.voornaam}'s Plannie</a></span>
+    <nav class="navbar navbar-light bg-light shadow " >
+        <span class="navbar-brand mb-0 h1"><a id="gebruikerDetail2" href="/gebruikerDetail"><img src="/images/PlannieLogo.png" class="img-fluid"  alt="Responsive image"></a></span>
 
         <ul class="nav justify-content-end">
             <li class="nav-item">
