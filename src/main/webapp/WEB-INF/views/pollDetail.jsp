@@ -49,19 +49,17 @@
                                     ${optie.stemOptie}
                                 </div>
                                 <div class="card-block px-2">
-                                    <a>Aantal
-                                        stemmen: ${optie.geefAantalStemmen()}</a>
+                                    <a>Aantal stemmen: ${optie.geefAantalStemmen()}</a>
 
                                     <p class="card-text">
 
                                         <c:choose>
                                             <c:when test="${optie.gebruikerHeeftGestemd(currentUser.gebruikersId)}">
-                                                Jij hebt hierop gestemd.
+                                                <a>Jij hebt hierop gestemd.</a>
                                             </c:when>
                                             <c:otherwise>
                                                 <a id="stemmenOp${optie.pollOptieId}"
-                                                   href="/${groepId}/${reisItemId}/PollDetail/${reisItems.reisItemId}">Stem
-                                                    nu!</a>
+                                                   href="${poll.reisItemId}/StemmenOp/${optie.pollOptieId}">Stem nu!</a>
                                             </c:otherwise>
                                         </c:choose>
 
@@ -76,7 +74,7 @@
 
                             <div class="row">
                                 <a href="/${groep.groepId}/reisItemDetail/${reis.reisItemId}">
-                                    <button type="text" class="btn btn-primary mt-3" id="annuleren">Annuleren</button>
+                                    <button type="text" class="btn btn-primary mt-3" id="annuleren">Terug</button>
                                 </a>
                             </div>
 

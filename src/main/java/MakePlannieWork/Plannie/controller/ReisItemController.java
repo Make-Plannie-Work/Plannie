@@ -204,6 +204,31 @@ public class ReisItemController {
         return "reisItemDetail";
     }
 
+    // Stemmen op een gekozen poll optie.
+    @GetMapping("/{groepId}/{reisId}/PollDetail/{pollId}/StemmenOp/{pollOptieId}")
+    public String stemmenOpPoll(@PathVariable("groepId") Integer groepId, @PathVariable("reisId") Integer reisId, @PathVariable("pollId") Integer pollId, @PathVariable("pollOptieId") Integer optieId, Model model, Principal principal) {
+
+        Optional<Groep> groepOptional = plannieGroepService.findById(groepId);
+        Optional<ReisItem> reisItemOptional = plannieReisItemService.findById(reisId);
+        Optional<ReisItem> pollOptional = plannieReisItemService.findById(pollId);
+
+        if (reisItemOptional.isPresent() && groepOptional.isPresent() && pollOptional.isPresent()) {
+            model.addAttribute("currentUser", gebruikerRepository.findGebruikerByEmail(principal.getName()));
+            model.addAttribute("groep", groepOptional.get());
+            model.addAttribute("reis", reisItemOptional.get());
+            model.addAttribute("poll", reisItemRepository.findPollByReisItemId(pollId));
+
+            // TODO stem toegoegen aan de meegegeven poll optie. (pollOptieId is meegegeven in url)
+
+            // TODO poll optie updaten in database, met de toegevoegde gebruiker in de stemmen lijst.
+
+        }
+
+        // TODO controleren of deze redirect wel het juiste aantal stemmen laat zien wanneer de pagina herladen is.
+        return "redirect:/" + groepId + "/" + reisId + "/PollDetail/" + pollId;
+    }
+
+
     // Klaarzetten van het Notitie wijzigen Overzicht
     @GetMapping("/{groepId}/{reisItemId}/{reisItemsId}/NotitieWijzigen")
     public String huidigeNotitie(@PathVariable("groepId") Integer groepId, @PathVariable("reisItemId") Integer reisItemId,
