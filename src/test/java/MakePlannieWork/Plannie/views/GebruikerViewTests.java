@@ -101,7 +101,7 @@ public class GebruikerViewTests {
         driver.findElement(By.name("wachtwoord")).sendKeys(testGebruiker.getWachtwoord());
         driver.findElement(By.name("trancientWachtwoord")).sendKeys(testGebruiker.getWachtwoord());
         driver.findElement(By.id("registreer")).click();
-        this.testsHelper.wachtOpElement("trancientWachtwoord");
+        Thread.sleep(500);
 
         // Assert
         assertEquals("Registreren in Plannie",driver.getTitle());
@@ -151,10 +151,11 @@ public class GebruikerViewTests {
         this.driver.get("http://localhost:8080/gebruikerDetail");
         this.testsHelper.maakTestGebruiker();
         this.testsHelper.registreerTestGebruikers();
+        this.testsHelper.inloggen();
         Gebruiker testGebruiker = this.testsHelper.geefTestGebruiker();
         String gewijzigdeVoornaam = testGebruiker.getVoornaam() + "Test";
         String gewijzigdWachtwoord = testGebruiker.getWachtwoord() + "Nieuw";
-        this.testsHelper.inloggen();
+        this.testsHelper.wachtOpTitel("Welkom bij Plannie - " + testGebruiker.getVoornaam());
 
         // Activate
         driver.findElement(By.id("gebruikerWijzigen")).click();
@@ -178,8 +179,9 @@ public class GebruikerViewTests {
         this.driver.get("http://localhost:8080/gebruikerDetail");
         this.testsHelper.maakTestGebruiker();
         this.testsHelper.registreerTestGebruikers();
-        Gebruiker testGebruiker = this.testsHelper.geefTestGebruiker();
         this.testsHelper.inloggen();
+        Gebruiker testGebruiker = this.testsHelper.geefTestGebruiker();
+        this.testsHelper.wachtOpTitel("Welkom bij Plannie - " + testGebruiker.getVoornaam());
 
         // Activate Voornaam Test
         driver.findElement(By.id("gebruikerWijzigen")).click();
@@ -198,9 +200,10 @@ public class GebruikerViewTests {
         this.driver.get("http://localhost:8080/gebruikerDetail");
         this.testsHelper.maakTestGebruiker();
         this.testsHelper.registreerTestGebruikers();
+        this.testsHelper.inloggen();
         Gebruiker testGebruiker = this.testsHelper.geefTestGebruiker();
         String gewijzigdWachtwoord = testGebruiker.getWachtwoord() + "Nieuw";
-        this.testsHelper.inloggen();
+        this.testsHelper.wachtOpTitel("Welkom bij Plannie - " + testGebruiker.getVoornaam());
 
         // Activate Voornaam Test
         driver.findElement(By.id("gebruikerWijzigen")).click();
