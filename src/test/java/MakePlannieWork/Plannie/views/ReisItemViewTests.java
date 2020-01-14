@@ -106,8 +106,8 @@ public class ReisItemViewTests {
         Gebruiker testGebruiker = this.testsHelper.geefTestGebruiker();
         Groep testGroep = this.testsHelper.geefTestGroep();
         ReisItem testReisItem = this.testsHelper.geefTestReis();
-        String testNotitieTitel = "";
-        String testNotitieDatum = "";
+        this.testsHelper.maakTestNotitie();
+        Notitie testNotitie = this.testsHelper.geefTestNotitie();
         String testNotitieTekst = "";
 
         // Activate
@@ -115,8 +115,8 @@ public class ReisItemViewTests {
         this.driver.findElement(By.id("keuzeReisItemMenu")).click();
         this.driver.findElement(By.id("notitieKeuze")).click();
         this.testsHelper.wachtOpTitel("Notitie aanmaken - " + testGebruiker.getVoornaam());
-        this.driver.findElement(By.id("notitieTitel")).sendKeys(testNotitieTitel);
-        this.driver.findElement(By.id("notitieDatum")).sendKeys(testNotitieDatum);
+        this.driver.findElement(By.id("notitieTitel")).sendKeys(testNotitie.getNaam());
+        this.driver.findElement(By.id("notitieDatum")).sendKeys(testNotitie.getStartDatum());
         this.driver.findElement(By.id("notitieTekst")).sendKeys(testNotitieTekst);
         this.driver.findElement(By.id("notitieAanmaken")).click();
 
