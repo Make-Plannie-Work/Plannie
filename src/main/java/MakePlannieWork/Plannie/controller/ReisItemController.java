@@ -192,14 +192,15 @@ public class ReisItemController {
     @GetMapping("/{groepId}/{reisId}/PollDetail/{pollId}")
     public String pollDetails(@PathVariable("groepId") Integer groepId, @PathVariable("reisId") Integer reisId, @PathVariable("pollId") Integer pollId, Model model, Principal principal) {
 
+        Optional<Groep> groepOptional = plannieGroepService.findById(groepId);
+        Optional<ReisItem> reisItemOptional = plannieReisItemService.findById(reisId);
         Optional<ReisItem> pollOptional = plannieReisItemService.findById(pollId);
 
-        if (pollOptional.isPresent()) {
-            Poll poll = (Poll) pollOptional.get();
+        if (reisItemOptional.isPresent() && groepOptional.isPresent() && pollOptional.isPresent()) {
             model.addAttribute("currentUser", gebruikerRepository.findGebruikerByEmail(principal.getName()));
-            model.addAttribute("poll", poll);
-
-
+            model.addAttribute("groep", groepOptional.get());
+            model.addAttribute("reis", reisItemOptional.get());
+            model.addAttribute("poll", reisItemRepository.findReisItemByReisItemId(pollId));
             return "pollDetail";
         }
 
@@ -219,10 +220,9 @@ public class ReisItemController {
 
         if (reisItemOptional.isPresent() && groepOptional.isPresent() && notitieOptional.isPresent()) {
             model.addAttribute("currentUser", gebruikerRepository.findGebruikerByEmail(principal.getName()));
+            model.addAttribute("groep", groepOptional.get());
             model.addAttribute("reisItem", reisItemOptional.get());
             model.addAttribute("reisItems", reisItemRepository.findReisItemByReisItemId(notitieId));
-            model.addAttribute("groepslidEmail", new Gebruiker());
-            model.addAttribute("groep", groepOptional.get());
             model.addAttribute("notitieWijzigingsFormulier", new Notitie());
             return "notitieWijzig";
         }
