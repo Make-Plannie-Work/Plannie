@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 @Entity
@@ -26,6 +27,18 @@ public class Poll extends ReisItem {
             aantal += optie.getStemmen().size();
         }
         return aantal;
+    }
+
+    // Kijkt of een gebruiker op deze poll gestemd heeft.
+    public boolean gebruikerHeeftGestemd(int gebruikerId) {
+        boolean gestemd = false;
+        Iterator<PollOptie> opties = pollOpties.iterator();
+        while (opties.hasNext() && !gestemd) {
+            if (opties.next().gebruikerHeeftGestemd(gebruikerId)) {
+                gestemd = true;
+            }
+        }
+        return gestemd;
     }
 
     // Kijkt welke optie op dit moment de meeste stemmen heeft.
