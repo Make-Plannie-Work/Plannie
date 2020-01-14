@@ -19,7 +19,6 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @Configuration
 @EnableWebSecurity
-@EnableWebMvc
 @ComponentScan
 @EnableGlobalMethodSecurity(securedEnabled = true)
 public class PlannieSecurityConfiguration extends WebSecurityConfigurerAdapter {
