@@ -6,6 +6,7 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 @Entity
@@ -25,6 +26,30 @@ public class PollOptie {
     @ManyToMany
     private Set<Gebruiker> stemmen = new HashSet<>();
 
+    public int geefAantalStemmen() {
+        return stemmen.size();
+    }
+
+    public boolean gebruikerHeeftGestemd(int gebruikerID) {
+        boolean gestemd = false;
+        Iterator<Gebruiker> gebruikers = stemmen.iterator();
+        while (gebruikers.hasNext() && !gestemd) {
+            if (gebruikers.next().getGebruikersId() == gebruikerID) {
+                gestemd = true;
+            }
+        }
+        return gestemd;
+    }
+
+    public void verwijderStem(Gebruiker gebruiker) {
+        stemmen.remove(gebruiker);
+    }
+
+    public void voegStemToe(Gebruiker gebruiker) {
+        stemmen.add(gebruiker);
+    }
+
+    // Getters en Setters
     public Integer getPollOptieId() {
         return pollOptieId;
     }
