@@ -65,7 +65,11 @@
                 <div class="jumbotron shadow" style="background-color: #666666;">
                     <div class="row" >
                         <p class="lead text-white strong">${groep.groepsNaam} </p>
+
+                        <c:if test = "${groep.aanmaker == currentUser.gebruikersId}">
                             <a id="wijzigGroepsNaam2" type="button" class="text-white" data-toggle="modal" data-target="#wijzigGroepsNaam"><i class="far fa-edit"></i></a>
+                        </c:if>
+
                         <table class="table table-hover table-borderless text-white">
                             <thead>
                             <tr>
@@ -78,15 +82,15 @@
                             <c:forEach items="${groepsLedenLijst}" var="groepslid">
                                 <tr>
                                     <td id="groepslid${groepslid.voornaam}" data-toggle="tooltip" data-placement="bottom" title="${groepslid.email}">${groepslid.voornaam} ${groepslid.achternaam}</td>
-                                    <td><a id="Verwijder${groepslid.voornaam}UitGroep" href="${groep.groepId}/VerwijderLedenUitGroep/${groepslid.gebruikersId}">
+                                    <c:if test = "${groep.aanmaker == currentUser.gebruikersId}"><td><a id="Verwijder${groepslid.voornaam}UitGroep" href="${groep.groepId}/VerwijderLedenUitGroep/${groepslid.gebruikersId}">
                                         <i class="far fa-trash-alt"></i>
-                                    </a></td>
+                                    </a></td></c:if>
                                 </tr>
                             </c:forEach>
                             </tbody>
                         </table>
                     </div>
-                    <hr class="my-4">
+                    <c:if test = "${groep.aanmaker == currentUser.gebruikersId}"><hr class="my-4">
                     <div class="row">
                         <p class="lead text-white mt-3">Alle Leden</h3>
                         <hr class="my-4">
@@ -111,9 +115,12 @@
                             </tbody>
                         </table>
                     </div>
+                    </c:if>
                 </div>
             </div>
         </div>
+
+        <c:if test = "${groep.aanmaker == currentUser.gebruikersId}">
         <div class="row">
             <div class="col-sm-offset-1 col-sm-10 mb-5">
                 <div class="card w-75 mx-auto">
@@ -136,6 +143,7 @@
 
             </div>
         </div>
+        </c:if>
     </div>
 </div>
 

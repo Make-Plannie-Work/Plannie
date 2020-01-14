@@ -6,13 +6,11 @@ import MakePlannieWork.Plannie.model.Gebruiker;
 import MakePlannieWork.Plannie.model.Groep;
 import MakePlannieWork.Plannie.model.reisitem.Notitie;
 import MakePlannieWork.Plannie.model.reisitem.Poll;
-import MakePlannieWork.Plannie.model.reisitem.PollOptie;
 import MakePlannieWork.Plannie.model.reisitem.ReisItem;
 import MakePlannieWork.Plannie.repository.GebruikerRepository;
 import MakePlannieWork.Plannie.repository.GroepRepository;
 import MakePlannieWork.Plannie.repository.ReisItemRepository;
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -25,6 +23,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.util.ArrayList;
 
 import static org.junit.Assert.assertEquals;
@@ -99,6 +98,7 @@ public class ReisItemViewTests {
         assertTrue(testNotitieToegevoegd);
     }
 
+    // In deze test wordt bij het aanmaken van een notitie het tekstveld leeggelaten, dit is de fout die getest wordt.
     @Test
     public void testNotitieAanmakenFout() throws InterruptedException {
         // Arrange
@@ -108,7 +108,6 @@ public class ReisItemViewTests {
         ReisItem testReisItem = this.testsHelper.geefTestReis();
         this.testsHelper.maakTestNotitie();
         Notitie testNotitie = this.testsHelper.geefTestNotitie();
-        String testNotitieTekst = "";
 
         // Activate
         this.driver.get("http://localhost:8080/" + testGroep.getGroepId() + "/reisItemDetail/" + testReisItem.getReisItemId());
@@ -117,11 +116,57 @@ public class ReisItemViewTests {
         this.testsHelper.wachtOpTitel("Notitie aanmaken - " + testGebruiker.getVoornaam());
         this.driver.findElement(By.id("notitieTitel")).sendKeys(testNotitie.getNaam());
         this.driver.findElement(By.id("notitieDatum")).sendKeys(testNotitie.getStartDatum());
-        this.driver.findElement(By.id("notitieTekst")).sendKeys(testNotitieTekst);
+        this.driver.findElement(By.id("notitieTekst")).clear();
         this.driver.findElement(By.id("notitieAanmaken")).click();
 
         // Assert
         assertEquals("Notitie aanmaken - " + testGebruiker.getVoornaam(), driver.getTitle());
+    }
+
+    @Test
+    public void testNotitieWijzigenCorrect() throws InterruptedException {
+        // Arrange
+        this.testsHelper.zetTestGebruikerEnGroepEnReisEnNotitieKlaar();
+        Groep testGroep = this.testsHelper.geefTestGroep();
+        ReisItem testReisItem = this.testsHelper.geefTestReis();
+        Notitie testNotitie = this.testsHelper.geefTestNotitie();
+        String gewijzigdeNotitieNaam = "Testen";
+        String gewijzigdeNotitieDatum = "2020-01-01";
+        String gewijzigdeNotitieTekst = "Gewijzigde tekst";
+
+        // Activate
+        this.driver.get("http://localhost:8080/" + testGroep.getGroepId() + "/reisItemDetail/" + testReisItem.getReisItemId());
+        this.driver.findElement(By.id("NotitieDetails" + testNotitie.getNaam())).click();
+        this.driver.findElement(By.id("naam")).clear();
+        this.driver.findElement(By.id("startDatum")).clear();
+        this.driver.findElement(By.id("tekst")).clear();
+        this.driver.findElement(By.id("naam")).sendKeys(gewijzigdeNotitieNaam);
+        this.driver.findElement(By.id("startDatum")).sendKeys(gewijzigdeNotitieDatum);
+        this.driver.findElement(By.id("tekst")).sendKeys(gewijzigdeNotitieTekst);
+        this.driver.findElement(By.id("notitieWijzigen")).click();
+
+        // Assert
+        assertEquals("Testen", this.driver.findElement(By.id("NotitieDetails" + gewijzigdeNotitieNaam)).getText());
+    }
+
+    // In deze test wordt bij het wijzigen van een notitie het naamveld leeggemaakt, dit is de fout die getest wordt.
+    @Test
+    public void testNotitieWijzigenfout() throws InterruptedException {
+        // Arrange
+        this.testsHelper.zetTestGebruikerEnGroepEnReisEnNotitieKlaar();
+        Groep testGroep = this.testsHelper.geefTestGroep();
+        ReisItem testReisItem = this.testsHelper.geefTestReis();
+        Notitie testNotitie = this.testsHelper.geefTestNotitie();
+
+        // Activate
+        this.driver.get("http://localhost:8080/" + testGroep.getGroepId() + "/reisItemDetail/" + testReisItem.getReisItemId());
+        this.driver.findElement(By.id("NotitieDetails" + testNotitie.getNaam())).click();
+        this.driver.findElement(By.id("naam")).clear();
+        this.driver.findElement(By.id("notitieWijzigen")).click();
+
+        // Assert
+        assertEquals("http://localhost:8080/" + testGroep.getGroepId() + "/" + testReisItem.getReisItemId()
+                + "/" + testNotitie.getReisItemId() + "/NotitieWijzigen", this.driver.getCurrentUrl());
     }
 
 

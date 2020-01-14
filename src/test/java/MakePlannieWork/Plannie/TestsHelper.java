@@ -117,6 +117,34 @@ public class TestsHelper {
         registreerTestReizen();
     }
 
+    public void zetTestGebruikerEnGroepEnReisEnNotitieKlaar() {
+        zetTestGebruikerEnGroepEnReisKlaar();
+        this.driver.get("http://localhost:8080/" + geefTestGroep().getGroepId() + "/reisItemDetail/" + geefTestReis().getReisItemId());
+        maakTestNotitie();
+        registreerTestNotities();
+    }
+
+    public void registreerTestNotities() {
+        int index = 0;
+        for (ReisItem notitie : testNotities) {
+            registreerTestNotitie(index);
+            index++;
+        }
+    }
+
+    private void registreerTestNotitie(int reisIndex) {
+        String beginUrl = driver.getCurrentUrl();
+        this.driver.findElement(By.id("keuzeReisItemMenu")).click();
+        this.driver.findElement(By.id("notitieKeuze")).click();
+        wachtOpTitel("Notitie aanmaken - " + geefTestGebruiker().getVoornaam());
+        this.driver.findElement(By.id("notitieTitel")).sendKeys(testNotities.get(reisIndex).getNaam());
+        this.driver.findElement(By.id("notitieDatum")).sendKeys(testNotities.get(reisIndex).getStartDatum());
+        this.driver.findElement(By.id("notitieTekst")).sendKeys(testNotities.get(reisIndex).getTekst());
+        this.driver.findElement(By.id("notitieAanmaken")).click();
+        testNotities.set(reisIndex, reisItemRepository.findNotitieByNaam(testNotities.get(reisIndex).getNaam()).get(0));
+        driver.get(beginUrl);
+    }
+
     // Wachten tot de volgende pagina geladen is:
     public void wachtOpElement(String idElement) {
         if (this.wacht == null) {
