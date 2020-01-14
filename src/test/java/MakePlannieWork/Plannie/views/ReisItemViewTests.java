@@ -6,13 +6,11 @@ import MakePlannieWork.Plannie.model.Gebruiker;
 import MakePlannieWork.Plannie.model.Groep;
 import MakePlannieWork.Plannie.model.reisitem.Notitie;
 import MakePlannieWork.Plannie.model.reisitem.Poll;
-import MakePlannieWork.Plannie.model.reisitem.PollOptie;
 import MakePlannieWork.Plannie.model.reisitem.ReisItem;
 import MakePlannieWork.Plannie.repository.GebruikerRepository;
 import MakePlannieWork.Plannie.repository.GroepRepository;
 import MakePlannieWork.Plannie.repository.ReisItemRepository;
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -122,6 +120,37 @@ public class ReisItemViewTests {
 
         // Assert
         assertEquals("Notitie aanmaken - " + testGebruiker.getVoornaam(), driver.getTitle());
+    }
+
+    @Test
+    public void testNotitieWijzigenCorrect() throws InterruptedException {
+        // Arrange
+        this.testsHelper.zetTestGebruikerEnGroepEnReisEnNotitieKlaar();
+        Groep testGroep = this.testsHelper.geefTestGroep();
+        ReisItem testReisItem = this.testsHelper.geefTestReis();
+        Gebruiker testGebruiker = this.testsHelper.geefTestGebruiker();
+        Notitie testNotitie = this.testsHelper.geefTestNotitie();
+        String gewijzigdeNotitieNaam = "Testen";
+        String gewijzigdeNotitieDatum = "2020-01-01";
+        String gewijzigdeNotitieTekst = "Gewijzigde tekst";
+        boolean testNotitieGewijzigd = false;
+
+        // Activate
+        this.driver.get("http://localhost:8080/" + testGroep.getGroepId() + "/reisItemDetail/" + testReisItem.getReisItemId());
+        this.driver.findElement(By.id("NotitieDetails" + testNotitie.getNaam())).click();
+        Thread.sleep(5000);
+        this.driver.findElement(By.id("naam")).clear();
+        this.driver.findElement(By.id("startDatum")).clear();
+        this.driver.findElement(By.id("tekst")).clear();
+        this.driver.findElement(By.id("naam")).sendKeys(gewijzigdeNotitieNaam);
+        this.driver.findElement(By.id("startDatum")).sendKeys(gewijzigdeNotitieDatum);
+        this.driver.findElement(By.id("tekst")).sendKeys(gewijzigdeNotitieTekst);
+        Thread.sleep(5000);
+        this.driver.findElement(By.id("notitieWijzigen")).click();
+        Thread.sleep(5000);
+
+        // Assert
+        assertEquals("Testen", this.driver.findElement(By.id("NotitieDetails" + gewijzigdeNotitieNaam)).getText());
     }
 
 
