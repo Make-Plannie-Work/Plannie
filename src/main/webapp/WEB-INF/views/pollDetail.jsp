@@ -57,10 +57,9 @@
                             WIJZIGEN (Annuleer knop)
 
                             <div class="row">
-                                <form:form action="/${groep.groepId}/reisItemAanmaken" class="form-inline" method="post" modelAttribute="nieuwReisItemFormulier">
-                                    <input id="reisNaam" type="text" class="form-control" name="naam" required="required" placeholder="Naam Reis">
-                                    <button id="reisItemAanmaken" type="submit"><i class="fas fa-plus"></i></button>
-                                </form:form>
+                                <a href= "/${groep.groepId}/reisItemDetail/${reisItem.reisItemId}">
+                                    <button type="text" class="btn btn-primary mt-3" id="annuleren">Annuleren</button>
+                                </a>
                             </div>
 
                             /WIJZIGEN
@@ -75,17 +74,12 @@
                 <div class="jumbotron shadow" style="background-color: #666666;">
                     <div class="row" >
 
-                        WIJZIGEN (weghalen misschien)
-
-                        <p class="lead text-white strong">${groep.groepsNaam} </p>
-                        <a id="wijzigGroepsNaam2" type="button" class="text-white" data-toggle="modal" data-target="#wijzigGroepsNaam"><i class="far fa-edit"></i></a>
-
-                        /WIJZIGEN
+                        <p class="lead text-white strong">Hebben al gestemd:</p>
 
                         <table class="table table-hover table-borderless text-white">
                             <thead>
                             <tr>
-                                <th scope="col">Hebben al gestemd:</th>
+                                <th scope="col">Naam</th>
                                 <th scope="col"></th>
                             </tr>
                             </thead>
@@ -110,17 +104,13 @@
                     <hr class="my-4">
                     <div class="row">
 
-                        VERWIJDEREN
-
-                        <p class="lead text-white mt-3">Alle Leden</h3>
+                        <p class="lead text-white mt-3">Moeten nog stemmen:</h3>
                         <hr class="my-4">
-
-                        /VERWIJDEREN
 
                         <table class="table table-hover table-borderless text-white">
                             <thead>
                             <tr>
-                                <th scope="col">Moeten nog stemmen:</th>
+                                <th scope="col">Naam</th>
                                 <th scope="col"></th>
                             </tr>
                             </thead>
@@ -145,59 +135,8 @@
                 </div>
             </div>
         </div>
-
-        VERWIJDEREN
-
-        <div class="row">
-            <div class="col-sm-offset-1 col-sm-10 mb-5">
-                <div class="card w-75 mx-auto">
-                    <div class="card-body">
-                        <form:form action="/groepDetail/${groep.groepId}/voegLedenToeAanGroepViaEmail" class="form-inline" method="post" modelAttribute="groepslidEmail">
-                            <h5 class="card-title">Stuur een uitnodiging naar een nog niet bestaande gebruiker.</h5>
-                            <p class="card-text">
-                            <div class="form-group">
-                                <div class="col">
-                                    <input id="voegLedenToeAanGroepViaEmail" type="email" class="form-control" name="email" required="required" placeholder="Email"/>
-                                </div>
-                            </div>
-                            </p>
-                            <div>
-                                <button id="emailVersturen" type="submit" class="btn btn-primary">Stuur</button>
-                            </div>
-                        </form:form>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-        /VERWIJDEREN
-
     </div>
 </div>
-
-VERWIJDEREN
-
-<!-- Modal -->
-<div class="modal fade" id="wijzigGroepsNaam" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-     aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Groepsnaam Wijzigen</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <jsp:include page="groepWijzig.jsp"/>
-            </div>
-        </div>
-    </div>
-</div>
-
-/VERWIJDEREN
-
 <!-- Footer -->
 <footer class="py-4 bg-dark text-white-50">
 
