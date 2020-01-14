@@ -74,12 +74,12 @@
                 <div class="jumbotron shadow" style="background-color: #666666;">
                     <div class="row" >
 
-                        <p class="lead text-white strong">Poll status:</p>
+                        <p class="lead text-white strong">Hebben al gestemd:</p>
 
                         <table class="table table-hover table-borderless text-white">
                             <thead>
                             <tr>
-                                <th scope="col">Hebben al gestemd:</th>
+                                <th scope="col">Naam</th>
                                 <th scope="col"></th>
                             </tr>
                             </thead>
@@ -104,17 +104,13 @@
                     <hr class="my-4">
                     <div class="row">
 
-                        VERWIJDEREN
-
-                        <p class="lead text-white mt-3">Alle Leden</h3>
+                        <p class="lead text-white mt-3">Moeten nog stemmen:</h3>
                         <hr class="my-4">
-
-                        /VERWIJDEREN
 
                         <table class="table table-hover table-borderless text-white">
                             <thead>
                             <tr>
-                                <th scope="col">Moeten nog stemmen:</th>
+                                <th scope="col">Naam</th>
                                 <th scope="col"></th>
                             </tr>
                             </thead>
