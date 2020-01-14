@@ -163,18 +163,23 @@ public class ReisItemViewTests {
         this.testsHelper.zetTestGebruikerEnGroepEnReisKlaar();
         Groep testGroep = this.testsHelper.geefTestGroep();
         ReisItem testReis = this.testsHelper.geefTestReis();
+        Gebruiker testGebruiker = this.testsHelper.geefTestGebruiker();
         this.testsHelper.maakTestPoll();
         Poll testPoll = this.testsHelper.geefTestPoll();
-
+        ArrayList<String> pollOpties = this.testsHelper.geefTestPollStemOpties();
+        boolean testPollToegevoegd = false;
 
         // Activate
+        this.driver.get("http://localhost:8080/" + testGroep.getGroepId() + "/reisItemDetail/" + testReis.getReisItemId());
         this.driver.findElement(By.id("keuzeReisItemMenu")).click();
         this.driver.findElement(By.id("pollKeuze")).click();
-        this.testsHelper.wachtOpTitel("Poll aanmaken");
-
-
-
+        this.testsHelper.wachtOpTitel("Poll aanmaken - " + testGebruiker.getVoornaam());
+        this.driver.findElement(By.id("pollTitel")).sendKeys(testPoll.getNaam());
+        this.driver.findElement(By.id("pollDatum")).sendKeys(testPoll.getStartDatum());
+        this.driver.findElement(By.id("pollAanmaken")).click();
+        Thread.sleep(500);
 
         // Assert
+        assertEquals("Poll aanmaken - " + testGebruiker.getVoornaam(), driver.getTitle());
     }
 }
