@@ -66,7 +66,7 @@
                                         </div>
                                         <div class="card-block px-2">
                                             <h4 class="card-title"><a id="PollDetails${reisItems.naam}"
-                                                                      href="/${groepId}/${reisItemId}/${reisItems.reisItemId}/PollWijzigen">${reisItems.naam}</a>
+                                                                      href="/${groepId}/${reisItemId}/PollDetail/${reisItems.reisItemId}">${reisItems.naam}</a>
                                             </h4>
                                             <p class="card-text">
                                                 <c:forEach items="${reisItems.pollOpties}" var="pollOptie">

@@ -158,6 +158,7 @@ public class ReisItemController {
         return "reisItemDetail";
     }
 
+    // Niewe poll opslaan
     @PostMapping("/{groepId}/reisItemDetail/{reisItemId}/nieuwePoll")
     public String pollOpslaan(@ModelAttribute("pollAanmakenFormulier") Poll poll, @PathVariable("groepId") Integer groepId, @PathVariable("reisItemId") Integer reisItemId) {
 
@@ -193,6 +194,26 @@ public class ReisItemController {
         // Terug naar reis overzicht.
         return "redirect:/" + groepId + "/reisItemDetail/" + reisItemId;
     }
+
+    // Ga naar de PollDetails pagina
+    @GetMapping("/{groepId}/{reisId}/PollDetail/{pollId}")
+    public String pollDetails(@PathVariable("groepId") Integer groepId, @PathVariable("reisId") Integer reisId, @PathVariable("pollId") Integer pollId, Model model, Principal principal) {
+
+        Optional<ReisItem> pollOptional = plannieReisItemService.findById(pollId);
+        Gebruiker gebruiker = gebruikerRepository.findGebruikerByEmail(principal.getName());
+        model.addAttribute(gebruiker);
+
+        if (pollOptional.isPresent()) {
+            Poll poll = (Poll) pollOptional.get();
+            model.addAttribute("poll", poll);
+
+
+            return "pollDetail";
+        }
+
+        return "reisItemDetail";
+    }
+
 
     // Klaarzetten van het Notitie wijzigen Overzicht
     @GetMapping("/{groepId}/{reisItemId}/{reisItemsId}/NotitieWijzigen")
