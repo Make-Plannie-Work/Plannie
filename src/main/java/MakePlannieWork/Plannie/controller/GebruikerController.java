@@ -11,6 +11,7 @@ import MakePlannieWork.Plannie.service.PlannieMailingService;
 import MakePlannieWork.Plannie.util.GenericResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,11 +21,9 @@ import MakePlannieWork.Plannie.repository.GebruikerRepository;
 
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.security.Principal;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 @Controller
 public class GebruikerController {
@@ -138,26 +137,48 @@ public class GebruikerController {
         }
     }
 
-    @PostMapping("/wachtwoordreset")
-    @ResponseBody
-    public GenericResponse resetWachtwoord(final HttpServletRequest request, @ModelAttribute("updatePasswordForm") Gebruiker gebruiker) throws MessagingException {
-        System.out.println(gebruiker.getEmail());
-        final Gebruiker gebruikerZonderWachtwoord = gebruikerRepository.findGebruikerByEmail(gebruiker.getEmail());
-        if (gebruikerZonderWachtwoord != null) {
+    @PostMapping("/wachtwoordReset")
+    public String resetWachtwoord(HttpServletRequest request, @ModelAttribute("updatePasswordForm") Gebruiker gebruiker) {
+        Gebruiker gebruikerZonderWachtwoord = gebruikerRepository.findGebruikerByEmail(gebruiker.getEmail());
+        if (gebruikerZonderWachtwoord.getEmail() != null) {
             final String token = UUID.randomUUID().toString();
-            plannieGebruikersService.maakWachtWoordResetTokenVoorGebruiker(gebruiker, token);
-            plannieMailingService.maakWachtwoordResetTokenEmail(plannieMailingService.getAppUrl(request), request.getLocale(), token, gebruiker);
+            plannieGebruikersService.maakWachtWoordResetTokenVoorGebruiker(gebruikerZonderWachtwoord, token);
+            try {
+                plannieMailingService.maakWachtwoordResetTokenEmail(plannieMailingService.getAppUrl(request), request.getLocale(), token, gebruikerZonderWachtwoord);
+            } catch (MessagingException e) {
+                e.printStackTrace();
+            }
+            return "redirect:/index";
+        } else {
+            return "/error";
         }
-        return new GenericResponse("U ontvangt binnenkort een email");
     }
 
     @GetMapping("/wijzigWachtwoord")
     public String showWijzigWachtwoordPagina(final Model model, @RequestParam("id") final String id, @RequestParam("token") final String token) {
+
+
         final String result = plannieGebruikerSecurityService.valideerWachtwoordResetToken(id, token);
         if (result != null) {
-            return "redirect:/index";
+
+            return "redirect:/error";
         }
-        return "redirect:/gebruikerWachtwoordUpdate";
+        Gebruiker gebruiker = gebruikerRepository.findGebruikerByIdentifier(id);
+        model.addAttribute("wachtwoordUpdateFormulier", new Gebruiker());
+        model.addAttribute("loginForm", new Gebruiker());
+        model.addAttribute(gebruiker);
+        return "gebruikerWachtwoordUpdate";
     }
 
+    @PostMapping("/{identifier}/saveWachtwoord")
+    public String savePassword(@PathVariable("identifier") String identifier, Gebruiker gebruiker) {
+        final Gebruiker huidigeGebruiker = gebruikerRepository.findGebruikerByIdentifier(identifier);
+        if (gebruiker.getWachtwoord().equals(gebruiker.getTrancientWachtwoord())) {
+            huidigeGebruiker.setWachtwoord(gebruiker.getWachtwoord());
+            gebruikerRepository.save(huidigeGebruiker);
+            return "redirect:/index";
+        } else {
+            return "redirect:/gebruikerWachtwoordUpdate";
+        }
+    }
 }

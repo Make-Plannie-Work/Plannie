@@ -36,8 +36,8 @@ public class PlannieSecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                     .authorizeRequests()
-                    .antMatchers("/registreren", "/resources/**", "/src/main/webapp/static/**").permitAll()
-                    .antMatchers("/user/updatePassword*","/user/savePassword*","/updatePassword*").hasAuthority("CHANGE_PASSWORD_PRIVILEGE")
+                    .antMatchers("/registreren", "/resources/**", "/src/main/webapp/static/**", "/wachtwoordReset", "/wijzigWachtwoord*").permitAll()
+                    .antMatchers("/user/savePassword*","/gebruikerWachtwoordUpdate*", "/wijzigWachtwoord*").hasAuthority("CHANGE_PASSWORD_PRIVILEGE")
                     .anyRequest().authenticated()
                 .and()
                     .formLogin()

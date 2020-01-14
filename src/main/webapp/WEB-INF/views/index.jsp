@@ -112,19 +112,21 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <div class="modal-body">
+        <form:form id="updatePasswordForm" action="/wachtwoordReset" modelAttribute="updatePasswordForm" method="post">
+          <div class="modal-body">
 
-          <form:form id="updatePasswordForm" action="/wachtwoordreset" modelAttribute="updatePasswordForm" method="post">
-            <div class="form-group">
-              <form:input type="email" class="form-control" id="usernameReset" path="username" placeholder="Email"/>
-            </div>
 
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuleer</button>
-          <button id="resetWachtwoord" type="submit" class="btn btn-primary">Reset Wachtwoord</button>
-          </form:form>
-        </div>
+              <div class="form-group">
+                <form:input type="email" class="form-control" id="usernameReset" path="email" placeholder="Email"/>
+              </div>
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuleer</button>
+            <button id="resetWachtwoord" type="submit" class="btn btn-primary">Reset Wachtwoord</button>
+
+          </div>
+        </form:form>
       </div>
     </div>
   </div>

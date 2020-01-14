@@ -38,8 +38,8 @@
             <div class="col-sm-8">
                 <div class="jumbotron shadow">
                     <div sec:authorize="hasAuthority('CHANGE_PASSWORD_PRIVILEGE')">
-                    <h3>Stel je wachtwoord opnieuw in</h3>
-                    <form:form action = "/saveWachtwoord" method="post" modelAttribute="registratieFormulier">
+                    <h3>Hoi ${gebruiker.voornaam}. Stel snel je wachtwoord opnieuw in</h3>
+                    <form:form action = "${gebruiker.identifier}/saveWachtwoord" method="post" modelAttribute="wachtwoordUpdateFormulier">
                         <div class="container mt-4">
                             <div class="row">
                                 <div class="col">
@@ -50,7 +50,7 @@
                                 </div>
                             </div>
 
-                            <form:button id="registreer" type="submit" class="btn btn-primary mt-3"  >Wijzig Wachtwoord</form:button>
+                            <form:button id="wachtwoordUpdate" type="submit" class="btn btn-primary mt-3"  >Wijzig Wachtwoord</form:button>
                         </div>
 
                     </form:form>

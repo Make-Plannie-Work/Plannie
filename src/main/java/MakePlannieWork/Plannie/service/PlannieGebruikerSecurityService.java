@@ -23,7 +23,7 @@ public class PlannieGebruikerSecurityService {
 
     public String valideerWachtwoordResetToken(String id, String token) {
         final WachtwoordResetToken wachtwoordResetToken = wachtwoordResetRepository.findByToken(token);
-        if ((wachtwoordResetToken == null) || (wachtwoordResetToken.getGebruiker().getIdentifier() != id)) {
+        if ((wachtwoordResetToken == null) || !(wachtwoordResetToken.getGebruiker().getIdentifier().equals(id))) {
             return "invalidToken";
         }
 

@@ -28,8 +28,8 @@ public class PlannieMailingService {
     private MessageSource messages;
 
     public void maakWachtwoordResetTokenEmail(final String contextPath, final Locale locale, final String token, final Gebruiker gebruiker) throws MessagingException {
-        final String url = contextPath + "/user/changePassword?id=" + gebruiker.getIdentifier() + "&token=" + token;
-        final String message = messages.getMessage("message.resetPassword", null, locale);
+        final String url = contextPath + "/wijzigWachtwoord?id=" + gebruiker.getIdentifier() + "&token=" + token;
+        final String message = "Reset wachtwoord";
         sendEmail(gebruiker.getEmail(), message + " \r\n" + url, "Wachtwoord resetten");
     }
 
