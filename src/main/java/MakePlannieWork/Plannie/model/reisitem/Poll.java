@@ -12,9 +12,6 @@ import java.util.Set;
 @Entity
 public class Poll extends ReisItem {
 
-    @Autowired
-    GebruikerRepository gebruikerRepository;
-
     @OneToMany(cascade=CascadeType.ALL, mappedBy = "poll")
     private Set<PollOptie> pollOpties = new HashSet<>();
 
@@ -30,8 +27,7 @@ public class Poll extends ReisItem {
         return aantal;
     }
 
-    public void gebruikerStemt(int pollOptieId, int gebruikerId) {
-        Gebruiker gebruiker = gebruikerRepository.findGebruikerByGebruikersId(gebruikerId);
+    public void gebruikerStemt(int pollOptieId, Gebruiker gebruiker) {
         for (PollOptie optie : pollOpties) {
             if (optie.getPollOptieId() == pollOptieId) {
                 optie.voegStemToe(gebruiker);
