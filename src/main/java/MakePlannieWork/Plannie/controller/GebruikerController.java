@@ -174,7 +174,7 @@ public class GebruikerController {
     public String savePassword(@PathVariable("identifier") String identifier, Gebruiker gebruiker) {
         final Gebruiker huidigeGebruiker = gebruikerRepository.findGebruikerByIdentifier(identifier);
         if (gebruiker.getWachtwoord().equals(gebruiker.getTrancientWachtwoord())) {
-            huidigeGebruiker.setWachtwoord(gebruiker.getWachtwoord());
+            huidigeGebruiker.setWachtwoord(passwordEncoder.encode(gebruiker.getWachtwoord()));
             gebruikerRepository.save(huidigeGebruiker);
             return "redirect:/index";
         } else {
