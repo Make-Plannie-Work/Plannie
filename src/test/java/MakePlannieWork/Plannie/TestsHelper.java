@@ -382,13 +382,11 @@ public class TestsHelper {
     }
 
     public void inloggen(Gebruiker testGebruiker) {
-        String beginUrl = driver.getCurrentUrl();
         this.driver.get(URL_INDEX);
         driver.findElement(By.id("inloggen")).click();
         wachtOpElement("loginForm");
         driver.findElement(By.name("username")).sendKeys(testGebruiker.getEmail());
         driver.findElement(By.name("password")).sendKeys(testGebruiker.getWachtwoord() + Keys.RETURN);
-        this.driver.get(beginUrl);
     }
 
     // Test Gebruikers geven: Je kan alle gebruikers, of 1 opvragen.
