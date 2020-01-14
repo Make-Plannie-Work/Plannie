@@ -31,6 +31,10 @@ public class Gebruiker implements UserDetails {
     @Transient
     private String trancientWachtwoord;
 
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "gebruikers_rollen", joinColumns = @JoinColumn(name = "gebruikersid", referencedColumnName = "gebruikersId"), inverseJoinColumns = @JoinColumn(name = "rolId", referencedColumnName = "rolId"))
+    private Collection<Rol> rollen;
+
     @ManyToMany(mappedBy = "groepsleden")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Set<Groep> groepen;
@@ -103,6 +107,14 @@ public class Gebruiker implements UserDetails {
         this.identifier = identifier;
     }
 
+    public Collection<Rol> getRollen() {
+        return rollen;
+    }
+
+    public void setRollen(Collection<Rol> rollen) {
+        this.rollen = rollen;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> authorities = new ArrayList<>();
@@ -139,4 +151,6 @@ public class Gebruiker implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+
 }

@@ -9,6 +9,8 @@ import MakePlannieWork.Plannie.service.PlannieGebruikersService;
 import MakePlannieWork.Plannie.service.PlannieGroepService;
 import MakePlannieWork.Plannie.service.PlannieReisItemService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PostAuthorize;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -71,7 +73,7 @@ public class GroepController {
         model.addAttribute("AlleLedenLijst", alleGebruikers);
         model.addAttribute("groepsLedenLijst", alleGebruikersInGroep);
         if (groepOptional.isPresent()) {
-            model.addAttribute("currentUser", gebruikerRepository.findGebruikerByEmail(principal.getName()));
+            model.addAttribute("currentUser", gebruiker);
             model.addAttribute("groep", groepOptional.get());
             return "groepDetail";
         }
@@ -119,6 +121,18 @@ public class GroepController {
         }
     }
 
+    // Gebruiker gaat naar scherm waar naam van groep gewijzigd kan worden
+    //@PostAuthorize("returnObject.owner == principal.username")
+    @GetMapping("/groepDetail/{groepId}/groepWijzig")
+    @PostAuthorize("hasPermission(id, 'MakePlannieWork.Plannie.model.Groep', 'view')")
+    public String huidigeGroep(@PathVariable("groepId") Integer id, Model model) {
+        Optional<Groep> groepOptional = plannieGroepService.findById(id);
+        model.addAttribute("groep", groepOptional.get());
+        model.addAttribute("groepsNaamWijzigingsFormulier", new Groep());
+        return "groepWijzig";
+    }
+
+
     @PostMapping("/groepDetail/{groepId}/groepWijzig")
     public String wijzigenGroepsNaam(@ModelAttribute("groepsNaamWijzigingsFormulier")
                                      Groep groep, @PathVariable("groepId") Integer groepId, BindingResult result) {
@@ -126,10 +140,8 @@ public class GroepController {
             return "groepDetail";
         } else {
             Groep huidigeGroep = groepRepository.findByGroepId(groepId);
-            System.out.println("Postmapping" + huidigeGroep.getGroepsNaam());
             huidigeGroep.setGroepsNaam(groep.getGroepsNaam());
             groepRepository.save(huidigeGroep);
-            System.out.println("Save" + huidigeGroep.getGroepsNaam());
             return "redirect:/groepDetail/" + groepId;
         }
     }

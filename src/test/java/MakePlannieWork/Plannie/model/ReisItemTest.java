@@ -25,7 +25,6 @@ public class ReisItemTest {
 
         // TODO De sets voor Notities & ReisItems worden nog niet getest bij de ReisItems, aangezien deze nu nog niet aangemaakt zijn.
         Set<ReisItem> reisItems;
-        Set<Notitie> notitie;
 
         // Activate
         reisItem.setReisItemId(reisItemId);
