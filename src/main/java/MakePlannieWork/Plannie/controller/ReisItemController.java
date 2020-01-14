@@ -13,7 +13,6 @@ import MakePlannieWork.Plannie.repository.ReisItemRepository;
 import MakePlannieWork.Plannie.service.PlannieGroepService;
 import MakePlannieWork.Plannie.service.PlannieReisItemService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -22,10 +21,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import java.security.Principal;
 import java.util.Optional;
-import java.util.Set;
 
 @Controller
 public class ReisItemController {
@@ -200,14 +197,12 @@ public class ReisItemController {
             model.addAttribute("currentUser", gebruikerRepository.findGebruikerByEmail(principal.getName()));
             model.addAttribute("groep", groepOptional.get());
             model.addAttribute("reis", reisItemOptional.get());
-            model.addAttribute("poll", reisItemRepository.findReisItemByReisItemId(pollId));
+            model.addAttribute("poll", reisItemRepository.findPollByReisItemId(pollId));
             return "pollDetail";
         }
 
         return "reisItemDetail";
     }
-
-    // groep, reis, gebruiker en de poll
 
     // Klaarzetten van het Notitie wijzigen Overzicht
     @GetMapping("/{groepId}/{reisItemId}/{reisItemsId}/NotitieWijzigen")
@@ -222,7 +217,7 @@ public class ReisItemController {
             model.addAttribute("currentUser", gebruikerRepository.findGebruikerByEmail(principal.getName()));
             model.addAttribute("groep", groepOptional.get());
             model.addAttribute("reisItem", reisItemOptional.get());
-            model.addAttribute("reisItems", reisItemRepository.findReisItemByReisItemId(notitieId));
+            model.addAttribute("reisItems", reisItemRepository.findNotitieByReisItemId(notitieId));
             model.addAttribute("notitieWijzigingsFormulier", new Notitie());
             return "notitieWijzig";
         }
@@ -237,7 +232,7 @@ public class ReisItemController {
         if (result.hasErrors()) {
             return "redirect:/notitieWijzig";
         } else {
-            Notitie huidigeNotitie = reisItemRepository.findReisItemByReisItemId(notitieId);
+            Notitie huidigeNotitie = reisItemRepository.findNotitieByReisItemId(notitieId);
             huidigeNotitie.setNaam(notitie.getNaam());
             huidigeNotitie.setTekst(notitie.getTekst());
             huidigeNotitie.setStartDatum(notitie.getStartDatum());
