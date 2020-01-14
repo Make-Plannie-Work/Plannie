@@ -69,13 +69,9 @@
                                                                       href="/${groepId}/${reisItemId}/PollDetail/${reisItems.reisItemId}">${reisItems.naam}</a>
                                             </h4>
                                             <p class="card-text">
-                                                <c:forEach items="${reisItems.pollOpties}" var="pollOptie">
-                                                    <p class="card-text">
-                                                        Stem op:
-                                                        <a id="stemmenOpPoll${reisItems.naam}Optie${pollOptie.stemOptie}"
-                                                           href="/${groepId}/${reisItemId}/${reisItems.reisItemId}/PollStemmen/${pollOptie.pollOptieId}">${pollOptie.stemOptie}</a>
-                                                    </p>
-                                                </c:forEach>
+                                                <p class="card-text">
+                                                    Stem nu!
+                                                </p>
                                             </p>
                                         </div>
                                     </c:when>
