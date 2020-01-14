@@ -71,7 +71,7 @@ public class GroepViewTests {
         this.testsHelper.inloggen();
         Gebruiker testGebruiker = this.testsHelper.geefTestGebruiker();
         Groep testGroep = this.testsHelper.geefTestGroep();
-        this.testsHelper.wachtOpTitel("Welkom bij Plannie - " + testGebruiker.getVoornaam());
+        this.testsHelper.wachtOpTitel("Welkom bij Plannie");
 
         // Activate
         driver.findElement(By.name("groepsNaam")).sendKeys(testGroep.getGroepsNaam());
@@ -91,7 +91,7 @@ public class GroepViewTests {
         this.testsHelper.inloggen();
         Gebruiker testGebruiker = this.testsHelper.geefTestGebruiker();
         String testGroepsNaam = "";
-        this.testsHelper.wachtOpTitel("Welkom bij Plannie - " + testGebruiker.getVoornaam());
+        this.testsHelper.wachtOpTitel("Welkom bij Plannie");
 
         // Activate
         driver.findElement(By.name("groepsNaam")).sendKeys(testGroepsNaam);

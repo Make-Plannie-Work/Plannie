@@ -115,7 +115,7 @@ public class ReisViewTests {
         this.driver.findElement(By.id("reisItemAanmaken")).click();
         Thread.sleep(500);
         driver.findElement(By.id("wijzigReisItem")).click();
-        this.testsHelper.wachtOpElement("reisItemWijzigingsFormulier");
+        this.testsHelper.wachtOpElement("reisNaamWijzigingsFormulier");
         Thread.sleep(500);
         driver.findElement(By.name("naam")).clear();
         driver.findElement(By.name("naam")).sendKeys(testReisNaam + "2");
@@ -142,7 +142,7 @@ public class ReisViewTests {
         this.driver.findElement(By.id("reisItemAanmaken")).click();
         Thread.sleep(500);
         driver.findElement(By.id("wijzigReisItem")).click();
-        this.testsHelper.wachtOpElement("reisItemWijzigingsFormulier");
+        this.testsHelper.wachtOpElement("reisNaamWijzigingsFormulier");
         Thread.sleep(500);
         driver.findElement(By.name("naam")).clear();
         driver.findElement(By.name("naam")).sendKeys("");
