@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en">
-<div class="view" style="background-image: url('https://images.unsplash.com/photo-1473496169904-658ba7c44d8a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80'); background-repeat: no-repeat; background-size: cover; background-attachment: fixed;">
+<div class="view"
+     style="background-image: url('https://images.unsplash.com/photo-1473496169904-658ba7c44d8a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80'); background-repeat: no-repeat; background-size: cover; background-attachment: fixed;">
 
     <head>
         <!-- Required meta tags -->
@@ -10,7 +11,8 @@
         <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-              integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+              integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+              crossorigin="anonymous">
         <script src="https://kit.fontawesome.com/d450c035a5.js" crossorigin="anonymous"></script>
         <title>Plannie - Poll ${poll.naam}</title>
     </head>
@@ -21,11 +23,13 @@
 
         <ul class="nav justify-content-end">
             <li class="nav-item">
-                <a class="nav-link text-dark" method="post" id="gebruikerWijzigen" href="/gebruikerWijzig">Jouw gegevens</a>
+                <a class="nav-link text-dark" method="post" id="gebruikerWijzigen" href="/gebruikerWijzig">Jouw
+                    gegevens</a>
             </li>
             <li class="nav-item">
                 <form:form action="${pageContext.request.contextPath}/logout" method="POST">
-                    <input id="logout" class="nav-link text-dark" style="border: none; background: transparent;" type="submit" value="Log uit" />
+                    <input id="logout" class="nav-link text-dark" style="border: none; background: transparent;"
+                           type="submit" value="Log uit"/>
                 </form:form>
             </li>
     </nav>
@@ -34,45 +38,56 @@
 
             <div class="col-sm-8">
                 <div class="jumbotron shadow">
-                    <div class="row" >
+                    <div class="row">
 
-                        WIJZIGEN (Stem Opties, en aantal stemmen)
+                        <span class="navbar-brand mb-0 h1"><a class="text-dark">${poll.naam}  -  ${poll.startDatum}</a></span>
 
-                        <c:forEach items="${lijstMetReisItems}" var="reisItem">
+                        <c:forEach items="${poll.pollOpties}" var="optie">
                             <div class="card flex-row flex-wrap mb-2 mx-auto" style="width: 42rem;">
+
                                 <div class="card-header border-0">
-                                    <img src="https://via.placeholder.com/100.jpg" alt="">
+                                    ${optie.stemOptie}
                                 </div>
                                 <div class="card-block px-2">
-                                    <h4 class="card-title"><a href="/${groep.groepId}/reisItemDetail/${reisItem.reisItemId}">${reisItem.naam}</a></h4>
-                                    <p class="card-text">${reisItem.naam}${reisItem.naam}${reisItem.naam}${reisItem.naam}${reisItem.naam}${reisItem.naam}</p>
+                                    <a>Aantal
+                                        stemmen: ${optie.geefAantalStemmen()}</a>
+
+                                    <p class="card-text">
+
+                                        <c:choose>
+                                            <c:when test="${optie.gebruikerHeeftGestemd(currentUser.gebruikersId)}">
+                                                Jij hebt hierop gestemd.
+                                            </c:when>
+                                            <c:otherwise>
+                                                <a id="stemmenOp${optie.pollOptieId}"
+                                                   href="/${groepId}/${reisItemId}/PollDetail/${reisItems.reisItemId}">Stem
+                                                    nu!</a>
+                                            </c:otherwise>
+                                        </c:choose>
+
+                                    </p>
                                 </div>
+
                             </div>
                         </c:forEach>
 
-                        /WIJZIGEN
 
-                        <div class="container" >
-
-                            WIJZIGEN (Annuleer knop)
+                        <div class="container">
 
                             <div class="row">
-                                <a href= "/${groep.groepId}/reisItemDetail/${reisItem.reisItemId}">
+                                <a href="/${groep.groepId}/reisItemDetail/${reis.reisItemId}">
                                     <button type="text" class="btn btn-primary mt-3" id="annuleren">Annuleren</button>
                                 </a>
                             </div>
 
-                            /WIJZIGEN
-
                         </div>
-
                     </div>
                 </div>
             </div>
 
             <div class="col-sm-4">
                 <div class="jumbotron shadow" style="background-color: #666666;">
-                    <div class="row" >
+                    <div class="row">
 
                         <p class="lead text-white strong">Hebben al gestemd:</p>
 
@@ -85,18 +100,21 @@
                             </thead>
                             <tbody>
 
-                            WIJZIGEN (Lijst met mensen die al gestemd hebben op deze Poll)
+                            <tr>
 
-                            <c:forEach items="${groepsLedenLijst}" var="groepslid">
-                                <tr>
-                                    <td id="groepslid${groepslid.voornaam}" data-toggle="tooltip" data-placement="bottom" title="${groepslid.email}">${groepslid.voornaam} ${groepslid.achternaam}</td>
-                                    <td><a id="Verwijder${groepslid.voornaam}UitGroep" href="${groep.groepId}/VerwijderLedenUitGroep/${groepslid.gebruikersId}">
-                                        <i class="far fa-trash-alt"></i>
-                                    </a></td>
-                                </tr>
-                            </c:forEach>
+                                <c:forEach items="${groep.groepsleden}" var="groepsLid">
 
-                            /WIJZIGEN
+                                    <c:if test="${poll.gebruikerHeeftGestemd(groepsLid.gebruikersId)}">
+
+                                        <td id="gestemd${groepsLid$.voornaam}" data-toggle="tooltip"
+                                            data-placement="bottom" title="${groepsLid$.email}">${groepsLid$.voornaam}
+                                            ${groepsLid$.achternaam}
+                                        </td>
+
+                                    </c:if>
+                                </c:forEach>
+
+                            </tr>
 
                             </tbody>
                         </table>
@@ -116,18 +134,22 @@
                             </thead>
                             <tbody>
 
-                            WIJZIGEN (Lijst met mensen die nog niet hebben gestemd op deze Poll)
 
-                            <c:forEach items="${AlleLedenLijst}" var="lid">
-                                <tr>
-                                    <td id="gebruiker${lid.voornaam}" data-toggle="tooltip" data-placement="bottom" title="${lid.email}">${lid.voornaam} ${lid.achternaam}</td>
-                                    <td><a id="voeg${lid.voornaam}ToeAanGroep" href="${groep.groepId}/voegGebruikerToeAanGroep/${lid.gebruikersId}">
-                                        <i class="fas fa-plus"></i>
-                                    </a></td>
-                                </tr>
-                            </c:forEach>
+                            <tr>
 
-                            /WIJZIGEN
+                                <c:forEach items="${groep.groepsleden}" var="groepsLid">
+
+                                    <c:if test="${not poll.gebruikerHeeftGestemd(groepsLid.gebruikersId)}">
+
+                                        <td id="nietGestemd${groepsLid.voornaam}" data-toggle="tooltip"
+                                            data-placement="bottom" title="${groepsLid.email}">${groepsLid.voornaam}
+                                            ${groepsLid.achternaam}
+                                        </td>
+
+                                    </c:if>
+                                </c:forEach>
+
+                            </tr>
 
                             </tbody>
                         </table>
@@ -145,7 +167,6 @@
 
         <!-- Call to action -->
         <ul class="list-unstyled list-inline text-center py-2">
-
 
 
             </li>
