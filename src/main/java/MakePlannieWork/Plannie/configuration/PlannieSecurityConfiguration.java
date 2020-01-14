@@ -29,8 +29,6 @@ public class PlannieSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()
-                .withUser("Plannie@planet.nl").password(passwordEncoder().encode("PlannieAdmin")).roles("USER", "ADMIN");
         auth.authenticationProvider(authProvider());
     }
 
@@ -38,7 +36,8 @@ public class PlannieSecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                     .authorizeRequests()
-                    .antMatchers("/registreren", "/resources/**", "/src/main/webapp/static/**").permitAll()
+                    .antMatchers("/registreren", "/resources/**", "/src/main/webapp/static/**", "/wachtwoordReset", "/wijzigWachtwoord*").permitAll()
+                    .antMatchers("/user/savePassword*","/gebruikerWachtwoordUpdate*", "/wijzigWachtwoord*").permitAll()
                     .anyRequest().authenticated()
                 .and()
                     .formLogin()

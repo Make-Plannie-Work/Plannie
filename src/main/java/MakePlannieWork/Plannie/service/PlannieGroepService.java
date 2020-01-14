@@ -5,11 +5,14 @@ import MakePlannieWork.Plannie.model.Groep;
 import MakePlannieWork.Plannie.repository.GebruikerRepository;
 import MakePlannieWork.Plannie.repository.GroepRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
+import java.util.Locale;
 import java.util.Optional;
 import java.util.Set;
 
@@ -23,6 +26,7 @@ public class PlannieGroepService {
     private PlannieGroepService plannieGroepService;
     @Autowired
     private PlannieMailingService mailingService;
+
 
     public Set<Groep> getLijstMetGroepenOpGebruikersnaam(String gebruikersnaam) {
         Gebruiker gebruiker = gebruikerRepository.findGebruikerByEmail(gebruikersnaam);

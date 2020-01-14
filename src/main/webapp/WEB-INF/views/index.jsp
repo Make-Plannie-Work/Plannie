@@ -90,6 +90,7 @@
             </div>
             <div class="form-group">
               <form:input type="password" id="password" path="password" class="form-control" placeholder="Wachtwoord"/>
+              <a id="resetten" class="nav-link text-dark" data-toggle="modal" data-target="#resetmodal">Wachtwoord resetten</a>
             </div>
 
         </div>
@@ -98,6 +99,34 @@
           <button id="login" type="submit" class="btn btn-primary">Login</button>
           </form:form>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="resetmodal" tabindex="-1" role="dialog" aria-labelledby="resetmodal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" class="close" id="resetmodal2"><p>Wachtwoord Resetten</p></h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form:form id="updatePasswordForm" action="/wachtwoordReset" modelAttribute="updatePasswordForm" method="post">
+          <div class="modal-body">
+
+
+              <div class="form-group">
+                <form:input type="email" class="form-control" id="usernameReset" path="email" placeholder="Email"/>
+              </div>
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuleer</button>
+            <button id="resetWachtwoord" type="submit" class="btn btn-primary">Reset Wachtwoord</button>
+
+          </div>
+        </form:form>
       </div>
     </div>
   </div>

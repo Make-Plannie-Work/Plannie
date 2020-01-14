@@ -8,6 +8,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
         <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+        <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
               integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
@@ -23,6 +24,11 @@
             <li class="nav-item">
                 <a class="nav-link text-dark" method="post" id="gebruikerWijzigen" href="/gebruikerWijzig">Jouw gegevens</a>
             </li>
+            <security:authorize access="hasAuthority('ROLE_ADMIN')">
+            <li class="nav-item">
+                <a class="nav-link text-dark" method="post" id="admin" href="/admin">admin</a>
+            </li>
+            </security:authorize>
             <li class="nav-item">
                 <form:form action="${pageContext.request.contextPath}/logout" method="POST">
                     <input id="logout" class="nav-link text-dark" style="border: none; background: transparent;" type="submit" value="Log uit" />
