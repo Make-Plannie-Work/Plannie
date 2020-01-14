@@ -37,7 +37,7 @@ public class PlannieSecurityConfiguration extends WebSecurityConfigurerAdapter {
         http
                     .authorizeRequests()
                     .antMatchers("/registreren", "/resources/**", "/src/main/webapp/static/**", "/wachtwoordReset", "/wijzigWachtwoord*").permitAll()
-                    .antMatchers("/user/savePassword*","/gebruikerWachtwoordUpdate*", "/wijzigWachtwoord*").hasAuthority("CHANGE_PASSWORD_PRIVILEGE")
+                    .antMatchers("/user/savePassword*","/gebruikerWachtwoordUpdate*", "/wijzigWachtwoord*").permitAll()
                     .anyRequest().authenticated()
                 .and()
                     .formLogin()

@@ -77,11 +77,11 @@ public class GebruikerController {
     public String nieuweGebruiker(@ModelAttribute("registratieformulier") Gebruiker gebruiker, Model model, BindingResult result) {
         // Als de ingevulde gebruiker al best in de database bestaat met dit email adres, wordt de actie niet uitgevoerd.
         List<Gebruiker> bestaandeGebruiker = gebruikerRepository.findGebruikersByEmail(gebruiker.getEmail());
+        model.addAttribute("updatePasswordForm", new Gebruiker());
 
         if (!bestaandeGebruiker.isEmpty() || result.hasErrors() || !gebruiker.getWachtwoord().equals(gebruiker.getTrancientWachtwoord())) {
             model.addAttribute("registratieFormulier", new Gebruiker());
             model.addAttribute("loginForm", new Gebruiker());
-            model.addAttribute("updatePasswordForm", new Gebruiker());
             return "gebruikerNieuw";
         } else {
             gebruiker.setIdentifier(UUID.randomUUID().toString());
