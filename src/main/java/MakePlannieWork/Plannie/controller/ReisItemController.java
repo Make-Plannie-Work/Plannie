@@ -78,15 +78,13 @@ public class ReisItemController {
     public String reisItemDetail(@PathVariable("groepId") Integer groepId, @PathVariable("reisItemId") Integer reisItemId, Model model, Principal principal) {
         Optional<Groep> groepOptional = plannieGroepService.findById(groepId);
         Optional<ReisItem> reisItemOptional = plannieReisItemService.findById(reisItemId);
-        Gebruiker gebruiker = gebruikerRepository.findGebruikerByEmail(principal.getName());
-        model.addAttribute(gebruiker);
+
         if (reisItemOptional.isPresent() && groepOptional.isPresent()) {
             model.addAttribute("currentUser", gebruikerRepository.findGebruikerByEmail(principal.getName()));
             model.addAttribute("reisItem", reisItemOptional.get());
             model.addAttribute("groepslidEmail", new Gebruiker());
             model.addAttribute("groep", groepOptional.get());
             model.addAttribute("alleReisItemsVanReis", reisItemOptional.get().getReisItems());
-
             return "reisItemDetail";
         }
         return "redirect:/groepDetail";
@@ -98,8 +96,6 @@ public class ReisItemController {
 
         Optional<Groep> groepOptional = plannieGroepService.findById(groepId);
         Optional<ReisItem> reisItemOptional = plannieReisItemService.findById(reisItemId);
-        Gebruiker gebruiker = gebruikerRepository.findGebruikerByEmail(principal.getName());
-        model.addAttribute(gebruiker);
 
         if (reisItemOptional.isPresent() && groepOptional.isPresent()) {
             model.addAttribute("currentUser", gebruikerRepository.findGebruikerByEmail(principal.getName()));
@@ -110,7 +106,6 @@ public class ReisItemController {
             model.addAttribute("notitieAanmakenFormulier", new Notitie());
             return "notitieNieuw";
         }
-
         return "reisItemDetail";
     }
 
@@ -142,8 +137,6 @@ public class ReisItemController {
 
         Optional<Groep> groepOptional = plannieGroepService.findById(groepId);
         Optional<ReisItem> reisItemOptional = plannieReisItemService.findById(reisItemId);
-        Gebruiker gebruiker = gebruikerRepository.findGebruikerByEmail(principal.getName());
-        model.addAttribute(gebruiker);
 
         if (reisItemOptional.isPresent() && groepOptional.isPresent()) {
             model.addAttribute("currentUser", gebruikerRepository.findGebruikerByEmail(principal.getName()));
@@ -200,11 +193,10 @@ public class ReisItemController {
     public String pollDetails(@PathVariable("groepId") Integer groepId, @PathVariable("reisId") Integer reisId, @PathVariable("pollId") Integer pollId, Model model, Principal principal) {
 
         Optional<ReisItem> pollOptional = plannieReisItemService.findById(pollId);
-        Gebruiker gebruiker = gebruikerRepository.findGebruikerByEmail(principal.getName());
-        model.addAttribute(gebruiker);
 
         if (pollOptional.isPresent()) {
             Poll poll = (Poll) pollOptional.get();
+            model.addAttribute("currentUser", gebruikerRepository.findGebruikerByEmail(principal.getName()));
             model.addAttribute("poll", poll);
 
 
@@ -214,6 +206,7 @@ public class ReisItemController {
         return "reisItemDetail";
     }
 
+    // groep, reis, gebruiker en de poll
 
     // Klaarzetten van het Notitie wijzigen Overzicht
     @GetMapping("/{groepId}/{reisItemId}/{reisItemsId}/NotitieWijzigen")
@@ -222,12 +215,12 @@ public class ReisItemController {
 
         Optional<Groep> groepOptional = plannieGroepService.findById(groepId);
         Optional<ReisItem> reisItemOptional = plannieReisItemService.findById(reisItemId);
-        Gebruiker gebruiker = gebruikerRepository.findGebruikerByEmail(principal.getName());
-        model.addAttribute(gebruiker);
-        model.addAttribute("reisItems", reisItemRepository.findReisItemByReisItemId(notitieId));
-        if (reisItemOptional.isPresent() && groepOptional.isPresent()) {
+        Optional<ReisItem> notitieOptional = plannieReisItemService.findById(notitieId);
+
+        if (reisItemOptional.isPresent() && groepOptional.isPresent() && notitieOptional.isPresent()) {
             model.addAttribute("currentUser", gebruikerRepository.findGebruikerByEmail(principal.getName()));
             model.addAttribute("reisItem", reisItemOptional.get());
+            model.addAttribute("reisItems", reisItemRepository.findReisItemByReisItemId(notitieId));
             model.addAttribute("groepslidEmail", new Gebruiker());
             model.addAttribute("groep", groepOptional.get());
             model.addAttribute("notitieWijzigingsFormulier", new Notitie());
