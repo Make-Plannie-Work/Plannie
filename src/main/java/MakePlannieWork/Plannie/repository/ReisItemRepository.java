@@ -1,7 +1,5 @@
 package MakePlannieWork.Plannie.repository;
 
-import MakePlannieWork.Plannie.model.Gebruiker;
-import MakePlannieWork.Plannie.model.Groep;
 import MakePlannieWork.Plannie.model.reisitem.Notitie;
 import MakePlannieWork.Plannie.model.reisitem.ReisItem;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -71,7 +71,11 @@ public class PlannieGroepService {
     public void saveImage(MultipartFile imageFile, Groep groep) throws Exception{
         String folder = "src/main/webapp/images/";
         byte[] bytes = imageFile.getBytes();
+        Path imagesPath = Paths.get(folder);
         Path path = Paths.get(folder + imageFile.getOriginalFilename());
+        if (!Files.exists(imagesPath)) {
+            Files.createDirectory(imagesPath);
+        }
         if (Files.exists(path)) {
             path = Paths.get(folder+ "1" + imageFile.getOriginalFilename());
         }
