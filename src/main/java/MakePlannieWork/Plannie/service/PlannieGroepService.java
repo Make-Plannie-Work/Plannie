@@ -68,10 +68,15 @@ public class PlannieGroepService {
                 ". Plannie maakt het groepen makkelijk om reizen te plannen. Klink op de volgende link om mee te doen: " + URL, "Uitnodiging voor Plannie");
     }
 
-    public void saveImage(MultipartFile imageFile) throws Exception{
-        String folder = "";
+    public void saveImage(MultipartFile imageFile, Groep groep) throws Exception{
+        String folder = "src/main/webapp/images/";
         byte[] bytes = imageFile.getBytes();
         Path path = Paths.get(folder + imageFile.getOriginalFilename());
+        if (Files.exists(path)) {
+            path = Paths.get(folder+ "1" + imageFile.getOriginalFilename());
+        }
+        groep.setImagePath(path.toString());
+        groepRepository.save(groep);
         Files.write(path, bytes);
     }
 }

@@ -149,7 +149,7 @@ public class GroepController {
     public String uploadImage(@RequestParam("imageFile") MultipartFile imageFile, @PathVariable("groepId") Integer groepId) {
         Groep huidigeGroep = groepRepository.findByGroepId(groepId);
         try {
-            plannieGroepService.saveImage(imageFile);
+            plannieGroepService.saveImage(imageFile, huidigeGroep);
         } catch (Exception e) {
             e.printStackTrace();
         }
