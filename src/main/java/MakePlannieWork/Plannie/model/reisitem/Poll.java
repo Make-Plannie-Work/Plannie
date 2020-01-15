@@ -6,6 +6,7 @@ import org.hibernate.annotations.Cascade;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
@@ -41,15 +42,23 @@ public class Poll extends ReisItem {
         return gestemd;
     }
 
-    // Kijkt welke optie op dit moment de meeste stemmen heeft.
-    public PollOptie geefWinnendeOptie() {
-        PollOptie winnendeOptie = pollOpties.iterator().next();
+    // Kijkt welke opties op dit moment de meeste stemmen hebben.
+    public ArrayList<PollOptie> geefWinnendeOpties() {
+        ArrayList<PollOptie> winnendeOpties = new ArrayList<>();
+        int aantalStemmen = 0;
         for (PollOptie optie : pollOpties) {
-            if (winnendeOptie.geefAantalStemmen() < optie.geefAantalStemmen()) {
-                winnendeOptie = optie;
+            if (aantalStemmen < optie.geefAantalStemmen()) {
+                // Als een optie meer stemmen heeft, wordt de lijst leeggegooid, en wordt dit de nieuwe winnaar.
+                winnendeOpties.clear();
+                winnendeOpties.add(optie);
+                aantalStemmen = optie.geefAantalStemmen();
+            } else if (aantalStemmen != 0 && aantalStemmen == optie.geefAantalStemmen()) {
+                // Als een optie een gedeelde winnaar is, wordt deze toegevoegd aan de lijst.
+                winnendeOpties.add(optie);
             }
         }
-        return winnendeOptie;
+
+        return winnendeOpties;
     }
 
     // Een gebruiker wordt toegevoegd als stemmer aan een pollOptie, en verwijderd uit alle andere pollOpties.
