@@ -10,14 +10,12 @@ import MakePlannieWork.Plannie.service.PlannieGroepService;
 import MakePlannieWork.Plannie.service.PlannieReisItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PostAuthorize;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
@@ -132,7 +130,6 @@ public class GroepController {
         return "groepWijzig";
     }
 
-
     @PostMapping("/groepDetail/{groepId}/groepWijzig")
     public String wijzigenGroepsNaam(@ModelAttribute("groepsNaamWijzigingsFormulier")
                                      Groep groep, @PathVariable("groepId") Integer groepId, BindingResult result) {
@@ -144,5 +141,18 @@ public class GroepController {
             groepRepository.save(huidigeGroep);
             return "redirect:/groepDetail/" + groepId;
         }
+    }
+
+    // Bestanden uploaden
+
+    @PostMapping("/{groepId}/uploadImage")
+    public String uploadImage(@RequestParam("imageFile") MultipartFile imageFile, @PathVariable("groepId") Integer groepId) {
+        Groep huidigeGroep = groepRepository.findByGroepId(groepId);
+        try {
+            plannieGroepService.saveImage(imageFile, huidigeGroep);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "redirect:/groepDetail/" + groepId;
     }
 }

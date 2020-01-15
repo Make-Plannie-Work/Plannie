@@ -1,6 +1,5 @@
 <!doctype html>
 <html lang="en">
-<div class="view" style="background-image: url('https://images.unsplash.com/photo-1473496169904-658ba7c44d8a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80'); background-repeat: no-repeat; background-size: cover; background-attachment: fixed;">
 
   <head>
     <!-- Required meta tags -->
@@ -11,15 +10,14 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="shortcut icon" type="image/icon" href="/images/favicon.ico"/>
     <script src="https://kit.fontawesome.com/d450c035a5.js" crossorigin="anonymous"></script>
     <title>Welkom bij Plannie</title>
   </head>
-  <body>
+  <body >
 
-  <nav class="navbar navbar-light bg-light shadow">
-    <span class="navbar-brand mb-0 h1"><a id="gebruikerDetail" href="/gebruikerDetail" class="text-dark">Plannie</a></span>
-
-    <ul class="nav justify-content-end">
+  <nav class="navbar sticky-top" style="background-color: #FFFFFF; text-color: #FF3B56;">
+        <ul class="nav justify-content-end">
       <li class="nav-item">
         <a class="nav-link text-dark" href="/registreren">Registreer</a>
       </li>
@@ -30,13 +28,16 @@
 
   <div class="container mt-3">
     <div class="row">
+      <span class="navbar-brand mb-0 h1 mt-3" ><a id="gebruikerDetail" href="/gebruikerDetail"><img src="/images/PlannieLogo.png" class="img-fluid" alt="Responsive image"></a></span>
+    </div>
+    <div class="row">
       <div class="col-sm-12 fixed-top">
       </div>
     </div>
     <div class="row">
 
       <div class="col-sm-8">
-        <div class="jumbotron shadow">
+        <div class="jumbotron shadow border" style="border-color: #FFE070 !important; background-color: #FFFFFF;">
           <div class="row">
             <p class="lead">Info 3</p>
             <p>
@@ -50,7 +51,7 @@
       </div>
 
       <div class="col-sm-4">
-        <div class="jumbotron shadow" style="background-color: #666666;">
+        <div class="jumbotron shadow" style="background-color: #FF3B56;">
           <div class="row" >
             <p class="lead text-white">Info 1</p>
           </div>

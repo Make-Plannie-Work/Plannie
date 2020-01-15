@@ -18,6 +18,8 @@ public class Groep {
 
     private Integer aanmaker;
 
+    private String imagePath;
+
     @ManyToMany(cascade = CascadeType.ALL)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinTable(
@@ -69,5 +71,13 @@ public class Groep {
 
     public void setAanmaker(Integer aanmaker) {
         this.aanmaker = aanmaker;
+    }
+
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
     }
 }

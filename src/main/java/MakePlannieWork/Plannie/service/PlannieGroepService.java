@@ -4,13 +4,18 @@ import MakePlannieWork.Plannie.model.Gebruiker;
 import MakePlannieWork.Plannie.model.Groep;
 import MakePlannieWork.Plannie.repository.GebruikerRepository;
 import MakePlannieWork.Plannie.repository.GroepRepository;
+import com.sun.xml.bind.v2.TODO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.security.Principal;
 import java.util.Locale;
 import java.util.Optional;
@@ -61,5 +66,21 @@ public class PlannieGroepService {
         String URL = request.getScheme() + "://" + request.getServerName() + "/registreren?gebruikerUUID=" + gebruikerUUID;
         mailingService.sendEmail(email, "Hallo, u bent door " + gebruikerRepository.findGebruikerByGebruikersId(groep.getAanmaker()).getVoornaam() + " " + gebruikerRepository.findGebruikerByGebruikersId(groep.getAanmaker()).getAchternaam() + " " + " uitgenodigd voor de groep " + groep.getGroepsNaam() +
                 ". Plannie maakt het groepen makkelijk om reizen te plannen. Klink op de volgende link om mee te doen: " + URL, "Uitnodiging voor Plannie");
+    }
+
+    public void saveImage(MultipartFile imageFile, Groep groep) throws Exception{
+        String folder = "src/main/webapp/images/";
+        byte[] bytes = imageFile.getBytes();
+        Path imagesPath = Paths.get(folder);
+        Path path = Paths.get(folder + imageFile.getOriginalFilename());
+        if (!Files.exists(imagesPath)) {
+            Files.createDirectory(imagesPath);
+        }
+        if (Files.exists(path)) {
+            path = Paths.get(folder+ "1" + imageFile.getOriginalFilename());
+        }
+        groep.setImagePath(path.toString());
+        groepRepository.save(groep);
+        Files.write(path, bytes);
     }
 }
