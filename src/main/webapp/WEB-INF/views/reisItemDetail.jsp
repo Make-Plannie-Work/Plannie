@@ -66,71 +66,73 @@
                                         </div>
                                         <div class="card-block px-2">
                                             <h4 class="card-title"><a id="PollDetails${reisItems.naam}"
-                                                                      href="/${groepId}/${reisItemId}/${reisItems.reisItemId}/PollWijzigen">${reisItems.naam}</a>
+                                                                      href="/${groepId}/${reisItemId}/PollDetail/${reisItems.reisItemId}">${reisItems.naam}</a>
                                             </h4>
                                             <p class="card-text">
-                                                <c:forEach items="${reisItems.pollOpties}" var="pollOptie">
-                                                    <p class="card-text">
-                                                        Stem op:
-                                                        <a id="stemmenOpPoll${reisItems.naam}Optie${pollOptie.stemOptie}"
-                                                           href="/${groepId}/${reisItemId}/${reisItems.reisItemId}/PollStemmen/${pollOptie.pollOptieId}">${pollOptie.stemOptie}</a>
-                                                    </p>
-                                                </c:forEach>
+                                            <p class="card-text">
+                                                <c:if test="${!reisItems.gebruikerHeeftGestemd(currentUser.gebruikersId)}">
+                                            <a class="lead text-blue">Stem nu!</a>
+                                                </c:if>
+                                                <a id="pollOptieTekst${reisItems.reisItemId}">${reisItems.pollStatus()}</a>
+                                            </p>
                                             </p>
                                         </div>
                                     </c:when>
-                    <c:otherwise>
-                        <div class="card-header border-0">
-                            <img src="https://via.placeholder.com/100.jpg" alt="">
-                        </div>
-                        <div class="card-block px-2">
-                            <h4 class="card-title"><a id="reisItemDetails${reisItems.reisItemId}"
-                                                      href="/${groep.groepId}/reisItemsDetail/${reisItems.reisItemId}">${reisItems.naam}</a>
-                            </h4>
-                            <p class="card-text">${reisItems.getClass().name}</p>
-                        </div>
-                    </c:otherwise>
-                    </c:choose>
+                                    <c:otherwise>
+                                        <div class="card-header border-0">
+                                            <img src="https://via.placeholder.com/100.jpg" alt="">
+                                        </div>
+                                        <div class="card-block px-2">
+                                            <h4 class="card-title"><a id="reisItemDetails${reisItems.reisItemId}"
+                                                                      href="/${groep.groepId}/reisItemsDetail/${reisItems.reisItemId}">${reisItems.naam}</a>
+                                            </h4>
+                                            <p class="card-text">${reisItems.getClass().name}</p>
+                                        </div>
+                                    </c:otherwise>
+                                </c:choose>
 
+                            </div>
+                        </c:forEach>
+
+                    </div>
                 </div>
-                </c:forEach>
-
+                <div class="jumbotron shadow">
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="keuzeReisItemMenu"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Wat voor soort reisitem wil je maken?
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" id="notitieKeuze"
+                               href="/${groep.groepId}/reisItemDetail/${reisItem.reisItemId}/NotitieAanmaken">Een
+                                Notitie</a>
+                            <a class="dropdown-item" id="pollKeuze"
+                               href="/${groep.groepId}/reisItemDetail/${reisItem.reisItemId}/PollAanmaken">Een Poll</a>
+                            <a class="dropdown-item" id="activiteitKeuze" href="#">Een Activiteit</a>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="jumbotron shadow">
-            <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="keuzeReisItemMenu"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Wat voor soort reisitem wil je maken?
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" id="notitieKeuze"
-                       href="/${groep.groepId}/reisItemDetail/${reisItem.reisItemId}/NotitieAanmaken">Een Notitie</a>
-                    <a class="dropdown-item" id="pollKeuze"
-                       href="/${groep.groepId}/reisItemDetail/${reisItem.reisItemId}/PollAanmaken">Een Poll</a>
-                    <a class="dropdown-item" id="activiteitKeuze" href="#">Een Activiteit</a>
+            <div class="col-sm-4">
+                <div class="jumbotron shadow" style="background-color: #666666;">
+                    <div class="row">
+                        <p class="lead text-white">${reisItem.naam}</p> <a id="wijzigReisItem" type="button"
+                                                                           class="text-white"
+                                                                           data-toggle="modal"
+                                                                           data-target="#wijzigReisItem2"><i
+                            class="far fa-edit"></i></a>
+                        <p class="lead text-white"> - <a class="lead text-white" href="/groepDetail/${groep.groepId}">${groep.groepsNaam}</a>
+                        </p>
+                    </div>
+                    <hr class="my-4">
+                    <div class="row">
+                        <p class="lead text-white mt-3">Locatie / Datum etc..</hp>
+                        <hr class="my-4">
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="col-sm-4">
-        <div class="jumbotron shadow" style="background-color: #666666;">
-            <div class="row">
-                <p class="lead text-white">${reisItem.naam}</p> <a id="wijzigReisItem" type="button" class="text-white"
-                                                                   data-toggle="modal" data-target="#wijzigReisItem2"><i
-                    class="far fa-edit"></i></a>
-                <p class="lead text-white"> - <a class="lead text-white" href="/groepDetail/${groep.groepId}">${groep.groepsNaam}</a>
-                </p>
-            </div>
-            <hr class="my-4">
-            <div class="row">
-                <p class="lead text-white mt-3">Locatie / Datum etc..</hp>
-                <hr class="my-4">
-            </div>
-        </div>
-    </div>
-</div>
-</div>
 </div>
 <!-- Modal Reis wijzigen -->
 <div class="modal fade" id="wijzigReisItem2" tabindex="-1" role="dialog" aria-labelledby="Wijzig ReisItem"
