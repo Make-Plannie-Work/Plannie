@@ -104,9 +104,9 @@
 
                                     <c:if test="${poll.gebruikerHeeftGestemd(groepsLid.gebruikersId)}">
 
-                                        <td id="gestemd${groepsLid$.voornaam}" data-toggle="tooltip"
-                                            data-placement="bottom" title="${groepsLid$.email}">${groepsLid$.voornaam}
-                                            ${groepsLid$.achternaam}
+                                        <td id="Gestemd${groepsLid.voornaam}" data-toggle="tooltip"
+                                            data-placement="bottom" title="${groepsLid.email}">${groepsLid.voornaam}
+                                            ${groepsLid.achternaam}
                                         </td>
 
                                     </c:if>

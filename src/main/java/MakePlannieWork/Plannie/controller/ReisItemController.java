@@ -208,23 +208,22 @@ public class ReisItemController {
     @GetMapping("/{groepId}/{reisId}/PollDetail/{pollId}/StemmenOp/{pollOptieId}")
     public String stemmenOpPoll(@PathVariable("groepId") Integer groepId, @PathVariable("reisId") Integer reisId, @PathVariable("pollId") Integer pollId, @PathVariable("pollOptieId") Integer optieId, Model model, Principal principal) {
 
+        Gebruiker gebruiker = gebruikerRepository.findGebruikerByEmail(principal.getName());
+        model.addAttribute("currentUser", gebruiker);
         Optional<Groep> groepOptional = plannieGroepService.findById(groepId);
         Optional<ReisItem> reisItemOptional = plannieReisItemService.findById(reisId);
-        Optional<ReisItem> pollOptional = plannieReisItemService.findById(pollId);
+        Poll poll = reisItemRepository.findPollByReisItemId(pollId);
 
-        if (reisItemOptional.isPresent() && groepOptional.isPresent() && pollOptional.isPresent()) {
-            model.addAttribute("currentUser", gebruikerRepository.findGebruikerByEmail(principal.getName()));
+        if (reisItemOptional.isPresent() && groepOptional.isPresent() && poll != null) {
             model.addAttribute("groep", groepOptional.get());
             model.addAttribute("reis", reisItemOptional.get());
-            model.addAttribute("poll", reisItemRepository.findPollByReisItemId(pollId));
 
-            // TODO stem toegoegen aan de meegegeven poll optie. (pollOptieId is meegegeven in url)
+            poll.gebruikerStemt(optieId,gebruiker);
+            reisItemRepository.save(poll);
 
-            // TODO poll optie updaten in database, met de toegevoegde gebruiker in de stemmen lijst.
-
+            model.addAttribute("poll", poll);
         }
 
-        // TODO controleren of deze redirect wel het juiste aantal stemmen laat zien wanneer de pagina herladen is.
         return "redirect:/" + groepId + "/" + reisId + "/PollDetail/" + pollId;
     }
 
