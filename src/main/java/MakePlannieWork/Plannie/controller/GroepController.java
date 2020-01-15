@@ -144,7 +144,10 @@ public class GroepController {
     }
 
     // Bestanden uploaden
-
+    // TODO Deze controller is voor nu vooral bedoeld als stub.
+    // TODO Alhoewel je vanuit een groep al wel een plaatje kan selecteren, en uploaden, missen er nog wel een 2 functionaliteiten:
+    // TODO 1: Controle op het soort bestand dat geupload wordt. (Alleen jpg, of png, of kunnen beiden?)
+    // TODO 2: Het laten zien van de geuploade image, als groepsafbeelding.
     @PostMapping("/{groepId}/uploadImage")
     public String uploadImage(@RequestParam("imageFile") MultipartFile imageFile, @PathVariable("groepId") Integer groepId) {
         Groep huidigeGroep = groepRepository.findByGroepId(groepId);
