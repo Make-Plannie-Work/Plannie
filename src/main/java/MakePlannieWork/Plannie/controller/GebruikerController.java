@@ -140,7 +140,7 @@ public class GebruikerController {
     @PostMapping("/wachtwoordReset")
     public String resetWachtwoord(HttpServletRequest request, @ModelAttribute("updatePasswordForm") Gebruiker gebruiker) {
         Gebruiker gebruikerZonderWachtwoord = gebruikerRepository.findGebruikerByEmail(gebruiker.getEmail());
-        if (gebruikerZonderWachtwoord.getEmail() != null) {
+        if (gebruikerZonderWachtwoord != null) {
             final String token = UUID.randomUUID().toString();
             plannieGebruikersService.maakWachtWoordResetTokenVoorGebruiker(gebruikerZonderWachtwoord, token);
             try {
