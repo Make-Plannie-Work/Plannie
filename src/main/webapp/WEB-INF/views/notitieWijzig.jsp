@@ -35,7 +35,7 @@
             <div class="col-sm-8">
                 <div class="jumbotron shadow">
                     <div class="row">
-                        <p class="lead">Notitie wijzigen</p>
+                        <p class="lead">Notitie wijzigen of verwijderen</p>
                     </div>
                     <div class="row">
                         <div>
@@ -57,13 +57,36 @@
                                                 placeholder="Tekst" value="${reisItems.tekst}"/>
                                 </div>
 
-                              <hr class="my-4">
+                              <hr class="my-1">
 
                                 <form:button id="notitieWijzigen" type="submit" class="btn btn-primary mt-3">Wijzig
                                     notitie
                                 </form:button>
 
                             </form:form>
+
+
+
+                            <form:form action="/${groep.groepId}/${reisItem.reisItemId}/${reisItems.reisItemId}/notitieVerwijderen" method="post" modelAttribute="notitieVerwijderFormulier">
+
+
+
+                                <form:button id="notitieVerwijderen" type="submit" class="btn btn-primary mt-3"> Verwijder notitie
+                                </form:button>
+
+                            </form:form>
+
+
+
+
+
+
+
+
+
+
+
+
 
                             <a href="/${groep.groepId}/reisItemDetail/${reisItem.reisItemId}">
                                 <button type="text" class="btn btn-primary mt-3" id="annuleren">Annuleren</button>
