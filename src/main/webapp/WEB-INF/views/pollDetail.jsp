@@ -101,16 +101,17 @@
                             <tr>
 
                                 <c:forEach items="${groep.groepsleden}" var="groepsLid">
+                            <tr>
+                                <c:if test="${poll.gebruikerHeeftGestemd(groepsLid.gebruikersId)}">
 
-                                    <c:if test="${poll.gebruikerHeeftGestemd(groepsLid.gebruikersId)}">
+                                    <td id="Gestemd${groepsLid.voornaam}" data-toggle="tooltip"
+                                        data-placement="bottom" title="${groepsLid.email}">${groepsLid.voornaam}
+                                        ${groepsLid.achternaam}
+                                    </td>
 
-                                        <td id="Gestemd${groepsLid.voornaam}" data-toggle="tooltip"
-                                            data-placement="bottom" title="${groepsLid.email}">${groepsLid.voornaam}
-                                            ${groepsLid.achternaam}
-                                        </td>
-
-                                    </c:if>
-                                </c:forEach>
+                                </c:if>
+                            </tr>
+                            </c:forEach>
 
                             </tr>
 
@@ -132,20 +133,20 @@
                             </thead>
                             <tbody>
 
-
                             <tr>
 
                                 <c:forEach items="${groep.groepsleden}" var="groepsLid">
+                            <tr>
+                                <c:if test="${not poll.gebruikerHeeftGestemd(groepsLid.gebruikersId)}">
 
-                                    <c:if test="${not poll.gebruikerHeeftGestemd(groepsLid.gebruikersId)}">
+                                    <td id="nietGestemd${groepsLid.voornaam}" data-toggle="tooltip"
+                                        data-placement="bottom" title="${groepsLid.email}">${groepsLid.voornaam}
+                                        ${groepsLid.achternaam}
+                                    </td>
 
-                                        <td id="nietGestemd${groepsLid.voornaam}" data-toggle="tooltip"
-                                            data-placement="bottom" title="${groepsLid.email}">${groepsLid.voornaam}
-                                            ${groepsLid.achternaam}
-                                        </td>
-
-                                    </c:if>
-                                </c:forEach>
+                                </c:if>
+                            </tr>
+                            </c:forEach>
 
                             </tr>
 
