@@ -55,10 +55,10 @@
 
                                         <c:choose>
                                             <c:when test="${optie.gebruikerHeeftGestemd(currentUser.gebruikersId)}">
-                                                <a>Jij hebt hierop gestemd.</a>
+                                                <a id="gestemdOp${optie.stemOptie}">Jij hebt hierop gestemd.</a>
                                             </c:when>
                                             <c:otherwise>
-                                                <a id="stemmenOp${optie.pollOptieId}"
+                                                <a id="stemmenOp${optie.stemOptie}"
                                                    href="${poll.reisItemId}/StemmenOp/${optie.pollOptieId}">Stem nu!</a>
                                             </c:otherwise>
                                         </c:choose>

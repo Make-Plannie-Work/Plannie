@@ -20,4 +20,6 @@ public interface ReisItemRepository extends JpaRepository<ReisItem, Integer> {
     List<ReisItem> findReisItemByNaam (String naam);
 
     List<Notitie> findNotitieByNaam (String naam);
+
+    List<Poll> findPollByNaam (String naam);
 }

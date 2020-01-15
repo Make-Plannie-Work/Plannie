@@ -6,6 +6,7 @@ import MakePlannieWork.Plannie.model.reisitem.Poll;
 import MakePlannieWork.Plannie.model.reisitem.PollOptie;
 import MakePlannieWork.Plannie.model.reisitem.ReisItem;
 import MakePlannieWork.Plannie.repository.GroepRepository;
+import MakePlannieWork.Plannie.repository.PollOptiesRepository;
 import MakePlannieWork.Plannie.repository.ReisItemRepository;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -57,6 +58,7 @@ public class TestsHelper {
     private static final String POLL_NAAM = "testPoll";
     private static final String POLL_STARTDATUM = REIS_DATUM;
     private static final String[] POLL_OPTIES = {"stem optie 1","stem optie 2","stem optie 3"};
+    private static final String POLL_OPTIES_COMPLEET = "stem optie 1,stem optie 2,stem optie 3";
 
     private ArrayList<Gebruiker> testGebruikers = new ArrayList<>();
     private ArrayList<Groep> testGroepen = new ArrayList<>();
@@ -122,6 +124,34 @@ public class TestsHelper {
         this.driver.get("http://localhost:8080/" + geefTestGroep().getGroepId() + "/reisItemDetail/" + geefTestReis().getReisItemId());
         maakTestNotitie();
         registreerTestNotities();
+    }
+
+    public void zetTestGebruikerEnGroepEnReisEnPollKlaar() {
+        zetTestGebruikerEnGroepEnReisKlaar();
+        this.driver.get("http://localhost:8080/" + geefTestGroep().getGroepId() + "/reisItemDetail/" + geefTestReis().getReisItemId());
+        maakTestPoll();
+        registreerTestPolls();
+    }
+
+    private void registreerTestPolls() {
+        int index = 0;
+        for (ReisItem poll : testPolls) {
+            registreerTestPoll(index);
+            index++;
+        }
+    }
+
+    private void registreerTestPoll(int reisindex) {
+        String beginUrl = driver.getCurrentUrl();
+        this.driver.findElement(By.id("keuzeReisItemMenu")).click();
+        this.driver.findElement(By.id("pollKeuze")).click();
+        wachtOpTitel("Poll aanmaken - " + geefTestGebruiker().getVoornaam());
+        this.driver.findElement(By.id("pollTitel")).sendKeys(testPolls.get(reisindex).getNaam());
+        this.driver.findElement(By.id("pollDatum")).sendKeys(testPolls.get(reisindex).getStartDatum());
+        this.driver.findElement(By.id("pollOpties")).sendKeys(POLL_OPTIES_COMPLEET);
+        this.driver.findElement(By.id("pollAanmaken")).click();
+        testPolls.set(reisindex, reisItemRepository.findPollByNaam(testPolls.get(reisindex).getNaam()).get(0));
+        driver.get(beginUrl);
     }
 
     public void registreerTestNotities() {

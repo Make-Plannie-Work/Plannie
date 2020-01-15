@@ -61,8 +61,8 @@ public class ReisItemViewTests {
     @After
     public void tearDown() {
 
-        this.testsHelper.verwijderTestGroepenUitDatabase();
-        this.testsHelper.verwijderTestGebruikersUitDatabase();
+        //this.testsHelper.verwijderTestGroepenUitDatabase();
+        //this.testsHelper.verwijderTestGebruikersUitDatabase();
         this.driver.quit();
         this.driver = null;
         this.testsHelper = null;
@@ -226,5 +226,24 @@ public class ReisItemViewTests {
 
         // Assert
         assertEquals("Poll aanmaken - " + testGebruiker.getVoornaam(), driver.getTitle());
+    }
+
+    // Test stemmen op poll goed
+    @Test
+    public void testStemmenOpPollCorrect() throws InterruptedException {
+        // Arrange
+        this.testsHelper.zetTestGebruikerEnGroepEnReisEnPollKlaar();
+         Groep testGroep = this.testsHelper.geefTestGroep();
+        ReisItem testReisItem = this.testsHelper.geefTestReis();
+        Poll testPoll = this.testsHelper.geefTestPoll();
+
+        // Activate
+        this.driver.get("http://localhost:8080/" + testGroep.getGroepId() + "/reisItemDetail/" + testReisItem.getReisItemId());
+        this.driver.findElement(By.id("PollDetails" + testPoll.getNaam())).click();
+        Thread.sleep(5000);
+        this.driver.findElement(By.id("stemmenOp" + "stem optie 1")).click();
+
+        // Assert
+        assertEquals("Jij hebt hierop gestemd.", this.driver.findElement(By.id("gestemdOp" + "stem optie 1")).getText());
     }
 }
