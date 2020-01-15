@@ -19,6 +19,9 @@ public class PollOptie {
 
     private String stemOptie;
 
+    // Hiermee worden de poll opties gesorteerd op de volgorde waarop de gebruiker ze op wilde slaan.
+    private int optieIndex;
+
     @ManyToOne
     @JoinColumn(name = "reisItemId")
     private Poll poll;
@@ -81,5 +84,13 @@ public class PollOptie {
 
     public void setStemmen(Set<Gebruiker> stemmen) {
         this.stemmen = stemmen;
+    }
+
+    public int getOptieIndex() {
+        return optieIndex;
+    }
+
+    public void setOptieIndex(int optieIndex) {
+        this.optieIndex = optieIndex;
     }
 }

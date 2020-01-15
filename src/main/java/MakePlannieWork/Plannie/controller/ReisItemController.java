@@ -162,6 +162,7 @@ public class ReisItemController {
             String[] opties = poll.getEindDatum().split(",");
             poll.setEindDatum(null);
 
+            int optieIndex = 0;
             for (String tekst : opties) {
                 // Elke poll optie wordt ingevuld met een getrimde versie van de gebruikers invoer, en daarna opgeslagen.
                 tekst = tekst.trim();
@@ -169,6 +170,8 @@ public class ReisItemController {
                     PollOptie optie = new PollOptie();
                     optie.setPoll(poll);
                     optie.setStemOptie(tekst.trim());
+                    optie.setOptieIndex(optieIndex);
+                    optieIndex ++;
 
                     poll.voegPollOptieToe(optie);
                 }

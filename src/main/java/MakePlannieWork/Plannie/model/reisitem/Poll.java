@@ -1,15 +1,9 @@
 package MakePlannieWork.Plannie.model.reisitem;
 
 import MakePlannieWork.Plannie.model.Gebruiker;
-import MakePlannieWork.Plannie.repository.GebruikerRepository;
-import org.hibernate.annotations.Cascade;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 public class Poll extends ReisItem {
@@ -91,8 +85,13 @@ public class Poll extends ReisItem {
     }
 
     // Getters en Setters
-    public Set<PollOptie> getPollOpties() {
-        return pollOpties;
+    public ArrayList<PollOptie> getPollOpties() {
+
+        ArrayList<PollOptie> opties = new ArrayList<>(pollOpties);
+
+        opties.sort(Comparator.comparing(PollOptie::getOptieIndex));
+
+        return opties;
     }
 
     public void setPollOpties(Set<PollOptie> pollOpties) {

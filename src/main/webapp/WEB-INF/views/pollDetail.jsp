@@ -42,7 +42,7 @@
 
                         <span class="navbar-brand mb-0 h1"><a class="text-dark">${poll.naam}  -  ${poll.startDatum}</a></span>
 
-                        <c:forEach items="${poll.pollOpties}" var="optie">
+                        <c:forEach items="${poll.getPollOpties()}" var="optie">
                             <div class="card flex-row flex-wrap mb-2 mx-auto" style="width: 42rem;">
 
                                 <div class="card-header border-0">
@@ -101,16 +101,17 @@
                             <tr>
 
                                 <c:forEach items="${groep.groepsleden}" var="groepsLid">
+                            <tr>
+                                <c:if test="${poll.gebruikerHeeftGestemd(groepsLid.gebruikersId)}">
 
-                                    <c:if test="${poll.gebruikerHeeftGestemd(groepsLid.gebruikersId)}">
+                                    <td id="Gestemd${groepsLid.voornaam}" data-toggle="tooltip"
+                                        data-placement="bottom" title="${groepsLid.email}">${groepsLid.voornaam}
+                                        ${groepsLid.achternaam}
+                                    </td>
 
-                                        <td id="Gestemd${groepsLid.voornaam}" data-toggle="tooltip"
-                                            data-placement="bottom" title="${groepsLid.email}">${groepsLid.voornaam}
-                                            ${groepsLid.achternaam}
-                                        </td>
-
-                                    </c:if>
-                                </c:forEach>
+                                </c:if>
+                            </tr>
+                            </c:forEach>
 
                             </tr>
 
@@ -132,20 +133,20 @@
                             </thead>
                             <tbody>
 
-
                             <tr>
 
                                 <c:forEach items="${groep.groepsleden}" var="groepsLid">
+                            <tr>
+                                <c:if test="${not poll.gebruikerHeeftGestemd(groepsLid.gebruikersId)}">
 
-                                    <c:if test="${not poll.gebruikerHeeftGestemd(groepsLid.gebruikersId)}">
+                                    <td id="nietGestemd${groepsLid.voornaam}" data-toggle="tooltip"
+                                        data-placement="bottom" title="${groepsLid.email}">${groepsLid.voornaam}
+                                        ${groepsLid.achternaam}
+                                    </td>
 
-                                        <td id="nietGestemd${groepsLid.voornaam}" data-toggle="tooltip"
-                                            data-placement="bottom" title="${groepsLid.email}">${groepsLid.voornaam}
-                                            ${groepsLid.achternaam}
-                                        </td>
-
-                                    </c:if>
-                                </c:forEach>
+                                </c:if>
+                            </tr>
+                            </c:forEach>
 
                             </tr>
 

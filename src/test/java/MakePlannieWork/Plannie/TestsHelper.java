@@ -404,7 +404,7 @@ public class TestsHelper {
     }
 
     public ArrayList<String> geefTestPollStemOpties (int index) {
-        Set<PollOptie> pollOpties = testPolls.get(index).getPollOpties();
+        ArrayList<PollOptie> pollOpties = testPolls.get(index).getPollOpties();
         ArrayList<String> stemopties = new ArrayList<>();
         for (PollOptie optie : pollOpties) {
             stemopties.add(optie.getStemOptie());
