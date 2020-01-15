@@ -244,6 +244,7 @@ public class ReisItemController {
             model.addAttribute("reisItem", reisItemOptional.get());
             model.addAttribute("reisItems", reisItemRepository.findNotitieByReisItemId(notitieId));
             model.addAttribute("notitieWijzigingsFormulier", new Notitie());
+            model.addAttribute("notitieVerwijderFormulier", notitieOptional.get());
             return "notitieWijzig";
         }
         return "redirect:/" + groepId + "/reisItemDetail/" + reisItemId;
@@ -265,4 +266,19 @@ public class ReisItemController {
         }
         return "redirect:/" + groepId + "/reisItemDetail/" + reisItemId;
     }
+
+    // Verwijderen van notitie
+    @PostMapping("/{groepId}/{reisItemId}/{reisItemsId}/notitieVerwijderen")
+    public String notitieVerwijderen(@ModelAttribute("notitieVerwijderFormulier") Notitie notitie, @PathVariable("groepId")
+            Integer groepId, @PathVariable("reisItemId") Integer reisItemId,
+                                  @PathVariable("reisItemsId") Integer notitieId, BindingResult result) {
+        if (result.hasErrors()) {
+            return "redirect:/notitieWijzig";
+        } else {
+            Notitie huidigeNotitie = reisItemRepository.findNotitieByReisItemId(notitieId);
+            reisItemRepository.delete(huidigeNotitie);
+        }
+        return "redirect:/" + groepId + "/reisItemDetail/" + reisItemId;
+    }
+
 }
