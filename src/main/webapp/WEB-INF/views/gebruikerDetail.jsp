@@ -20,7 +20,7 @@
     <body>
 
     <nav class="navbar navbar-light bg-light shadow " >
-        <span class="navbar-brand mb-0 h1"><a id="gebruikerDetail2" href="/gebruikerDetail"><img src="/images/PlannieLogo.png" class="img-fluid"  alt="Responsive image"></a></span>
+        <span class="navbar-brand mb-0 h1 " ><a id="gebruikerDetail" href="/gebruikerDetail"><img src="/images/PlannieLogo.png" style ="max-height: 75px;" alt="Responsive image"></a></span>
 
         <ul class="nav justify-content-end">
             <li class="nav-item">
