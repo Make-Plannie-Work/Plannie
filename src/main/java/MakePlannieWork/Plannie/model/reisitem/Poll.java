@@ -61,6 +61,24 @@ public class Poll extends ReisItem {
         return winnendeOpties;
     }
 
+    public String pollStatus() {
+        int aantalWinnaars = geefWinnendeOpties().size();
+        String status = "Op dit moment ";
+
+        if (aantalWinnaars == 0) {
+            status = status + "heeft nog niemand gestemd.";
+        } else if (aantalWinnaars == 1) {
+            status = status + "is de optie '" + geefWinnendeOpties().get(0).getStemOptie() + "' de koploper!";
+        } else {
+            status = status + "staan de opties ";
+            for (PollOptie optie : geefWinnendeOpties()) {
+                status = status + "'" + optie.getStemOptie() + "', ";
+            }
+            status = status + "gelijk!";
+        }
+        return status;
+    }
+
     // Een gebruiker wordt toegevoegd als stemmer aan een pollOptie, en verwijderd uit alle andere pollOpties.
     public void gebruikerStemt(int pollOptieId, Gebruiker gebruiker) {
         for (PollOptie optie : pollOpties) {

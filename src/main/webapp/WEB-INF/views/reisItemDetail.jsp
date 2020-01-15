@@ -70,22 +70,10 @@
                                             </h4>
                                             <p class="card-text">
                                             <p class="card-text">
-                                                Stem nu! Op dit moment
-
-                                            <c:choose>
-                                                <c:when>
-
-
-
-                                                </c:when>
-                                            </c:choose>
-
-                                            <c:forEach items="${reisItems.geefWinnendeOpties()}" var="optie">
-
-                                                ${optie.stemOptie}
-
-                                            </c:forEach>
-
+                                                <c:if test="${!reisItems.gebruikerHeeftGestemd(currentUser.gebruikersId)}">
+                                            <a class="lead text-blue">Stem nu!</a>
+                                                </c:if>
+                                                <a id="pollOptieTekst${reisItems.reisItemId}">${reisItems.pollStatus()}</a>
                                             </p>
                                             </p>
                                         </div>
