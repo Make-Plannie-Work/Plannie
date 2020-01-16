@@ -58,6 +58,7 @@ public class TestsHelper {
     private static final String POLL_NAAM = "testPoll";
     private static final String POLL_STARTDATUM = REIS_DATUM;
     private static final String[] POLL_OPTIES = {"stem optie 1","stem optie 2","stem optie 3"};
+    //TODO onderstaande final aanpassen zodat deze bovenstaande stemopties uit de array haalt
     private static final String POLL_OPTIES_COMPLEET = "stem optie 1,stem optie 2,stem optie 3";
 
     private ArrayList<Gebruiker> testGebruikers = new ArrayList<>();
