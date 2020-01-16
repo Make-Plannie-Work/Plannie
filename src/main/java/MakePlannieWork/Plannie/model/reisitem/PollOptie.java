@@ -22,11 +22,12 @@ public class PollOptie {
     // Hiermee worden de poll opties gesorteerd op de volgorde waarop de gebruiker ze op wilde slaan.
     private int optieIndex;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "reisItemId")
     private Poll poll;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Set<Gebruiker> stemmen = new HashSet<>();
 
     public int geefAantalStemmen() {

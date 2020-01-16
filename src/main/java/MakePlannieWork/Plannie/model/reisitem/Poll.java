@@ -10,7 +10,7 @@ import java.util.*;
 @Entity
 public class Poll extends ReisItem {
 
-    @OneToMany(mappedBy = "poll")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "poll")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Set<PollOptie> pollOpties = new HashSet<>();
 
