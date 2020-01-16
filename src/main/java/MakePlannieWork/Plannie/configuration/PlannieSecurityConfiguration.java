@@ -35,7 +35,7 @@ public class PlannieSecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                     .authorizeRequests()
-                    .antMatchers("/registreren", "/resources/**", "/images/**", "/wachtwoordReset", "/wijzigWachtwoord*").permitAll()
+                    .antMatchers("/registreren", "/resources/static/images/**", "/src/main/webapp/static/**", "/wachtwoordReset", "/wijzigWachtwoord*").permitAll()
                     .antMatchers("/user/savePassword*","/gebruikerWachtwoordUpdate*", "/wijzigWachtwoord*").permitAll()
                     .anyRequest().authenticated()
                 .and()
@@ -64,18 +64,6 @@ public class PlannieSecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
-    }
-
-    @Bean
-    WebMvcConfigurer myWebMvcConfigurer() {
-        return new WebMvcConfigurerAdapter() {
-
-            @Override
-            public void addViewControllers(ViewControllerRegistry registry) {
-                ViewControllerRegistration r = registry.addViewController("/index");
-                r.setViewName("login");
-            }
-        };
     }
 
     @Bean
