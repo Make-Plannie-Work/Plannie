@@ -1,6 +1,8 @@
 package MakePlannieWork.Plannie.model.reisitem;
 
 import MakePlannieWork.Plannie.model.Gebruiker;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.util.*;
@@ -8,7 +10,8 @@ import java.util.*;
 @Entity
 public class Poll extends ReisItem {
 
-    @OneToMany(cascade=CascadeType.ALL, mappedBy = "poll")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "poll")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Set<PollOptie> pollOpties = new HashSet<>();
 
     public void voegPollOptieToe(PollOptie pollOptie) {
