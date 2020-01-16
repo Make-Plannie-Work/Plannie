@@ -11,4 +11,6 @@ public interface GroepRepository extends JpaRepository<Groep, Integer> {
     List<Groep> findByGroepsleden_GebruikersId(Integer gebruikersId);
 
     Groep findByGroepId(Integer groepId);
+
+    Groep findByAanmakerAndGroepsNaam(Integer aanmakerId, String naam);
 }
