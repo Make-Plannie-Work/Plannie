@@ -25,11 +25,11 @@ public class ReisItem {
     private Integer aanmaker;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "gekoppeldeReisItem")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Set<ReisItem> reisItems;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "reis_item")
-    @OnDelete(action = OnDeleteAction.CASCADE)
     private ReisItem gekoppeldeReisItem;
 
     public void voegReisItemToe(ReisItem reisItem) {
