@@ -21,10 +21,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 
 import javax.naming.Binding;
 import java.security.Principal;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Set;
-import java.util.UUID;
+import java.text.DateFormat;
+import java.util.*;
 
 @Controller
 public class TestDataController {
@@ -68,20 +66,25 @@ public class TestDataController {
 
     @GetMapping("/testdata")
     public String testDataInladen(Model model) {
-        String notificatie = "// TEST DATA AANMAKEN //";
+        String notificatie = "--// TEST DATA AANMAKEN //--";
         System.out.println(notificatie);
 
         // Gebruikers opslaan
-        int aantal = 3;
+        String[] csvGebruiker = {"Voornaam,Achternaam,EMail,Wachtwoord,Rol",
+                "Daniel,Kuperus,daniel.kuperus@gmail.com,123,ROLE_USER",
+                "Tabitha,Krist,tabitha.krist@gmail.com,123,ROLE_USER",
+                "Wouter,Meindertsma,wouter.meindertsma@gmail.com,123,ROLE_USER"};
+
         System.out.println("// Gebruikers aanmaken: ");
-        for (int i = 0; i < aantal; i++) {
+        for (int gebruikerIndex = 1; gebruikerIndex < csvGebruiker.length; gebruikerIndex++) {
+            String[] csvWaardes = csvGebruiker[gebruikerIndex].split(",");
             Gebruiker testGebruiker = new Gebruiker();
-            testGebruiker.setVoornaam(GEBRUIKER_VOORNAAM + i);
-            testGebruiker.setAchternaam(GEBRUIKER_ACHTERNAAM + i);
-            testGebruiker.setEmail(GEBRUIKER_VOORNAAM + i + GEBRUIKER_EMAIL);
+            testGebruiker.setVoornaam(csvWaardes[0]);
+            testGebruiker.setAchternaam(csvWaardes[1]);
+            testGebruiker.setEmail(csvWaardes[2]);
             testGebruiker.setIdentifier(UUID.randomUUID().toString());
-            testGebruiker.setRollen(Arrays.asList(rolRepository.findRolByRolNaam("ROLE_USER")));
-            testGebruiker.setWachtwoord(passwordEncoder.encode(GEBRUIKER_WACHTWOORD + i));
+            testGebruiker.setWachtwoord(passwordEncoder.encode(csvWaardes[3]));
+            testGebruiker.setRollen(Arrays.asList(rolRepository.findRolByRolNaam(csvWaardes[4])));
             if (gebruikerRepository.findGebruikerByEmail(testGebruiker.getEmail()) == null) {
                 this.testGebruikers.add(gebruikerRepository.save(testGebruiker));
                 notificatie = "Gebruiker toegevoegd: " + testGebruiker.getEmail();
@@ -94,47 +97,71 @@ public class TestDataController {
         }
 
         // Groepen opslaan
-        Gebruiker groepBeheerder = testGebruikers.get(0);
-        aantal = 2;
+        String[] csvGroep = {"GroepNaam,GroepBeheerder,GroepsLid1,GroepsLid2,GroepsLid3",
+        "UsBikers,daniel.kuperus@gmail.com",
+        "MakeITWork,daniel.kuperus@gmail.com,tabitha.krist@gmail.com,wouter.meindertsma@gmail.com"};
+
         System.out.println("// Groepen aanmaken: ");
-        for (int i = 0; i < aantal; i++) {
+        for (int groepIndex = 1; groepIndex < csvGroep.length; groepIndex++) {
+            String[] csvWaardes = csvGroep[groepIndex].split(",");
+
             Groep groep = new Groep();
-            groep.setGroepsNaam(GROEP_NAAM + i);
+            groep.setGroepsNaam(csvWaardes[0]);
+            Gebruiker groepBeheerder = gebruikerRepository.findGebruikerByEmail(csvWaardes[1]);
             groep.getGroepsleden().add(groepBeheerder);
             groep.setAanmaker(groepBeheerder.getGebruikersId());
+
+            // Groepsleden toevoegen
+            for (int csvWaardesGroepsLeden = 2; csvWaardesGroepsLeden < csvWaardes.length; csvWaardesGroepsLeden++) {
+                Gebruiker groepsLid = gebruikerRepository.findGebruikerByEmail(csvWaardes[csvWaardesGroepsLeden]);
+                groep.getGroepsleden().add(groepsLid);
+            }
+
             if (groepRepository.findByAanmakerAndGroepsNaam(groepBeheerder.getGebruikersId(), groep.getGroepsNaam()) == null) {
                 this.testGroepen.add(groepRepository.save(groep));
-                notificatie = "Groep toegevoegd: " + groep.getGroepsNaam() + ". Aanmaker: " + groepBeheerder.getEmail();
+                notificatie = "Groep toegevoegd: " + groep.getGroepsNaam() + ". Aanmaker: " + groepBeheerder.getEmail() + " Aantal leden: " + groep.getGroepsleden().size();
             } else {
                 this.testGroepen.add(groepRepository.findByAanmakerAndGroepsNaam(groepBeheerder.getGebruikersId(), groep.getGroepsNaam()));
-                notificatie = "Groep bestond al: " + groep.getGroepsNaam() + ". Aanmaker: " + groepBeheerder.getEmail();
+                notificatie = "Groep bestond al: " + groep.getGroepsNaam() + ". Aanmaker: " + groepBeheerder.getEmail() + " Aantal leden: " + groep.getGroepsleden().size();
             }
 
             System.out.println(notificatie);
         }
 
-        // Groepsleden toevoegen
-        Groep toevoegenGroep = testGroepen.get(0);
-        ArrayList<Gebruiker> toevoegenLeden = new ArrayList<>();
-        toevoegenLeden.add(testGebruikers.get(1));
-        toevoegenLeden.add(testGebruikers.get(2));
-        System.out.println("// Groepsleden toevoegen: ");
-        for (int i = 0; i < toevoegenLeden.size(); i++) {
-            if (!toevoegenGroep.getGroepsleden().contains(toevoegenLeden.get(i))) {
-                toevoegenGroep.getGroepsleden().add(toevoegenLeden.get(i));
-                groepRepository.save(toevoegenGroep);
-                toevoegenGroep = groepRepository.findByAanmakerAndGroepsNaam(toevoegenGroep.getAanmaker(),toevoegenGroep.getGroepsNaam());
-                int index = testGroepen.indexOf(toevoegenGroep);
-                this.testGroepen.set(index,toevoegenGroep);
-                notificatie = "Groepslid toegevoegd: " + toevoegenLeden.get(i).getEmail() + ". Groep: " + toevoegenGroep.getGroepsNaam();
+        // Reizen opslaan
+        String[] csvReis = {"GroepBeheerderEmail,GroepNaam,ReisNaam,GroepsLid3",
+                "UsBikers,daniel.kuperus@gmail.com",
+                "MakeITWork,daniel.kuperus@gmail.com,tabitha.krist@gmail.com,wouter.meindertsma@gmail.com"};
+
+        System.out.println("// Reizen aanmaken: ");
+        for (int reisIndex = 1; reisIndex < csvReis.length; reisIndex++) {
+            String[] csvWaardes = csvReis[reisIndex].split(",");
+
+            Gebruiker beheerder = gebruikerRepository.findGebruikerByEmail(csvWaardes[0]);
+            Groep groep = groepRepository.findByAanmakerAndGroepsNaam(beheerder.getGebruikersId(),csvWaardes[1]);
+            ReisItem reis = new ReisItem();
+            groep.getReisItem().add(reis);
+            reis.setNaam(csvWaardes[2]);
+            reis.setAanmaker(beheerder.getGebruikersId());
+
+            // TODO deze code is nog niet af.
+
+            // Groepsleden toevoegen
+            for (int csvWaardesGroepsLeden = 2; csvWaardesGroepsLeden < csvWaardes.length; csvWaardesGroepsLeden++) {
+                Gebruiker groepsLid = gebruikerRepository.findGebruikerByEmail(csvWaardes[csvWaardesGroepsLeden]);
+                groep.getGroepsleden().add(groepsLid);
+            }
+
+            if (groepRepository.findByAanmakerAndGroepsNaam(beheerder.getGebruikersId(), groep.getGroepsNaam()) == null) {
+                this.testGroepen.add(groepRepository.save(groep));
+                notificatie = "Groep toegevoegd: " + groep.getGroepsNaam() + ". Aanmaker: " + beheerder.getEmail() + " Aantal leden: " + groep.getGroepsleden().size();
             } else {
-                notificatie = "Groepslid bestond al: " + toevoegenLeden.get(i).getEmail() + ". Groep: " + toevoegenGroep.getGroepsNaam();
+                this.testGroepen.add(groepRepository.findByAanmakerAndGroepsNaam(beheerder.getGebruikersId(), groep.getGroepsNaam()));
+                notificatie = "Groep bestond al: " + groep.getGroepsNaam() + ". Aanmaker: " + beheerder.getEmail() + " Aantal leden: " + groep.getGroepsleden().size();
             }
 
             System.out.println(notificatie);
         }
-
-
         return "redirect:/index";
     }
 
