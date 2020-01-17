@@ -28,7 +28,7 @@ public class ReisItem {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Set<ReisItem> reisItems;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "reis_item")
     private ReisItem gekoppeldeReisItem;
 
