@@ -68,7 +68,7 @@ public class TestDataController {
     private ArrayList<Poll> testPolls = new ArrayList<>();
 
     @GetMapping("/testdata")
-    public String testDataInladen(Model model) {
+    public String testDataInladen(Model model) throws InterruptedException {
         String notificatie = "--// TEST DATA AANMAKEN //--";
         System.out.println(notificatie);
 
@@ -78,12 +78,14 @@ public class TestDataController {
                 "Tabitha,Krist,tabitha.krist@gmail.com,123,ROLE_USER",
                 "Wouter,Meindertsma,wouter.meindertsma@gmail.com,123,ROLE_USER"};
         gebruikersAanmaken(csvGebruiker);
+        Thread.sleep(1000);
 
         // Groepen opslaan
         String[] csvGroep = {"GroepNaam,GroepBeheerder,GroepsLid1,GroepsLid2,GroepsLid3",
                 "UsBikers,daniel.kuperus@gmail.com",
                 "MakeITWork,daniel.kuperus@gmail.com,tabitha.krist@gmail.com,wouter.meindertsma@gmail.com"};
         groepenAanmaken(csvGroep);
+        Thread.sleep(1000);
 
         // Reizen opslaan
         String[] csvReis = {"GroepBeheerderEmail,GroepNaam,ReisNaam",
@@ -91,7 +93,15 @@ public class TestDataController {
                 "daniel.kuperus@gmail.com,UsBikers,Sunshine State Tour",
                 "daniel.kuperus@gmail.com,MakeITWork,Vrijdag avond Borrel"};
         reizenAanmaken(csvReis);
+        Thread.sleep(1000);
 
+        // ReisItems opslaan
+        String[] csvItemNotitie = {"GroepBeheerderEmail,GroepNaam,ReisNaam,NotitieTitel,NotitieDatum,NotitieTekst",
+                "daniel.kuperus@gmail.com,UsBikers,Indian Trails,Testdata uitleg,2020-01-17,Deze notitie is bedoeld om te kijken of deze data invoer werkt.",
+                "daniel.kuperus@gmail.com,UsBikers,Sunshine State Tour,Tanken,2020-01-18,Dat is in deze staat erg duurt.",
+                "daniel.kuperus@gmail.com,UsBikers,Sunshine State Tour,Hotels,2020-01-19,Het minimum loon is omhoog gegaan."};
+        notitiesAanmaken(csvItemNotitie);
+        Thread.sleep(1000);
 
         return "redirect:/index";
     }
@@ -109,7 +119,7 @@ public class TestDataController {
             testGebruiker.setWachtwoord(passwordEncoder.encode(csvWaardes[3]));
             testGebruiker.setRollen(Collections.singletonList(rolRepository.findRolByRolNaam(csvWaardes[4])));
             if (gebruikerRepository.findGebruikerByEmail(testGebruiker.getEmail()) == null) {
-                this.testGebruikers.add(gebruikerRepository.save(testGebruiker));
+                this.testGebruikers.add(gebruikerRepository.saveAndFlush(testGebruiker));
                 notificatie = "Gebruiker toegevoegd: " + testGebruiker.getEmail();
             } else {
                 this.testGebruikers.add(gebruikerRepository.findGebruikerByEmail(testGebruiker.getEmail()));
@@ -138,7 +148,7 @@ public class TestDataController {
             }
 
             if (groepRepository.findByAanmakerAndGroepsNaam(groepBeheerder.getGebruikersId(), groep.getGroepsNaam()) == null) {
-                this.testGroepen.add(groepRepository.save(groep));
+                this.testGroepen.add(groepRepository.saveAndFlush(groep));
                 notificatie = "Groep toegevoegd: " + groep.getGroepsNaam() + ". Aanmaker: " + groepBeheerder.getEmail() + " Aantal leden: " + groep.getGroepsleden().size();
             } else {
                 this.testGroepen.add(groepRepository.findByAanmakerAndGroepsNaam(groepBeheerder.getGebruikersId(), groep.getGroepsNaam()));
@@ -162,11 +172,47 @@ public class TestDataController {
             reis.setAanmaker(beheerder.getGebruikersId());
 
             if (reisItemRepository.findReisItemByAanmakerAndNaam(reis.getAanmaker(), reis.getNaam()) == null) {
-                this.testReizen.add(reisItemRepository.save(reis));
+                this.testReizen.add(reisItemRepository.saveAndFlush(reis));
+                reisItemRepository.flush();
                 notificatie = "Reis toegevoegd: " + reis.getNaam() + ". Groep: " + groep.getGroepsNaam();
             } else {
                 this.testReizen.add(reisItemRepository.findReisItemByAanmakerAndNaam(reis.getAanmaker(), reis.getNaam()));
                 notificatie = "Reis bestond al: " + reis.getNaam() + ". Groep: " + groep.getGroepsNaam();
+            }
+
+            System.out.println(notificatie);
+        }
+    }
+
+    private void notitiesAanmaken(String[] csvItemNotitie) {
+        String notificatie;
+        System.out.println("// Notities aanmaken: ");
+        for (int reisIndex = 1; reisIndex < csvItemNotitie.length; reisIndex++) {
+            String[] csvWaardes = csvItemNotitie[reisIndex].split(",");
+            Gebruiker beheerder = gebruikerRepository.findGebruikerByEmail(csvWaardes[0]);
+            Groep groep = groepRepository.findByAanmakerAndGroepsNaam(beheerder.getGebruikersId(), csvWaardes[1]);
+            ReisItem reis = reisItemRepository.findReisItemByAanmakerAndNaam(beheerder.getGebruikersId(),csvWaardes[2]);
+            Notitie notitie = new Notitie();
+
+            notitie.setNaam(csvWaardes[3]);
+            notitie.setStartDatum(csvWaardes[4]);
+            // Tekst uitlezen. Dit mag komma's bevatten, omdat we hier naar het einde van de array kijken, en niet tot de volgende komma.
+            StringBuilder notitieTekst = new StringBuilder();
+            for (int csvWaardesNotitie = 5; csvWaardesNotitie < csvWaardes.length; csvWaardesNotitie++) {
+                notitieTekst.append(csvWaardes[csvWaardesNotitie]);
+            }
+            notitie.setTekst(notitieTekst.toString());
+            notitie.setGekoppeldeReisItemId(reis);
+            reis.voegReisItemToe(notitie);
+
+            if (reisItemRepository.findNotitieByGekoppeldeReisItemAndNaam(reis, notitie.getNaam()) == null) {
+                reisItemRepository.save(notitie);
+                reisItemRepository.save(reis);
+                this.testNotities.add(reisItemRepository.findNotitieByGekoppeldeReisItemAndNaam(reis, notitie.getNaam()));
+                notificatie = "Notitie toegevoegd: " + notitie.getNaam() + ". Reis: " + reis.getNaam();
+            } else {
+                this.testNotities.add(reisItemRepository.findNotitieByGekoppeldeReisItemAndNaam(reis, notitie.getNaam()));
+                notificatie = "Notitie bestond al: " + notitie.getNaam() + ". Reis: " + reis.getNaam();
             }
 
             System.out.println(notificatie);
