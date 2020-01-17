@@ -50,9 +50,11 @@ public class TestDataController {
     private ArrayList<Notitie> testNotities = new ArrayList<>();
     private ArrayList<Poll> testPolls = new ArrayList<>();
 
+    private String notificatie;
+
     @GetMapping("/testdata")
     public String testDataInladen(Model model) throws InterruptedException {
-        String notificatie = "\n--// TEST DATA AANMAKEN //--\n";
+        notificatie = "\n--// TEST DATA AANMAKEN //--\n";
         System.out.println(notificatie);
 
         // Gebruikers opslaan
@@ -104,7 +106,6 @@ public class TestDataController {
     }
 
     private void gebruikersAanmaken(String[] csvGebruiker) {
-        String notificatie;
         System.out.println("// Gebruikers aanmaken: ");
         for (int gebruikerIndex = 1; gebruikerIndex < csvGebruiker.length; gebruikerIndex++) {
             // Gebruiker aanmaken
@@ -130,7 +131,6 @@ public class TestDataController {
     }
 
     private void groepenAanmaken(String[] csvGroep) {
-        String notificatie;
         System.out.println("// Groepen aanmaken: ");
         for (int groepIndex = 1; groepIndex < csvGroep.length; groepIndex++) {
             // Groep aanmaken
@@ -160,7 +160,6 @@ public class TestDataController {
     }
 
     private void reizenAanmaken(String[] csvReis) {
-        String notificatie;
         System.out.println("// Reizen aanmaken: ");
         for (int reisIndex = 1; reisIndex < csvReis.length; reisIndex++) {
             // Reis aanmaken
@@ -186,7 +185,6 @@ public class TestDataController {
     }
 
     private void notitiesAanmaken(String[] csvItemNotitie) {
-        String notificatie;
         System.out.println("// Notities aanmaken: ");
         for (int reisIndex = 1; reisIndex < csvItemNotitie.length; reisIndex++) {
             // Notitie aanmaken
@@ -224,7 +222,6 @@ public class TestDataController {
     }
 
     private void pollsAanmaken(String[] csvItemPoll) {
-        String notificatie;
         System.out.println("// Poll aanmaken: ");
         for (int reisIndex = 1; reisIndex < csvItemPoll.length; reisIndex++) {
             // Poll aanmaken
