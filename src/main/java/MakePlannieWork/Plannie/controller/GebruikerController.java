@@ -66,6 +66,7 @@ public class GebruikerController {
         public String registreren(@RequestParam(name="gebruikerUUID", required = false) String gebruikerUUID, Model model) {
         model.addAttribute("registratieFormulier", new Gebruiker());
         model.addAttribute("loginForm", new Gebruiker());
+        model.addAttribute("updatePasswordForm", new Gebruiker());
         if (gebruikerUUID != null) {
             model.addAttribute("gebruikerUUID", gebruikerUUID);
 

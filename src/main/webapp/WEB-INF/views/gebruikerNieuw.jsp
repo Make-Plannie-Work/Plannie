@@ -1,6 +1,5 @@
 <!doctype html>
 <html lang="en">
-<div class="view" style="background-image: url('https://images.unsplash.com/photo-1473496169904-658ba7c44d8a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80'); background-repeat: no-repeat; background-size: cover; background-attachment: fixed;">
 
     <head>
         <!-- Required meta tags -->
@@ -16,17 +15,7 @@
     </head>
     <body>
 
-    <nav class="navbar navbar-light bg-light shadow">
-        <span class="navbar-brand mb-0 h1"><a href="/gebruikerDetail" class="text-dark">Plannie</a></span>
-
-        <ul class="nav justify-content-end">
-            <li class="nav-item">
-                <a id="registreren" class="nav-link text-dark" href="/registreren">Registreer</a>
-            </li>
-            <li class="nav-item">
-                <a id="inloggen" class="nav-link text-dark" data-toggle="modal" data-target="#loginmodal">Login</a>
-            </li>
-    </nav>
+    <jsp:include page="header.jsp"/>
 
     <div class="container mt-3">
         <div class="row">
@@ -114,6 +103,7 @@
                         </div>
                         <div class="form-group">
                             <form:input type="password" id="password" path="password" class="form-control" placeholder="Wachtwoord"/>
+                            <a id="resetten" class="nav-link text-dark" data-toggle="modal" data-target="#resetmodal">Wachtwoord resetten</a>
                         </div>
 
                 </div>
@@ -125,6 +115,35 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="resetmodal" tabindex="-1" role="dialog" aria-labelledby="resetmodal" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" class="close" id="resetmodal2"><p>Wachtwoord Resetten</p></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form:form id="updatePasswordForm" action="/wachtwoordReset" modelAttribute="updatePasswordForm" method="post">
+                    <div class="modal-body">
+
+
+                        <div class="form-group">
+                            <form:input type="email" class="form-control" id="usernameReset" path="email" placeholder="Email"/>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuleer</button>
+                        <button id="resetWachtwoord" type="submit" class="btn btn-primary">Reset Wachtwoord</button>
+
+                    </div>
+                </form:form>
+            </div>
+        </div>
+    </div>
+
     <!-- Footer -->
     <footer class="py-4 bg-dark text-white-50">
 

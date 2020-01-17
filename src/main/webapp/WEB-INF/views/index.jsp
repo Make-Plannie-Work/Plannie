@@ -16,26 +16,10 @@
   </head>
   <body >
 
-  <nav class="navbar sticky-top" style="background-color: #FFFFFF; text-color: #FF3B56;">
-        <ul class="nav justify-content-end">
-      <li class="nav-item">
-        <a class="nav-link text-dark" href="/registreren">Registreer</a>
-      </li>
-      <li class="nav-item">
-        <a id="inloggen" class="nav-link text-dark" data-toggle="modal" data-target="#loginmodal">Login</a>
-      </li>
-  </nav>
+  <jsp:include page="header.jsp"/>
 
   <div class="container mt-3">
-    <div class="row">
-      <span class="navbar-brand mb-0 h1 mt-3" ><a id="gebruikerDetail" href="/gebruikerDetail"><img src="/images/PlannieLogo.png" class="img-fluid" alt="Responsive image"></a></span>
-    </div>
-    <div class="row">
-      <div class="col-sm-12 fixed-top">
-      </div>
-    </div>
-    <div class="row">
-
+      <div class="row">
       <div class="col-sm-8">
         <div class="jumbotron shadow border" style="border-color: #FFE070 !important; background-color: #FFFFFF;">
           <div class="row">

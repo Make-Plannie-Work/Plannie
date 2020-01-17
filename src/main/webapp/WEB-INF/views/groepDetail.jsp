@@ -1,6 +1,5 @@
 <!doctype html>
 <html lang="en">
-<div class="view" style="background-image: url('https://images.unsplash.com/photo-1473496169904-658ba7c44d8a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80'); background-repeat: no-repeat; background-size: cover; background-attachment: fixed;">
 
     <head>
         <!-- Required meta tags -->
@@ -16,19 +15,8 @@
     </head>
     <body>
 
-    <nav class="navbar navbar-light bg-light shadow">
-        <span class="navbar-brand mb-0 h1"><a href="/gebruikerDetail" class="text-dark">${currentUser.voornaam}'s Plannie</a></span>
+    <jsp:include page="header.jsp"/>
 
-        <ul class="nav justify-content-end">
-            <li class="nav-item">
-                <a class="nav-link text-dark" method="post" id="gebruikerWijzigen" href="/gebruikerWijzig">Jouw gegevens</a>
-            </li>
-            <li class="nav-item">
-                <form:form action="${pageContext.request.contextPath}/logout" method="POST">
-                    <input id="logout" class="nav-link text-dark" style="border: none; background: transparent;" type="submit" value="Log uit" />
-                </form:form>
-            </li>
-    </nav>
     <div class="container mt-3">
         <div class="row">
 
@@ -44,7 +32,7 @@
                                     </div>
                                     <div class="card-block px-2">
                                         <h4 class="card-title"><a href="/${groep.groepId}/reisItemDetail/${reisItem.reisItemId}">${reisItem.naam}</a></h4>
-                                        <p class="card-text">${reisItem.naam}${reisItem.naam}${reisItem.naam}${reisItem.naam}${reisItem.naam}${reisItem.naam}</p>
+                                        <p class="card-text">Info over reis: ${reisItem.naam}</p>
                                     </div>
                                 </div>
                             </c:forEach>
@@ -62,17 +50,16 @@
             </div>
 
             <div class="col-sm-4">
-                <div class="jumbotron shadow" style="background-color: #666666;">
-                    <div class="row" >
-                        <p class="lead text-white strong">${groep.groepsNaam} </p>
+                <div class="jumbotron shadow" style="background-color: #FF3B56;">
+                    <div class="card text-white " style="width: 18rem; background-color: #FF3B56; border: none;">
+                        <img class="card-img-top" src="/images/${groep.imagePath}" alt="Card image cap">
+                        <div class="card-body">
+                            <h5 class="card-title">${groep.groepsNaam} <c:if test = "${groep.aanmaker == currentUser.gebruikersId}">
+                                <a id="wijzigGroepsNaam2" type="button" class="text-white" data-toggle="modal" data-target="#wijzigGroepsNaam"><i class="far fa-edit"></i></a>
+                            </c:if></h5>
 
-                        <c:if test = "${groep.aanmaker == currentUser.gebruikersId}">
-                            <a id="wijzigGroepsNaam2" type="button" class="text-white" data-toggle="modal" data-target="#wijzigGroepsNaam"><i class="far fa-edit"></i></a>
-                        </c:if>
-                        <br>
-
-                            <img src="/images/${groep.imagePath}" class="img-thumbnail"/>
-
+                        </div>
+                    </div>
                         <table class="table table-hover table-borderless text-white">
                             <thead>
                             <tr>
