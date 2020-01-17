@@ -69,7 +69,8 @@ public class PlannieGroepService {
     }
 
     public void saveImage(MultipartFile imageFile, Groep groep) throws Exception{
-        String folder = "src/main/webapp/images/";
+        String folder = "src/main/resources/images/";
+        String imagePath = "images/";
         byte[] bytes = imageFile.getBytes();
         Path imagesPath = Paths.get(folder);
         Path path = Paths.get(folder + imageFile.getOriginalFilename());
@@ -79,7 +80,7 @@ public class PlannieGroepService {
         if (Files.exists(path)) {
             path = Paths.get(folder+ "1" + imageFile.getOriginalFilename());
         }
-        groep.setImagePath(path.toString());
+        groep.setImagePath(imageFile.getOriginalFilename());
         groepRepository.save(groep);
         Files.write(path, bytes);
     }

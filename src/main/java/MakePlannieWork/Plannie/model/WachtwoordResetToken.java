@@ -1,5 +1,7 @@
 package MakePlannieWork.Plannie.model;
 
+import org.hibernate.annotations.Cascade;
+
 import javax.persistence.*;
 import java.util.Calendar;
 import java.util.Date;

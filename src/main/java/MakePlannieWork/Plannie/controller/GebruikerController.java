@@ -138,19 +138,24 @@ public class GebruikerController {
     }
 
     @PostMapping("/wachtwoordReset")
-    public String resetWachtwoord(HttpServletRequest request, @ModelAttribute("updatePasswordForm") Gebruiker gebruiker) {
+    public String resetWachtwoord(HttpServletRequest request, @ModelAttribute("updatePasswordForm") Gebruiker gebruiker) throws MessagingException {
         Gebruiker gebruikerZonderWachtwoord = gebruikerRepository.findGebruikerByEmail(gebruiker.getEmail());
-        if (gebruikerZonderWachtwoord != null) {
-            final String token = UUID.randomUUID().toString();
-            plannieGebruikersService.maakWachtWoordResetTokenVoorGebruiker(gebruikerZonderWachtwoord, token);
-            try {
-                plannieMailingService.maakWachtwoordResetTokenEmail(plannieMailingService.getAppUrl(request), request.getLocale(), token, gebruikerZonderWachtwoord);
-            } catch (MessagingException e) {
-                e.printStackTrace();
+        if (wachtwoordResetRepository.findByGebruiker(gebruikerZonderWachtwoord) == null) {
+            if (gebruikerZonderWachtwoord != null) {
+                final String token = UUID.randomUUID().toString();
+                plannieGebruikersService.maakWachtWoordResetTokenVoorGebruiker(gebruikerZonderWachtwoord, token);
+                try {
+                    plannieMailingService.maakWachtwoordResetTokenEmail(plannieMailingService.getAppUrl(request), request.getLocale(), token, gebruikerZonderWachtwoord);
+                } catch (MessagingException e) {
+                    e.printStackTrace();
+                }
+                return "redirect:/index";
+            } else {
+                return "/error";
             }
-            return "redirect:/index";
         } else {
-            return "/error";
+            plannieMailingService.maakWachtwoordResetTokenEmail(plannieMailingService.getAppUrl(request), request.getLocale(), wachtwoordResetRepository.findByGebruiker(gebruikerZonderWachtwoord).getToken(), gebruikerZonderWachtwoord);
+            return "redirect:/index";
         }
     }
 
@@ -176,7 +181,9 @@ public class GebruikerController {
         if (gebruiker.getWachtwoord().equals(gebruiker.getTrancientWachtwoord())) {
             huidigeGebruiker.setWachtwoord(passwordEncoder.encode(gebruiker.getWachtwoord()));
             gebruikerRepository.save(huidigeGebruiker);
+            wachtwoordResetRepository.delete(wachtwoordResetRepository.findByGebruiker(huidigeGebruiker));
             return "redirect:/index";
+
         } else {
             return "redirect:/gebruikerWachtwoordUpdate";
         }

@@ -69,6 +69,9 @@
                         <c:if test = "${groep.aanmaker == currentUser.gebruikersId}">
                             <a id="wijzigGroepsNaam2" type="button" class="text-white" data-toggle="modal" data-target="#wijzigGroepsNaam"><i class="far fa-edit"></i></a>
                         </c:if>
+                        <br>
+
+                            <img src="/images/${groep.imagePath}" class="img-thumbnail"/>
 
                         <table class="table table-hover table-borderless text-white">
                             <thead>
