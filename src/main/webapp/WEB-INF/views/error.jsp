@@ -31,11 +31,11 @@
         <div class="col-sm-8">
             <div class="jumbotron shadow border" style="border-color: #FFE070 !important; background-color: #FFFFFF;">
                 <div class="row">
-                    <p class="lead">ERROR</p>
+                    <p class="lead">${errorNaam}</p>
+                </div>
+                <div class="row">
                     <p>
-                        ERROR
-                    </p>
-                    <p>
+                        ${error}
                     </p>
                 </div>
             </div>
@@ -44,11 +44,11 @@
         <div class="col-sm-4">
             <div class="jumbotron shadow" style="background-color: #FF3B56;">
                 <div class="row" >
-                    <p class="lead text-white">ERROR</p>
+                    <p class="lead text-white"></p>
                 </div>
                 <hr class="my-4">
                 <div class="row">
-                    <p class="lead text-white mt-3">ERROR</hp>
+                    <p class="lead text-white mt-3"></hp>
                     <hr class="my-4">
                 </div>
             </div>
