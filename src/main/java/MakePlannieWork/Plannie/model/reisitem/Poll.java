@@ -100,4 +100,14 @@ public class Poll extends ReisItem {
     public void setPollOpties(Set<PollOptie> pollOpties) {
         this.pollOpties = pollOpties;
     }
+
+    public void voegPollStemToe(String pollOptie, Gebruiker gebruiker) {
+        for (PollOptie optie : pollOpties) {
+            if (optie.getStemOptie().equals(pollOptie)) {
+                optie.voegStemToe(gebruiker);
+            } else {
+                optie.verwijderStem(gebruiker);
+            }
+        }
+    }
 }

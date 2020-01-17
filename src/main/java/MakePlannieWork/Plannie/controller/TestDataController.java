@@ -4,6 +4,7 @@ import MakePlannieWork.Plannie.model.Gebruiker;
 import MakePlannieWork.Plannie.model.Groep;
 import MakePlannieWork.Plannie.model.reisitem.Notitie;
 import MakePlannieWork.Plannie.model.reisitem.Poll;
+import MakePlannieWork.Plannie.model.reisitem.PollOptie;
 import MakePlannieWork.Plannie.model.reisitem.ReisItem;
 import MakePlannieWork.Plannie.repository.GebruikerRepository;
 import MakePlannieWork.Plannie.repository.GroepRepository;
@@ -51,7 +52,7 @@ public class TestDataController {
 
     @GetMapping("/testdata")
     public String testDataInladen(Model model) throws InterruptedException {
-        String notificatie = "--// TEST DATA AANMAKEN //--";
+        String notificatie = "\n--// TEST DATA AANMAKEN //--\n";
         System.out.println(notificatie);
 
         // Gebruikers opslaan
@@ -63,7 +64,7 @@ public class TestDataController {
         entityManager.clear();
 
         // Groepen opslaan
-        String[] csvGroep = {"GroepNaam,GroepBeheerder,GroepsLid1,GroepsLid2,GroepsLid3",
+        String[] csvGroep = {"GroepNaam,GroepBeheerder,LijstGroepsLeden",
                 "UsBikers,daniel.kuperus@gmail.com",
                 "MakeITWork,daniel.kuperus@gmail.com,tabitha.krist@gmail.com,wouter.meindertsma@gmail.com"};
         groepenAanmaken(csvGroep);
@@ -77,13 +78,27 @@ public class TestDataController {
         reizenAanmaken(csvReis);
         entityManager.clear();
 
-        // ReisItems opslaan
+        // Notities opslaan
         String[] csvItemNotitie = {"GroepBeheerderEmail,GroepNaam,ReisNaam,NotitieTitel,NotitieDatum,NotitieTekst",
                 "daniel.kuperus@gmail.com,UsBikers,Indian Trails,Testdata uitleg,2020-01-17,Deze notitie is bedoeld om te kijken of deze data invoer werkt.",
                 "daniel.kuperus@gmail.com,UsBikers,Sunshine State Tour,Tanken,2020-01-18,Dat is in deze staat erg duurt.",
                 "daniel.kuperus@gmail.com,UsBikers,Sunshine State Tour,Hotels,2020-01-19,Het minimum loon is omhoog gegaan."};
         notitiesAanmaken(csvItemNotitie);
         entityManager.clear();
+
+        // Polls opslaan
+        String[] csvItemPoll = {"GroepBeheerderEmail,GroepNaam,ReisNaam,PollTitel,PollDatum,{optie}LijstPollOpties,{LijstPollOpties}LijstPollStemmen",
+                "daniel.kuperus@gmail.com,MakeITWork,Vrijdag avond Borrel,Mag wouter drinken,2020-01-17,{optie}Ja,{optie}Misschien,{optie}Nee,{Ja}tabitha.krist@gmail.com,{Ja}wouter.meindertsma@gmail.com,{Misschien}daniel.kuperus@gmail.com",
+                "daniel.kuperus@gmail.com,UsBikers,Sunshine State Tour,Overnachting Las Vegas,2020-01-17,{optie}Stratosphere,{optie}WigWam Motel,{optie}Super8,{optie}Blue Swallow Motel"};
+        pollsAanmaken(csvItemPoll);
+        entityManager.clear();
+
+        System.out.println("\nGebruikers ingeladen: " + testGebruikers.size());
+        System.out.println("Groepen ingeladen: " + testGroepen.size());
+        System.out.println("Reizen ingeladen: " + testReizen.size());
+        System.out.println("Notities ingeladen: " + testNotities.size());
+        System.out.println("Polls ingeladen: " + testPolls.size());
+
 
         return "redirect:/index";
     }
@@ -92,6 +107,7 @@ public class TestDataController {
         String notificatie;
         System.out.println("// Gebruikers aanmaken: ");
         for (int gebruikerIndex = 1; gebruikerIndex < csvGebruiker.length; gebruikerIndex++) {
+            // Gebruiker aanmaken
             String[] csvWaardes = csvGebruiker[gebruikerIndex].split(",");
             Gebruiker testGebruiker = new Gebruiker();
             testGebruiker.setVoornaam(csvWaardes[0]);
@@ -100,11 +116,12 @@ public class TestDataController {
             testGebruiker.setIdentifier(UUID.randomUUID().toString());
             testGebruiker.setWachtwoord(passwordEncoder.encode(csvWaardes[3]));
             testGebruiker.setRollen(Collections.singletonList(rolRepository.findRolByRolNaam(csvWaardes[4])));
+
+            // Gebruiker opslaan
             if (gebruikerRepository.findGebruikerByEmail(testGebruiker.getEmail()) == null) {
                 this.testGebruikers.add(gebruikerRepository.saveAndFlush(testGebruiker));
                 notificatie = "Gebruiker toegevoegd: " + testGebruiker.getEmail();
             } else {
-                this.testGebruikers.add(gebruikerRepository.findGebruikerByEmail(testGebruiker.getEmail()));
                 notificatie = "Gebruiker bestond al: " + testGebruiker.getEmail();
             }
 
@@ -116,6 +133,7 @@ public class TestDataController {
         String notificatie;
         System.out.println("// Groepen aanmaken: ");
         for (int groepIndex = 1; groepIndex < csvGroep.length; groepIndex++) {
+            // Groep aanmaken
             String[] csvWaardes = csvGroep[groepIndex].split(",");
             Groep groep = new Groep();
             groep.setGroepsNaam(csvWaardes[0]);
@@ -129,11 +147,11 @@ public class TestDataController {
                 groep.getGroepsleden().add(groepsLid);
             }
 
+            // Groep opslaan
             if (groepRepository.findByAanmakerAndGroepsNaam(groepBeheerder.getGebruikersId(), groep.getGroepsNaam()) == null) {
                 this.testGroepen.add(groepRepository.saveAndFlush(groep));
                 notificatie = "Groep toegevoegd: " + groep.getGroepsNaam() + ". Aanmaker: " + groepBeheerder.getEmail() + " Aantal leden: " + groep.getGroepsleden().size();
             } else {
-                this.testGroepen.add(groepRepository.findByAanmakerAndGroepsNaam(groepBeheerder.getGebruikersId(), groep.getGroepsNaam()));
                 notificatie = "Groep bestond al: " + groep.getGroepsNaam() + ". Aanmaker: " + groepBeheerder.getEmail() + " Aantal leden: " + groep.getGroepsleden().size();
             }
 
@@ -145,6 +163,7 @@ public class TestDataController {
         String notificatie;
         System.out.println("// Reizen aanmaken: ");
         for (int reisIndex = 1; reisIndex < csvReis.length; reisIndex++) {
+            // Reis aanmaken
             String[] csvWaardes = csvReis[reisIndex].split(",");
             Gebruiker beheerder = gebruikerRepository.findGebruikerByEmail(csvWaardes[0]);
             Groep groep = groepRepository.findByAanmakerAndGroepsNaam(beheerder.getGebruikersId(), csvWaardes[1]);
@@ -153,12 +172,12 @@ public class TestDataController {
             reis.setNaam(csvWaardes[2]);
             reis.setAanmaker(beheerder.getGebruikersId());
 
+            // Reis opslaan
             if (reisItemRepository.findReisItemByAanmakerAndNaam(reis.getAanmaker(), reis.getNaam()) == null) {
                 this.testReizen.add(reisItemRepository.saveAndFlush(reis));
                 reisItemRepository.flush();
                 notificatie = "Reis toegevoegd: " + reis.getNaam() + ". Groep: " + groep.getGroepsNaam();
             } else {
-                this.testReizen.add(reisItemRepository.findReisItemByAanmakerAndNaam(reis.getAanmaker(), reis.getNaam()));
                 notificatie = "Reis bestond al: " + reis.getNaam() + ". Groep: " + groep.getGroepsNaam();
             }
 
@@ -170,36 +189,103 @@ public class TestDataController {
         String notificatie;
         System.out.println("// Notities aanmaken: ");
         for (int reisIndex = 1; reisIndex < csvItemNotitie.length; reisIndex++) {
+            // Notitie aanmaken
             String[] csvWaardes = csvItemNotitie[reisIndex].split(",");
             Gebruiker beheerder = gebruikerRepository.findGebruikerByEmail(csvWaardes[0]);
             Groep groep = groepRepository.findByAanmakerAndGroepsNaam(beheerder.getGebruikersId(), csvWaardes[1]);
-            ReisItem reis = reisItemRepository.findReisItemByAanmakerAndNaam(beheerder.getGebruikersId(),csvWaardes[2]);
+            ReisItem reis = reisVanGroepZoeken(groep, csvWaardes[2]);
             Notitie notitie = new Notitie();
-
             notitie.setNaam(csvWaardes[3]);
             notitie.setStartDatum(csvWaardes[4]);
-            // Tekst uitlezen. Dit mag komma's bevatten, omdat we hier naar het einde van de array kijken, en niet tot de volgende komma.
+
+            // Tekst uitlezen. De tekst mag komma's bevatten, omdat we hier tot het einde van de array kijken, en niet tot de volgende komma.
             StringBuilder notitieTekst = new StringBuilder();
             for (int csvWaardesNotitie = 5; csvWaardesNotitie < csvWaardes.length; csvWaardesNotitie++) {
                 notitieTekst.append(csvWaardes[csvWaardesNotitie]);
             }
             notitie.setTekst(notitieTekst.toString());
+
+            // Notitie koppelen
             notitie.setGekoppeldeReisItemId(reis);
             reis.voegReisItemToe(notitie);
 
+            // Notitie opslaan
             if (reisItemRepository.findNotitieByGekoppeldeReisItemAndNaam(reis, notitie.getNaam()) == null) {
-
                 reisItemRepository.save(notitie);
                 reisItemRepository.save(reis);
-
                 this.testNotities.add(reisItemRepository.findNotitieByGekoppeldeReisItemAndNaam(reis, notitie.getNaam()));
                 notificatie = "Notitie toegevoegd: " + notitie.getNaam() + ". Reis: " + reis.getNaam();
             } else {
-                this.testNotities.add(reisItemRepository.findNotitieByGekoppeldeReisItemAndNaam(reis, notitie.getNaam()));
                 notificatie = "Notitie bestond al: " + notitie.getNaam() + ". Reis: " + reis.getNaam();
             }
 
             System.out.println(notificatie);
         }
+    }
+
+    private void pollsAanmaken(String[] csvItemPoll) {
+        String notificatie;
+        System.out.println("// Poll aanmaken: ");
+        for (int reisIndex = 1; reisIndex < csvItemPoll.length; reisIndex++) {
+            // Poll aanmaken
+            String[] csvWaardes = csvItemPoll[reisIndex].split(",");
+            Gebruiker beheerder = gebruikerRepository.findGebruikerByEmail(csvWaardes[0]);
+            Groep groep = groepRepository.findByAanmakerAndGroepsNaam(beheerder.getGebruikersId(), csvWaardes[1]);
+            ReisItem reis = reisVanGroepZoeken(groep, csvWaardes[2]);
+
+            Poll poll = new Poll();
+            poll.setNaam(csvWaardes[3]);
+            poll.setStartDatum(csvWaardes[4]);
+            // Poll opties uitlezen. Dit kan meerdere opties, en stemmen bevatten.
+            for (int csvWaardesPoll = 5; csvWaardesPoll < csvWaardes.length; csvWaardesPoll++) {
+                String tekst = csvWaardes[csvWaardesPoll];
+
+                if (tekst.startsWith("{optie}")) {
+                    // Een optie om op te stemmen wordt toegevoegd.
+                    PollOptie optie = new PollOptie();
+                    optie.setStemOptie(tekst.replace("{optie}",""));
+                    optie.setOptieIndex(csvWaardesPoll);
+                    optie.setPoll(poll);
+                    poll.voegPollOptieToe(optie);
+                } else {
+                    // Een stemmer wordt toegevoegd aan een net toegevoegde polloptie.
+                    String[] stemBiljet = tekst.split("}");
+                    stemBiljet[0] = stemBiljet[0].replace("{","");
+                    Gebruiker gebruiker = gebruikerRepository.findGebruikerByEmail(stemBiljet[1]);
+
+                    poll.voegPollStemToe(stemBiljet[0], gebruiker);
+                }
+            }
+
+            // Poll koppelen
+            poll.setGekoppeldeReisItemId(reis);
+            reis.voegReisItemToe(poll);
+
+            // Poll opslaan
+            if (reisItemRepository.findPollByGekoppeldeReisItemAndNaam(reis, poll.getNaam()) == null) {
+                reisItemRepository.save(poll);
+                reisItemRepository.save(reis);
+                this.testPolls.add(reisItemRepository.findPollByGekoppeldeReisItemAndNaam(reis, poll.getNaam()));
+                notificatie = "Poll toegevoegd: " + poll.getNaam() + ". Reis: " + reis.getNaam() + ". Stemmen: " + poll.geefTotaalAantalStemmen();
+            } else {
+                notificatie = "Poll bestond al: " + poll.getNaam() + ". Reis: " + reis.getNaam() + ". Stemmen: " + poll.geefTotaalAantalStemmen();
+            }
+
+            System.out.println(notificatie);
+        }
+    }
+
+
+    // De reizen van de groep bijlangs gaan om de juiste reis te vinden.
+    private ReisItem reisVanGroepZoeken(Groep groep, String reisNaam) {
+        ReisItem gevondenReis = new ReisItem();
+        Iterator<ReisItem> reizen = groep.getReisItem().iterator();
+        while (reizen.hasNext() && gevondenReis.getNaam() == null) {
+            ReisItem controleReisItem = reizen.next();
+            if (controleReisItem.getNaam().equals(reisNaam)) {
+                gevondenReis = controleReisItem;
+            }
+        }
+        return gevondenReis;
     }
 }
