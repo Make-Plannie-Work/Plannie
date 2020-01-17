@@ -19,8 +19,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.MapBindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import javax.naming.Binding;
+import javax.persistence.EntityManager;
 import java.security.Principal;
 import java.text.DateFormat;
 import java.util.*;
@@ -38,28 +40,8 @@ public class TestDataController {
     GroepRepository groepRepository;
     @Autowired
     ReisItemRepository reisItemRepository;
-
-    // Gebruikers Static Test Waarden
-    private static final String GEBRUIKER_VOORNAAM = "testVoornaam";
-    private static final String GEBRUIKER_ACHTERNAAM = "testAchternaam";
-    private static final String GEBRUIKER_EMAIL = ".testing@test.com";
-    private static final String GEBRUIKER_WACHTWOORD = "testWachtwoord";
-
-    // Groepen Static Test Waarden
-    private static final String GROEP_NAAM = "testGroep";
-
-    // ReisItems Static Test Waarden
-    private static final String REIS_NAAM = "testReis";
-    private static final String REIS_DATUM = "2020-06-10";
-    // Notitie items Static Test Waarden
-    private static final String NOTITIE_NAAM = "testNotitie";
-    private static final String NOTITIE_TEKST = "Test tekst, die heel lang is.";
-    private static final String NOTITIE_STARTDATUM = REIS_DATUM;
-    // Poll items Static Test Waarden
-    private static final String POLL_NAAM = "testPoll";
-    private static final String POLL_STARTDATUM = REIS_DATUM;
-    private static final String[] POLL_OPTIES = {"stem optie 1", "stem optie 2", "stem optie 3"};
-    private static final String POLL_OPTIES_COMPLEET = "stem optie 1,stem optie 2,stem optie 3";
+    @Autowired
+    EntityManager entityManager;
 
     private ArrayList<Gebruiker> testGebruikers = new ArrayList<>();
     private ArrayList<Groep> testGroepen = new ArrayList<>();
@@ -78,14 +60,14 @@ public class TestDataController {
                 "Tabitha,Krist,tabitha.krist@gmail.com,123,ROLE_USER",
                 "Wouter,Meindertsma,wouter.meindertsma@gmail.com,123,ROLE_USER"};
         gebruikersAanmaken(csvGebruiker);
-        Thread.sleep(1000);
+        entityManager.clear();
 
         // Groepen opslaan
         String[] csvGroep = {"GroepNaam,GroepBeheerder,GroepsLid1,GroepsLid2,GroepsLid3",
                 "UsBikers,daniel.kuperus@gmail.com",
                 "MakeITWork,daniel.kuperus@gmail.com,tabitha.krist@gmail.com,wouter.meindertsma@gmail.com"};
         groepenAanmaken(csvGroep);
-        Thread.sleep(1000);
+        entityManager.clear();
 
         // Reizen opslaan
         String[] csvReis = {"GroepBeheerderEmail,GroepNaam,ReisNaam",
@@ -93,7 +75,7 @@ public class TestDataController {
                 "daniel.kuperus@gmail.com,UsBikers,Sunshine State Tour",
                 "daniel.kuperus@gmail.com,MakeITWork,Vrijdag avond Borrel"};
         reizenAanmaken(csvReis);
-        Thread.sleep(1000);
+        entityManager.clear();
 
         // ReisItems opslaan
         String[] csvItemNotitie = {"GroepBeheerderEmail,GroepNaam,ReisNaam,NotitieTitel,NotitieDatum,NotitieTekst",
@@ -101,7 +83,7 @@ public class TestDataController {
                 "daniel.kuperus@gmail.com,UsBikers,Sunshine State Tour,Tanken,2020-01-18,Dat is in deze staat erg duurt.",
                 "daniel.kuperus@gmail.com,UsBikers,Sunshine State Tour,Hotels,2020-01-19,Het minimum loon is omhoog gegaan."};
         notitiesAanmaken(csvItemNotitie);
-        Thread.sleep(1000);
+        entityManager.clear();
 
         return "redirect:/index";
     }
@@ -206,8 +188,10 @@ public class TestDataController {
             reis.voegReisItemToe(notitie);
 
             if (reisItemRepository.findNotitieByGekoppeldeReisItemAndNaam(reis, notitie.getNaam()) == null) {
+
                 reisItemRepository.save(notitie);
                 reisItemRepository.save(reis);
+
                 this.testNotities.add(reisItemRepository.findNotitieByGekoppeldeReisItemAndNaam(reis, notitie.getNaam()));
                 notificatie = "Notitie toegevoegd: " + notitie.getNaam() + ". Reis: " + reis.getNaam();
             } else {
