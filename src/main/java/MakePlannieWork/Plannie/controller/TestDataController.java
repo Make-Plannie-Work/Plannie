@@ -60,7 +60,7 @@ public class TestDataController {
         System.out.println(notificatie);
 
         // Gebruikers opslaan
-        File gebruikersBestand = new File("src/main/resources/Gebruiker.csv");
+        File gebruikersBestand = new File("Algemeen/Testdata/Gebruiker.csv");
         gebruikersAanmaken(gebruikersBestand);
         entityManager.clear();
 
@@ -108,6 +108,7 @@ public class TestDataController {
         System.out.println("// Gebruikers aanmaken: ");
         try {
             Scanner invoer = new Scanner(gebruikersBestand);
+            invoer.nextLine();
             while (invoer.hasNextLine()) {
                 String[] regelArray = invoer.nextLine().split(",");
                 Gebruiker testGebruiker = new Gebruiker();
