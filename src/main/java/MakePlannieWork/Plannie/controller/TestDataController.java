@@ -24,6 +24,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import javax.naming.Binding;
 import javax.persistence.EntityManager;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.security.Principal;
 import java.text.DateFormat;
 import java.util.*;
@@ -60,7 +62,9 @@ public class TestDataController {
                 "Daniel,Kuperus,daniel.kuperus@gmail.com,123,ROLE_USER",
                 "Tabitha,Krist,tabitha.krist@gmail.com,123,ROLE_USER",
                 "Wouter,Meindertsma,wouter.meindertsma@gmail.com,123,ROLE_USER"};
-        gebruikersAanmaken(csvGebruiker);
+        File gebruikersBestand = new File("src/main/resources/Gebruiker.csv");
+
+        gebruikersAanmaken(gebruikersBestand);
         entityManager.clear();
 
         // Groepen opslaan
@@ -103,30 +107,58 @@ public class TestDataController {
         return "redirect:/index";
     }
 
-    private void gebruikersAanmaken(String[] csvGebruiker) {
+    private void gebruikersAanmaken(File gebruikersBestand) {
         String notificatie;
         System.out.println("// Gebruikers aanmaken: ");
-        for (int gebruikerIndex = 1; gebruikerIndex < csvGebruiker.length; gebruikerIndex++) {
-            // Gebruiker aanmaken
-            String[] csvWaardes = csvGebruiker[gebruikerIndex].split(",");
-            Gebruiker testGebruiker = new Gebruiker();
-            testGebruiker.setVoornaam(csvWaardes[0]);
-            testGebruiker.setAchternaam(csvWaardes[1]);
-            testGebruiker.setEmail(csvWaardes[2]);
-            testGebruiker.setIdentifier(UUID.randomUUID().toString());
-            testGebruiker.setWachtwoord(passwordEncoder.encode(csvWaardes[3]));
-            testGebruiker.setRollen(Collections.singletonList(rolRepository.findRolByRolNaam(csvWaardes[4])));
+        ArrayList<Gebruiker> gebruikers = new ArrayList<>();
+        try {
+            Scanner invoer = new Scanner(gebruikersBestand);
+            while (invoer.hasNextLine()) {
+                String[] regelArray = invoer.nextLine().split(",");
+                Gebruiker testGebruiker = new Gebruiker();
+                testGebruiker.setVoornaam(regelArray[0]);
+                testGebruiker.setAchternaam(regelArray[1]);
+                testGebruiker.setEmail(regelArray[2]);
+                testGebruiker.setIdentifier(UUID.randomUUID().toString());
+                testGebruiker.setWachtwoord(passwordEncoder.encode(regelArray[3]));
+                testGebruiker.setRollen(Collections.singletonList(rolRepository.findRolByRolNaam(regelArray[4])));
 
-            // Gebruiker opslaan
-            if (gebruikerRepository.findGebruikerByEmail(testGebruiker.getEmail()) == null) {
-                this.testGebruikers.add(gebruikerRepository.saveAndFlush(testGebruiker));
-                notificatie = "Gebruiker toegevoegd: " + testGebruiker.getEmail();
-            } else {
-                notificatie = "Gebruiker bestond al: " + testGebruiker.getEmail();
+                // Gebruiker opslaan
+                if (gebruikerRepository.findGebruikerByEmail(testGebruiker.getEmail()) == null) {
+                    this.testGebruikers.add(gebruikerRepository.saveAndFlush(testGebruiker));
+                    notificatie = "Gebruiker toegevoegd: " + testGebruiker.getEmail();
+                } else {
+                    notificatie = "Gebruiker bestond al: " + testGebruiker.getEmail();
+                }
+
+                System.out.println(notificatie);
             }
-
-            System.out.println(notificatie);
+        } catch (FileNotFoundException nietGevonden) {
+            System.out.println("Gebruikersbestand is niet gevonden (Gebruiker.csv)");
         }
+
+
+//        for (int gebruikerIndex = 1; gebruikerIndex < csvGebruiker.length; gebruikerIndex++) {
+//            // Gebruiker aanmaken
+//            String[] csvWaardes = csvGebruiker[gebruikerIndex].split(",");
+//            Gebruiker testGebruiker = new Gebruiker();
+//            testGebruiker.setVoornaam(csvWaardes[0]);
+//            testGebruiker.setAchternaam(csvWaardes[1]);
+//            testGebruiker.setEmail(csvWaardes[2]);
+//            testGebruiker.setIdentifier(UUID.randomUUID().toString());
+//            testGebruiker.setWachtwoord(passwordEncoder.encode(csvWaardes[3]));
+//            testGebruiker.setRollen(Collections.singletonList(rolRepository.findRolByRolNaam(csvWaardes[4])));
+//
+//            // Gebruiker opslaan
+//            if (gebruikerRepository.findGebruikerByEmail(testGebruiker.getEmail()) == null) {
+//                this.testGebruikers.add(gebruikerRepository.saveAndFlush(testGebruiker));
+//                notificatie = "Gebruiker toegevoegd: " + testGebruiker.getEmail();
+//            } else {
+//                notificatie = "Gebruiker bestond al: " + testGebruiker.getEmail();
+//            }
+//
+//            System.out.println(notificatie);
+//        }
     }
 
     private void groepenAanmaken(String[] csvGroep) {
