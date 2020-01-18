@@ -111,7 +111,6 @@ public class TestDataController {
 
     private void gebruikersAanmaken(File gebruikersBestand) {
         System.out.println("// Gebruikers aanmaken: ");
-        ArrayList<Gebruiker> gebruikers = new ArrayList<>();
         try {
             Scanner invoer = new Scanner(gebruikersBestand);
             while (invoer.hasNextLine()) {
@@ -131,35 +130,11 @@ public class TestDataController {
                 } else {
                     notificatie = "Gebruiker bestond al: " + testGebruiker.getEmail();
                 }
-
                 System.out.println(notificatie);
             }
         } catch (FileNotFoundException nietGevonden) {
             System.out.println("Gebruikersbestand is niet gevonden (Gebruiker.csv)");
         }
-
-
-//        for (int gebruikerIndex = 1; gebruikerIndex < csvGebruiker.length; gebruikerIndex++) {
-//            // Gebruiker aanmaken
-//            String[] csvWaardes = csvGebruiker[gebruikerIndex].split(",");
-//            Gebruiker testGebruiker = new Gebruiker();
-//            testGebruiker.setVoornaam(csvWaardes[0]);
-//            testGebruiker.setAchternaam(csvWaardes[1]);
-//            testGebruiker.setEmail(csvWaardes[2]);
-//            testGebruiker.setIdentifier(UUID.randomUUID().toString());
-//            testGebruiker.setWachtwoord(passwordEncoder.encode(csvWaardes[3]));
-//            testGebruiker.setRollen(Collections.singletonList(rolRepository.findRolByRolNaam(csvWaardes[4])));
-//
-//            // Gebruiker opslaan
-//            if (gebruikerRepository.findGebruikerByEmail(testGebruiker.getEmail()) == null) {
-//                this.testGebruikers.add(gebruikerRepository.saveAndFlush(testGebruiker));
-//                notificatie = "Gebruiker toegevoegd: " + testGebruiker.getEmail();
-//            } else {
-//                notificatie = "Gebruiker bestond al: " + testGebruiker.getEmail();
-//            }
-//
-//            System.out.println(notificatie);
-//        }
     }
 
     private void groepenAanmaken(String[] csvGroep) {
