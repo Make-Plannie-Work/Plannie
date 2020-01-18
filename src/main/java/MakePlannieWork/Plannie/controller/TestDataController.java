@@ -60,12 +60,7 @@ public class TestDataController {
         System.out.println(notificatie);
 
         // Gebruikers opslaan
-        String[] csvGebruiker = {"Voornaam,Achternaam,EMail,Wachtwoord,Rol",
-                "Daniel,Kuperus,daniel.kuperus@gmail.com,123,ROLE_USER",
-                "Tabitha,Krist,tabitha.krist@gmail.com,123,ROLE_USER",
-                "Wouter,Meindertsma,wouter.meindertsma@gmail.com,123,ROLE_USER"};
         File gebruikersBestand = new File("src/main/resources/Gebruiker.csv");
-
         gebruikersAanmaken(gebruikersBestand);
         entityManager.clear();
 
