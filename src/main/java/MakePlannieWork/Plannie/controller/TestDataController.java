@@ -46,11 +46,11 @@ public class TestDataController {
     @Autowired
     EntityManager entityManager;
 
-    private ArrayList<Gebruiker> testGebruikers = new ArrayList<>();
-    private ArrayList<Groep> testGroepen = new ArrayList<>();
-    private ArrayList<ReisItem> testReizen = new ArrayList<>();
-    private ArrayList<Notitie> testNotities = new ArrayList<>();
-    private ArrayList<Poll> testPolls = new ArrayList<>();
+    private int testGebruikers = 0;
+    private int testGroepen = 0;
+    private int testReizen = 0;
+    private int testNotities = 0;
+    private int testPolls = 0;
 
     private String notificatie;
 
@@ -84,11 +84,11 @@ public class TestDataController {
         pollsAanmaken(pollBestand);
         entityManager.clear();
 
-        System.out.println("\nGebruikers ingeladen: " + testGebruikers.size());
-        System.out.println("Groepen ingeladen: " + testGroepen.size());
-        System.out.println("Reizen ingeladen: " + testReizen.size());
-        System.out.println("Notities ingeladen: " + testNotities.size());
-        System.out.println("Polls ingeladen: " + testPolls.size());
+        System.out.println("\nGebruikers ingeladen: " + testGebruikers);
+        System.out.println("Groepen ingeladen: " + testGroepen);
+        System.out.println("Reizen ingeladen: " + testReizen);
+        System.out.println("Notities ingeladen: " + testNotities);
+        System.out.println("Polls ingeladen: " + testPolls);
 
 
         return "redirect:/index";
@@ -111,7 +111,8 @@ public class TestDataController {
 
                 // Gebruiker opslaan
                 if (gebruikerRepository.findGebruikerByEmail(testGebruiker.getEmail()) == null) {
-                    this.testGebruikers.add(gebruikerRepository.saveAndFlush(testGebruiker));
+                    this.testGebruikers++;
+                    gebruikerRepository.saveAndFlush(testGebruiker);
                     notificatie = "Gebruiker toegevoegd: " + testGebruiker.getEmail();
                 } else {
                     notificatie = "Gebruiker bestond al: " + testGebruiker.getEmail();
@@ -144,7 +145,8 @@ public class TestDataController {
 
                 // Groep opslaan
                 if (groepRepository.findByAanmakerAndGroepsNaam(groepBeheerder.getGebruikersId(), groep.getGroepsNaam()) == null) {
-                    this.testGroepen.add(groepRepository.saveAndFlush(groep));
+                    this.testGroepen++;
+                    groepRepository.saveAndFlush(groep);
                     notificatie = "Groep toegevoegd: " + groep.getGroepsNaam() + ". Aanmaker: " + groepBeheerder.getEmail() + " Aantal leden: " + groep.getGroepsleden().size();
                 } else {
                     notificatie = "Groep bestond al: " + groep.getGroepsNaam() + ". Aanmaker: " + groepBeheerder.getEmail() + " Aantal leden: " + groep.getGroepsleden().size();
@@ -173,8 +175,8 @@ public class TestDataController {
 
                 // Reis opslaan
                 if (reisItemRepository.findReisItemByAanmakerAndNaam(reis.getAanmaker(), reis.getNaam()) == null) {
-                    this.testReizen.add(reisItemRepository.saveAndFlush(reis));
-                    reisItemRepository.flush();
+                    this.testReizen++;
+                    reisItemRepository.saveAndFlush(reis);
                     notificatie = "Reis toegevoegd: " + reis.getNaam() + ". Groep: " + groep.getGroepsNaam();
                 } else {
                     notificatie = "Reis bestond al: " + reis.getNaam() + ". Groep: " + groep.getGroepsNaam();
@@ -216,7 +218,7 @@ public class TestDataController {
                 if (reisItemRepository.findNotitieByGekoppeldeReisItemAndNaam(reis, notitie.getNaam()) == null) {
                     reisItemRepository.save(notitie);
                     reisItemRepository.save(reis);
-                    this.testNotities.add(reisItemRepository.findNotitieByGekoppeldeReisItemAndNaam(reis, notitie.getNaam()));
+                    this.testNotities++;
                     notificatie = "Notitie toegevoegd: " + notitie.getNaam() + ". Reis: " + reis.getNaam();
                 } else {
                     notificatie = "Notitie bestond al: " + notitie.getNaam() + ". Reis: " + reis.getNaam();
@@ -272,7 +274,7 @@ public class TestDataController {
                 if (reisItemRepository.findPollByGekoppeldeReisItemAndNaam(reis, poll.getNaam()) == null) {
                     reisItemRepository.save(poll);
                     reisItemRepository.save(reis);
-                    this.testPolls.add(reisItemRepository.findPollByGekoppeldeReisItemAndNaam(reis, poll.getNaam()));
+                    this.testPolls++;
                     notificatie = "Poll toegevoegd: " + poll.getNaam() + ". Reis: " + reis.getNaam() + ". Stemmen: " + poll.geefTotaalAantalStemmen();
                 } else {
                     notificatie = "Poll bestond al: " + poll.getNaam() + ". Reis: " + reis.getNaam() + ". Stemmen: " + poll.geefTotaalAantalStemmen();
@@ -289,6 +291,8 @@ public class TestDataController {
     // De reizen van de groep bijlangs gaan om de juiste reis te vinden.
     private ReisItem reisVanGroepZoeken(Groep groep, String reisNaam) {
         ReisItem gevondenReis = new ReisItem();
+
+        // TODO De reizen van groepen worden niet juist ingeladen, of de testdata is nog niet goed.
         Iterator<ReisItem> reizen = groep.getReisItem().iterator();
         while (reizen.hasNext() && gevondenReis.getNaam() == null) {
             ReisItem controleReisItem = reizen.next();
