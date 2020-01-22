@@ -60,38 +60,28 @@ public class TestDataController {
         System.out.println(notificatie);
 
         // Gebruikers opslaan
-        File gebruikersBestand = new File("Algemeen/Testdata/Gebruiker.csv");
-        gebruikersAanmaken(gebruikersBestand);
+        File gebruikerBestand = new File("Algemeen/Testdata/Gebruiker.csv");
+        gebruikersAanmaken(gebruikerBestand);
         entityManager.clear();
 
         // Groepen opslaan
-        String[] csvGroep = {"GroepNaam,GroepBeheerder,LijstGroepsLeden",
-                "UsBikers,daniel.kuperus@gmail.com",
-                "MakeITWork,daniel.kuperus@gmail.com,tabitha.krist@gmail.com,wouter.meindertsma@gmail.com"};
-        groepenAanmaken(csvGroep);
+        File groepBestand = new File("Algemeen/Testdata/Groep.csv");
+        groepenAanmaken(groepBestand);
         entityManager.clear();
 
         // Reizen opslaan
-        String[] csvReis = {"GroepBeheerderEmail,GroepNaam,ReisNaam",
-                "daniel.kuperus@gmail.com,UsBikers,Indian Trails",
-                "daniel.kuperus@gmail.com,UsBikers,Sunshine State Tour",
-                "daniel.kuperus@gmail.com,MakeITWork,Vrijdag avond Borrel"};
-        reizenAanmaken(csvReis);
+        File reisBestand = new File("Algemeen/Testdata/Reis.csv");
+        reizenAanmaken(reisBestand);
         entityManager.clear();
 
         // Notities opslaan
-        String[] csvItemNotitie = {"GroepBeheerderEmail,GroepNaam,ReisNaam,NotitieTitel,NotitieDatum,NotitieTekst",
-                "daniel.kuperus@gmail.com,UsBikers,Indian Trails,Testdata uitleg,2020-01-17,Deze notitie is bedoeld om te kijken of deze data invoer werkt.",
-                "daniel.kuperus@gmail.com,UsBikers,Sunshine State Tour,Tanken,2020-01-18,Dat is in deze staat erg duurt.",
-                "daniel.kuperus@gmail.com,UsBikers,Sunshine State Tour,Hotels,2020-01-19,Het minimum loon is omhoog gegaan."};
-        notitiesAanmaken(csvItemNotitie);
+        File notitieBestand = new File("Algemeen/Testdata/Notitie.csv");
+        notitiesAanmaken(notitieBestand);
         entityManager.clear();
 
         // Polls opslaan
-        String[] csvItemPoll = {"GroepBeheerderEmail,GroepNaam,ReisNaam,PollTitel,PollDatum,{optie}LijstPollOpties,{LijstPollOpties}LijstPollStemmen",
-                "daniel.kuperus@gmail.com,MakeITWork,Vrijdag avond Borrel,Mag wouter drinken,2020-01-17,{optie}Ja,{optie}Misschien,{optie}Nee,{Ja}tabitha.krist@gmail.com,{Ja}wouter.meindertsma@gmail.com,{Misschien}daniel.kuperus@gmail.com",
-                "daniel.kuperus@gmail.com,UsBikers,Sunshine State Tour,Overnachting Las Vegas,2020-01-17,{optie}Stratosphere,{optie}WigWam Motel,{optie}Super8,{optie}Blue Swallow Motel"};
-        pollsAanmaken(csvItemPoll);
+        File pollBestand = new File("Algemeen/Testdata/Poll.csv");
+        pollsAanmaken(pollBestand);
         entityManager.clear();
 
         System.out.println("\nGebruikers ingeladen: " + testGebruikers.size());
@@ -104,10 +94,10 @@ public class TestDataController {
         return "redirect:/index";
     }
 
-    private void gebruikersAanmaken(File gebruikersBestand) {
+    private void gebruikersAanmaken(File gebruikerBestand) {
         System.out.println("// Gebruikers aanmaken: ");
         try {
-            Scanner invoer = new Scanner(gebruikersBestand);
+            Scanner invoer = new Scanner(gebruikerBestand);
             invoer.nextLine();
             while (invoer.hasNextLine()) {
                 String[] regelArray = invoer.nextLine().split(",");
@@ -133,145 +123,165 @@ public class TestDataController {
         }
     }
 
-    private void groepenAanmaken(String[] csvGroep) {
+    private void groepenAanmaken(File groepBestand) {
         System.out.println("// Groepen aanmaken: ");
-        for (int groepIndex = 1; groepIndex < csvGroep.length; groepIndex++) {
-            // Groep aanmaken
-            String[] csvWaardes = csvGroep[groepIndex].split(",");
-            Groep groep = new Groep();
-            groep.setGroepsNaam(csvWaardes[0]);
-            Gebruiker groepBeheerder = gebruikerRepository.findGebruikerByEmail(csvWaardes[1]);
-            groep.getGroepsleden().add(groepBeheerder);
-            groep.setAanmaker(groepBeheerder.getGebruikersId());
+        try {
+            Scanner invoer = new Scanner(groepBestand);
+            invoer.nextLine();
+            while (invoer.hasNextLine()) {
+                String[] regelArray = invoer.nextLine().split(",");
+                Groep groep = new Groep();
+                groep.setGroepsNaam(regelArray[0]);
+                Gebruiker groepBeheerder = gebruikerRepository.findGebruikerByEmail(regelArray[1]);
+                groep.getGroepsleden().add(groepBeheerder);
+                groep.setAanmaker(groepBeheerder.getGebruikersId());
 
-            // Groepsleden toevoegen
-            for (int csvWaardesGroepsLeden = 2; csvWaardesGroepsLeden < csvWaardes.length; csvWaardesGroepsLeden++) {
-                Gebruiker groepsLid = gebruikerRepository.findGebruikerByEmail(csvWaardes[csvWaardesGroepsLeden]);
-                groep.getGroepsleden().add(groepsLid);
-            }
-
-            // Groep opslaan
-            if (groepRepository.findByAanmakerAndGroepsNaam(groepBeheerder.getGebruikersId(), groep.getGroepsNaam()) == null) {
-                this.testGroepen.add(groepRepository.saveAndFlush(groep));
-                notificatie = "Groep toegevoegd: " + groep.getGroepsNaam() + ". Aanmaker: " + groepBeheerder.getEmail() + " Aantal leden: " + groep.getGroepsleden().size();
-            } else {
-                notificatie = "Groep bestond al: " + groep.getGroepsNaam() + ". Aanmaker: " + groepBeheerder.getEmail() + " Aantal leden: " + groep.getGroepsleden().size();
-            }
-
-            System.out.println(notificatie);
-        }
-    }
-
-    private void reizenAanmaken(String[] csvReis) {
-        System.out.println("// Reizen aanmaken: ");
-        for (int reisIndex = 1; reisIndex < csvReis.length; reisIndex++) {
-            // Reis aanmaken
-            String[] csvWaardes = csvReis[reisIndex].split(",");
-            Gebruiker beheerder = gebruikerRepository.findGebruikerByEmail(csvWaardes[0]);
-            Groep groep = groepRepository.findByAanmakerAndGroepsNaam(beheerder.getGebruikersId(), csvWaardes[1]);
-            ReisItem reis = new ReisItem();
-            groep.getReisItem().add(reis);
-            reis.setNaam(csvWaardes[2]);
-            reis.setAanmaker(beheerder.getGebruikersId());
-
-            // Reis opslaan
-            if (reisItemRepository.findReisItemByAanmakerAndNaam(reis.getAanmaker(), reis.getNaam()) == null) {
-                this.testReizen.add(reisItemRepository.saveAndFlush(reis));
-                reisItemRepository.flush();
-                notificatie = "Reis toegevoegd: " + reis.getNaam() + ". Groep: " + groep.getGroepsNaam();
-            } else {
-                notificatie = "Reis bestond al: " + reis.getNaam() + ". Groep: " + groep.getGroepsNaam();
-            }
-
-            System.out.println(notificatie);
-        }
-    }
-
-    private void notitiesAanmaken(String[] csvItemNotitie) {
-        System.out.println("// Notities aanmaken: ");
-        for (int reisIndex = 1; reisIndex < csvItemNotitie.length; reisIndex++) {
-            // Notitie aanmaken
-            String[] csvWaardes = csvItemNotitie[reisIndex].split(",");
-            Gebruiker beheerder = gebruikerRepository.findGebruikerByEmail(csvWaardes[0]);
-            Groep groep = groepRepository.findByAanmakerAndGroepsNaam(beheerder.getGebruikersId(), csvWaardes[1]);
-            ReisItem reis = reisVanGroepZoeken(groep, csvWaardes[2]);
-            Notitie notitie = new Notitie();
-            notitie.setNaam(csvWaardes[3]);
-            notitie.setStartDatum(csvWaardes[4]);
-
-            // Tekst uitlezen. De tekst mag komma's bevatten, omdat we hier tot het einde van de array kijken, en niet tot de volgende komma.
-            StringBuilder notitieTekst = new StringBuilder();
-            for (int csvWaardesNotitie = 5; csvWaardesNotitie < csvWaardes.length; csvWaardesNotitie++) {
-                notitieTekst.append(csvWaardes[csvWaardesNotitie]);
-            }
-            notitie.setTekst(notitieTekst.toString());
-
-            // Notitie koppelen
-            notitie.setGekoppeldeReisItemId(reis);
-            reis.voegReisItemToe(notitie);
-
-            // Notitie opslaan
-            if (reisItemRepository.findNotitieByGekoppeldeReisItemAndNaam(reis, notitie.getNaam()) == null) {
-                reisItemRepository.save(notitie);
-                reisItemRepository.save(reis);
-                this.testNotities.add(reisItemRepository.findNotitieByGekoppeldeReisItemAndNaam(reis, notitie.getNaam()));
-                notificatie = "Notitie toegevoegd: " + notitie.getNaam() + ". Reis: " + reis.getNaam();
-            } else {
-                notificatie = "Notitie bestond al: " + notitie.getNaam() + ". Reis: " + reis.getNaam();
-            }
-
-            System.out.println(notificatie);
-        }
-    }
-
-    private void pollsAanmaken(String[] csvItemPoll) {
-        System.out.println("// Poll aanmaken: ");
-        for (int reisIndex = 1; reisIndex < csvItemPoll.length; reisIndex++) {
-            // Poll aanmaken
-            String[] csvWaardes = csvItemPoll[reisIndex].split(",");
-            Gebruiker beheerder = gebruikerRepository.findGebruikerByEmail(csvWaardes[0]);
-            Groep groep = groepRepository.findByAanmakerAndGroepsNaam(beheerder.getGebruikersId(), csvWaardes[1]);
-            ReisItem reis = reisVanGroepZoeken(groep, csvWaardes[2]);
-
-            Poll poll = new Poll();
-            poll.setNaam(csvWaardes[3]);
-            poll.setStartDatum(csvWaardes[4]);
-            // Poll opties uitlezen. Dit kan meerdere opties, en stemmen bevatten.
-            for (int csvWaardesPoll = 5; csvWaardesPoll < csvWaardes.length; csvWaardesPoll++) {
-                String tekst = csvWaardes[csvWaardesPoll];
-
-                if (tekst.startsWith("{optie}")) {
-                    // Een optie om op te stemmen wordt toegevoegd.
-                    PollOptie optie = new PollOptie();
-                    optie.setStemOptie(tekst.replace("{optie}",""));
-                    optie.setOptieIndex(csvWaardesPoll);
-                    optie.setPoll(poll);
-                    poll.voegPollOptieToe(optie);
-                } else {
-                    // Een stemmer wordt toegevoegd aan een net toegevoegde polloptie.
-                    String[] stemBiljet = tekst.split("}");
-                    stemBiljet[0] = stemBiljet[0].replace("{","");
-                    Gebruiker gebruiker = gebruikerRepository.findGebruikerByEmail(stemBiljet[1]);
-
-                    poll.voegPollStemToe(stemBiljet[0], gebruiker);
+                // Groepsleden toevoegen
+                for (int csvWaardesGroepsLeden = 2; csvWaardesGroepsLeden < regelArray.length; csvWaardesGroepsLeden++) {
+                    Gebruiker groepsLid = gebruikerRepository.findGebruikerByEmail(regelArray[csvWaardesGroepsLeden]);
+                    groep.getGroepsleden().add(groepsLid);
                 }
+
+                // Groep opslaan
+                if (groepRepository.findByAanmakerAndGroepsNaam(groepBeheerder.getGebruikersId(), groep.getGroepsNaam()) == null) {
+                    this.testGroepen.add(groepRepository.saveAndFlush(groep));
+                    notificatie = "Groep toegevoegd: " + groep.getGroepsNaam() + ". Aanmaker: " + groepBeheerder.getEmail() + " Aantal leden: " + groep.getGroepsleden().size();
+                } else {
+                    notificatie = "Groep bestond al: " + groep.getGroepsNaam() + ". Aanmaker: " + groepBeheerder.getEmail() + " Aantal leden: " + groep.getGroepsleden().size();
+                }
+
+                System.out.println(notificatie);
             }
+        } catch (FileNotFoundException nietGevonden) {
+            System.out.println("Gebruikersbestand is niet gevonden (Gebruiker.csv)");
+        }
+    }
 
-            // Poll koppelen
-            poll.setGekoppeldeReisItemId(reis);
-            reis.voegReisItemToe(poll);
+    private void reizenAanmaken(File reisBestand) {
+        System.out.println("// Reizen aanmaken: ");
+        try {
+            Scanner invoer = new Scanner(reisBestand);
+            invoer.nextLine();
+            while (invoer.hasNextLine()) {
+                String[] regelArray = invoer.nextLine().split(",");
+                Gebruiker beheerder = gebruikerRepository.findGebruikerByEmail(regelArray[0]);
+                Groep groep = groepRepository.findByAanmakerAndGroepsNaam(beheerder.getGebruikersId(), regelArray[1]);
+                ReisItem reis = new ReisItem();
+                groep.getReisItem().add(reis);
+                reis.setNaam(regelArray[2]);
+                reis.setAanmaker(beheerder.getGebruikersId());
 
-            // Poll opslaan
-            if (reisItemRepository.findPollByGekoppeldeReisItemAndNaam(reis, poll.getNaam()) == null) {
-                reisItemRepository.save(poll);
-                reisItemRepository.save(reis);
-                this.testPolls.add(reisItemRepository.findPollByGekoppeldeReisItemAndNaam(reis, poll.getNaam()));
-                notificatie = "Poll toegevoegd: " + poll.getNaam() + ". Reis: " + reis.getNaam() + ". Stemmen: " + poll.geefTotaalAantalStemmen();
-            } else {
-                notificatie = "Poll bestond al: " + poll.getNaam() + ". Reis: " + reis.getNaam() + ". Stemmen: " + poll.geefTotaalAantalStemmen();
+                // Reis opslaan
+                if (reisItemRepository.findReisItemByAanmakerAndNaam(reis.getAanmaker(), reis.getNaam()) == null) {
+                    this.testReizen.add(reisItemRepository.saveAndFlush(reis));
+                    reisItemRepository.flush();
+                    notificatie = "Reis toegevoegd: " + reis.getNaam() + ". Groep: " + groep.getGroepsNaam();
+                } else {
+                    notificatie = "Reis bestond al: " + reis.getNaam() + ". Groep: " + groep.getGroepsNaam();
+                }
+
+                System.out.println(notificatie);
             }
+        } catch (FileNotFoundException nietGevonden) {
+            System.out.println("Gebruikersbestand is niet gevonden (Gebruiker.csv)");
+        }
+    }
 
-            System.out.println(notificatie);
+    private void notitiesAanmaken(File notitieBestand) {
+        System.out.println("// Notities aanmaken: ");
+        try {
+            Scanner invoer = new Scanner(notitieBestand);
+            invoer.nextLine();
+            while (invoer.hasNextLine()) {
+                String[] regelArray = invoer.nextLine().split(",");
+                Gebruiker beheerder = gebruikerRepository.findGebruikerByEmail(regelArray[0]);
+                Groep groep = groepRepository.findByAanmakerAndGroepsNaam(beheerder.getGebruikersId(), regelArray[1]);
+                ReisItem reis = reisVanGroepZoeken(groep, regelArray[2]);
+                Notitie notitie = new Notitie();
+                notitie.setNaam(regelArray[3]);
+                notitie.setStartDatum(regelArray[4]);
+
+                // Tekst uitlezen. De tekst mag komma's bevatten, omdat we hier tot het einde van de array kijken, en niet tot de volgende komma.
+                StringBuilder notitieTekst = new StringBuilder();
+                for (int csvWaardesNotitie = 5; csvWaardesNotitie < regelArray.length; csvWaardesNotitie++) {
+                    notitieTekst.append(regelArray[csvWaardesNotitie]);
+                }
+                notitie.setTekst(notitieTekst.toString());
+
+                // Notitie koppelen
+                notitie.setGekoppeldeReisItemId(reis);
+                reis.voegReisItemToe(notitie);
+
+                // Notitie opslaan
+                if (reisItemRepository.findNotitieByGekoppeldeReisItemAndNaam(reis, notitie.getNaam()) == null) {
+                    reisItemRepository.save(notitie);
+                    reisItemRepository.save(reis);
+                    this.testNotities.add(reisItemRepository.findNotitieByGekoppeldeReisItemAndNaam(reis, notitie.getNaam()));
+                    notificatie = "Notitie toegevoegd: " + notitie.getNaam() + ". Reis: " + reis.getNaam();
+                } else {
+                    notificatie = "Notitie bestond al: " + notitie.getNaam() + ". Reis: " + reis.getNaam();
+                }
+
+                System.out.println(notificatie);
+            }
+        } catch (FileNotFoundException nietGevonden) {
+            System.out.println("Gebruikersbestand is niet gevonden (Gebruiker.csv)");
+        }
+    }
+
+    private void pollsAanmaken(File pollBestand) {
+        System.out.println("// Poll aanmaken: ");
+        try {
+            Scanner invoer = new Scanner(pollBestand);
+            invoer.nextLine();
+            while (invoer.hasNextLine()) {
+                String[] regelArray = invoer.nextLine().split(",");
+                Gebruiker beheerder = gebruikerRepository.findGebruikerByEmail(regelArray[0]);
+                Groep groep = groepRepository.findByAanmakerAndGroepsNaam(beheerder.getGebruikersId(), regelArray[1]);
+                ReisItem reis = reisVanGroepZoeken(groep, regelArray[2]);
+
+                Poll poll = new Poll();
+                poll.setNaam(regelArray[3]);
+                poll.setStartDatum(regelArray[4]);
+                // Poll opties uitlezen. Dit kan meerdere opties, en stemmen bevatten.
+                for (int csvWaardesPoll = 5; csvWaardesPoll < regelArray.length; csvWaardesPoll++) {
+                    String tekst = regelArray[csvWaardesPoll];
+
+                    if (tekst.startsWith("{optie}")) {
+                        // Een optie om op te stemmen wordt toegevoegd.
+                        PollOptie optie = new PollOptie();
+                        optie.setStemOptie(tekst.replace("{optie}", ""));
+                        optie.setOptieIndex(csvWaardesPoll);
+                        optie.setPoll(poll);
+                        poll.voegPollOptieToe(optie);
+                    } else {
+                        // Een stemmer wordt toegevoegd aan een net toegevoegde polloptie.
+                        String[] stemBiljet = tekst.split("}");
+                        stemBiljet[0] = stemBiljet[0].replace("{", "");
+                        Gebruiker gebruiker = gebruikerRepository.findGebruikerByEmail(stemBiljet[1]);
+
+                        poll.voegPollStemToe(stemBiljet[0], gebruiker);
+                    }
+                }
+
+                // Poll koppelen
+                poll.setGekoppeldeReisItemId(reis);
+                reis.voegReisItemToe(poll);
+
+                // Poll opslaan
+                if (reisItemRepository.findPollByGekoppeldeReisItemAndNaam(reis, poll.getNaam()) == null) {
+                    reisItemRepository.save(poll);
+                    reisItemRepository.save(reis);
+                    this.testPolls.add(reisItemRepository.findPollByGekoppeldeReisItemAndNaam(reis, poll.getNaam()));
+                    notificatie = "Poll toegevoegd: " + poll.getNaam() + ". Reis: " + reis.getNaam() + ". Stemmen: " + poll.geefTotaalAantalStemmen();
+                } else {
+                    notificatie = "Poll bestond al: " + poll.getNaam() + ". Reis: " + reis.getNaam() + ". Stemmen: " + poll.geefTotaalAantalStemmen();
+                }
+
+                System.out.println(notificatie);
+            }
+        } catch (FileNotFoundException nietGevonden) {
+            System.out.println("Gebruikersbestand is niet gevonden (Gebruiker.csv)");
         }
     }
 
