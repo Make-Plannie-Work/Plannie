@@ -1,7 +1,5 @@
 <!doctype html>
 <html lang="en">
-<div class="view"
-     style="background-image: url('https://images.unsplash.com/photo-1473496169904-658ba7c44d8a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80'); background-repeat: no-repeat; background-size: cover; background-attachment: fixed;">
 
     <head>
         <!-- Required meta tags -->
@@ -18,21 +16,8 @@
     </head>
     <body>
 
-    <nav class="navbar navbar-light bg-light shadow">
-        <span class="navbar-brand mb-0 h1"><a href="/gebruikerDetail" class="text-dark">${currentUser.voornaam}'s Plannie</a></span>
+    <jsp:include page="header.jsp"/>
 
-        <ul class="nav justify-content-end">
-            <li class="nav-item">
-                <a class="nav-link text-dark" method="post" id="gebruikerWijzigen" href="/gebruikerWijzig">Jouw
-                    gegevens</a>
-            </li>
-            <li class="nav-item">
-                <form:form action="${pageContext.request.contextPath}/logout" method="POST">
-                    <input id="logout" class="nav-link text-dark" style="border: none; background: transparent;"
-                           type="submit" value="Log uit"/>
-                </form:form>
-            </li>
-    </nav>
     <div class="container mt-3">
         <div class="row">
 
