@@ -17,7 +17,6 @@ public class ErrorController implements org.springframework.boot.web.servlet.err
         Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
         Integer statusCode = Integer.valueOf(status.toString());
         String errorMsg="";
-        System.out.println(statusCode);
 
         switch (statusCode) {
             case 400: {
