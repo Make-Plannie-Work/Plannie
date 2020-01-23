@@ -52,11 +52,9 @@
 
             <div class="col-sm-4">
                 <div class="jumbotron shadow" style="background-color: #FF3B56;">
-                    <div class="card text-white image-grid" style="width: 18rem; background-color: #FF3B56; border: none; display: -webkit-box; display: -webkit-flex; display: -ms-flexbox; display: flex; -webkit-flex-wrap: wrap; -ms-flex-wrap: wrap; flex-wrap: wrap; margin: 0 auto 35px; max-width: 920px;">
-                        <div class="card-head">
-                            <img class="image-placeholder" src="https://via.placeholder.com/350x150" alt="" style="height: 100%; visibility: hidden; width: 100%;" />
-                            <img class="img-fluid" src="/images/${groep.imagePath}" alt="Card image cap">
-                        </div>
+                    <div class="card text-white" style="width: 18rem; background-color: #FF3B56; border: none; display: -webkit-box; display: -webkit-flex; display: -ms-flexbox; display: flex; -webkit-flex-wrap: wrap; -ms-flex-wrap: wrap; flex-wrap: wrap; margin: 0 auto 35px; max-width: 920px;">
+                        <img class="img-fluid card-img-top" src="/images/${groep.imagePath}" alt="Card image cap">
+
                         <div class="card-body">
                             <h5 class="card-title">${groep.groepsNaam} <c:if test = "${groep.aanmaker == currentUser.gebruikersId}">
                                 <a id="wijzigGroepsNaam2" type="button" class="text-white" data-toggle="modal" data-target="#wijzigGroepsNaam"><i class="far fa-edit"></i></a>

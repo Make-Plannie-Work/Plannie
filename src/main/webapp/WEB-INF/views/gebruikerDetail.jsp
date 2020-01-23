@@ -54,13 +54,7 @@
                         </c:forEach>
                     </div>
                     <hr class="my-4">
-                    <div class="row ">
-                        <form:form action="/groepAanmaken" class="m-auto form-inline" method="post" modelAttribute="nieuweGroepFormulier">
-                            <input type="text" class="form-control flex-row flex-wrap" name="groepsNaam" required="required" placeholder="Naam Groep">
-                            <button id="groepAanmaken" class="ml-2 rounded-lg" type="submit"><i class="fas fa-plus"></i></button>
-                        </form:form>
-                        <hr class="my-4">
-                    </div>
+                    <jsp:include page="groepNieuw.jsp"/>
                 </div>
             </div>
         </div>
