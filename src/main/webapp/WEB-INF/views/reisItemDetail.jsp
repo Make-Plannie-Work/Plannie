@@ -102,7 +102,7 @@
                 </div>
             </div>
             <div class="col-sm-4">
-                <div class="jumbotron shadow" style="background-color: #666666;">
+                <div class="jumbotron shadow" id="wouter">
                     <div class="row">
                         <h5 class="lead text-white">${reisItem.naam}
                         <a id="wijzigReisItem" type="button" class="text-white" data-toggle="modal" data-target="#wijzigReisItem2"><i class="far fa-edit"></i></a>

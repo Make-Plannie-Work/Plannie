@@ -6,10 +6,10 @@
 
         <security:authorize access="isAnonymous()">
         <li class="nav-item">
-            <a class="nav-link" href="/registreren">Registreer</a>
+            <a class="nav-link" href="/registreren"><i class="fas fa-user-plus"></i> Registreer</a>
         </li>
         <li class="nav-item">
-            <a id="inloggen" class="nav-link" href="#" data-toggle="modal" data-target="#loginmodal">Login</a>
+            <a id="inloggen" class="nav-link" href="#" data-toggle="modal" data-target="#loginmodal"><i class="fas fa-sign-in-alt"></i> Login</a>
         </li>
         </security:authorize>
         <security:authorize access="isAuthenticated()">

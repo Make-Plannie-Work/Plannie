@@ -11,6 +11,7 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
               integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
               crossorigin="anonymous">
+        <link href="/css/style.css" type="text/css" rel="stylesheet">
         <script src="https://kit.fontawesome.com/d450c035a5.js" crossorigin="anonymous"></script>
         <title>Plannie - Poll ${poll.naam}</title>
     </head>
@@ -22,7 +23,7 @@
         <div class="row">
 
             <div class="col-sm-8">
-                <div class="jumbotron shadow">
+                <div class="jumbotron shadow border">
                     <div class="row">
 
                         <span class="navbar-brand mb-0 h1"><a class="text-dark">${poll.naam}  -  ${poll.startDatum}</a></span>
@@ -69,7 +70,7 @@
             </div>
 
             <div class="col-sm-4">
-                <div class="jumbotron shadow" style="background-color: #666666;">
+                <div class="jumbotron shadow" id="wouter">
                     <div class="row">
 
                         <p class="lead text-white strong">Hebben al gestemd:</p>

@@ -99,7 +99,7 @@
 
 
             <div class="col-sm-4">
-                <div class="jumbotron shadow" style="background-color: #666666;">
+                <div class="jumbotron shadow" id="wouter">
                     <div class="row" >
                         <p class="lead text-white"><a class ="lead text-white" href="/${groep.groepId}/reisItemDetail/${reisItem.reisItemId}">${reisItem.naam} </a> <p class="lead text-white">  - <a class ="lead text-white" href="/groepDetail/${groep.groepId}">${groep.groepsNaam}</a></p>
                     </div>
