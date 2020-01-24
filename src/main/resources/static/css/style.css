@@ -1,0 +1,38 @@
+.jumbotron {
+     border: 2px;
+     border-color: #FFE070 !important;
+     background-color: #FFFFFF;
+ }
+
+#wouter {
+    background-color: #FF3B56;
+}
+
+.btn-primary {
+color: #494949 !important;
+text-transform: uppercase;
+text-decoration: none;
+background: #ffffff;
+padding: 10px;
+border: 1px solid #494949 !important;
+display: inline-block;
+transition: all 0.4s ease 0s;
+}
+
+ .btn-primary:hover {
+color: #ffffff !important;
+background-color: #FF3B56;
+border-color: #FFE070 !important;
+transition: all 0.4s ease 0s;
+}
+
+.navbar {
+background-color: #FF3B56;
+text-color: #FFFFFF;
+}
+
+.nav-link {
+color: #FFFFFF;
+font-family: 'Roboto', sans-serif;
+font-weight: 400;
+}

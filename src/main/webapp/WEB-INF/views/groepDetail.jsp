@@ -10,8 +10,10 @@
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
               integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <link href="/css/style.css" type="text/css" rel="stylesheet">
         <link rel="shortcut icon" type="image/icon" href="/images/favicon.ico"/>
         <script src="https://kit.fontawesome.com/d450c035a5.js" crossorigin="anonymous"></script>
+
         <title>Plannie - Groepsdetails ${groep.groepsNaam}</title>
     </head>
     <body>
@@ -22,7 +24,7 @@
         <div class="row">
 
             <div class="col-sm-8">
-                <div class="jumbotron shadow">
+                <div class="jumbotron shadow border">
                     <div class="row" >
 
                             <c:forEach items="${lijstMetReisItems}" var="reisItem">
@@ -187,5 +189,6 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
+    
 </body>
 </html>

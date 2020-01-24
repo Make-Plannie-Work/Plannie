@@ -8,11 +8,11 @@
         <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
         <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
         <!-- Bootstrap CSS -->
-        <link href="/css/styles.css" type="text/css" rel="stylesheet">
+
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
               integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
               crossorigin="anonymous">
-
+        <link href="/css/style.css" type="text/css" rel="stylesheet">
         <link rel="shortcut icon" type="image/icon" href="/images/favicon.ico"/>
         <script src="https://kit.fontawesome.com/d450c035a5.js" crossorigin="anonymous"></script>
         <title>Plannie - ReisDetails ${reisItem.naam}</title>
@@ -25,7 +25,7 @@
         <div class="row">
 
             <div class="col-sm-8">
-                <div class="jumbotron shadow reisitemOverzicht">
+                <div class="jumbotron shadow border">
                     <div class="row">
 
                         <c:forEach items="${alleReisItemsVanReis}" var="reisItems">
@@ -84,7 +84,7 @@
 
                     </div>
                 </div>
-                <div class="jumbotron shadow">
+                <div class="jumbotron shadow border">
                     <div class="dropdown">
                         <button class="btn btn-secondary dropdown-toggle" type="button" id="keuzeReisItemMenu"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -104,13 +104,10 @@
             <div class="col-sm-4">
                 <div class="jumbotron shadow" style="background-color: #666666;">
                     <div class="row">
-                        <p class="lead text-white">${reisItem.naam}</p> <a id="wijzigReisItem" type="button"
-                                                                           class="text-white"
-                                                                           data-toggle="modal"
-                                                                           data-target="#wijzigReisItem2"><i
-                            class="far fa-edit"></i></a>
-                        <p class="lead text-white"> - <a class="lead text-white" href="/groepDetail/${groep.groepId}">${groep.groepsNaam}</a>
-                        </p>
+                        <h5 class="lead text-white">${reisItem.naam}
+                        <a id="wijzigReisItem" type="button" class="text-white" data-toggle="modal" data-target="#wijzigReisItem2"><i class="far fa-edit"></i></a>
+                         - <a class="lead text-white" href="/groepDetail/${groep.groepId}">${groep.groepsNaam}</a>
+                        </h5>
                     </div>
                     <hr class="my-4">
                     <div class="row">
