@@ -1,3 +1,7 @@
 GroepBeheerderEmail,GroepNaam,ReisNaam,PollTitel,PollDatum,{optie}LijstPollOpties,{LijstPollOpties}LijstPollStemmen
-daniel.kuperus@gmail.com,MakeITWork,Vrijdag avond Borrel,Mag wouter drinken,2020-01-17,{optie}Ja,{optie}Misschien,{optie}Nee,{Ja}tabitha.krist@gmail.com,{Ja}wouter.meindertsma@gmail.com,{Misschien}daniel.kuperus@gmail.com
-daniel.kuperus@gmail.com,UsBikers,Sunshine State Tour,Overnachting Las Vegas,2020-01-17,{optie}Stratosphere,{optie}WigWam Motel,{optie}Super8,{optie}Blue Swallow Motel
+daniel.kuperus@gmail.com,UsBikers,Indian Trails,Overnachting Las Vegas,2020-01-17,{optie}Stratosphere,{optie}WigWam Motel,{optie}Super8,{optie}Blue Swallow Motel
+daniel.kuperus@gmail.com,UsBikers,Southern Ride,Reisleider,{optie}John,{optie}Smith,{optie}Frank
+daniel.kuperus@gmail.com,MakeITWork,Vrijdag avond Borrel,Regelen we taxi's of is iemand bob,2020-02-28,{optie}Taxi regelen,{optie}Wouter is bob,{Taxi regelen}wouter.meindertsma@gmail.com,{Wouter is bob}daniel.kuperus@gmail.com
+daniel.kuperus@gmail.com,MakeITWork,Vrijdag avond Borrel,Wie kan op deze datum?,2020-02-28,{optie}Ik kan er zijn,{optie}Weet ik nog niet,{optie}Ik kan niet
+tabitha70@hotmail.com,Familie,Weekendje weg,Wie rijdt?,2020-02-01,{optie}Jij,{optie}Ik,{optie}We regelen een taxi
+wouter.meindertsma@gmail.com,Amerika Reis Groep,Amerika Vakantie,Overnachting Las Vegas,2020-01-17,{optie}Stratosphere,{optie}OYO Motel,{optie}Hard Rock Motel,{optie}The Mirage
