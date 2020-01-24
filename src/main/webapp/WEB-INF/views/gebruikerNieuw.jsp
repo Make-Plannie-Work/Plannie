@@ -12,7 +12,6 @@
               integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
         <script src="https://kit.fontawesome.com/d450c035a5.js" crossorigin="anonymous"></script>
         <link href="/css/style.css" type="text/css" rel="stylesheet">
-        <script src="js/form-validation.js" type="text/javascript"></script>
         <title>Registreren in Plannie</title>
     </head>
     <body>
@@ -29,31 +28,30 @@
             <div class="col-sm-8">
                 <div class="jumbotron shadow border">
                     <h3>Registreren</h3>
-                    <form:form action = "/registreren" id="registreren" method="post" modelAttribute="registratieFormulier">
+                    <form:form action = "/registreren" id="registreren" method="post" modelAttribute="registratieFormulier"  class="needs-validation was-validation" novalidate="true">
                         <div class="container mt-4">
                             <div class="row">
                                 <div class="col">
                                     <form:input type="text" class="form-control" id="voornaam" name="voornaam" path="voornaam" required="required" placeholder="Voornaam" />
                                 </div>
+
                                 <div class="col">
                                     <form:input type="text" class="form-control" id="achternaam" name="achternaam" path="achternaam" required="required" placeholder="Achternaam" />
                                 </div>
+
                             </div>
-
-
-
                             <div class="form-group mt-3">
-                                <form:input type="email" class="form-control" id="email" name="email" path="email" required="required" placeholder="Email" />
+                                <form:input type="email" class="form-control" id="email" name="email" pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$" path="email" required="required" placeholder="Email" />
                             </div>
-
 
                             <div class="row">
                                 <div class="col">
-                                    <form:input type="password" class="form-control" id="wachtwoord" name="wachtwoord" path="wachtwoord" required="required" placeholder="Wachtwoord" />
+                                    <form:input type="password" class="form-control" id="psw" name="wachtwoord" path="wachtwoord" pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" required="required" placeholder="Wachtwoord" />
                                 </div>
                                 <div class="col">
                                     <form:input type="password" class="form-control" id="trancientWachtwoord" name="trancientWachtwoord" path="trancientWachtwoord" required="required" placeholder="Bevestig wachtwoord" />
                                 </div>
+
                             </div>
 
                             <form:button id="registreer" type="submit" class="btn btn-primary mt-3"  >Registreer</form:button>
@@ -152,27 +150,17 @@
         <!-- Footer Elements -->
         <div class="container">
 
-            <!-- Call to action -->
-            <ul class="list-unstyled list-inline text-center py-2">
-
-
-
-                </li>
-            </ul>
-            <!-- Call to action -->
-
         </div>
         <!-- Footer Elements -->
     </footer>
     <!-- Footer -->
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="vendor/jquery-validation/dist/jquery.validate.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
             integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
             crossorigin="anonymous"></script>
-    <script src="js/form-validation.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.1/dist/jquery.validate.min.js"></script>
+    <script src="\js/validation.js" type="text/javascript"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
             integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
             crossorigin="anonymous"></script>

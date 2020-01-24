@@ -75,3 +75,48 @@ input {
   width: 300px;
   margin-top: 10px;
 }
+
+#message {
+  display:none;
+  color: #000;
+  position: relative;
+  padding: 20px;
+  margin-top: 10px;
+}
+
+.valid {
+border-color: green;
+  color: green;
+}
+
+.valid:before {
+  position: relative;
+}
+
+/* Add a red text color and an "x" icon when the requirements are wrong */
+.invalid {
+  border-color: red;
+  color: red;
+}
+
+.invalid:before {
+  position: relative;
+}
+
+textarea:hover,
+input:hover,
+textarea:active,
+input:active,
+textarea:focus,
+input:focus,
+button:focus,
+button:active,
+button:hover,
+label:focus,
+.btn:active,
+.btn.active
+{
+    outline:1px !important;
+    -webkit-appearance:none;
+    box-shadow: none !important;
+}

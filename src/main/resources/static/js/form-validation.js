@@ -1,41 +1,81 @@
-$(document).ready(function() {
-  $("#registreren").validate({
-    rules: {
-      voornaam : {
-        required: true,
-        minlength: 3
-      },
-      achternaam : {
-              required: true,
-              minlength: 3
-            },
-      },
-      email: {
-        required: true,
-        email: true
-      },
-      wachtwoord: {
-        required: {
-          depends: function(elem) {
-            return $("#age").val() > 50
-          }
-        trancientWachtwoord: required;
-      }
+$('document').ready(function()
+{
+   // name validation
+    var nameregex = /^[a-zA-Z ]+$/;
+
+   $.validator.addMethod("validname", function( value, element ) {
+       return this.optional( element ) || nameregex.test( value );
+   });
+
+   // valid email pattern
+   var eregex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+
+   $.validator.addMethod("validemail", function( value, element ) {
+       return this.optional( element ) || eregex.test( value );
+   });
+
+   $("#registreer").validate({
+
+    rules:
+    {
+    voornaam: {
+     required: true,
+     validname: true,
+     minlength: 4
     },
-    messages : {
-      voornaam: {
-        minlength: "Name should be at least 3 characters"
-      },
-      achternaam: {
-          minlength: "Name should be at least 3 characters"
+    achternaam: {
+     required: true,
+     validname: true,
+     minlength: 4
+    },
+    email: {
+     required: true,
+     validemail: true
+    },
+    wachtwoord: {
+     required: true,
+     minlength: 8,
+     maxlength: 15
+    },
+    trancientWachtwoord: {
+     required: true,
+     equalTo: '#password'
+    },
+     },
+     messages:
+     {
+    name: {
+     required: "Please Enter User Name",
+     validname: "Name must contain only alphabets and space",
+     minlength: "Your Name is Too Short"
+       },
+       email: {
+       required: "Please Enter Email Address",
+       validemail: "Enter Valid Email Address"
         },
-      email: {
-        email: "The email should be in the format: abc@domain.tld"
-      },
-      wachtwoord: {
-        required: "People with age over 50 have to enter their weight",
-        number: "Please enter your weight as a numerical value"
-      }
-    }
-  });
-});
+    password:{
+     required: "Please Enter Password",
+     minlength: "Password at least have 8 characters"
+     },
+    cpassword:{
+     required: "Please Retype your Password",
+     equalTo: "Password Did not Match !"
+     }
+     },
+     errorPlacement : function(error, element) {
+     $(element).closest('.form-group').find('.help-block').html(error.html());
+     },
+     highlight : function(element) {
+     $(element).closest('.form-group').removeClass('has-success').addClass('has-error');
+     },
+     unhighlight: function(element, errorClass, validClass) {
+     $(element).closest('.form-group').removeClass('has-error').addClass('has-success');
+     $(element).closest('.form-group').find('.help-block').html('');
+     },
+
+     submitHandler: function(form) {
+                    form.submit();
+     alert('ok');
+                }
+     });
+ })
