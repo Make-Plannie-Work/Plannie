@@ -11,7 +11,7 @@
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="shortcut icon" type="image/icon" href="/images/favicon.ico"/>
     <script src="https://kit.fontawesome.com/d450c035a5.js" crossorigin="anonymous"></script>
-    <title>Welkom bij Plannie</title>
+    <title>Error!!!</title>
 </head>
 <body >
 
