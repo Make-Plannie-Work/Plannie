@@ -1,7 +1,5 @@
 <!doctype html>
 <html lang="en">
-<div class="view"
-     style="background-image: url('https://images.unsplash.com/photo-1473496169904-658ba7c44d8a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80'); background-repeat: no-repeat; background-size: cover; background-attachment: fixed;">
 
     <head>
         <!-- Required meta tags -->
@@ -10,38 +8,28 @@
         <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
         <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
         <!-- Bootstrap CSS -->
+
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
               integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
               crossorigin="anonymous">
+        <link href="/css/style.css" type="text/css" rel="stylesheet">
+        <link rel="shortcut icon" type="image/icon" href="/images/favicon.ico"/>
         <script src="https://kit.fontawesome.com/d450c035a5.js" crossorigin="anonymous"></script>
         <title>Plannie - ReisDetails ${reisItem.naam}</title>
     </head>
     <body>
 
-    <nav class="navbar navbar-light bg-light shadow">
-        <span class="navbar-brand mb-0 h1"><a id="gebruikerDetail" href="/gebruikerDetail" class="text-dark">${currentUser.voornaam}'s Plannie</a></span>
+    <jsp:include page="header.jsp"/>
 
-        <ul class="nav justify-content-end">
-            <li class="nav-item">
-                <a class="nav-link text-dark" method="post" id="gebruikerWijzigen" href="/gebruikerWijzig">Jouw
-                    gegevens</a>
-            </li>
-            <li class="nav-item">
-                <form:form action="${pageContext.request.contextPath}/logout" method="POST">
-                    <input id="logout" class="nav-link text-dark" style="border: none; background: transparent;"
-                           type="submit" value="Log uit"/>
-                </form:form>
-            </li>
-    </nav>
     <div class="container mt-3">
         <div class="row">
 
             <div class="col-sm-8">
-                <div class="jumbotron shadow">
+                <div class="jumbotron shadow border">
                     <div class="row">
 
                         <c:forEach items="${alleReisItemsVanReis}" var="reisItems">
-                            <div class="card flex-row flex-wrap mb-2 mx-auto" style="width: 42rem;">
+                            <div class="card reisItem flex-row flex-wrap mb-2 mx-auto" style="width: 42rem;">
 
                                 <c:set var="soortReisItem" scope="session" value="${reisItems.getClass().name}"/>
 
@@ -96,7 +84,7 @@
 
                     </div>
                 </div>
-                <div class="jumbotron shadow">
+                <div class="jumbotron shadow border">
                     <div class="dropdown">
                         <button class="btn btn-secondary dropdown-toggle" type="button" id="keuzeReisItemMenu"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -114,15 +102,12 @@
                 </div>
             </div>
             <div class="col-sm-4">
-                <div class="jumbotron shadow" style="background-color: #666666;">
+                <div class="jumbotron shadow" id="wouter">
                     <div class="row">
-                        <p class="lead text-white">${reisItem.naam}</p> <a id="wijzigReisItem" type="button"
-                                                                           class="text-white"
-                                                                           data-toggle="modal"
-                                                                           data-target="#wijzigReisItem2"><i
-                            class="far fa-edit"></i></a>
-                        <p class="lead text-white"> - <a class="lead text-white" href="/groepDetail/${groep.groepId}">${groep.groepsNaam}</a>
-                        </p>
+                        <h5 class="lead text-white">${reisItem.naam}
+                        <a id="wijzigReisItem" type="button" class="text-white" data-toggle="modal" data-target="#wijzigReisItem2"><i class="far fa-edit"></i></a>
+                         - <a class="lead text-white" href="/groepDetail/${groep.groepId}">${groep.groepsNaam}</a>
+                        </h5>
                     </div>
                     <hr class="my-4">
                     <div class="row">

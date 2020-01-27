@@ -1,0 +1,122 @@
+.jumbotron {
+     border: 2px;
+     border-color: #FFE070 !important;
+     background-color: #FFFFFF;
+ }
+
+#wouter {
+    background-color: #FF3B56;
+}
+
+.btn-primary {
+    color: #494949 !important;
+    text-transform: uppercase;
+    text-decoration: none;
+    background: #ffffff;
+    padding: 10px;
+    border: 1px solid #494949 !important;
+    display: inline-block;
+    transition: all 0.4s ease 0s;
+}
+
+ .btn-primary:hover {
+    color: #ffffff !important;
+    background-color: #FF3B56;
+    border-color: #FFE070 !important;
+    transition: all 0.4s ease 0s;
+}
+
+.navbar {
+    background-color: #FF3B56;
+}
+
+.nav-link {
+    color: #FFFFFF;
+    font-weight: 400;
+    font-family: 'Viga', sans-serif;
+}
+
+.nav-link:hover {
+    color: #FFE070;
+}
+
+form .error {
+  color: #ff0000;
+}
+
+input.error {
+    border: 1px dashed red;
+    font-weight: 300;
+    color: red;
+}
+
+label.error {
+    color: red;
+    font-size: 1rem;
+    display: block;
+    margin-top: 5px;
+}
+
+label {
+  width: 300px;
+  font-weight: bold;
+  display: inline-block;
+  margin-top: 20px;
+}
+
+label span {
+  font-size: 1rem;
+}
+
+input {
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  padding: 4px;
+  width: 300px;
+  margin-top: 10px;
+}
+
+#message {
+  display:none;
+  color: #000;
+  position: relative;
+  padding: 20px;
+  margin-top: 10px;
+}
+
+.valid {
+border-color: green;
+  color: green;
+}
+
+.valid:before {
+  position: relative;
+}
+
+/* Add a red text color and an "x" icon when the requirements are wrong */
+.invalid {
+  border-color: red;
+  color: red;
+}
+
+.invalid:before {
+  position: relative;
+}
+
+textarea:hover,
+input:hover,
+textarea:active,
+input:active,
+textarea:focus,
+input:focus,
+button:focus,
+button:active,
+button:hover,
+label:focus,
+.btn:active,
+.btn.active
+{
+    outline:1px !important;
+    -webkit-appearance:none;
+    box-shadow: none !important;
+}

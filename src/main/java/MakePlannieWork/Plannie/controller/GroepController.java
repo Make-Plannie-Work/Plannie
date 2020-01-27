@@ -43,12 +43,6 @@ public class GroepController {
     @Autowired
     private PlannieReisItemService plannieReisItemService;
 
-    @GetMapping("/groepAanmaken")
-    public String nieuweGroep(Model model) {
-        model.addAttribute("nieuweGroepFormulier", new Groep());
-        return "groepNieuw";
-    }
-
     @PostMapping("/groepAanmaken")
     public String nieuweGroep (Groep groep, Model model, Principal principal) {
         if (groep != null && !groep.getGroepsNaam().isEmpty()) {
@@ -77,7 +71,6 @@ public class GroepController {
         }
         return "redirect:/gebruikerDetail";
     }
-
 
     @GetMapping("/groepDetail/{groepId}/voegGebruikerToeAanGroep/{gebruikersId}")
     public String voegGebruikerToeAanGroep(@PathVariable("groepId") Integer groepId, @PathVariable("gebruikersId") Integer gebruikersId, Principal principal) {

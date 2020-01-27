@@ -11,8 +11,8 @@
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
               integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon16px.ico">
-        <link rel="icon" type="image/png" sizes="32x32" href="/favicon32px.ico">
+        <link href="/css/style.css" type="text/css" rel="stylesheet">
+        <link rel="shortcut icon" type="image/icon" href="/images/favicon.ico"/>
         <script src="https://kit.fontawesome.com/d450c035a5.js" crossorigin="anonymous"></script>
         <title>Welkom bij Plannie - ${currentUser.voornaam}</title>
     </head>
@@ -28,7 +28,7 @@
         <div class="row">
 
             <div class="col-sm-8">
-                <div class="jumbotron shadow">
+                <div class="jumbotron shadow border">
                     <div class="row">
                         <p class="lead">Toekomstige Reizen...</p>
                         <p>
@@ -39,7 +39,7 @@
             </div>
 
             <div class="col-sm-4">
-                <div class="jumbotron shadow" style="background-color: #666666;">
+                <div class="jumbotron shadow" style="background-color: #FF3B56;">
                     <div class="row" >
                         <c:forEach items="${lijstMetGroepen}" var="groep">
 
@@ -55,13 +55,7 @@
                         </c:forEach>
                     </div>
                     <hr class="my-4">
-                    <div class="row ">
-                        <form:form action="/groepAanmaken" class="m-auto form-inline" method="post" modelAttribute="nieuweGroepFormulier">
-                            <input type="text" class="form-control flex-row flex-wrap" name="groepsNaam" required="required" placeholder="Naam Groep">
-                            <button id="groepAanmaken" class="ml-2 rounded-lg" type="submit"><i class="fas fa-plus"></i></button>
-                        </form:form>
-                        <hr class="my-4">
-                    </div>
+                    <jsp:include page="groepNieuw.jsp"/>
                 </div>
             </div>
         </div>

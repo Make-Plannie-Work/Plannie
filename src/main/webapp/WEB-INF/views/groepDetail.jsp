@@ -7,10 +7,14 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
         <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+        <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
               integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <link href="/css/style.css" type="text/css" rel="stylesheet">
+        <link rel="shortcut icon" type="image/icon" href="/images/favicon.ico"/>
         <script src="https://kit.fontawesome.com/d450c035a5.js" crossorigin="anonymous"></script>
+
         <title>Plannie - Groepsdetails ${groep.groepsNaam}</title>
     </head>
     <body>
@@ -21,7 +25,7 @@
         <div class="row">
 
             <div class="col-sm-8">
-                <div class="jumbotron shadow">
+                <div class="jumbotron shadow border">
                     <div class="row" >
 
                             <c:forEach items="${lijstMetReisItems}" var="reisItem">
@@ -39,8 +43,8 @@
                             <div class="container" >
                                 <div class="row">
                                     <form:form action="/${groep.groepId}/reisItemAanmaken" class="form-inline" method="post" modelAttribute="nieuwReisItemFormulier">
-                                        <input id="reisNaam" type="text" class="form-control" name="naam" required="required" placeholder="Naam Reis">
-                                        <button id="reisItemAanmaken" type="submit"><i class="fas fa-plus"></i></button>
+                                        <p><input id="reisNaam" type="text" class="form-control" name="naam" required="required" placeholder="Naam Reis">
+                                        <button id="reisItemAanmaken" type="submit"><i class="fas fa-plus"></i></button></p>
                                     </form:form>
                                 </div>
                             </div>
@@ -50,11 +54,10 @@
             </div>
 
             <div class="col-sm-4">
-                <div class="jumbotron shadow" style="background-color: #FF3B56;">
-                    <div class="card text-white image-grid" style="width: 18rem; background-color: #FF3B56; border: none; display: -webkit-box; display: -webkit-flex; display: -ms-flexbox; display: flex; -webkit-flex-wrap: wrap; -ms-flex-wrap: wrap; flex-wrap: wrap; margin: 0 auto 35px; max-width: 920px;">
-                        <img class="image-placeholder" src="https://via.placeholder.com/350x150" alt="" style="height: 100%; visibility: hidden; width: 100%;" />
-                        <img class="image-img" src="https://url.to.image/image.jpg" alt="Cropped image example" />
-                        <img class="card-img-top image-img" src="/images/${groep.imagePath}" alt="Card image cap" style="left: 50%; max-height: 150%; max-width: 177%; position: absolute; top: 50%; -webkit-transform: translate(-50%, -50%); -ms-transform: translate(-50%, -50%); transform: translate(-50%, -50%);">
+                <div class="jumbotron shadow" id="wouter">
+                    <div class="card text-white" style="width: 18rem; background-color: #FF3B56; border: none; display: -webkit-box; display: -webkit-flex; display: -ms-flexbox; display: flex; -webkit-flex-wrap: wrap; -ms-flex-wrap: wrap; flex-wrap: wrap; margin: 0 auto 35px; max-width: 920px;">
+                        <img class="img-fluid card-img-top" src="/images/${groep.imagePath}" alt="Card image cap">
+
                         <div class="card-body">
                             <h5 class="card-title">${groep.groepsNaam} <c:if test = "${groep.aanmaker == currentUser.gebruikersId}">
                                 <a id="wijzigGroepsNaam2" type="button" class="text-white" data-toggle="modal" data-target="#wijzigGroepsNaam"><i class="far fa-edit"></i></a>
@@ -81,33 +84,37 @@
                             </c:forEach>
                             </tbody>
                         </table>
-                    </div>
-                    <c:if test = "${groep.aanmaker == currentUser.gebruikersId}"><hr class="my-4">
-                    <div class="row">
-                        <p class="lead text-white mt-3">Alle Leden</h3>
-                        <hr class="my-4">
 
-                        <table class="table table-hover table-borderless text-white">
-                            <thead>
-                            <tr>
-                                <th scope="col">Naam</th>
-                                <th scope="col"></th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <c:forEach items="${AlleLedenLijst}" var="lid">
+                        <c:if test = "${groep.aanmaker == currentUser.gebruikersId}"><hr class="my-4">
+                        <div class="row">
+                            <p class="lead text-white mt-3">Alle Leden</h3>
+
+
+
+                            <hr class="my-4">
+
+                            <table class="table table-hover table-borderless text-white">
+                                <thead>
                                 <tr>
-                                    <td id="gebruiker${lid.voornaam}" data-toggle="tooltip" data-placement="bottom" title="${lid.email}">${lid.voornaam} ${lid.achternaam}</td>
-                                    <td><a id="voeg${lid.voornaam}ToeAanGroep" href="${groep.groepId}/voegGebruikerToeAanGroep/${lid.gebruikersId}">
-                                        <i class="fas fa-plus"></i>
-                                    </a></td>
+                                    <th scope="col">Naam</th>
+                                    <th scope="col"></th>
                                 </tr>
-                            </c:forEach>
+                                </thead>
+                                <tbody>
+                                <c:forEach items="${AlleLedenLijst}" var="lid">
+                                    <tr>
+                                        <td id="gebruiker${lid.voornaam}" data-toggle="tooltip" data-placement="bottom" title="${lid.email}">${lid.voornaam} ${lid.achternaam}</td>
+                                        <td><a id="voeg${lid.voornaam}ToeAanGroep" href="${groep.groepId}/voegGebruikerToeAanGroep/${lid.gebruikersId}">
+                                            <i class="fas fa-plus"></i>
+                                        </a></td>
+                                    </tr>
+                                </c:forEach>
 
-                            </tbody>
-                        </table>
+                                </tbody>
+                            </table>
+                        </div>
+                        </c:if>
                     </div>
-                    </c:if>
                 </div>
             </div>
         </div>
@@ -186,5 +193,6 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
+
 </body>
 </html>
