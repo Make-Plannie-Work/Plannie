@@ -23,6 +23,7 @@ public class ReisItem {
     private String eindDatum;
     private String locatie;
     private Integer aanmaker;
+    private String imagePath;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "gekoppeldeReisItem")
     @OnDelete(action = OnDeleteAction.CASCADE)
@@ -102,5 +103,21 @@ public class ReisItem {
 
     public void setGekoppeldeReisItemId(ReisItem gekoppeldeReisItemId) {
         this.gekoppeldeReisItem = gekoppeldeReisItemId;
+    }
+
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
+    }
+
+    public ReisItem getGekoppeldeReisItem() {
+        return gekoppeldeReisItem;
+    }
+
+    public void setGekoppeldeReisItem(ReisItem gekoppeldeReisItem) {
+        this.gekoppeldeReisItem = gekoppeldeReisItem;
     }
 }

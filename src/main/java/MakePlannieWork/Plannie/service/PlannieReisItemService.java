@@ -8,7 +8,11 @@ import MakePlannieWork.Plannie.repository.GroepRepository;
 import MakePlannieWork.Plannie.repository.ReisItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.security.Principal;
 import java.util.Optional;
 import java.util.Set;
@@ -44,5 +48,20 @@ public class PlannieReisItemService {
         return groep.getReisItem();
     }
 
+    public void saveImage(MultipartFile imageFile, ReisItem reisItem) throws Exception{
+        String folder = "src/main/webapp/images/";
+        byte[] bytes = imageFile.getBytes();
+        Path imagesPath = Paths.get(folder);
+        Path path = Paths.get(folder + imageFile.getOriginalFilename());
+        if (!Files.exists(imagesPath)) {
+            Files.createDirectory(imagesPath);
+        }
+        if (Files.exists(path)) {
+            path = Paths.get(folder+ "1" + imageFile.getOriginalFilename());
+        }
+        reisItem.setImagePath(imageFile.getOriginalFilename());
+        reisItemRepository.save(reisItem);
+        Files.write(path, bytes);
+    }
 
 }

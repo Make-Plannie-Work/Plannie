@@ -29,7 +29,7 @@
                     <div class="row">
 
                         <c:forEach items="${alleReisItemsVanReis}" var="reisItems">
-                            <div class="card reisItem flex-row flex-wrap mb-2 mx-auto" style="width: 42rem;">
+                            <div class="card reisItem flex-row flex-wrap mb-2 mx-auto" id="reisItemCard">
 
                                 <c:set var="soortReisItem" scope="session" value="${reisItems.getClass().name}"/>
 
@@ -103,6 +103,9 @@
             </div>
             <div class="col-sm-4">
                 <div class="jumbotron shadow" id="wouter">
+
+                    <img id="reisItemImg" class="img-fluid card-img-top" src="/images/${groep.imagePath}" alt="Card image cap">
+
                     <div class="row">
                         <h5 class="lead text-white">${reisItem.naam}
                         <a id="wijzigReisItem" type="button" class="text-white" data-toggle="modal" data-target="#wijzigReisItem2"><i class="far fa-edit"></i></a>

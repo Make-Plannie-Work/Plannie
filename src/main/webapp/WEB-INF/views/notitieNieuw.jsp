@@ -40,8 +40,8 @@
                                                     placeholder="Titel"/>
                                         <form:input id="notitieDatum" type="date" class="form-control" path="startDatum" required="required"
                                                     placeholder="Datum"/>
-                                        <form:input id="notitieTekst" type="text" class="form-control" path="tekst" required="required"
-                                                    placeholder="Vul hier uw notitie in"/>
+
+                                        <form:textarea id="notitieTekst" path="tekst" class="form-control mt-2" rows="5" cols="30" required="required" placeholder="Vul hier uw notitie in"/>
                                     </div>
                                 </div>
 

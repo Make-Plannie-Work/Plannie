@@ -30,9 +30,9 @@
 
                             <c:forEach items="${lijstMetReisItems}" var="reisItem">
 
-                                <div class="card flex-row flex-wrap mb-2 mx-auto" style="width: 42rem;">
+                                <div class="card flex-row flex-wrap mb-2 mx-auto " id="reisItemCard">
                                     <div class="card-header border-0">
-                                        <img src="https://via.placeholder.com/100.jpg" alt="">
+                                        <img id="reisItemImg-klein" class="img-fluid card-img-top" src="/images/${groep.imagePath}" alt="Card image cap">
                                     </div>
                                     <div class="card-block px-2">
                                         <h4 class="card-title"><a href="/${groep.groepId}/reisItemDetail/${reisItem.reisItemId}">${reisItem.naam}</a></h4>
@@ -55,16 +55,15 @@
 
             <div class="col-sm-4">
                 <div class="jumbotron shadow" id="wouter">
-                    <div class="card text-white" style="width: 18rem; background-color: #FF3B56; border: none; display: -webkit-box; display: -webkit-flex; display: -ms-flexbox; display: flex; -webkit-flex-wrap: wrap; -ms-flex-wrap: wrap; flex-wrap: wrap; margin: 0 auto 35px; max-width: 920px;">
-                        <img class="img-fluid card-img-top" src="/images/${groep.imagePath}" alt="Card image cap">
 
-                        <div class="card-body">
+                        <img id="groepImg" class="img-fluid card-img-top" src="/images/${groep.imagePath}" alt="Card image cap">
+
+
                             <h5 class="card-title">${groep.groepsNaam} <c:if test = "${groep.aanmaker == currentUser.gebruikersId}">
                                 <a id="wijzigGroepsNaam2" type="button" class="text-white" data-toggle="modal" data-target="#wijzigGroepsNaam"><i class="far fa-edit"></i></a>
                             </c:if></h5>
 
-                        </div>
-                    </div>
+
                         <table class="table table-hover table-borderless text-white">
                             <thead>
                             <tr>

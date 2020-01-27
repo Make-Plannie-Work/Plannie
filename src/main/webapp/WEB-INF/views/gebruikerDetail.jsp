@@ -43,15 +43,17 @@
                     <div class="row" >
                         <c:forEach items="${lijstMetGroepen}" var="groep">
 
-                            <div class="card flex-row flex-wrap mb-2 mx-auto" style="width: 18rem;">
+                            <a id="details${groep.groepsNaam}" href="/groepDetail/${groep.groepId}" class="mx-auto">
+                            <div class="card flex-row flex-wrap mb-2 mx-auto" id="groepCard" style="width: 18rem;">
                                 <div class="card-header border-0">
-                                    <img src="https://via.placeholder.com/50.jpg" alt="">
+                                    <img id="groepImg-klein" src="/images/${groep.imagePath}" alt="">
                                 </div>
-                                <div class="card-block px-2">
-                                    <p class="card-text"><a id="details${groep.groepsNaam}" href="/groepDetail/${groep.groepId}">${groep.groepsNaam}</a></p>
+                                <div class="card-block px-2 mx-auto flex-wrap flex-row align-items-center d-flex">
+                                    <p id="groepCardText" class="card-text align-items-center d-flex">${groep.groepsNaam}</p>
                                 </div>
-                                <div class="w-100"></div>
+
                             </div>
+                            </a>
                         </c:forEach>
                     </div>
                     <hr class="my-4">

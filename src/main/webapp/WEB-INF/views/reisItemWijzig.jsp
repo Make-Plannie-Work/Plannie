@@ -10,5 +10,15 @@
         </form:form>
     </div>
 
+    <div class="row">
+        <form:form method="POST" enctype="multipart/form-data" action="/${groepId}/reisItemDetail/${reisItem.reisItemId}/uploadReisItemImage" >
+
+            <td><input type="file" name="imageFile" accept="image/*"/></td>
+
+            <td><input type="submit" name="uploadImage" value="Upload" /></td>
+
+        </form:form>
+    </div>
+
     <a href="/{groepId}/reisItemDetail/{reisItemId}"><button type="text" class="btn btn-primary mt-3" id="annuleren">Annuleren</button></a>
 </div>
