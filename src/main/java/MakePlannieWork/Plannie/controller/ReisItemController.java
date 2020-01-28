@@ -2,10 +2,7 @@ package MakePlannieWork.Plannie.controller;
 
 import MakePlannieWork.Plannie.model.Gebruiker;
 import MakePlannieWork.Plannie.model.Groep;
-import MakePlannieWork.Plannie.model.reisitem.Notitie;
-import MakePlannieWork.Plannie.model.reisitem.Poll;
-import MakePlannieWork.Plannie.model.reisitem.PollOptie;
-import MakePlannieWork.Plannie.model.reisitem.ReisItem;
+import MakePlannieWork.Plannie.model.reisitem.*;
 import MakePlannieWork.Plannie.repository.GebruikerRepository;
 import MakePlannieWork.Plannie.repository.GroepRepository;
 import MakePlannieWork.Plannie.repository.PollOptiesRepository;
@@ -281,6 +278,25 @@ public class ReisItemController {
             reisItemRepository.delete(huidigeNotitie);
         }
         return "redirect:/" + groepId + "/reisItemDetail/" + reisItemId;
+    }
+
+    // Ga naar pagina waar je budget kan aanmaken
+    @GetMapping("/{groepId}/reisItemDetail/{reisItemId}/BudgetAanmaken")
+    public String budgetAanmaken(@PathVariable("groepId") Integer groepId, @PathVariable("reisItemId") Integer reisItemId, Model model, Principal principal) {
+
+        Optional<Groep> groepOptional = plannieGroepService.findById(groepId);
+        Optional<ReisItem> reisItemOptional = plannieReisItemService.findById(reisItemId);
+
+        if (reisItemOptional.isPresent() && groepOptional.isPresent()) {
+            model.addAttribute("currentUser", gebruikerRepository.findGebruikerByEmail(principal.getName()));
+            model.addAttribute("reisItem", reisItemOptional.get());
+            model.addAttribute("groepslidEmail", new Gebruiker());
+            model.addAttribute("groep", groepOptional.get());
+
+            model.addAttribute("budgetAanmakenFormulier", new Budget());
+            return "budgetNieuw";
+        }
+        return "reisItemDetail";
     }
 
 }

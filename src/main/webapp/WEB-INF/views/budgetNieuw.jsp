@@ -36,18 +36,14 @@
                         <form:form action="/${groep.groepId}/reisItemDetail/${reisItem.reisItemId}/nieuwBudget" method="post" modelAttribute="budgetAanmakenFormulier">
                             <div class="row">
                                 <div class="col">
-                                    <form:input id="notitieTitel" type="text" class="form-control" path="naam" required="required"
-                                                placeholder="Titel"/>
-                                    <form:input id="notitieDatum" type="date" class="form-control" path="startDatum" required="required"
-                                                placeholder="Datum"/>
-                                    <form:input id="notitieTekst" type="text" class="form-control" path="tekst" required="required"
-                                                placeholder="Vul hier uw notitie in"/>
-                                </div>
+                                    <form:input id="budgetBedrag" type="text" class="form-control" path="bedrag" required="required"
+                                                placeholder="Bedrag"/>
+                                                          </div>
                             </div>
 
                             <hr class="my-4">
 
-                            <form:button id="notitieAanmaken" type="submit" class="btn btn-primary mt-3">Notitie opslaan
+                            <form:button id="budgetAanmaken" type="submit" class="btn btn-primary mt-3">Budget opslaan
                             </form:button>
 
                         </form:form>
