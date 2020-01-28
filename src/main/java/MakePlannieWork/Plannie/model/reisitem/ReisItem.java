@@ -33,6 +33,13 @@ public class ReisItem {
     @JoinColumn(name = "reis_item")
     private ReisItem gekoppeldeReisItem;
 
+    public double berekenTotaalBudget() {
+        for (ReisItem item : reisItems) {
+            budget += item.getBudget();
+        }
+        return budget;
+    }
+
     public void voegReisItemToe(ReisItem reisItem) {
         reisItems.add(reisItem);
     }
