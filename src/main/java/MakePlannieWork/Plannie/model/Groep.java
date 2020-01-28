@@ -18,7 +18,7 @@ public class Groep {
 
     private Integer aanmaker;
 
-    private String imagePath;
+    private String imagePath = "static/placeholder.png";
 
     @ManyToMany(cascade = CascadeType.ALL)
     @OnDelete(action = OnDeleteAction.CASCADE)

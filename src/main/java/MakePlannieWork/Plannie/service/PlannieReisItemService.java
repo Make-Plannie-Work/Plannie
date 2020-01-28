@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -52,7 +53,12 @@ public class PlannieReisItemService {
         String folder = "src/main/webapp/images/";
         byte[] bytes = imageFile.getBytes();
         Path imagesPath = Paths.get(folder);
+        Path huidigPath = Paths.get(folder + reisItem.getImagePath());
         Path path = Paths.get(folder + imageFile.getOriginalFilename());
+        Path rootPath = Paths.get(folder + "static/placeholder.png");
+        if (!rootPath.equals(huidigPath)) {
+            Files.delete(huidigPath);
+        }
         if (!Files.exists(imagesPath)) {
             Files.createDirectory(imagesPath);
         }

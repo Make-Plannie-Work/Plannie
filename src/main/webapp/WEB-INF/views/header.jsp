@@ -1,5 +1,6 @@
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 <link href="https://fonts.googleapis.com/css?family=Viga&display=swap" rel="stylesheet">
+<link rel="shortcut icon" type="image/icon" href="/images/favicon.ico"/>
 
 <nav class="navbar sticky-top">
     <ul class="nav justify-content-end">

@@ -41,12 +41,21 @@
             <div class="col-sm-4">
                 <div class="jumbotron shadow" style="background-color: #FF3B56;">
                     <div class="row" >
+
+                        <table class="table table-hover table-borderless text-white">
+                            <thead>
+                            <tr>
+                                <th scope="col">Jouw Groepen:</th>
+
+                            </tr>
+                            </thead>
+                        </table>
                         <c:forEach items="${lijstMetGroepen}" var="groep">
 
                             <a id="details${groep.groepsNaam}" href="/groepDetail/${groep.groepId}" class="mx-auto">
                             <div class="card flex-row flex-wrap mb-2 mx-auto" id="groepCard" style="width: 18rem;">
                                 <div class="card-header border-0">
-                                    <img id="groepImg-klein" src="/images/${groep.imagePath}" alt="">
+                                    <img id="groepImg-klein" src="/images/groep/${groep.imagePath}" alt="">
                                 </div>
                                 <div class="card-block px-2 mx-auto flex-wrap flex-row align-items-center d-flex">
                                     <p id="groepCardText" class="card-text align-items-center d-flex">${groep.groepsNaam}</p>

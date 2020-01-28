@@ -32,7 +32,7 @@
 
                                 <div class="card flex-row flex-wrap mb-2 mx-auto " id="reisItemCard">
                                     <div class="card-header border-0">
-                                        <img id="reisItemImg-klein" class="img-fluid card-img-top" src="/images/${groep.imagePath}" alt="Card image cap">
+                                        <img id="reisItemImg-klein" class="img-fluid card-img-top" src="/images/${reisItem.imagePath}" alt="Card image cap">
                                     </div>
                                     <div class="card-block px-2">
                                         <h4 class="card-title"><a href="/${groep.groepId}/reisItemDetail/${reisItem.reisItemId}">${reisItem.naam}</a></h4>
@@ -42,9 +42,9 @@
                             </c:forEach>
                             <div class="container" >
                                 <div class="row">
-                                    <form:form action="/${groep.groepId}/reisItemAanmaken" class="form-inline" method="post" modelAttribute="nieuwReisItemFormulier">
-                                        <p><input id="reisNaam" type="text" class="form-control" name="naam" required="required" placeholder="Naam Reis">
-                                        <button id="reisItemAanmaken" type="submit"><i class="fas fa-plus"></i></button></p>
+                                    <form:form action="/${groep.groepId}/reisItemAanmaken" class="m-auto" method="post" modelAttribute="nieuwReisItemFormulier">
+                                        <input id="reisNaam" type="text" class="form-control" name="naam" required="required" placeholder="Naam Reis">
+                                        <button class="text mt-2 btn-primary shadow" id="reisItemAanmaken" type="submit">Maak Reis Aan <i class="fas fa-plus"></i></button>
                                     </form:form>
                                 </div>
                             </div>
@@ -56,12 +56,12 @@
             <div class="col-sm-4">
                 <div class="jumbotron shadow" id="wouter">
 
-                        <img id="groepImg" class="img-fluid card-img-top" src="/images/${groep.imagePath}" alt="Card image cap">
+                        <img id="groepImg" class="img-fluid card-img-top" src="/images/groep/${groep.imagePath}" alt="Card image cap">
 
 
-                            <h5 class="card-title">${groep.groepsNaam} <c:if test = "${groep.aanmaker == currentUser.gebruikersId}">
+                        <h3 class="card-title lead text-white mt-3">${groep.groepsNaam} <c:if test = "${groep.aanmaker == currentUser.gebruikersId}">
                                 <a id="wijzigGroepsNaam2" type="button" class="text-white" data-toggle="modal" data-target="#wijzigGroepsNaam"><i class="far fa-edit"></i></a>
-                            </c:if></h5>
+                            </c:if></h3>
 
 
                         <table class="table table-hover table-borderless text-white">
@@ -69,7 +69,6 @@
                             <tr>
                                 <th scope="col">Naam</th>
 
-                                <th scope="col"></th>
                             </tr>
                             </thead>
                             <tbody>
@@ -119,12 +118,12 @@
         </div>
 
         <c:if test = "${groep.aanmaker == currentUser.gebruikersId}">
-        <div class="row">
-            <div class="col-sm-offset-1 col-sm-10 mb-5">
+        <div class="row mx-auto">
+            <div class="col-sm-offset-1 col-sm-10 mb-5 mx-auto">
                 <div class="card w-75 mx-auto">
                     <div class="card-body">
                         <form:form action="/groepDetail/${groep.groepId}/voegLedenToeAanGroepViaEmail" class="form-inline" method="post" modelAttribute="groepslidEmail">
-                            <h5 class="card-title">Stuur een uitnodiging naar een nog niet bestaande gebruiker.</h5>
+                            <h5 class="card-title ">Stuur een uitnodiging naar een nog niet bestaande gebruiker.</h5>
                             <p class="card-text">
                             <div class="form-group">
                                 <div class="col">

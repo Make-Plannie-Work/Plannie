@@ -104,7 +104,7 @@
             <div class="col-sm-4">
                 <div class="jumbotron shadow" id="wouter">
 
-                    <img id="reisItemImg" class="img-fluid card-img-top" src="/images/${groep.imagePath}" alt="Card image cap">
+                    <img id="reisItemImg" class="img-fluid card-img-top" src="/images/${reisItem.imagePath}" alt="Card image cap">
 
                     <div class="row">
                         <h5 class="lead text-white">${reisItem.naam}
