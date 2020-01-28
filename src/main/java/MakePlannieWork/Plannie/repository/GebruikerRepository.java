@@ -20,5 +20,5 @@ public interface GebruikerRepository extends JpaRepository<Gebruiker, Integer> {
 
     List<Gebruiker> findGebruikersByEmail(String email);
 
-    List<Gebruiker> findByGroepen_groepsNaam(String groepsNaam);
+    List<Gebruiker> findByGroepen_groepId(Integer groepId);
 }

@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -56,7 +55,7 @@ public class GroepController {
     @GetMapping("/groepDetail/{groepId}")
     public String groepDetail(@PathVariable("groepId") Integer id, Model model, Principal principal) {
         Optional<Groep> groepOptional = plannieGroepService.findById(id);
-        List<Gebruiker> alleGebruikersInGroep = gebruikerRepository.findByGroepen_groepsNaam(groepRepository.findById(id).get().getGroepsNaam());
+        List<Gebruiker> alleGebruikersInGroep = gebruikerRepository.findByGroepen_groepId(id);
         List<Gebruiker> alleGebruikers = gebruikerRepository.findAll();
         Gebruiker gebruiker = gebruikerRepository.findGebruikerByEmail(principal.getName());
         Set<ReisItem> alleReisItems = plannieReisItemService.getLijstMetReisItemsOpGroepId(id);
