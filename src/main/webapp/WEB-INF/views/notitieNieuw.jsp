@@ -42,8 +42,8 @@
                                                     placeholder="Datum"/>
                                         <form:input id="notitieTekst" type="text" class="form-control" path="tekst" required="required"
                                                     placeholder="Vul hier uw notitie in"/>
-                                        <form:input id="notitieBudget" type="number" class="form-control" path="budget" required="required"
-                                                    placeholder="Vul hier uw budget in"/>
+                                        <form:input id="notitieBudget" type="number" step="10" min="0" class="form-control" path="budget" required="required"
+                                                    value="10"/>
                                     </div>
                                 </div>
 

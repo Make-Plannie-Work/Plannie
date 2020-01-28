@@ -44,6 +44,11 @@
                                 </div>
 
                                 <div class="form-group mt-3">
+                                         <form:input type="number" class="form-control" path="budget" required="required"
+                                                    placeholder="notitieBudget" value="${reisItems.budget}"/>
+                                </div>
+
+                                <div class="form-group mt-3">
                                     <form:input type="text" class="form-control" path="tekst" required="required"
                                                 placeholder="Tekst" value="${reisItems.tekst}"/>
                                 </div>
