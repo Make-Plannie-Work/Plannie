@@ -23,6 +23,25 @@ public class ReisItem {
     private String eindDatum;
     private String locatie;
     private Integer aanmaker;
+    private double budget;
+
+    public double getBudget() {
+        return budget;
+    }
+
+    public void setBudget(double budget) {
+        this.budget = budget;
+    }
+
+    public ReisItem getGekoppeldeReisItem() {
+        return gekoppeldeReisItem;
+    }
+
+    public void setGekoppeldeReisItem(ReisItem gekoppeldeReisItem) {
+        this.gekoppeldeReisItem = gekoppeldeReisItem;
+    }
+
+
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "gekoppeldeReisItem")
     @OnDelete(action = OnDeleteAction.CASCADE)
@@ -35,6 +54,13 @@ public class ReisItem {
     public void voegReisItemToe(ReisItem reisItem) {
         reisItems.add(reisItem);
     }
+
+//    public double geefBudget() {
+//        for (ReisItem item : reisItems ) {
+//            reisItems.get
+//
+//        }
+//    }
 
     public Integer getReisItemId() {
         return reisItemId;

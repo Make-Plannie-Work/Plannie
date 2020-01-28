@@ -280,23 +280,4 @@ public class ReisItemController {
         return "redirect:/" + groepId + "/reisItemDetail/" + reisItemId;
     }
 
-    // Ga naar pagina waar je budget kan aanmaken
-    @GetMapping("/{groepId}/reisItemDetail/{reisItemId}/BudgetAanmaken")
-    public String budgetAanmaken(@PathVariable("groepId") Integer groepId, @PathVariable("reisItemId") Integer reisItemId, Model model, Principal principal) {
-
-        Optional<Groep> groepOptional = plannieGroepService.findById(groepId);
-        Optional<ReisItem> reisItemOptional = plannieReisItemService.findById(reisItemId);
-
-        if (reisItemOptional.isPresent() && groepOptional.isPresent()) {
-            model.addAttribute("currentUser", gebruikerRepository.findGebruikerByEmail(principal.getName()));
-            model.addAttribute("reisItem", reisItemOptional.get());
-            model.addAttribute("groepslidEmail", new Gebruiker());
-            model.addAttribute("groep", groepOptional.get());
-
-            model.addAttribute("budgetAanmakenFormulier", new Budget());
-            return "budgetNieuw";
-        }
-        return "reisItemDetail";
-    }
-
 }
