@@ -42,8 +42,6 @@
                                                     placeholder="Datum"/>
                                         <form:input id="notitieTekst" type="text" class="form-control" path="tekst" required="required"
                                                     placeholder="Vul hier uw notitie in"/>
-                                        <form:input id="notitieTekst" type="text" class="form-control" path="tekst" required="required"
-                                                    placeholder="Vul hier uw notitie in"/>
                                     </div>
                                 </div>
 
