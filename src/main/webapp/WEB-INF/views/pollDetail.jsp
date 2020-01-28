@@ -29,7 +29,7 @@
                         <span class="navbar-brand mb-0 h1"><a class="text-dark">${poll.naam}  -  ${poll.startDatum}</a></span>
 
                         <c:forEach items="${poll.getPollOpties()}" var="optie">
-                            <div class="card flex-row flex-wrap mb-2 mx-auto" style="width: 42rem;">
+                            <div class="card flex-row flex-wrap mb-2 mx-auto" id="reisItemCard">
 
                                 <div class="card-header border-0">
                                     ${optie.stemOptie}
