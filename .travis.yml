@@ -1,0 +1,16 @@
+language: java
+services:
+  - mysql
+before_install:
+  - sudo mysql -e 'CREATE DATABASE plannie;'
+  - sudo mysql -e 'use plannie;'
+  - sudo mysql -e "CREATE USER 'userPlannie'@'localhost' IDENTIFIED BY 'pwPlannie';"
+  - sudo mysql -e "GRANT ALL PRIVILEGES ON plannie.* TO 'userPlannie'@'localhost';"
+  - sudo mysql -e 'FLUSH PRIVILEGES;'
+  - sudo mysql -e 'CREATE DATABASE plannietest;'
+  - sudo mysql -e 'use plannietest;'
+  - sudo mysql -e "GRANT ALL PRIVILEGES ON plannietest.* TO 'userPlannie'@'localhost';"
+  - sudo mysql -e 'FLUSH PRIVILEGES;'
+install:
+  - mvn -N io.takari:maven:wrapper
+  - ./mvnw clean install -DskipTests=true -Dmaven.javadoc.skip=true -B -V

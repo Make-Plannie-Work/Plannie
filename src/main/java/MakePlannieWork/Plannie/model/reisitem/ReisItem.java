@@ -23,7 +23,7 @@ public class ReisItem {
     private String eindDatum;
     private String locatie;
     private Integer aanmaker;
-    private String imagePath;
+    private String imagePath = "static/placeholder.png";
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "gekoppeldeReisItem")
     @OnDelete(action = OnDeleteAction.CASCADE)
