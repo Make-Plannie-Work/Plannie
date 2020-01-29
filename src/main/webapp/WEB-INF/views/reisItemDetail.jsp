@@ -96,6 +96,8 @@
                                 Notitie</a>
                             <a class="dropdown-item" id="pollKeuze"
                                href="/${groep.groepId}/reisItemDetail/${reisItem.reisItemId}/PollAanmaken">Een Poll</a>
+                            <a class="dropdown-item" id="locatieKeuze"
+                               href="/${groep.groepId}/reisItemDetail/${reisItem.reisItemId}/LocatieAanmaken">Een Locatie</a>
                             <a class="dropdown-item" id="activiteitKeuze" href="#">Een Activiteit</a>
                         </div>
                     </div>

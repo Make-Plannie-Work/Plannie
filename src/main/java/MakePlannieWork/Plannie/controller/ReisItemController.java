@@ -2,10 +2,7 @@ package MakePlannieWork.Plannie.controller;
 
 import MakePlannieWork.Plannie.model.Gebruiker;
 import MakePlannieWork.Plannie.model.Groep;
-import MakePlannieWork.Plannie.model.reisitem.Notitie;
-import MakePlannieWork.Plannie.model.reisitem.Poll;
-import MakePlannieWork.Plannie.model.reisitem.PollOptie;
-import MakePlannieWork.Plannie.model.reisitem.ReisItem;
+import MakePlannieWork.Plannie.model.reisitem.*;
 import MakePlannieWork.Plannie.repository.GebruikerRepository;
 import MakePlannieWork.Plannie.repository.GroepRepository;
 import MakePlannieWork.Plannie.repository.PollOptiesRepository;
@@ -290,6 +287,45 @@ public class ReisItemController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return "redirect:/" + groepId + "/reisItemDetail/" + reisItemId;
+    }
+
+    // Ga naar pagina waar je locatie kan aanmaken
+    @GetMapping("/{groepId}/reisItemDetail/{reisItemId}/LocatieAanmaken")
+    public String locatieAanmaken(@PathVariable("groepId") Integer groepId, @PathVariable("reisItemId") Integer reisItemId, Model model, Principal principal) {
+
+        Optional<Groep> groepOptional = plannieGroepService.findById(groepId);
+        Optional<ReisItem> reisItemOptional = plannieReisItemService.findById(reisItemId);
+
+        if (reisItemOptional.isPresent() && groepOptional.isPresent()) {
+            model.addAttribute("currentUser", gebruikerRepository.findGebruikerByEmail(principal.getName()));
+            model.addAttribute("reisItem", reisItemOptional.get());
+            model.addAttribute("groepslidEmail", new Gebruiker());
+            model.addAttribute("groep", groepOptional.get());
+
+            model.addAttribute("locatieAanmakenFormulier", new Locatie());
+            return "reisItemLocatieNieuw";
+        }
+        return "reisItemDetail";
+    }
+
+    // Nieuwe locatie opslaan
+    @PostMapping("/{groepId}/reisItemDetail/{reisItemId}/nieuweLocatie")
+    public String notitieOpslaan(@ModelAttribute("locatieAanmakenFormulier") Locatie locatie,
+                                 @PathVariable("groepId") Integer groepId,
+                                 @PathVariable("reisItemId") Integer reisItemId) {
+
+        Optional<ReisItem> reisItemOptional = plannieReisItemService.findById(reisItemId);
+
+        if (reisItemOptional.isPresent()) {
+            ReisItem reis = reisItemOptional.get();
+
+            // TODO logica toevoegen om Locatie op te slaan
+
+            System.out.println(locatie.getNaam());
+        }
+
+        // Terug naar reis overzicht.
         return "redirect:/" + groepId + "/reisItemDetail/" + reisItemId;
     }
 }
