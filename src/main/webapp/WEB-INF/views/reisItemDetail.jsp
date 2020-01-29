@@ -27,7 +27,13 @@
             <div class="col-sm-8">
                 <div class="jumbotron shadow border">
                     <div class="row">
-                        <p class="lead">Het totale budget van ${reisItem.naam} bedraagt: euro</p>
+                        <p class="lead">
+                        <c:if test="${reisItem.berekenTotaalBudget() == '0'}">
+                            <a class="lead text-blue">Er is nog geen budget voor deze reis vastgesteld</a>
+                        </c:if>
+                        <a id="reisItemBudget">Het totale budget van ${reisItem.naam} bedraagt: ${reisItem.berekenTotaalBudget()} euro</a>
+
+                         </p>
                     </div>
                     <div class="row">
 

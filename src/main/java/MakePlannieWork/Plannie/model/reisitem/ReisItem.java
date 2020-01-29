@@ -34,10 +34,11 @@ public class ReisItem {
     private ReisItem gekoppeldeReisItem;
 
     public double berekenTotaalBudget() {
+        Double totaalBudget = 0.0;
         for (ReisItem item : reisItems) {
-            budget += item.getBudget();
+            totaalBudget += item.getBudget();
         }
-        return budget;
+        return totaalBudget;
     }
 
     public void voegReisItemToe(ReisItem reisItem) {

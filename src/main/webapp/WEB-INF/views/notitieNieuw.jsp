@@ -42,10 +42,20 @@
                                                     placeholder="Datum"/>
                                         <form:input id="notitieTekst" type="text" class="form-control" path="tekst" required="required"
                                                     placeholder="Vul hier uw notitie in"/>
-                                        <form:input id="notitieBudget" type="number" step="10" min="0" class="form-control" path="budget" required="required"
-                                                    value="10"/>
                                     </div>
                                 </div>
+
+                                <hr class="my-4">
+
+                                <p class="lead">Optioneel: Voeg een budget toe aan deze notitie</p>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <form:input id="notitieBudget" type="number" step="10" min="0" class="form-control" path="budget"
+                                                value="0"/>
+                                    </div>
+                                </div>
+
 
                                 <hr class="my-4">
 
