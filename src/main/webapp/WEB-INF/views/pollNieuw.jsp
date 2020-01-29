@@ -57,8 +57,8 @@
                                 <p class="lead">Optioneel: Voeg een budget toe aan deze poll</p>
 
                                 <div class="row">
-                                    <form:input id="pollBudget" type="number" step="10" min="0" class="form-control" path="budget"
-                                                value="0"/>
+                                    <form:input id="pollBudget" type="number" step="10" min="0" class="form-control" path="budget"/>
+
                                 </div>
 
                                 <form:button id="pollAanmaken" type="submit" class="btn btn-primary mt-3">Poll opslaan
