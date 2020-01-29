@@ -51,8 +51,7 @@
 
                                 <div class="row">
                                     <div class="col">
-                                        <form:input id="notitieBudget" type="number" step="10" min="0" class="form-control" path="budget"
-                                                value="0"/>
+                                        <form:input id="notitieBudget" type="number" step="10" min="0" class="form-control" path="budget"/>
                                     </div>
                                 </div>
 

@@ -23,6 +23,8 @@ public class ReisItem {
     private String eindDatum;
     private String locatie;
     private Integer aanmaker;
+
+    @Column(nullable = true)
     private Double budget;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "gekoppeldeReisItem")
@@ -34,13 +36,9 @@ public class ReisItem {
     private ReisItem gekoppeldeReisItem;
 
     public double berekenTotaalBudget() {
-        Double totaalBudget = budget;
+        Double totaalBudget = 0.0;
         for (ReisItem item : reisItems) {
-            if (reisItems.isEmpty()) {
-                return totaalBudget;
-            } else {
-                totaalBudget += item.berekenTotaalBudget();
-            }
+            totaalBudget += item.getBudget();
         }
         return totaalBudget;
     }
