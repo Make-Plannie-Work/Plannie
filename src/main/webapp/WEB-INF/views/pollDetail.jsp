@@ -36,6 +36,10 @@
                                 </div>
                                 <div class="card-block px-2">
                                     <a>Aantal stemmen: ${optie.geefAantalStemmen()}</a>
+                                    <div class="progress">
+                                        <div class="progress-bar" role="progressbar" style="width: ${Math.round (optie.geefAantalStemmen() / poll.geefTotaalAantalStemmen() * 100)}%;" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100">
+                                            <c:out value="${Math.round (optie.geefAantalStemmen() / poll.geefTotaalAantalStemmen() * 100)}"/>%</div>
+                                    </div>
 
                                     <p class="card-text">
 
