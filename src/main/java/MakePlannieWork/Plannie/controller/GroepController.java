@@ -19,10 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 @Controller
 public class GroepController {
@@ -149,5 +146,18 @@ public class GroepController {
             e.printStackTrace();
         }
         return "redirect:/groepDetail/" + groepId;
+    }
+
+    // Gebruikers zoeken
+    @RequestMapping(value = "/zoekGebruikers")
+    @ResponseBody
+    public List<String> gebruikers(@RequestParam(value = "term", required = false, defaultValue="") String term) {
+        List<String> suggestions = new ArrayList<String>();
+        List<Gebruiker> alleGebruikers = gebruikerRepository.findGebruikers(term);
+        for (Gebruiker gebruiker: alleGebruikers) {
+            suggestions.add(gebruiker.getVoornaam());
+        }
+
+        return suggestions;
     }
 }

@@ -4,6 +4,7 @@ import MakePlannieWork.Plannie.repository.GebruikerRepository;
 import MakePlannieWork.Plannie.repository.RolRepository;
 import MakePlannieWork.Plannie.repository.WachtwoordResetRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -23,6 +24,8 @@ public class PlannieGebruikersService implements UserDetailsService {
 
     @Autowired
     WachtwoordResetRepository wachtwoordResetRepository;
+
+    private JdbcTemplate jdbcTemplate;
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
@@ -92,4 +95,11 @@ public class PlannieGebruikersService implements UserDetailsService {
         return wachtwoordResetRepository.findByToken(token).getGebruiker();
     }
 
+    public JdbcTemplate getJdbcTemplate() {
+        return jdbcTemplate;
+    }
+
+    public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
 }
