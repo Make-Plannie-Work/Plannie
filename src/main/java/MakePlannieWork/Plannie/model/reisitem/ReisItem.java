@@ -34,9 +34,13 @@ public class ReisItem {
     private ReisItem gekoppeldeReisItem;
 
     public double berekenTotaalBudget() {
-        Double totaalBudget = 0.0;
+        Double totaalBudget = budget;
         for (ReisItem item : reisItems) {
-            totaalBudget += item.getBudget();
+            if (reisItems.isEmpty()) {
+                return totaalBudget;
+            } else {
+                totaalBudget += item.berekenTotaalBudget();
+            }
         }
         return totaalBudget;
     }
