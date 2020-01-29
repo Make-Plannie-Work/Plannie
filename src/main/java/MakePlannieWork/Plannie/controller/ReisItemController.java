@@ -261,6 +261,7 @@ public class ReisItemController {
             huidigeNotitie.setNaam(notitie.getNaam());
             huidigeNotitie.setTekst(notitie.getTekst());
             huidigeNotitie.setStartDatum(notitie.getStartDatum());
+            huidigeNotitie.setBudget(notitie.getBudget());
             reisItemRepository.save(huidigeNotitie);
         }
         return "redirect:/" + groepId + "/reisItemDetail/" + reisItemId;
