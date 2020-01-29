@@ -20,8 +20,13 @@ public class Groep {
 
     private String imagePath = "static/placeholder.png";
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @OnDelete(action = OnDeleteAction.CASCADE)
+    @ManyToMany( cascade =
+            {
+                    CascadeType.DETACH,
+                    CascadeType.MERGE,
+                    CascadeType.REFRESH,
+                    CascadeType.PERSIST
+            })
     @JoinTable(
             name = "GROEP_GEBRUIKER",
             joinColumns = {@JoinColumn(name = "groep_groepid")},
