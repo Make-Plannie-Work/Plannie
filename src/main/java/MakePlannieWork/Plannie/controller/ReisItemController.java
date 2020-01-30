@@ -320,9 +320,11 @@ public class ReisItemController {
         if (reisItemOptional.isPresent()) {
             ReisItem reis = reisItemOptional.get();
 
-            // TODO logica toevoegen om Locatie op te slaan
-
-            System.out.println(locatie.getNaam());
+            // ReisItem aan reis koppelen, en ReisItem aan reis toevoegen.
+            locatie.setGekoppeldeReisItemId(reis);
+            reis.voegReisItemToe(locatie);
+            reisItemRepository.save(locatie);
+            reisItemRepository.save(reis);
         }
 
         // Terug naar reis overzicht.
