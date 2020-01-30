@@ -32,4 +32,4 @@ build/
 /src/main/webapp/images/
 
 ### Application.Properties ###
-*/application.properties
+src/main/resources/templates/keys.env
