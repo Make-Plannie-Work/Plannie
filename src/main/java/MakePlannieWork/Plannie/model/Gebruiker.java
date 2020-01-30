@@ -2,6 +2,7 @@ package MakePlannieWork.Plannie.model;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import org.hibernate.annotations.Type;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -27,6 +28,10 @@ public class Gebruiker implements UserDetails {
     private String email;
 
     private String wachtwoord;
+
+    @Column(nullable = false, columnDefinition = "TINYINT DEFAULT false")
+    @Type(type = "org.hibernate.type.NumericBooleanType")
+    private boolean enabled = true;
 
     @Transient
     private String trancientWachtwoord;
@@ -122,6 +127,15 @@ public class Gebruiker implements UserDetails {
         return authorities;
     }
 
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public boolean getEnabled() {
+        return enabled;
+    }
+
     @Override
     public String getPassword() {
         return wachtwoord;
@@ -149,7 +163,7 @@ public class Gebruiker implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return enabled;
     }
 
 

@@ -78,25 +78,6 @@ public class GebruikerController {
         return "gebruikerNieuw";
     }
 
-//    @PostMapping("/registreren")
-//    public String nieuweGebruiker(@ModelAttribute("registratieformulier") Gebruiker gebruiker, Model model, BindingResult result) {
-//        // Als de ingevulde gebruiker al best in de database bestaat met dit email adres, wordt de actie niet uitgevoerd.
-//        List<Gebruiker> bestaandeGebruiker = gebruikerRepository.findGebruikersByEmail(gebruiker.getEmail());
-//        model.addAttribute("updatePasswordForm", new Gebruiker());
-//
-//        if (!bestaandeGebruiker.isEmpty() || result.hasErrors() || !gebruiker.getWachtwoord().equals(gebruiker.getTrancientWachtwoord())) {
-//            model.addAttribute("registratieFormulier", new Gebruiker());
-//            model.addAttribute("loginForm", new Gebruiker());
-//            return "gebruikerNieuw";
-//        } else {
-//            gebruiker.setIdentifier(UUID.randomUUID().toString());
-//            gebruiker.setRollen(Arrays.asList(rolRepository.findRolByRolNaam("ROLE_USER")));
-//            gebruiker.setWachtwoord(passwordEncoder.encode(gebruiker.getWachtwoord()));
-//            gebruikerRepository.save(gebruiker);
-//            model.addAttribute("loginForm", new Gebruiker());
-//            return "index";
-//        }
-//    }
 
     @PostMapping("/registreren")
     public String nieuweGebruiker(HttpServletRequest request, @ModelAttribute("registratieformulier") Gebruiker gebruiker,
@@ -131,6 +112,7 @@ public class GebruikerController {
             gebruiker.setIdentifier(UUID.randomUUID().toString());
             gebruiker.setRollen(Arrays.asList(rolRepository.findRolByRolNaam("ROLE_USER")));
             gebruiker.setWachtwoord(passwordEncoder.encode(gebruiker.getWachtwoord()));
+            gebruiker.setEnabled(false);
             gebruikerRepository.save(gebruiker);
             // maak een random token aan
             final String token = UUID.randomUUID().toString();
@@ -161,8 +143,13 @@ public class GebruikerController {
     }
 
     @PostMapping("/{identifier}/saveGebruiker")
-    public String saveGebruiker(@PathVariable("indentifier") String identifier, Gebruiker gebruiker) {
+    public String saveGebruiker(@PathVariable("identifier") String identifier, Gebruiker gebruiker) {
         final Gebruiker huidigeGebruiker = gebruikerRepository.findGebruikerByIdentifier(identifier);
+        if (!huidigeGebruiker.getEnabled()) {
+            huidigeGebruiker.setEnabled(true);
+            gebruikerRepository.save(huidigeGebruiker);
+        }
+
         gebruikerVerificatieRepository.delete(gebruikerVerificatieRepository.findByGebruiker(huidigeGebruiker));
         return "redirect:/index";
     }
