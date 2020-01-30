@@ -66,6 +66,23 @@
                                             </p>
                                         </div>
                                     </c:when>
+                                    <c:when test="${soortReisItem == 'MakePlannieWork.Plannie.model.reisitem.Locatie'}">
+                                        <div class="card-header border-0">
+                                            Locatie ${reisItems.startDatum}
+                                        </div>
+                                        <div class="card-block px-2">
+                                            <h4 class="card-title"><a id="LocatieDetails${reisItems.naam}"
+                                                                      href="/${groepId}/${reisItemId}/${reisItems.reisItemId}/LocatieWijzigen">${reisItems.naam}</a>
+                                            </h4>
+                                            <p class="card-text">${reisItems.adres}</p>
+                                            <div class="googleMapSmall" id="map"></div>
+                                            <!-- Replace the value of the key parameter with your own API key. -->
+                                            <script defer
+                                                    src="https://maps.googleapis.com/maps/api/js?key=YOUR-API-KEY&callback=initMapAndMarker">
+                                            </script>
+                                            <script src="\js/googleKaart.js"></script>
+                                        </div>
+                                    </c:when>
                                     <c:otherwise>
                                         <div class="card-header border-0">
                                             <img src="https://via.placeholder.com/100.jpg" alt="">

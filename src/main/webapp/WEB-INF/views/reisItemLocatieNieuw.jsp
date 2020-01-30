@@ -32,11 +32,10 @@
                     <p class="lead">Locatie aanmaken</p>
                 </div>
                 <div class="row">
-
-                    <div id="map"></div>
+                    <div class="googleMapLarge" id="map"></div>
                     <!-- Replace the value of the key parameter with your own API key. -->
                     <script defer
-                            src="https://maps.googleapis.com/maps/api/js?key=YOUR-API-KEY&callback=initMap">
+                            src="https://maps.googleapis.com/maps/api/js?key=YOUR-API-KEY&callback=initMapAndGeo">
                     </script>
                     <script src="\js/googleKaart.js"></script>
 
@@ -80,7 +79,6 @@
                     </a>
                 </div>
 
-            </div>
         </div>
     </div>
 
@@ -96,17 +94,17 @@
             </div>
         </div>
     </div>
-</div>
-<div class="row">
-    <div class="col-sm-offset-1 col-sm-10 mb-5">
-        <div class="card w-75 mx-auto">
-            <div class="card-body">
-                <p>Contact</p>
-            </div>
-        </div>
-
     </div>
 </div>
+    <div class="row">
+        <div class="col-sm-offset-1 col-sm-10 mb-5">
+            <div class="card w-75 mx-auto">
+                <div class="card-body">
+                    <p>Contact</p>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <!-- Footer -->
 <footer class="py-4 bg-dark text-white-50">

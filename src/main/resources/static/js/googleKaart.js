@@ -2,7 +2,18 @@
   var marker;
   var geocoder;
 
-function initMap() {
+function initMapAndMarker() {
+  map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 9,
+    center: {lat: 53.187390112975216, lng: 6.563204526901245}
+  });
+
+  marker = new google.maps.Marker({
+  position: {lat: 53.187390112975216, lng: 6.563204526901245},
+  map: map});
+}
+
+function initMapAndGeo() {
   map = new google.maps.Map(document.getElementById('map'), {
     zoom: 9,
     center: {lat: 53.187390112975216, lng: 6.563204526901245}
