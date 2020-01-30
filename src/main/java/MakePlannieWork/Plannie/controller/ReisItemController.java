@@ -2,10 +2,7 @@ package MakePlannieWork.Plannie.controller;
 
 import MakePlannieWork.Plannie.model.Gebruiker;
 import MakePlannieWork.Plannie.model.Groep;
-import MakePlannieWork.Plannie.model.reisitem.Notitie;
-import MakePlannieWork.Plannie.model.reisitem.Poll;
-import MakePlannieWork.Plannie.model.reisitem.PollOptie;
-import MakePlannieWork.Plannie.model.reisitem.ReisItem;
+import MakePlannieWork.Plannie.model.reisitem.*;
 import MakePlannieWork.Plannie.repository.GebruikerRepository;
 import MakePlannieWork.Plannie.repository.GroepRepository;
 import MakePlannieWork.Plannie.repository.PollOptiesRepository;
@@ -262,6 +259,7 @@ public class ReisItemController {
             huidigeNotitie.setNaam(notitie.getNaam());
             huidigeNotitie.setTekst(notitie.getTekst());
             huidigeNotitie.setStartDatum(notitie.getStartDatum());
+            huidigeNotitie.setBudget(notitie.getBudget());
             reisItemRepository.save(huidigeNotitie);
         }
         return "redirect:/" + groepId + "/reisItemDetail/" + reisItemId;

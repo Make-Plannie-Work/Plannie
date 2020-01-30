@@ -27,6 +27,11 @@
             <div class="col-sm-8">
                 <div class="jumbotron shadow border">
                     <div class="row">
+                        <p class="lead">
+                            <a id="reisItemBudget">Het totale budget van ${reisItem.naam} bedraagt: ${reisItem.berekenTotaalBudget()} euro</a>
+                         </p>
+                    </div>
+                    <div class="row">
 
                         <c:forEach items="${alleReisItemsVanReis}" var="reisItems">
                             <div class="card reisItem flex-row flex-wrap mb-2 mx-auto" id="reisItemCard">
@@ -44,6 +49,7 @@
                                                                       href="/${groepId}/${reisItemId}/${reisItems.reisItemId}/NotitieWijzigen">${reisItems.naam}</a>
                                             </h4>
                                             <p class="card-text">${reisItems.tekst}</p>
+                                            <p class="card-text">${reisItems.budget}</p>
                                         </div>
 
                                     </c:when>

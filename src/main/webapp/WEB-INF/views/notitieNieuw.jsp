@@ -47,6 +47,17 @@
 
                                 <hr class="my-4">
 
+                                <p class="lead">Optioneel: Voeg een budget toe aan deze notitie</p>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <form:input id="notitieBudget" type="number" step="10" min="0" class="form-control" path="budget"/>
+                                    </div>
+                                </div>
+
+
+                                <hr class="my-4">
+
                                 <form:button id="notitieAanmaken" type="submit" class="btn btn-primary mt-3">Notitie opslaan
                                 </form:button>
 

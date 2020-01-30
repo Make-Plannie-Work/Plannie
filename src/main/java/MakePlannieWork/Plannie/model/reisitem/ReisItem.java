@@ -25,6 +25,9 @@ public class ReisItem {
     private Integer aanmaker;
     private String imagePath = "static/placeholder.png";
 
+    @Column(nullable = true)
+    private Double budget;
+
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "gekoppeldeReisItem")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Set<ReisItem> reisItems;
@@ -33,9 +36,43 @@ public class ReisItem {
     @JoinColumn(name = "reis_item")
     private ReisItem gekoppeldeReisItem;
 
+    public double berekenTotaalBudget() {
+        if (budget == null) {
+            budget = 0.0;
+        }
+
+        Double totaalBudget = budget;
+        for (ReisItem item : reisItems) {
+            if (reisItems.isEmpty()) {
+                return totaalBudget;
+            } else {
+                totaalBudget += item.berekenTotaalBudget();
+            }
+        }
+        return totaalBudget;
+    }
+
     public void voegReisItemToe(ReisItem reisItem) {
         reisItems.add(reisItem);
     }
+
+    public Double getBudget() {
+        return budget;
+    }
+
+    public void setBudget(Double budget) {
+        this.budget = budget;
+    }
+
+    public ReisItem getGekoppeldeReisItem() {
+        return gekoppeldeReisItem;
+    }
+
+    public void setGekoppeldeReisItem(ReisItem gekoppeldeReisItem) {
+        this.gekoppeldeReisItem = gekoppeldeReisItem;
+    }
+
+
 
     public Integer getReisItemId() {
         return reisItemId;
