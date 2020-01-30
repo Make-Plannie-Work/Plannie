@@ -149,12 +149,4 @@ public class ReisItem {
     public void setImagePath(String imagePath) {
         this.imagePath = imagePath;
     }
-
-    public ReisItem getGekoppeldeReisItem() {
-        return gekoppeldeReisItem;
-    }
-
-    public void setGekoppeldeReisItem(ReisItem gekoppeldeReisItem) {
-        this.gekoppeldeReisItem = gekoppeldeReisItem;
-    }
 }
