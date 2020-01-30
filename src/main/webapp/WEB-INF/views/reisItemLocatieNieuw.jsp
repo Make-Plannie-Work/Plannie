@@ -46,21 +46,26 @@
 
                         <div class="row">
 
+
                             <form:input id="locatieNaam" type="text" class="form-control" path="naam"
-                                        required="required"
-                                        placeholder="Naam van de locatie"/>
-                            <form:input id="locatieAdres" type="text" class="form-control" path="adres"
-                                        required="required"
-                                        placeholder="Adres van de locatie"/>
+                                        required="required" data-toggle="tooltip" data-placement="top"
+                                        title="Naam van deze locatie"
+                                        placeholder="Geef een naam op voor deze locatie"/>
                             <form:input id="locatieDatum" type="date" class="form-control" path="startDatum"
                                         required="required"
                                         placeholder="Datum"/>
-                            <form:input readonly="true" id="locatieLatitude" type="text" class="form-control"
-                                        path="latitude" required="required"
-                                        placeholder="latitude"/>
-                            <form:input readonly="true" id="locatieLongitude" type="text" class="form-control"
-                                        path="longitude" required="required"
-                                        placeholder="longitude"/>
+                            <label for="locatieAdres">Adres</label>
+                            <form:input id="locatieAdres" type="text" class="form-control" path="adres"
+                                        required="required" data-toggle="tooltip" data-placement="top" title="Adres"
+                                        placeholder="Adres van de locatie"/>
+                            <label for="locatieLatitude">Latitude</label>
+                            <label for="locatieLongitude">Longitude</label>
+                            <form:input id="locatieLatitude" type="text" class="form-control-inline"
+                                        path="latitude" required="required" data-toggle="tooltip" data-placement="top"
+                                        title="Latitude" readonly="true"/>
+                            <form:input id="locatieLongitude" type="text" class="form-control-inline"
+                                        path="longitude" required="required" data-toggle="tooltip" data-placement="top"
+                                        title="Longitude" readonly="true"/>
                         </div>
 
                         <hr class="my-4">
