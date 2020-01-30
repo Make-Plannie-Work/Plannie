@@ -75,12 +75,8 @@
                                                                       href="/${groepId}/${reisItemId}/${reisItems.reisItemId}/LocatieWijzigen">${reisItems.naam}</a>
                                             </h4>
                                             <p class="card-text">${reisItems.adres}</p>
-                                            <div class="googleMapSmall" id="map"></div>
-                                            <!-- Replace the value of the key parameter with your own API key. -->
-                                            <script defer
-                                                    src="https://maps.googleapis.com/maps/api/js?key=YOUR-API-KEY&callback=initMapAndMarker">
-                                            </script>
-                                            <script src="\js/googleKaart.js"></script>
+                                            <div class="googleMapSmall" id="map${reisItems.reisItemId}"></div>
+                                            <div id="coordinaten${reisItems.reisItemId}" data-latitude="${reisItems.latitude}" data-longitude="${reisItems.longitude}"></div>
                                         </div>
                                     </c:when>
                                     <c:otherwise>
@@ -187,5 +183,11 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
+
+<script src="\js/googleKaart.js"></script>
+<!-- Replace the value of the key parameter with your own API key. -->
+<script defer
+    src="https://maps.googleapis.com/maps/api/js?key=YOUR-API-KEY&callback=initMapsWithMarker">
+</script>
 </body>
 </html>

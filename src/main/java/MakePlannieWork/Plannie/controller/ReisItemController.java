@@ -311,7 +311,7 @@ public class ReisItemController {
 
     // Nieuwe locatie opslaan
     @PostMapping("/{groepId}/reisItemDetail/{reisItemId}/nieuweLocatie")
-    public String notitieOpslaan(@ModelAttribute("locatieAanmakenFormulier") Locatie locatie,
+    public String locatieOpslaan(@ModelAttribute("locatieAanmakenFormulier") Locatie locatie,
                                  @PathVariable("groepId") Integer groepId,
                                  @PathVariable("reisItemId") Integer reisItemId) {
 

@@ -2,15 +2,25 @@
   var marker;
   var geocoder;
 
-function initMapAndMarker() {
-  map = new google.maps.Map(document.getElementById('map'), {
-    zoom: 9,
-    center: {lat: 53.187390112975216, lng: 6.563204526901245}
-  });
+function initMapsWithMarker() {
 
-  marker = new google.maps.Marker({
-  position: {lat: 53.187390112975216, lng: 6.563204526901245},
-  map: map});
+$('.googleMapSmall').each(function(i, obj) {
+    var id = obj.id.replace("map","")
+
+    var latitude = parseFloat(document.getElementById('coordinaten' + id).getAttribute('data-latitude'))
+    var longitude = parseFloat(document.getElementById('coordinaten' + id).getAttribute('data-longitude'))
+
+    map = new google.maps.Map(document.getElementById('map'+id), {
+      zoom: 12,
+      center: {lat: latitude,lng: longitude}
+    });
+
+    marker = new google.maps.Marker({
+    position: {lat: latitude,lng: longitude},
+    map: map});
+
+});
+
 }
 
 function initMapAndGeo() {
