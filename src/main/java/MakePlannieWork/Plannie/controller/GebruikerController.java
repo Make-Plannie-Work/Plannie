@@ -109,6 +109,8 @@ public class GebruikerController {
         // Is het een bestaande gebruiker?
         if (!bestaandeGebruiker.isEmpty() || result.hasErrors() || !gebruiker.getWachtwoord().equals(gebruiker.getTrancientWachtwoord())) {
             // Heeft de bestaande gebruiker al een token?
+            //TODO als een bestaande gebruiker als een token heeft dan komt er een foutmelding:
+            // No default constructor for entity:  : MakePlannieWork.Plannie.model.GebruikerVerificatieToken
             if (gebruikerVerificatieRepository.findByGebruiker(gebruikerZonderToken) != null) {
                 model.addAttribute("registratieFormulier", new Gebruiker());
                 model.addAttribute("loginForm", new Gebruiker());
