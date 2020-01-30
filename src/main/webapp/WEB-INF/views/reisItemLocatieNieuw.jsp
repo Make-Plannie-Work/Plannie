@@ -40,55 +40,68 @@
                     </script>
                     <script src="\js/googleKaart.js"></script>
 
+
                     <form:form action="/${groep.groepId}/reisItemDetail/${reisItem.reisItemId}/nieuweLocatie"
                                method="post" modelAttribute="locatieAanmakenFormulier">
 
-                    <div>
+                        <div class="row">
 
+                            <form:input id="locatieNaam" type="text" class="form-control" path="naam"
+                                        required="required"
+                                        placeholder="Naam van de locatie"/>
+                            <form:input id="locatieAdres" type="text" class="form-control" path="adres"
+                                        required="required"
+                                        placeholder="Adres van de locatie"/>
+                            <form:input id="locatieDatum" type="date" class="form-control" path="startDatum"
+                                        required="required"
+                                        placeholder="Datum"/>
+                            <form:input readonly="true" id="locatieLatitude" type="text" class="form-control"
+                                        path="latitude" required="required"
+                                        placeholder="latitude"/>
+                            <form:input readonly="true" id="locatieLongitude" type="text" class="form-control"
+                                        path="longitude" required="required"
+                                        placeholder="longitude"/>
+                        </div>
 
+                        <hr class="my-4">
 
+                        <form:button id="locatieAanmaken" type="submit" class="btn btn-primary mt-3">Locatie opslaan
+                        </form:button>
 
+                    </form:form>
 
-
-                            <hr class="my-4">
-
-                            <form:button id="locatieAanmaken" type="submit" class="btn btn-primary mt-3">Locatie opslaan
-                            </form:button>
-
-                        </form:form>
-
-                        <a href="/${groep.groepId}/reisItemDetail/${reisItem.reisItemId}">
-                            <button type="text" class="btn btn-primary mt-3" id="annuleren">Annuleren</button>
-                        </a>
-                    </div>
-
+                    <a href="/${groep.groepId}/reisItemDetail/${reisItem.reisItemId}">
+                        <button type="text" class="btn btn-primary mt-3" id="annuleren">Annuleren</button>
+                    </a>
                 </div>
+
             </div>
         </div>
+    </div>
 
-        <div class="col-sm-4">
-            <div class="jumbotron shadow" id="wouter">
-                <div class="row">
-                    <p class="lead text-white">Info 1</p>
-                </div>
+    <div class="col-sm-4">
+        <div class="jumbotron shadow" id="wouter">
+            <div class="row">
+                <p class="lead text-white">Info 1</p>
+            </div>
+            <hr class="my-4">
+            <div class="row">
+                <p class="lead text-white mt-3">Info 2</hp>
                 <hr class="my-4">
-                <div class="row">
-                    <p class="lead text-white mt-3">Info 2</hp>
-                    <hr class="my-4">
-                </div>
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-sm-offset-1 col-sm-10 mb-5">
-            <div class="card w-75 mx-auto">
-                <div class="card-body">
-                    <p>Contact</p>
-                </div>
+</div>
+<div class="row">
+    <div class="col-sm-offset-1 col-sm-10 mb-5">
+        <div class="card w-75 mx-auto">
+            <div class="card-body">
+                <p>Contact</p>
             </div>
+        </div>
 
-        </div>
     </div>
+</div>
 </div>
 <!-- Footer -->
 <footer class="py-4 bg-dark text-white-50">
