@@ -8,6 +8,7 @@ import MakePlannieWork.Plannie.repository.GroepRepository;
 import MakePlannieWork.Plannie.service.PlannieGebruikersService;
 import MakePlannieWork.Plannie.service.PlannieGroepService;
 import MakePlannieWork.Plannie.service.PlannieReisItemService;
+import org.openqa.selenium.json.Json;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.stereotype.Controller;
@@ -151,12 +152,10 @@ public class GroepController {
     // Gebruikers zoeken
     @RequestMapping(value = "/zoekGebruikers")
     @ResponseBody
-    public List<String> gebruikers(@RequestParam(value = "term", required = false, defaultValue="") String term) {
-        List<String> suggestions = new ArrayList<String>();
+    public List<Gebruiker> gebruikers(@RequestParam(value = "term", required = false, defaultValue="") String term) {
+        List<Gebruiker> suggestions = new ArrayList<Gebruiker>();
         List<Gebruiker> alleGebruikers = gebruikerRepository.findGebruikers(term);
-        for (Gebruiker gebruiker: alleGebruikers) {
-            suggestions.add(gebruiker.getVoornaam());
-        }
+        suggestions.addAll(alleGebruikers);
 
         return suggestions;
     }

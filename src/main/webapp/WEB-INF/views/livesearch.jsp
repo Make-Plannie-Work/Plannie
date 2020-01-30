@@ -1,6 +1,6 @@
 <form:form action="#" autocomplete="off">
     <div id="autocomplete">
-        <input type="text" path="tekst" id="Zoek_Gebruikers" placeholder="Zoek naar Gebruikers">
+        <input type="text" class="form-control" path="tekst" id="Zoek_Gebruikers" placeholder="Zoek naar Gebruikers">
     </div>
-<input type="submit" placeholder="Zoeken">
+    <input type="hidden" id="groepId" value='${groep.groepId}'/>
 </form:form>

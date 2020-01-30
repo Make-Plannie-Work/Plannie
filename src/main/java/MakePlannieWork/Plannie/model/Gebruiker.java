@@ -1,5 +1,6 @@
 package MakePlannieWork.Plannie.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.search.annotations.Indexed;
@@ -23,22 +24,27 @@ public class Gebruiker implements UserDetails {
     private Integer gebruikersId;
     private String voornaam;
     private String achternaam;
+    @JsonIgnore
     private String identifier; //UUID
 
     @Column(unique = true)
     private String email;
 
+    @JsonIgnore
     private String wachtwoord;
 
     @Transient
+    @JsonIgnore
     private String trancientWachtwoord;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "gebruikers_rollen", joinColumns = @JoinColumn(name = "gebruikersid", referencedColumnName = "gebruikersId"), inverseJoinColumns = @JoinColumn(name = "rolId", referencedColumnName = "rolId"))
+    @JsonIgnore
     private Collection<Rol> rollen;
 
     @ManyToMany(mappedBy = "groepsleden")
     @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
     private Set<Groep> groepen;
 
     public String toString() {
@@ -118,6 +124,7 @@ public class Gebruiker implements UserDetails {
     }
 
     @Override
+    @JsonIgnore
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> authorities = new ArrayList<>();
         authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
@@ -125,31 +132,37 @@ public class Gebruiker implements UserDetails {
     }
 
     @Override
+    @JsonIgnore
     public String getPassword() {
         return wachtwoord;
     }
 
     @Override
+    @JsonIgnore
     public String getUsername() {
         return email;
     }
 
     @Override
+    @JsonIgnore
     public boolean isAccountNonExpired() {
         return true;
     }
 
     @Override
+    @JsonIgnore
     public boolean isAccountNonLocked() {
         return true;
     }
 
     @Override
+    @JsonIgnore
     public boolean isCredentialsNonExpired() {
         return true;
     }
 
     @Override
+    @JsonIgnore
     public boolean isEnabled() {
         return true;
     }

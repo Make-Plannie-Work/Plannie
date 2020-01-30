@@ -1,5 +1,7 @@
 package MakePlannieWork.Plannie.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Collection;
 
@@ -11,6 +13,7 @@ public class Rol {
     private Integer rolId;
 
     @ManyToMany(mappedBy = "rollen")
+    @JsonIgnore
     private Collection<Gebruiker> gebruikers;
 
     private String rolNaam;
