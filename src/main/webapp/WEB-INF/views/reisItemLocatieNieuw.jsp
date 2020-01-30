@@ -33,14 +33,25 @@
                 </div>
                 <div class="row">
                     <div>
-                        <form:form action="/${groep.groepId}/reisItemDetail/${reisItem.reisItemId}/nieuweLocatie" method="post" modelAttribute="locatieAanmakenFormulier">
-                            <div class="row">
+
+                        <div id="map"></div>
+                        <!-- Replace the value of the key parameter with your own API key. -->
+                        <script async defer
+                                src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap">
+                        </script>
+                        <script src="\js/googleKaart.js"></script>
+
+
+                        <form:form action="/${groep.groepId}/reisItemDetail/${reisItem.reisItemId}/nieuweLocatie"
+                                   method="post" modelAttribute="locatieAanmakenFormulier">
 
 
 
 
 
-                            </div>
+
+
+
 
                             <hr class="my-4">
 
@@ -49,7 +60,7 @@
 
                         </form:form>
 
-                        <a href= "/${groep.groepId}/reisItemDetail/${reisItem.reisItemId}">
+                        <a href="/${groep.groepId}/reisItemDetail/${reisItem.reisItemId}">
                             <button type="text" class="btn btn-primary mt-3" id="annuleren">Annuleren</button>
                         </a>
                     </div>
