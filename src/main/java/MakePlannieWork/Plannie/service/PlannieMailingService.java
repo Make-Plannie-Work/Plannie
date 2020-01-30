@@ -47,4 +47,11 @@ public class PlannieMailingService {
     public String getAppUrl(HttpServletRequest request) {
         return "http://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
     }
+
+    public void maakGebruikerVerificatieTokenEmail(final String contextPath, final Locale locale, final String token, final Gebruiker gebruiker) throws MessagingException {
+        final String url = contextPath + "/registreerGebruiker?id=" + gebruiker.getIdentifier() + "&token=" + token;
+        final String message = "Maak je registratie compleet";
+        sendEmail(gebruiker.getEmail(), message + " \r\n" + url, "Registratie Plannie");
+    }
+
 }
