@@ -49,7 +49,7 @@ public class PlannieMailingService {
     }
 
     public void maakGebruikerVerificatieTokenEmail(final String contextPath, final Locale locale, final String token, final Gebruiker gebruiker) throws MessagingException {
-        final String url = contextPath + "/registreerGebruiker?id=" + gebruiker.getIdentifier() + "&token=" + token;
+        final String url = contextPath + "/maakRegistratieCompleet?id=" + gebruiker.getIdentifier() + "&token=" + token;
         final String message = "Maak je registratie compleet";
         sendEmail(gebruiker.getEmail(), message + " \r\n" + url, "Registratie Plannie");
     }

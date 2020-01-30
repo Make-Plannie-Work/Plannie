@@ -109,8 +109,7 @@ public class GebruikerController {
         // Is het een bestaande gebruiker?
         if (!bestaandeGebruiker.isEmpty() || result.hasErrors() || !gebruiker.getWachtwoord().equals(gebruiker.getTrancientWachtwoord())) {
             // Heeft de bestaande gebruiker al een token?
-            //TODO als een bestaande gebruiker als een token heeft dan komt er een foutmelding:
-            // No default constructor for entity:  : MakePlannieWork.Plannie.model.GebruikerVerificatieToken
+            //TODO als een bestaande gebruiker al een token heeft dan komt deze opnieuw op registratie pagina
             if (gebruikerVerificatieRepository.findByGebruiker(gebruikerZonderToken) != null) {
                 model.addAttribute("registratieFormulier", new Gebruiker());
                 model.addAttribute("loginForm", new Gebruiker());
@@ -141,27 +140,32 @@ public class GebruikerController {
             } catch (MessagingException e) {
                 e.printStackTrace();
             }
-
             model.addAttribute("loginForm", new Gebruiker());
             return "index";
         }
     }
 
-//        // Als de gebruiker geen verificatie token heeft
-//        if (gebruikerVerificatieRepository.findByGebruiker(gebruiker) == null) {
-//            // maak een random token aan
-//            final String token = UUID.randomUUID().toString();
-//            plannieGebruikersService.maakGebruikerVerificatieToken(gebruiker, token);
-//            try {
-//                plannieMailingService.maakGebruikerVerificatieTokenEmail(plannieMailingService.getAppUrl(request), request.getLocale(), token, gebruiker);
-//            } catch (MessagingException e) {
-//                e.printStackTrace();
-//            }
-//            return "redirect:/index";
-//        } else {
-//            return "/error";
-//        }
+    @GetMapping("/maakRegistratieCompleet")
+    public String showMaakRegistratieCompleetPagina(final Model model, @RequestParam("id") final String id,
+                                                    @RequestParam("token") final String token) {
 
+        final String result = plannieGebruikerSecurityService.valideerGebruikerVerificatieToken(id, token);
+        if (result != null) {
+            return "redirect:/error";
+        }
+        Gebruiker gebruiker = gebruikerRepository.findGebruikerByIdentifier(id);
+        model.addAttribute("maakRegistratieCompleetFormulier", new Gebruiker());
+        model.addAttribute("loginForm", new Gebruiker());
+        model.addAttribute(gebruiker);
+        return "gebruikerValideren";
+    }
+
+    @PostMapping("/{identifier}/saveGebruiker")
+    public String saveGebruiker(@PathVariable("indentifier") String identifier, Gebruiker gebruiker) {
+        final Gebruiker huidigeGebruiker = gebruikerRepository.findGebruikerByIdentifier(identifier);
+        gebruikerVerificatieRepository.delete(gebruikerVerificatieRepository.findByGebruiker(huidigeGebruiker));
+        return "redirect:/index";
+    }
 
     @GetMapping("/gebruikerDetail")
     public String gebruikerDetail(Model model, Principal principal) {

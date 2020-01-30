@@ -33,6 +33,14 @@ public class GebruikerVerificatieToken {
         this.expiryDate = berekenExpiryDate(EXPIRATION);
     }
 
+    public GebruikerVerificatieToken() {
+    }
+
+    public GebruikerVerificatieToken(String token) {
+        this.token = token;
+        this.expiryDate = berekenExpiryDate(EXPIRATION);
+    }
+
     public GebruikerVerificatieToken(String token, Gebruiker gebruiker) {
         this.token = token;
         this.gebruiker = gebruiker;

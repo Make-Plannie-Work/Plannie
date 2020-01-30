@@ -43,7 +43,8 @@ public class DataInitializer implements ApplicationListener<ContextRefreshedEven
         Privilege readPrivilege = maakPrivilegeAlsDezeNietBestaat("READ_PRIVILEGE");
         Privilege writePrivilege = maakPrivilegeAlsDezeNietBestaat("WRITE_PRIVILEGE");
         Privilege passwordPrivilege = maakPrivilegeAlsDezeNietBestaat("CHANGE_PASSWORD_PRIVILEGE");
-        List<Privilege> adminPrivileges = Arrays.asList(readPrivilege, writePrivilege, passwordPrivilege);
+        Privilege newUserPrivilege = maakPrivilegeAlsDezeNietBestaat("NEW_USER_PRIVILEGE");
+        List<Privilege> adminPrivileges = Arrays.asList(readPrivilege, writePrivilege, passwordPrivilege, newUserPrivilege);
         List<Privilege> userPrivileges = Arrays.asList(readPrivilege, passwordPrivilege);
 
         addRol("ROLE_ADMIN", adminPrivileges);
