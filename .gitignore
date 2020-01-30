@@ -30,6 +30,3 @@ build/
 ### VS Code ###
 .vscode/
 /src/main/webapp/images/
-
-### Application.Properties ###
-src/main/resources/templates/keys.env
