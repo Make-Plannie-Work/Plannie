@@ -1,14 +1,24 @@
+  let map;
+  var marker;
+
 function initMap() {
-  var myLatLng = {lat: -25.363, lng: 131.044};
-
-  var map = new google.maps.Map(document.getElementById('map'), {
-    zoom: 4,
-    center: myLatLng
+  map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 9,
+    center: {lat: 53.187390112975216, lng: 6.563204526901245}
   });
 
-  var marker = new google.maps.Marker({
-    position: myLatLng,
-    map: map,
-    title: 'Hello World!'
+  map.addListener('click', function(e) {
+    addMarker(e.latLng, map);
   });
+}
+
+// define function to add marker at given lat & lng
+function addMarker(location, map) {
+  if (marker == null) {
+    marker = new google.maps.Marker({
+    position: location,
+    map: map});
+  } else {
+    marker.setPosition(location);
+  }
 }

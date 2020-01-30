@@ -32,21 +32,18 @@
                     <p class="lead">Locatie aanmaken</p>
                 </div>
                 <div class="row">
+
+                    <div id="map"></div>
+                    <!-- Replace the value of the key parameter with your own API key. -->
+                    <script defer
+                            src="https://maps.googleapis.com/maps/api/js?key=YOUR-API-KEY&callback=initMap">
+                    </script>
+                    <script src="\js/googleKaart.js"></script>
+
+                    <form:form action="/${groep.groepId}/reisItemDetail/${reisItem.reisItemId}/nieuweLocatie"
+                               method="post" modelAttribute="locatieAanmakenFormulier">
+
                     <div>
-
-                        <div id="map"></div>
-                        <!-- Replace the value of the key parameter with your own API key. -->
-                        <script async defer
-                                src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap">
-                        </script>
-                        <script src="\js/googleKaart.js"></script>
-
-
-                        <form:form action="/${groep.groepId}/reisItemDetail/${reisItem.reisItemId}/nieuweLocatie"
-                                   method="post" modelAttribute="locatieAanmakenFormulier">
-
-
-
 
 
 
