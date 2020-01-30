@@ -2,6 +2,7 @@ package MakePlannieWork.Plannie.controller;
 
 import MakePlannieWork.Plannie.model.Gebruiker;
 import MakePlannieWork.Plannie.model.Groep;
+import MakePlannieWork.Plannie.repository.GebruikerVerificatieRepository;
 import MakePlannieWork.Plannie.repository.RolRepository;
 import MakePlannieWork.Plannie.repository.WachtwoordResetRepository;
 import MakePlannieWork.Plannie.service.PlannieGebruikerSecurityService;
@@ -47,6 +48,9 @@ public class GebruikerController {
     private WachtwoordResetRepository wachtwoordResetRepository;
 
     @Autowired
+    private GebruikerVerificatieRepository gebruikerVerificatieRepository;
+
+    @Autowired
     private PlannieGebruikerSecurityService plannieGebruikerSecurityService;
 
     @Autowired
@@ -74,25 +78,88 @@ public class GebruikerController {
         return "gebruikerNieuw";
     }
 
+//    @PostMapping("/registreren")
+//    public String nieuweGebruiker(@ModelAttribute("registratieformulier") Gebruiker gebruiker, Model model, BindingResult result) {
+//        // Als de ingevulde gebruiker al best in de database bestaat met dit email adres, wordt de actie niet uitgevoerd.
+//        List<Gebruiker> bestaandeGebruiker = gebruikerRepository.findGebruikersByEmail(gebruiker.getEmail());
+//        model.addAttribute("updatePasswordForm", new Gebruiker());
+//
+//        if (!bestaandeGebruiker.isEmpty() || result.hasErrors() || !gebruiker.getWachtwoord().equals(gebruiker.getTrancientWachtwoord())) {
+//            model.addAttribute("registratieFormulier", new Gebruiker());
+//            model.addAttribute("loginForm", new Gebruiker());
+//            return "gebruikerNieuw";
+//        } else {
+//            gebruiker.setIdentifier(UUID.randomUUID().toString());
+//            gebruiker.setRollen(Arrays.asList(rolRepository.findRolByRolNaam("ROLE_USER")));
+//            gebruiker.setWachtwoord(passwordEncoder.encode(gebruiker.getWachtwoord()));
+//            gebruikerRepository.save(gebruiker);
+//            model.addAttribute("loginForm", new Gebruiker());
+//            return "index";
+//        }
+//    }
+
     @PostMapping("/registreren")
-    public String nieuweGebruiker(@ModelAttribute("registratieformulier") Gebruiker gebruiker, Model model, BindingResult result) {
-        // Als de ingevulde gebruiker al best in de database bestaat met dit email adres, wordt de actie niet uitgevoerd.
+    public String nieuweGebruiker(HttpServletRequest request, @ModelAttribute("registratieformulier") Gebruiker gebruiker,
+                                  Model model, BindingResult result) throws MessagingException {
+
         List<Gebruiker> bestaandeGebruiker = gebruikerRepository.findGebruikersByEmail(gebruiker.getEmail());
+        Gebruiker gebruikerZonderToken = gebruikerRepository.findGebruikerByEmail(gebruiker.getEmail());
         model.addAttribute("updatePasswordForm", new Gebruiker());
 
+        // Is het een bestaande gebruiker?
         if (!bestaandeGebruiker.isEmpty() || result.hasErrors() || !gebruiker.getWachtwoord().equals(gebruiker.getTrancientWachtwoord())) {
-            model.addAttribute("registratieFormulier", new Gebruiker());
-            model.addAttribute("loginForm", new Gebruiker());
-            return "gebruikerNieuw";
+            // Heeft de bestaande gebruiker al een token?
+            if (gebruikerVerificatieRepository.findByGebruiker(gebruikerZonderToken) != null) {
+                model.addAttribute("registratieFormulier", new Gebruiker());
+                model.addAttribute("loginForm", new Gebruiker());
+                return "gebruikerNieuw";
+                // als de bestaande gebruiker nog geen token heeft dan:
+            } else {
+                // maak een random token aan
+                final String token = UUID.randomUUID().toString();
+                plannieGebruikersService.maakGebruikerVerificatieToken(gebruikerZonderToken, token);
+                try {
+                    plannieMailingService.maakGebruikerVerificatieTokenEmail(plannieMailingService.getAppUrl(request), request.getLocale(), token, gebruikerZonderToken);
+                } catch (MessagingException e) {
+                    e.printStackTrace();
+                }
+                return "redirect:/index";
+            }
+            // Als het geen bestaande gebruiker is maak een gebruiker aan met een random token
         } else {
             gebruiker.setIdentifier(UUID.randomUUID().toString());
             gebruiker.setRollen(Arrays.asList(rolRepository.findRolByRolNaam("ROLE_USER")));
             gebruiker.setWachtwoord(passwordEncoder.encode(gebruiker.getWachtwoord()));
             gebruikerRepository.save(gebruiker);
+            // maak een random token aan
+            final String token = UUID.randomUUID().toString();
+            plannieGebruikersService.maakGebruikerVerificatieToken(gebruiker, token);
+            try {
+                plannieMailingService.maakGebruikerVerificatieTokenEmail(plannieMailingService.getAppUrl(request), request.getLocale(), token, gebruiker);
+            } catch (MessagingException e) {
+                e.printStackTrace();
+            }
+
             model.addAttribute("loginForm", new Gebruiker());
             return "index";
         }
     }
+
+//        // Als de gebruiker geen verificatie token heeft
+//        if (gebruikerVerificatieRepository.findByGebruiker(gebruiker) == null) {
+//            // maak een random token aan
+//            final String token = UUID.randomUUID().toString();
+//            plannieGebruikersService.maakGebruikerVerificatieToken(gebruiker, token);
+//            try {
+//                plannieMailingService.maakGebruikerVerificatieTokenEmail(plannieMailingService.getAppUrl(request), request.getLocale(), token, gebruiker);
+//            } catch (MessagingException e) {
+//                e.printStackTrace();
+//            }
+//            return "redirect:/index";
+//        } else {
+//            return "/error";
+//        }
+
 
     @GetMapping("/gebruikerDetail")
     public String gebruikerDetail(Model model, Principal principal) {
@@ -140,9 +207,14 @@ public class GebruikerController {
 
     @PostMapping("/wachtwoordReset")
     public String resetWachtwoord(HttpServletRequest request, @ModelAttribute("updatePasswordForm") Gebruiker gebruiker) throws MessagingException {
+        // een gebruiker vinden aan de hand van email adres
         Gebruiker gebruikerZonderWachtwoord = gebruikerRepository.findGebruikerByEmail(gebruiker.getEmail());
+
+        // Als gebruiker geen wachtwoordresettoken heeft
         if (wachtwoordResetRepository.findByGebruiker(gebruikerZonderWachtwoord) == null) {
+            // als het een bestaande gebruiker is
             if (gebruikerZonderWachtwoord != null) {
+                // maak een random token aan
                 final String token = UUID.randomUUID().toString();
                 plannieGebruikersService.maakWachtWoordResetTokenVoorGebruiker(gebruikerZonderWachtwoord, token);
                 try {
@@ -155,7 +227,8 @@ public class GebruikerController {
                 return "/error";
             }
         } else {
-            plannieMailingService.maakWachtwoordResetTokenEmail(plannieMailingService.getAppUrl(request), request.getLocale(), wachtwoordResetRepository.findByGebruiker(gebruikerZonderWachtwoord).getToken(), gebruikerZonderWachtwoord);
+            plannieMailingService.maakWachtwoordResetTokenEmail(plannieMailingService.getAppUrl(request), request.getLocale(),
+                    wachtwoordResetRepository.findByGebruiker(gebruikerZonderWachtwoord).getToken(), gebruikerZonderWachtwoord);
             return "redirect:/index";
         }
     }

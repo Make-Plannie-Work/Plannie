@@ -1,6 +1,7 @@
 package MakePlannieWork.Plannie.service;
 import MakePlannieWork.Plannie.model.*;
 import MakePlannieWork.Plannie.repository.GebruikerRepository;
+import MakePlannieWork.Plannie.repository.GebruikerVerificatieRepository;
 import MakePlannieWork.Plannie.repository.RolRepository;
 import MakePlannieWork.Plannie.repository.WachtwoordResetRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,9 @@ public class PlannieGebruikersService implements UserDetailsService {
 
     @Autowired
     WachtwoordResetRepository wachtwoordResetRepository;
+
+    @Autowired
+    GebruikerVerificatieRepository gebruikerVerificatieRepository;
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
@@ -91,5 +95,17 @@ public class PlannieGebruikersService implements UserDetailsService {
     public Gebruiker krijgGebruikerBijWachtwoordResetToken(final String token) {
         return wachtwoordResetRepository.findByToken(token).getGebruiker();
     }
+
+    // Hier staan alle handelingen voor gebruiker verificatie tokens
+
+    public void maakGebruikerVerificatieToken(final Gebruiker gebruiker, final String token) {
+        final GebruikerVerificatieToken mijnToken = new GebruikerVerificatieToken(token, gebruiker);
+        gebruikerVerificatieRepository.save(mijnToken);
+    }
+
+    public GebruikerVerificatieToken getGebruikerVerificatieToken(final String token) {
+        return gebruikerVerificatieRepository.findByToken(token);
+    }
+
 
 }
