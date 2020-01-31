@@ -89,13 +89,16 @@ public class GebruikerController {
 
         // Is het een bestaande gebruiker?
         if (!bestaandeGebruiker.isEmpty() || result.hasErrors() || !gebruiker.getWachtwoord().equals(gebruiker.getTrancientWachtwoord())) {
-            // Heeft de bestaande gebruiker al een token?
-            //TODO als een bestaande gebruiker al een token heeft dan komt deze opnieuw op registratie pagina
-            if (gebruikerVerificatieRepository.findByGebruiker(gebruikerZonderToken) != null) {
+            // Staat enabled op true?
+            if (gebruikerZonderToken.isEnabled()) {
+                model.addAttribute("loginForm", new Gebruiker());
+                return "index";
+                //TODO aangeven dat er al een gebruiker is met hetzelfde emailadres en door naar inlogformulier
+            } else if (gebruikerVerificatieRepository.findByGebruiker(gebruikerZonderToken) != null){
                 model.addAttribute("registratieFormulier", new Gebruiker());
                 model.addAttribute("loginForm", new Gebruiker());
                 return "gebruikerNieuw";
-                // als de bestaande gebruiker nog geen token heeft dan:
+                //TODO aangeven dat er al een token is in zijn email en doorsturen naar token
             } else {
                 // maak een random token aan
                 final String token = UUID.randomUUID().toString();
