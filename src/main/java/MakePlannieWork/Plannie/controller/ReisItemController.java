@@ -240,8 +240,8 @@ public class ReisItemController {
             model.addAttribute("groep", groepOptional.get());
             model.addAttribute("reisItem", reisItemOptional.get());
             model.addAttribute("reisItems", reisItemRepository.findNotitieByReisItemId(notitieId));
-            model.addAttribute("notitieWijzigingsFormulier", new Notitie());
-            model.addAttribute("notitieVerwijderFormulier", notitieOptional.get());
+            model.addAttribute("notitieWijzigingsFormulier", reisItemRepository.findNotitieByReisItemId(notitieId));
+            model.addAttribute("subReisItemVerwijderFormulier", notitieOptional.get());
             return "notitieWijzig";
         }
         return "redirect:/" + groepId + "/reisItemDetail/" + reisItemId;
@@ -260,20 +260,6 @@ public class ReisItemController {
             huidigeNotitie.setTekst(notitie.getTekst());
             huidigeNotitie.setStartDatum(notitie.getStartDatum());
             reisItemRepository.save(huidigeNotitie);
-        }
-        return "redirect:/" + groepId + "/reisItemDetail/" + reisItemId;
-    }
-
-    // Verwijderen van notitie
-    @PostMapping("/{groepId}/{reisItemId}/{reisItemsId}/notitieVerwijderen")
-    public String notitieVerwijderen(@ModelAttribute("notitieVerwijderFormulier") Notitie notitie, @PathVariable("groepId")
-            Integer groepId, @PathVariable("reisItemId") Integer reisItemId,
-                                  @PathVariable("reisItemsId") Integer notitieId, BindingResult result) {
-        if (result.hasErrors()) {
-            return "redirect:/notitieWijzig";
-        } else {
-            Notitie huidigeNotitie = reisItemRepository.findNotitieByReisItemId(notitieId);
-            reisItemRepository.delete(huidigeNotitie);
         }
         return "redirect:/" + groepId + "/reisItemDetail/" + reisItemId;
     }
@@ -345,7 +331,7 @@ public class ReisItemController {
             model.addAttribute("groep", groepOptional.get());
             model.addAttribute("reisItem", reisItemOptional.get());
             model.addAttribute("reisItems", reisItemRepository.findLocatieByReisItemId(locatieId));
-            model.addAttribute("locatieWijzigingsFormulier", new Locatie());
+            model.addAttribute("locatieWijzigingsFormulier", reisItemRepository.findLocatieByReisItemId(locatieId));
             model.addAttribute("subReisItemVerwijderFormulier", notitieOptional.get());
             return "reisItemLocatieWijzig";
         }

@@ -46,27 +46,22 @@
                                 <form:input id="locatieNaam" type="text" class="form-control" path="naam"
                                             required="required" data-toggle="tooltip" data-placement="top"
                                             title="Naam van deze locatie"
-                                            placeholder="Geef een naam op voor deze locatie"
-                                            value="${reisItems.naam}"/>
+                                            placeholder="Geef een naam op voor deze locatie"/>
                                 <form:input id="locatieDatum" type="date" class="form-control" path="startDatum"
                                             required="required"
-                                            placeholder="Datum"
-                                            value="${reisItems.startDatum}"/>
+                                            placeholder="Datum"/>
                                 <label for="locatieAdres">Adres</label>
                                 <form:input id="locatieAdres" type="text" class="form-control" path="adres"
                                             required="required" data-toggle="tooltip" data-placement="top" title="Adres"
-                                            placeholder="Adres van de locatie"
-                                            value="${reisItems.adres}"/>
+                                            placeholder="Adres van de locatie"/>
                                 <label for="locatieLatitude">Latitude</label>
                                 <label for="locatieLongitude">Longitude</label>
                                 <form:input id="locatieLatitude" type="text" class="form-control-inline"
                                             path="latitude" required="required" data-toggle="tooltip" data-placement="top"
-                                            title="Latitude" readonly="true"
-                                            value="${reisItems.latitude}"/>
+                                            title="Latitude" readonly="true"/>
                                 <form:input id="locatieLongitude" type="text" class="form-control-inline"
                                             path="longitude" required="required" data-toggle="tooltip" data-placement="top"
-                                            title="Longitude" readonly="true"
-                                            value="${reisItems.longitude}"/>
+                                            title="Longitude" readonly="true"/>
                             </div>
 
                             <hr class="my-4">
