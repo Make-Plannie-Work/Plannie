@@ -346,8 +346,39 @@ public class ReisItemController {
             model.addAttribute("reisItem", reisItemOptional.get());
             model.addAttribute("reisItems", reisItemRepository.findLocatieByReisItemId(locatieId));
             model.addAttribute("locatieWijzigingsFormulier", new Locatie());
-            model.addAttribute("locatieVerwijderFormulier", notitieOptional.get());
+            model.addAttribute("subReisItemVerwijderFormulier", notitieOptional.get());
             return "reisItemLocatieWijzig";
+        }
+        return "redirect:/" + groepId + "/reisItemDetail/" + reisItemId;
+    }
+
+    // Opslaan van gewijzigde locatie
+    @PostMapping("/{groepId}/{reisItemId}/{reisItemsId}/locatieWijzigen")
+    public String locatieWijzigen(@ModelAttribute("locatieWijzigingsFormulier") Locatie locatie, @PathVariable("groepId")
+            Integer groepId, @PathVariable("reisItemId") Integer reisItemId,
+                                  @PathVariable("reisItemsId") Integer locatieId, BindingResult result) {
+        if (result.hasErrors()) {
+            return "redirect:/notitieWijzig";
+        } else {
+            Locatie huidigeLocatie = reisItemRepository.findLocatieByReisItemId(locatieId);
+            huidigeLocatie.setNaam(locatie.getNaam());
+            huidigeLocatie.setStartDatum(locatie.getStartDatum());
+            huidigeLocatie.setAdres(locatie.getAdres());
+            huidigeLocatie.setLatitude(locatie.getLatitude());
+            huidigeLocatie.setLongitude(locatie.getLongitude());
+            reisItemRepository.save(huidigeLocatie);
+        }
+        return "redirect:/" + groepId + "/reisItemDetail/" + reisItemId;
+    }
+
+    // Verwijderen van subReisItem
+    @PostMapping("/{groepId}/{reisItemId}/{reisItemsId}/subReisItemVerwijderen")
+    public String subReisItemVerwijderen(@ModelAttribute("subReisItemVerwijderFormulier") ReisItem reisItem, @PathVariable("groepId")
+            Integer groepId, @PathVariable("reisItemId") Integer reisItemId,
+                                     @PathVariable("reisItemsId") Integer subReisItemId, BindingResult result) {
+        Optional<ReisItem> huidigeSubReisItem = reisItemRepository.findById(subReisItemId);
+        if (huidigeSubReisItem.isPresent() && !result.hasErrors()) {
+            reisItemRepository.delete(huidigeSubReisItem.get());
         }
         return "redirect:/" + groepId + "/reisItemDetail/" + reisItemId;
     }

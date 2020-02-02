@@ -80,8 +80,8 @@
 
 
                         <form:form
-                                action="/${groep.groepId}/${reisItem.reisItemId}/${reisItems.reisItemId}/locatieVerwijderen"
-                                method="post" modelAttribute="locatieVerwijderFormulier">
+                                action="/${groep.groepId}/${reisItem.reisItemId}/${reisItems.reisItemId}/subReisItemVerwijderen"
+                                method="post" modelAttribute="subReisItemVerwijderFormulier">
 
 
                             <form:button id="locatieVerwijderen" type="submit" class="btn btn-primary mt-3">Verwijder
