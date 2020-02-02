@@ -1,5 +1,6 @@
 package MakePlannieWork.Plannie.repository;
 
+import MakePlannieWork.Plannie.model.reisitem.Locatie;
 import MakePlannieWork.Plannie.model.reisitem.Notitie;
 import MakePlannieWork.Plannie.model.reisitem.Poll;
 import MakePlannieWork.Plannie.model.reisitem.ReisItem;
@@ -26,4 +27,6 @@ public interface ReisItemRepository extends JpaRepository<ReisItem, Integer> {
     List<Notitie> findNotitieByNaam (String naam);
 
     List<Poll> findPollByNaam (String naam);
+
+    Locatie findLocatieByReisItemId(Integer locatieId);
 }

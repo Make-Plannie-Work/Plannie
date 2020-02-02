@@ -330,4 +330,25 @@ public class ReisItemController {
         // Terug naar reis overzicht.
         return "redirect:/" + groepId + "/reisItemDetail/" + reisItemId;
     }
+
+    // Klaarzetten van het Locatie wijzigen Overzicht
+    @GetMapping("/{groepId}/{reisItemId}/{reisItemsId}/LocatieWijzigen")
+    public String huidigeLocatie(@PathVariable("groepId") Integer groepId, @PathVariable("reisItemId") Integer reisItemId,
+                                 @PathVariable("reisItemsId") Integer locatieId, Model model, Principal principal) {
+
+        Optional<Groep> groepOptional = plannieGroepService.findById(groepId);
+        Optional<ReisItem> reisItemOptional = plannieReisItemService.findById(reisItemId);
+        Optional<ReisItem> notitieOptional = plannieReisItemService.findById(locatieId);
+
+        if (reisItemOptional.isPresent() && groepOptional.isPresent() && notitieOptional.isPresent()) {
+            model.addAttribute("currentUser", gebruikerRepository.findGebruikerByEmail(principal.getName()));
+            model.addAttribute("groep", groepOptional.get());
+            model.addAttribute("reisItem", reisItemOptional.get());
+            model.addAttribute("reisItems", reisItemRepository.findLocatieByReisItemId(locatieId));
+            model.addAttribute("locatieWijzigingsFormulier", new Locatie());
+            model.addAttribute("locatieVerwijderFormulier", notitieOptional.get());
+            return "reisItemLocatieWijzig";
+        }
+        return "redirect:/" + groepId + "/reisItemDetail/" + reisItemId;
+    }
 }
