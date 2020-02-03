@@ -31,12 +31,27 @@ public class Gebruiker implements UserDetails {
     @Transient
     private String trancientWachtwoord;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "gebruikers_rollen", joinColumns = @JoinColumn(name = "gebruikersid", referencedColumnName = "gebruikersId"), inverseJoinColumns = @JoinColumn(name = "rolId", referencedColumnName = "rolId"))
+    @ManyToMany(fetch = FetchType.EAGER,
+            cascade =
+            {
+                    CascadeType.DETACH,
+                    CascadeType.MERGE,
+                    CascadeType.REFRESH,
+                    //CascadeType.PERSIST
+            })
+    @JoinTable(name = "gebruikers_rollen",
+                joinColumns = @JoinColumn(name = "gebruikersid", referencedColumnName = "gebruikersId"),
+                inverseJoinColumns = @JoinColumn(name = "rolId", referencedColumnName = "rolId"))
     private Collection<Rol> rollen;
 
-    @ManyToMany(mappedBy = "groepsleden")
-    @OnDelete(action = OnDeleteAction.CASCADE)
+    @ManyToMany(mappedBy = "groepsleden",
+            cascade =
+                    {
+                            CascadeType.DETACH,
+                            CascadeType.MERGE,
+                            CascadeType.REFRESH,
+                            CascadeType.PERSIST
+                    })
     private Set<Groep> groepen;
 
     public String toString() {

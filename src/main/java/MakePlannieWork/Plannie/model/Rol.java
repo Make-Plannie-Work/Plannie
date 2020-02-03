@@ -10,7 +10,14 @@ public class Rol {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer rolId;
 
-    @ManyToMany(mappedBy = "rollen")
+    @ManyToMany(mappedBy = "rollen",
+            cascade =
+                    {
+                            CascadeType.DETACH,
+                            CascadeType.MERGE,
+                            CascadeType.REFRESH,
+                            //CascadeType.PERSIST
+                    })
     private Collection<Gebruiker> gebruikers;
 
     private String rolNaam;
