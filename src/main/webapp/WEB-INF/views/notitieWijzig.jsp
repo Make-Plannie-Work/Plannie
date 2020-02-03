@@ -34,23 +34,22 @@
                                 <div class="row">
                                     <div class="col">
                                         <form:input type="text" class="form-control" path="naam" required="required"
-                                                    placeholder="notitieNaam" value="${reisItems.naam}"/>
+                                                    placeholder="notitieNaam"/>
                                     </div>
                                     <div class="col">
                                         <form:input type="date" class="form-control" path="startDatum"
-                                                    required="required" placeholder="startDatum"
-                                                    value="${reisItems.startDatum}"/>
+                                                    required="required" placeholder="startDatum"/>
                                     </div>
                                 </div>
 
                                 <div class="form-group mt-3">
                                          <form:input type="number" class="form-control" path="budget" required="required"
-                                                    placeholder="notitieBudget" value="${reisItems.budget}"/>
+                                                    placeholder="notitieBudget" />
                                 </div>
 
                                 <div class="form-group mt-3">
-                                    <form:input type="text" class="form-control" path="tekst" required="required"
-                                                placeholder="Tekst" value="${reisItems.tekst}"/>
+                                    <form:textarea id="notitieTekst" path="tekst" class="form-control mt-2" rows="5" cols="30" required="required"
+                                                   placeholder="Vul hier uw notitie in"/>
                                 </div>
 
                               <hr class="my-1">
@@ -63,7 +62,7 @@
 
 
 
-                            <form:form action="/${groep.groepId}/${reisItem.reisItemId}/${reisItems.reisItemId}/notitieVerwijderen" method="post" modelAttribute="notitieVerwijderFormulier">
+                            <form:form action="/${groep.groepId}/${reisItem.reisItemId}/${reisItems.reisItemId}/subReisItemVerwijderen" method="post" modelAttribute="subReisItemVerwijderFormulier">
 
 
 
