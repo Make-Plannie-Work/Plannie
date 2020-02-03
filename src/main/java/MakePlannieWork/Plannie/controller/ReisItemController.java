@@ -344,7 +344,7 @@ public class ReisItemController {
             Integer groepId, @PathVariable("reisItemId") Integer reisItemId,
                                   @PathVariable("reisItemsId") Integer locatieId, BindingResult result) {
         if (result.hasErrors()) {
-            return "redirect:/notitieWijzig";
+            return "redirect:/locatieWijzig";
         } else {
             Locatie huidigeLocatie = reisItemRepository.findLocatieByReisItemId(locatieId);
             huidigeLocatie.setNaam(locatie.getNaam());
