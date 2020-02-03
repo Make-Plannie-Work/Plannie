@@ -1,25 +1,9 @@
-<!doctype html>
-<html lang="en">
-
-    <head>
-        <!-- Required meta tags -->
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-        <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-        <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
-        <!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-              integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-        <link href="/css/style.css" type="text/css" rel="stylesheet">
-        <link rel="shortcut icon" type="image/icon" href="/images/favicon.ico"/>
-        <script src="https://kit.fontawesome.com/d450c035a5.js" crossorigin="anonymous"></script>
-        <title>Welkom bij Plannie - ${currentUser.voornaam}</title>
-    </head>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
+<jsp:include page="header.jsp"/>
+<title>Welkom bij Plannie - ${currentUser.voornaam}</title>
     <body>
-
-    <jsp:include page="header.jsp"/>
-
     <div class="container mt-3">
         <div class="row">
             <div class="col-sm-12 fixed-top">
