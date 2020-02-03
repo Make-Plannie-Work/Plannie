@@ -33,6 +33,10 @@ public class Groep {
             inverseJoinColumns = {@JoinColumn(name = "gebruiker_gebruikersid")})
     private Set<Gebruiker> groepsleden = new HashSet<>();
 
+    public int geefAantalGebruikersInGroep() {
+        return groepsleden.size();
+    }
+
     public Set<ReisItem> getReisItem() {
         return reisItem;
     }
