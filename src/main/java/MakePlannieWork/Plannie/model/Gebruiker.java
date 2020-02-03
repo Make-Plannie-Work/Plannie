@@ -1,11 +1,13 @@
 package MakePlannieWork.Plannie.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.annotations.Type;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.hibernate.search.annotations.Indexed;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -14,6 +16,7 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
+@Indexed
 @Table(name = "gebruikers")
 public class Gebruiker implements UserDetails {
 
@@ -22,11 +25,13 @@ public class Gebruiker implements UserDetails {
     private Integer gebruikersId;
     private String voornaam;
     private String achternaam;
+    @JsonIgnore
     private String identifier; //UUID
 
     @Column(unique = true)
     private String email;
 
+    @JsonIgnore
     private String wachtwoord;
 
     @Column(nullable = false, columnDefinition = "TINYINT DEFAULT false")
@@ -34,6 +39,7 @@ public class Gebruiker implements UserDetails {
     private boolean enabled = true;
 
     @Transient
+    @JsonIgnore
     private String trancientWachtwoord;
 
     @ManyToMany(fetch = FetchType.EAGER,
@@ -47,6 +53,7 @@ public class Gebruiker implements UserDetails {
     @JoinTable(name = "gebruikers_rollen",
                 joinColumns = @JoinColumn(name = "gebruikersid", referencedColumnName = "gebruikersId"),
                 inverseJoinColumns = @JoinColumn(name = "rolId", referencedColumnName = "rolId"))
+    @JsonIgnore
     private Collection<Rol> rollen;
 
     @ManyToMany(mappedBy = "groepsleden",
@@ -57,6 +64,8 @@ public class Gebruiker implements UserDetails {
                             CascadeType.REFRESH,
                             CascadeType.PERSIST
                     })
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
     private Set<Groep> groepen;
 
     public String toString() {
@@ -136,6 +145,7 @@ public class Gebruiker implements UserDetails {
     }
 
     @Override
+    @JsonIgnore
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> authorities = new ArrayList<>();
         authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
@@ -152,31 +162,37 @@ public class Gebruiker implements UserDetails {
     }
 
     @Override
+    @JsonIgnore
     public String getPassword() {
         return wachtwoord;
     }
 
     @Override
+    @JsonIgnore
     public String getUsername() {
         return email;
     }
 
     @Override
+    @JsonIgnore
     public boolean isAccountNonExpired() {
         return true;
     }
 
     @Override
+    @JsonIgnore
     public boolean isAccountNonLocked() {
         return true;
     }
 
     @Override
+    @JsonIgnore
     public boolean isCredentialsNonExpired() {
         return true;
     }
 
     @Override
+    @JsonIgnore
     public boolean isEnabled() {
         return enabled;
     }

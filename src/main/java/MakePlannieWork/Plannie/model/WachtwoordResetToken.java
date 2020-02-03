@@ -7,7 +7,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 @Entity
-public class WachtwoordResetToken {
+public class   WachtwoordResetToken {
 
     private static final int EXPIRATION = 60 * 24;
 

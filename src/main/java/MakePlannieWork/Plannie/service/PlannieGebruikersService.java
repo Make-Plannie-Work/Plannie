@@ -5,6 +5,7 @@ import MakePlannieWork.Plannie.repository.GebruikerVerificatieRepository;
 import MakePlannieWork.Plannie.repository.RolRepository;
 import MakePlannieWork.Plannie.repository.WachtwoordResetRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -28,6 +29,8 @@ public class PlannieGebruikersService implements UserDetailsService {
     @Autowired
     GebruikerVerificatieRepository gebruikerVerificatieRepository;
 
+    private JdbcTemplate jdbcTemplate;
+
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 
@@ -44,7 +47,8 @@ public class PlannieGebruikersService implements UserDetailsService {
         for (Rol rol : rollen)
             authList.add(new SimpleGrantedAuthority(rol.getRolNaam()));
 
-        return new org.springframework.security.core.userdetails.User(gebruiker.getEmail(), gebruiker.getPassword(), gebruiker.isEnabled(), true, true, true, authList);
+        return new org.springframework.security.core.userdetails.User(gebruiker.getEmail(), gebruiker.getPassword(), gebruiker.
+                isEnabled(), true, true, true, authList);
 
     }
 
@@ -96,6 +100,13 @@ public class PlannieGebruikersService implements UserDetailsService {
         return wachtwoordResetRepository.findByToken(token).getGebruiker();
     }
 
+    public JdbcTemplate getJdbcTemplate() {
+        return jdbcTemplate;
+    }
+
+    public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
     // Hier staan alle handelingen voor gebruiker verificatie tokens
 
     public void maakGebruikerVerificatieToken(final Gebruiker gebruiker, final String token) {

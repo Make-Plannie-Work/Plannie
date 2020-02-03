@@ -63,19 +63,23 @@
                                 <a id="wijzigGroepsNaam2" type="button" class="text-white" data-toggle="modal" data-target="#wijzigGroepsNaam"><i class="far fa-edit"></i></a>
                             </c:if></h3>
 
+                    <c:if test = "${groep.aanmaker == currentUser.gebruikersId}"><hr class="my-4">
+                    <jsp:include page="livesearch.jsp"/>
+
+                    <hr class="my-4">
+                    </c:if>
 
                         <table class="table table-hover table-borderless text-white">
                             <thead>
                             <tr>
-                                <th scope="col">Naam</th>
-
+                                <th scope="col">Groepsleden</th>
                             </tr>
                             </thead>
                             <tbody>
                             <c:forEach items="${groepsLedenLijst}" var="groepslid">
                                 <tr>
                                     <td id="groepslid${groepslid.voornaam}" data-toggle="tooltip" data-placement="bottom" title="${groepslid.email}">${groepslid.voornaam} ${groepslid.achternaam}</td>
-                                    <c:if test = "${groep.aanmaker == currentUser.gebruikersId}"><td><a id="Verwijder${groepslid.voornaam}UitGroep" href="${groep.groepId}/VerwijderLedenUitGroep/${groepslid.gebruikersId}">
+                                    <td><c:if test="${groepslid.gebruikersId == groep.aanmaker}"><i class="fas fa-crown"></i></c:if><c:if test = "${groep.aanmaker == currentUser.gebruikersId}"><a id="Verwijder${groepslid.voornaam}UitGroep" href="${groep.groepId}/VerwijderLedenUitGroep/${groepslid.gebruikersId}">
                                         <i class="far fa-trash-alt"></i>
                                     </a></td></c:if>
                                 </tr>
@@ -83,35 +87,8 @@
                             </tbody>
                         </table>
 
-                        <c:if test = "${groep.aanmaker == currentUser.gebruikersId}"><hr class="my-4">
-                        <div class="row">
-                            <p class="lead text-white mt-3">Alle Leden</h3>
 
 
-
-                            <hr class="my-4">
-
-                            <table class="table table-hover table-borderless text-white">
-                                <thead>
-                                <tr>
-                                    <th scope="col">Naam</th>
-                                    <th scope="col"></th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <c:forEach items="${AlleLedenLijst}" var="lid">
-                                    <tr>
-                                        <td id="gebruiker${lid.voornaam}" data-toggle="tooltip" data-placement="bottom" title="${lid.email}">${lid.voornaam} ${lid.achternaam}</td>
-                                        <td><a id="voeg${lid.voornaam}ToeAanGroep" href="${groep.groepId}/voegGebruikerToeAanGroep/${lid.gebruikersId}">
-                                            <i class="fas fa-plus"></i>
-                                        </a></td>
-                                    </tr>
-                                </c:forEach>
-
-                                </tbody>
-                            </table>
-                        </div>
-                        </c:if>
                     </div>
                 </div>
             </div>
@@ -182,9 +159,9 @@
 <!-- Footer -->
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
-        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="/js/search.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
         integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
         crossorigin="anonymous"></script>

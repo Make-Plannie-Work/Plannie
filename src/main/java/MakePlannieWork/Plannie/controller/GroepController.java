@@ -8,6 +8,7 @@ import MakePlannieWork.Plannie.repository.GroepRepository;
 import MakePlannieWork.Plannie.service.PlannieGebruikersService;
 import MakePlannieWork.Plannie.service.PlannieGroepService;
 import MakePlannieWork.Plannie.service.PlannieReisItemService;
+import org.openqa.selenium.json.Json;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.stereotype.Controller;
@@ -19,10 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 @Controller
 public class GroepController {
@@ -149,5 +147,17 @@ public class GroepController {
             e.printStackTrace();
         }
         return "redirect:/groepDetail/" + groepId;
+    }
+
+    // Gebruikers zoeken
+    @RequestMapping(value = "/{groepId}/zoekGebruikers")
+    @ResponseBody
+    public List<Gebruiker> gebruikers(@RequestParam(value = "term", required = false, defaultValue="") String term, @PathVariable("groepId") Integer groepId) {
+        List<Gebruiker> suggestions = new ArrayList<Gebruiker>();
+        System.out.println(groepId);
+        List<Gebruiker> alleGebruikers = gebruikerRepository.findGebruikers(term, groepId);
+        suggestions.addAll(alleGebruikers);
+
+        return suggestions;
     }
 }
