@@ -150,11 +150,12 @@ public class GroepController {
     }
 
     // Gebruikers zoeken
-    @RequestMapping(value = "/zoekGebruikers")
+    @RequestMapping(value = "/{groepId}/zoekGebruikers")
     @ResponseBody
-    public List<Gebruiker> gebruikers(@RequestParam(value = "term", required = false, defaultValue="") String term) {
+    public List<Gebruiker> gebruikers(@RequestParam(value = "term", required = false, defaultValue="") String term, @PathVariable("groepId") Integer groepId) {
         List<Gebruiker> suggestions = new ArrayList<Gebruiker>();
-        List<Gebruiker> alleGebruikers = gebruikerRepository.findGebruikers(term);
+        System.out.println(groepId);
+        List<Gebruiker> alleGebruikers = gebruikerRepository.findGebruikers(term, groepId);
         suggestions.addAll(alleGebruikers);
 
         return suggestions;

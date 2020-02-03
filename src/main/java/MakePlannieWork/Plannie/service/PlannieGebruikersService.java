@@ -43,7 +43,8 @@ public class PlannieGebruikersService implements UserDetailsService {
         for (Rol rol : rollen)
             authList.add(new SimpleGrantedAuthority(rol.getRolNaam()));
 
-        return new org.springframework.security.core.userdetails.User(gebruiker.getEmail(), gebruiker.getPassword(), gebruiker.isEnabled(), true, true, true, authList);
+        return new org.springframework.security.core.userdetails.User(gebruiker.getEmail(), gebruiker.getPassword(), gebruiker.
+                isEnabled(), true, true, true, authList);
 
     }
 
