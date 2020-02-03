@@ -1,6 +1,5 @@
 <!doctype html>
 <html lang="en">
-<div class="view" style="background-image: url('https://images.unsplash.com/photo-1473496169904-658ba7c44d8a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80'); background-repeat: no-repeat; background-size: cover; background-attachment: fixed;">
 
     <head>
         <!-- Required meta tags -->
@@ -16,17 +15,7 @@
     </head>
     <body>
 
-    <nav class="navbar navbar-light bg-light shadow">
-        <span class="navbar-brand mb-0 h1"><a href="/gebruikerDetail" class="text-dark">Plannie</a></span>
-
-        <ul class="nav justify-content-end">
-            <li class="nav-item">
-                <a id="registreren" class="nav-link text-dark" href="/registreren">Registreer</a>
-            </li>
-            <li class="nav-item">
-                <a id="inloggen" class="nav-link text-dark" data-toggle="modal" data-target="#loginmodal">Login</a>
-            </li>
-    </nav>
+    <jsp:include page="header.jsp"/>
 
     <div class="container mt-3">
         <div class="row">
@@ -36,7 +25,7 @@
         <div class="row">
 
             <div class="col-sm-8">
-                <div class="jumbotron shadow">
+                <div class="jumbotron shadow border">
                     <div sec:authorize="hasAuthority('NEW_USER_PRIVILEGE')">
                         <h3>Hoi ${gebruiker.voornaam}. Voltooi hier je aanmelding voor Plannie!</h3>
                         <form:form action = "${gebruiker.identifier}/saveGebruiker" method="post" modelAttribute="maakRegistratieCompleetFormulier">
@@ -51,7 +40,7 @@
             </div>
 
             <div class="col-sm-4">
-                <div class="jumbotron shadow" style="background-color: #666666;">
+                <div class="jumbotron shadow" id="wouter">
                     <div class="row" >
                         <p class="lead text-white">Info 1</p>
                     </div>

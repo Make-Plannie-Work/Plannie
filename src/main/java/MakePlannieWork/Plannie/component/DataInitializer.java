@@ -63,6 +63,7 @@ public class DataInitializer implements ApplicationListener<ContextRefreshedEven
             gebruiker.setEmail(email);
             gebruiker.setWachtwoord(passwordEncoder.encode(wachtwoord));
             gebruiker.setVoornaam(email);
+            gebruiker.setEnabled(true);
             Set<Rol> gebruikersRollen = findRollen(rollen);
             gebruiker.setRollen(gebruikersRollen);
 

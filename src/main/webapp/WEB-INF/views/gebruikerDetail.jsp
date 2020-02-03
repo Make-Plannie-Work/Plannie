@@ -39,7 +39,7 @@
             </div>
 
             <div class="col-sm-4">
-                <div class="jumbotron shadow" style="background-color: #FF3B56;">
+                <div class="jumbotron shadow" id="wouter">
                     <div class="row" >
 
                         <table class="table table-hover table-borderless text-white">
