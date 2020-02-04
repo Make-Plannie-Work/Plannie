@@ -198,7 +198,7 @@
 <script src="\js/googleKaart.js"></script>
 <!-- Replace the value of the key parameter with your own API key. -->
 <script defer
-        src="https://maps.googleapis.com/maps/api/js?key=YOUR-API-KEY&callback=initMapsWithMarker">
+        src="https://maps.googleapis.com/maps/api/js?key=${mapsAPI}&callback=initMapsWithMarker">
 </script>
 </body>
 </html>

@@ -10,6 +10,7 @@ import MakePlannieWork.Plannie.repository.ReisItemRepository;
 import MakePlannieWork.Plannie.service.PlannieGroepService;
 import MakePlannieWork.Plannie.service.PlannieReisItemService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -39,6 +40,9 @@ public class ReisItemController {
 
     @Autowired
     private PlannieReisItemService plannieReisItemService;
+
+    @Value("${plannie.mapsAPI}")
+    private String mapsAPI;
 
     // Vanuit een Groep een Reis aanmaken
     @PostMapping("{groepId}/reisItemAanmaken")
@@ -77,6 +81,7 @@ public class ReisItemController {
             model.addAttribute("groepslidEmail", new Gebruiker());
             model.addAttribute("groep", groepOptional.get());
             model.addAttribute("alleReisItemsVanReis", reisItemOptional.get().getReisItems());
+            model.addAttribute("mapsAPI", mapsAPI);
             return "reisItemDetail";
         }
         return "redirect:/groepDetail";
@@ -289,6 +294,7 @@ public class ReisItemController {
             model.addAttribute("reisItem", reisItemOptional.get());
             model.addAttribute("groepslidEmail", new Gebruiker());
             model.addAttribute("groep", groepOptional.get());
+            model.addAttribute("mapsAPI", mapsAPI);
 
             model.addAttribute("locatieAanmakenFormulier", new Locatie());
             return "reisItemLocatieNieuw";
@@ -334,6 +340,7 @@ public class ReisItemController {
             model.addAttribute("reisItems", reisItemRepository.findLocatieByReisItemId(locatieId));
             model.addAttribute("locatieWijzigingsFormulier", reisItemRepository.findLocatieByReisItemId(locatieId));
             model.addAttribute("subReisItemVerwijderFormulier", notitieOptional.get());
+            model.addAttribute("mapsAPI", mapsAPI);
             return "reisItemLocatieWijzig";
         }
         return "redirect:/" + groepId + "/reisItemDetail/" + reisItemId;
