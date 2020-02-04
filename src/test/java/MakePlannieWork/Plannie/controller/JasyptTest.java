@@ -1,6 +1,7 @@
 package MakePlannieWork.Plannie.controller;
 
 import org.jasypt.encryption.StringEncryptor;
+import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -31,6 +32,12 @@ public class JasyptTest {
 
         // Stap 4
         // Haal de opgegeven waarde weer weg, voordat je commtit.
+    }
+
+    @Test
+    public void werktJasypt() {
+        String verwacht = "Sleutel";
+        Assert.assertEquals(verwacht, sleutel);
     }
 
 }
