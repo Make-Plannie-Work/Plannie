@@ -13,9 +13,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest
 class GroepControllerTest {
 
-    @Value("${plannie.sleutel}")
-    private String sleutel;
-
     @Autowired
     private GroepController groepController;
 
