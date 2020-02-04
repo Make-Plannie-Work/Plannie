@@ -3,12 +3,16 @@ package MakePlannieWork.Plannie.controller;
 import org.jasypt.encryption.StringEncryptor;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
 public class JasyptTest {
     @Autowired
     StringEncryptor jasyptStringEncryptor;
+
+    @Value("${plannie.sleutel}")
+    private String sleutel;
 
     @Test
     public void encryptieMetJasypt() {
@@ -28,4 +32,5 @@ public class JasyptTest {
         // Stap 4
         // Haal de opgegeven waarde weer weg, voordat je commtit.
     }
+
 }
