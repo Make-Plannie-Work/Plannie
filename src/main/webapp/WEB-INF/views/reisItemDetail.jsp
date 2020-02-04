@@ -71,6 +71,14 @@
                                              data-id="${reisItems.reisItemId}"></div>
                                     </div>
                                 </c:when>
+                                <c:when test="${soortReisItem == 'MakePlannieWork.Plannie.model.reisitem.Activiteit'}">
+                                    <div class="card-header border-0">
+                                        Activiteit ${reisItems.naam}
+                                    </div>
+                                    <div class="card-block px-2">
+
+                                    </div>
+                                </c:when>
                                 <c:otherwise>
                                     <div class="card-header border-0">
                                         <img src="https://via.placeholder.com/100.jpg" alt="">
@@ -104,7 +112,7 @@
                         <a class="dropdown-item" id="locatieKeuze"
                            href="/${groep.groepId}/reisItemDetail/${reisItem.reisItemId}/LocatieAanmaken">Een
                             Locatie</a>
-                        <a class="dropdown-item" id="activiteitKeuze" href="#">Een Activiteit</a>
+                        <a class="dropdown-item" id="activiteitKeuze" href="/${groep.groepId}/reisItemDetail/${reisItem.reisItemId}/ActiviteitAanmaken">Een Activiteit</a>
                     </div>
                 </div>
             </div>

@@ -4,6 +4,7 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -53,6 +54,9 @@ public class ReisItem {
     }
 
     public void voegReisItemToe(ReisItem reisItem) {
+        if (reisItems == null) {
+            reisItems = new HashSet<>();
+        }
         reisItems.add(reisItem);
     }
 

@@ -2,6 +2,7 @@ package MakePlannieWork.Plannie.controller;
 
 import MakePlannieWork.Plannie.model.Gebruiker;
 import MakePlannieWork.Plannie.model.Groep;
+import MakePlannieWork.Plannie.model.dto.ActiviteitDTO;
 import MakePlannieWork.Plannie.model.reisitem.*;
 import MakePlannieWork.Plannie.repository.GebruikerRepository;
 import MakePlannieWork.Plannie.repository.GroepRepository;
@@ -99,6 +100,76 @@ public class ReisItemController {
             return "notitieNieuw";
         }
         return "reisItemDetail";
+    }
+
+    @GetMapping("/{groepId}/reisItemDetail/{reisItemId}/ActiviteitAanmaken")
+    public String activiteitAanmaken(@PathVariable("groepId") Integer groepId, @PathVariable("reisItemId") Integer reisItemId, Model model, Principal principal) {
+
+        Optional<Groep> groepOptional = plannieGroepService.findById(groepId);
+        Optional<ReisItem> reisItemOptional = plannieReisItemService.findById(reisItemId);
+
+        if (reisItemOptional.isPresent() && groepOptional.isPresent()) {
+            model.addAttribute("currentUser", gebruikerRepository.findGebruikerByEmail(principal.getName()));
+            model.addAttribute("reisItem", reisItemOptional.get());
+            model.addAttribute("groepslidEmail", new Gebruiker());
+            model.addAttribute("groep", groepOptional.get());
+
+            model.addAttribute("notitie", new Notitie());
+            model.addAttribute("activiteitAanmakenFormulier", new ActiviteitDTO());
+            return "activiteitNieuw";
+        }
+        return "reisItemDetail";
+    }
+
+    // Nieuwe activiteit opslaan
+    @PostMapping("/{groepId}/reisItemDetail/{reisItemId}/nieuweActiviteit")
+    public String activiteitOpslaan(@ModelAttribute("activiteitAanmakenFormulier") ActiviteitDTO activiteitDTO,
+                                    @PathVariable("groepId") Integer groepId,
+                                    @PathVariable("reisItemId") Integer reisItemId) {
+
+        Optional<ReisItem> reisItemOptional = plannieReisItemService.findById(reisItemId);
+        Activiteit activiteit = new Activiteit();
+        Notitie notitie = new Notitie();
+        Locatie locatie = new Locatie();
+
+        activiteit.setSoortActiviteit(activiteitDTO.getSoortActiviteit());
+        activiteit.setNaam(activiteitDTO.getNaam());
+        activiteit.setStartDatum(activiteitDTO.getStartDatum());
+        activiteit.setEindDatum(activiteitDTO.getEindDatum());
+        activiteit.setBudget(activiteitDTO.getBudget());
+
+        notitie.setTekst(activiteitDTO.getTekst());
+
+        locatie.setAdres(activiteitDTO.getAdres());
+        locatie.setLatitude(activiteitDTO.getLatitude());
+        locatie.setLongitude(activiteitDTO.getLongitude());
+
+
+        if (reisItemOptional.isPresent() && !notitie.getTekst().equals("")) {
+            ReisItem reis = reisItemOptional.get();
+
+            // ReisItem aan reis koppelen, en ReisItem aan reis toevoegen.
+            activiteit.setGekoppeldeReisItemId(reis);
+            reis.voegReisItemToe(activiteit);
+            reisItemRepository.save(activiteit);
+            reisItemRepository.save(reis);
+
+            if (!notitie.getTekst().equals("")) {
+                notitie.setGekoppeldeReisItemId(activiteit);
+                activiteit.voegReisItemToe(notitie);
+                reisItemRepository.save(notitie);
+                reisItemRepository.save(activiteit);
+
+            }
+            if (locatie.getAdres() != null || locatie.getLatitude() != 0 || locatie.getLongitude() != 0 ) {
+                locatie.setGekoppeldeReisItemId(activiteit);
+                activiteit.voegReisItemToe(locatie);
+                reisItemRepository.save(locatie);
+                reisItemRepository.save(activiteit);
+            }
+        }
+        // Terug naar reis overzicht.
+        return "redirect:/" + groepId + "/reisItemDetail/" + reisItemId;
     }
 
     // Nieuwe notitie opslaan
