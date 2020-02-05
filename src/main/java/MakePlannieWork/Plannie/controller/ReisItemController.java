@@ -153,6 +153,7 @@ public class ReisItemController {
 
         if (reisItemOptional.isPresent() && !notitie.getTekst().equals("")) {
             ReisItem reis = reisItemOptional.get();
+            reisItemId = reis.getHoofdReisItemId();
 
             // ReisItem aan reis koppelen, en ReisItem aan reis toevoegen.
             activiteit.setGekoppeldeReisItemId(reis);

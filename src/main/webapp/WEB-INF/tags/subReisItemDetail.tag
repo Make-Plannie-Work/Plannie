@@ -66,6 +66,20 @@
                                      data-id="${subReisItem.reisItemId}"></div>
                             </div>
                         </c:when>
+                        <c:when test="${soortReisItem == 'MakePlannieWork.Plannie.model.reisitem.Activiteit'}">
+
+                            <div class="card-header border-0">
+                                ${subReisItem.soortActiviteit} ${subReisItem.startDatum}
+                            </div>
+                            <div class="card-block px-2">
+                                <h4 class="card-title"><a id="ActiviteitDetails${subReisItem.naam}"
+                                                          href="/${groepId}/${reisItemId}/${subReisItem.reisItemId}/activiteitWijzigen">${subReisItem.naam}</a>
+                                    <tag:dropDownNieuwReisItem reisItem="${subReisItem}"/>
+                                </h4>
+                                <p class="card-text">${subReisItem.omschrijving}</p>
+                                <p class="card-text">Budget: ${subReisItem.budget} euro</p>
+                            </div>
+                        </c:when>
                         <c:otherwise>
                             <div class="card-header border-0">
                                 <img src="https://via.placeholder.com/100.jpg" alt="">
