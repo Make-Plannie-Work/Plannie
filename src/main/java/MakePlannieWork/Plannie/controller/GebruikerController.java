@@ -157,9 +157,12 @@ public class GebruikerController {
             huidigeGebruiker.setEnabled(true);
             gebruikerRepository.save(huidigeGebruiker);
         }
-
         gebruikerVerificatieRepository.delete(gebruikerVerificatieRepository.findByGebruiker(huidigeGebruiker));
-        return "redirect:/index";
+        if (huidigeGebruiker.getVoornaam().equals(huidigeGebruiker.getEmail())) {
+            return "redirect:/gebruikerWijzig";
+        } else {
+            return "redirect:/index";
+        }
     }
 
     @GetMapping("/gebruikerDetail")
