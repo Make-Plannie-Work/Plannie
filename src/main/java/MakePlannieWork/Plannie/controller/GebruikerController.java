@@ -60,9 +60,12 @@ public class GebruikerController {
     PlannieMailingService plannieMailingService;
 
     @GetMapping({"/index" , "/"})
-    String index(Model model) {
+    String index(Model model, Principal principal) {
         model.addAttribute("loginForm", new Gebruiker());
         model.addAttribute("updatePasswordForm", new Gebruiker());
+        if (principal != null && !principal.getName().equals("")) {
+            model.addAttribute("currentUser", gebruikerRepository.findGebruikerByEmail(principal.getName()));
+        }
         return "index";
     }
 
