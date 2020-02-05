@@ -114,6 +114,22 @@ width: 42rem;
     box-shadow: 0 3px 2px rgba(0, 0, 0, 0.3);
 }
 
+.btn-primary:focus {
+                       color: #ffffff !important;
+                       background-color: #FF3B56;
+                       border-color: #FFE070 !important;
+                       transition: all 0.4s ease 0s;
+                       box-shadow: 0 3px 2px rgba(0, 0, 0, 0.3);
+                   }
+
+.btn-primary:active {
+                        color: #ffffff !important;
+                        background-color: #FF3B56;
+                        border-color: #FFE070 !important;
+                        transition: all 0.4s ease 0s;
+                        box-shadow: 0 3px 2px rgba(0, 0, 0, 0.3);
+                    }
+
 .navbar {
     background-color: #FF3B56;
 }
@@ -173,7 +189,6 @@ input {
   border-radius: 5px;
   border: 1px solid #ccc;
   padding: 4px;
-  width: 300px;
   margin-top: 10px;
 }
 
@@ -271,24 +286,6 @@ border-color: green;
 
 .invalid:before {
   position: relative;
-}
-
-textarea:hover,
-input:hover,
-textarea:active,
-input:active,
-textarea:focus,
-input:focus,
-button:focus,
-button:active,
-button:hover,
-label:focus,
-.btn:active,
-.btn.active
-{
-    outline:1px !important;
-    -webkit-appearance:none;
-    box-shadow: none !important;
 }
 
 /* Google maps CSS
