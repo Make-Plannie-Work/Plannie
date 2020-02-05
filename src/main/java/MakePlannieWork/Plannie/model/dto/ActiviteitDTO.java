@@ -13,6 +13,7 @@ public class ActiviteitDTO {
 
     //activiteit
     private String soortActiviteit;
+    private String omschrijving;
 
     //notitie
     private String tekst;
@@ -100,5 +101,13 @@ public class ActiviteitDTO {
 
     public void setLongitude(double longitude) {
         this.longitude = longitude;
+    }
+
+    public String getOmschrijving() {
+        return omschrijving;
+    }
+
+    public void setOmschrijving(String omschrijving) {
+        this.omschrijving = omschrijving;
     }
 }

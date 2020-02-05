@@ -142,6 +142,7 @@ public class ReisItemController {
         activiteit.setStartDatum(activiteitDTO.getStartDatum());
         activiteit.setEindDatum(activiteitDTO.getEindDatum());
         activiteit.setBudget(activiteitDTO.getBudget());
+        activiteit.setOmschrijving(activiteitDTO.getOmschrijving());
 
         notitie.setTekst(activiteitDTO.getTekst());
 
@@ -174,6 +175,45 @@ public class ReisItemController {
             }
         }
         // Terug naar reis overzicht.
+        return "redirect:/" + groepId + "/reisItemDetail/" + reisItemId;
+    }
+
+    // Klaarzetten van het Activiteit wijzigen Overzicht
+    @GetMapping("/{groepId}/{reisItemId}/{reisItemsId}/activiteitWijzigen")
+    public String huidigeActiviteit(@PathVariable("groepId") Integer groepId, @PathVariable("reisItemId") Integer reisItemId,
+                                 @PathVariable("reisItemsId") Integer activiteitId, Model model, Principal principal) {
+
+        Optional<Groep> groepOptional = plannieGroepService.findById(groepId);
+        Optional<ReisItem> reisItemOptional = plannieReisItemService.findById(reisItemId);
+        Optional<ReisItem> notitieOptional = plannieReisItemService.findById(activiteitId);
+
+        if (reisItemOptional.isPresent() && groepOptional.isPresent() && notitieOptional.isPresent()) {
+            model.addAttribute("currentUser", gebruikerRepository.findGebruikerByEmail(principal.getName()));
+            model.addAttribute("groep", groepOptional.get());
+            model.addAttribute("reisItem", reisItemOptional.get());
+            model.addAttribute("reisItems", reisItemRepository.findActiviteitByReisItemId(activiteitId));
+            model.addAttribute("activiteitWijzigFormulier", reisItemRepository.findActiviteitByReisItemId(activiteitId));
+            model.addAttribute("subReisItemVerwijderFormulier", notitieOptional.get());
+            model.addAttribute("mapsAPI", mapsAPI);
+            return "activiteitWijzig";
+        }
+        return "redirect:/" + groepId + "/reisItemDetail/" + reisItemId;
+    }
+
+    // Opslaan van gewijzigde locatie
+    @PostMapping("/{groepId}/{reisItemId}/{reisItemsId}/activiteitWijzigen")
+    public String activiteitWijzigen(@ModelAttribute("activiteitWijzigFormulier") Activiteit activiteit, @PathVariable("groepId") Integer groepId, @PathVariable("reisItemId") Integer reisItemId, @PathVariable("reisItemsId") Integer activiteitId, BindingResult result) {
+        if (result.hasErrors()) {
+            return "redirect:/locatieWijzig";
+        } else {
+            Activiteit huidigeActiviteit = reisItemRepository.findActiviteitByReisItemId(activiteitId);
+            huidigeActiviteit.setNaam(activiteit.getNaam());
+            huidigeActiviteit.setStartDatum(activiteit.getStartDatum());
+            huidigeActiviteit.setOmschrijving(activiteit.getOmschrijving());
+            huidigeActiviteit.setSoortActiviteit(activiteit.getSoortActiviteit());
+            huidigeActiviteit.setBudget(activiteit.getBudget());
+            reisItemRepository.save(huidigeActiviteit);
+        }
         return "redirect:/" + groepId + "/reisItemDetail/" + reisItemId;
     }
 

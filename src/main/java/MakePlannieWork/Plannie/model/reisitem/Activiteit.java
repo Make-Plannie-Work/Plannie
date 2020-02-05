@@ -7,6 +7,8 @@ public class Activiteit extends ReisItem {
 
     private String soortActiviteit;
 
+    private String omschrijving;
+
     public String getSoortActiviteit() {
         return soortActiviteit;
     }
@@ -14,4 +16,13 @@ public class Activiteit extends ReisItem {
     public void setSoortActiviteit(String soortActiviteit) {
         this.soortActiviteit = soortActiviteit;
     }
+
+    public String getOmschrijving() {
+        return omschrijving;
+    }
+
+    public void setOmschrijving(String omschrijving) {
+        this.omschrijving = omschrijving;
+    }
+
 }

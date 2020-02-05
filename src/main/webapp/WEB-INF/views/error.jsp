@@ -7,9 +7,6 @@
 
 <div class="container mt-3">
     <div class="row">
-        <span class="navbar-brand mb-0 h1 mt-3" ><a id="gebruikerDetail" href="/gebruikerDetail"><img src="/images/PlannieLogo.png" class="img-fluid" alt="Responsive image"></a></span>
-    </div>
-    <div class="row">
         <div class="col-sm-12 fixed-top">
         </div>
     </div>

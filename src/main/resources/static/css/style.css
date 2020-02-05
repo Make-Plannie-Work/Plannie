@@ -173,7 +173,6 @@ input {
   border-radius: 5px;
   border: 1px solid #ccc;
   padding: 4px;
-  width: 300px;
   margin-top: 10px;
 }
 
@@ -271,24 +270,6 @@ border-color: green;
 
 .invalid:before {
   position: relative;
-}
-
-textarea:hover,
-input:hover,
-textarea:active,
-input:active,
-textarea:focus,
-input:focus,
-button:focus,
-button:active,
-button:hover,
-label:focus,
-.btn:active,
-.btn.active
-{
-    outline:1px !important;
-    -webkit-appearance:none;
-    box-shadow: none !important;
 }
 
 /* Google maps CSS

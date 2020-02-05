@@ -73,10 +73,12 @@
                                 </c:when>
                                 <c:when test="${soortReisItem == 'MakePlannieWork.Plannie.model.reisitem.Activiteit'}">
                                     <div class="card-header border-0">
-                                        Activiteit ${reisItems.naam}
+                                        <a id="ActiviteitDetails${reisItems.naam}"
+                                           href="/${groepId}/${reisItemId}/${reisItems.reisItemId}/activiteitWijzigen">${reisItems.soortActiviteit} ${reisItems.naam}</a>
                                     </div>
                                     <div class="card-block px-2">
-
+                                        ${reisItems.omschrijving} <br>
+                                        Budget: ${reisItems.budget} euro
                                     </div>
                                 </c:when>
                                 <c:otherwise>
