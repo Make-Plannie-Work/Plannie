@@ -1,19 +1,20 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="tag"%>
 <%@ attribute name="subReisItems" type="org.hibernate.collection.internal.PersistentSet"%>
-<%@ attribute name="level" type="java.lang.Long"%>
 
 <c:forEach var="subReisItem" items="${subReisItems}">
 
     <div class="accordion" id="accordionReisItems${subReisItem.reisItemId}">
         <div class="card">
             <div class="card-header" id="headingOne${subReisItem.reisItemId}">
+                <!--Mits dit item 1, of meerdere sub items heeft, komt er een Accordion-uitklap knop-->
                 <c:if test="${not empty subReisItem.reisItems}">
                     <button class="btn btn-primary btn-lg btn-block" type="button" data-toggle="collapse"
                             data-target="#collapseOne${subReisItem.reisItemId}" aria-expanded="true"
-                            aria-controls="collapseOne${subReisItem.reisItemId}">Klik om de subItems te zien
+                            aria-controls="collapseOne${subReisItem.reisItemId}"><i class="far fa-list-alt"></i>
                     </button>
                 </c:if>
+                <!--Afhankelijk van het soort item, wordt de passende card getoond-->
                 <div class="card reisItem flex-row flex-wrap mb-2 mx-auto" id="reisItemCard">
                     <c:set var="soortReisItem" scope="request" value="${subReisItem.getClass().name}"/>
                     <c:choose>
@@ -24,6 +25,7 @@
                             <div class="card-block px-2">
                                 <h4 class="card-title"><a id="NotitieDetails${subReisItem.naam}"
                                                           href="/${groepId}/${reisItemId}/${subReisItem.reisItemId}/NotitieWijzigen">${subReisItem.naam}</a>
+                                    <tag:dropDownNieuwReisItem reisItem="${subReisItem}"/>
                                 </h4>
                                 <p class="card-text">${subReisItem.tekst}</p>
                                 <p class="card-text">${subReisItem.budget}</p>
@@ -36,6 +38,7 @@
                             <div class="card-block px-2">
                                 <h4 class="card-title"><a id="PollDetails${subReisItem.naam}"
                                                           href="/${groepId}/${reisItemId}/PollDetail/${subReisItem.reisItemId}">${subReisItem.naam}</a>
+                                    <tag:dropDownNieuwReisItem reisItem="${subReisItem}"/>
                                 </h4>
                                 <p class="card-text">
                                 <p class="card-text">
@@ -54,6 +57,7 @@
                             <div class="card-block px-2">
                                 <h4 class="card-title"><a id="LocatieDetails${subReisItem.naam}"
                                                           href="/${groepId}/${reisItemId}/${subReisItem.reisItemId}/LocatieWijzigen">${subReisItem.naam}</a>
+                                    <tag:dropDownNieuwReisItem reisItem="${subReisItem}"/>
                                 </h4>
                                 <p class="card-text">${subReisItem.adres}</p>
                                 <div class="googleMapSmall" id="map${subReisItem.reisItemId}"
@@ -69,6 +73,7 @@
                             <div class="card-block px-2">
                                 <h4 class="card-title"><a id="reisItemDetails${subReisItem.reisItemId}"
                                                           href="/${groep.groepId}/reisItemsDetail/${subReisItem.reisItemId}">${subReisItem.naam}</a>
+                                    <tag:dropDownNieuwReisItem reisItem="${subReisItem}"/>
                                 </h4>
                                 <p class="card-text">${subReisItem.getClass().name}</p>
                             </div>
