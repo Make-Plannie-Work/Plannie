@@ -13,6 +13,7 @@
 	<artifactId>Plannie</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>Plannie</name>
+	<packaging>war</packaging>
 	<description>De planners app voor groepsreizen.</description>
 
 	<properties>
@@ -56,6 +57,11 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-compiler-plugin</artifactId>
+			<version>3.8.1</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -106,10 +112,19 @@
 	</dependencies>
 
 	<build>
+		<finalName>${project.artifactId}</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<compilerVersion>11</compilerVersion>
+					<target>11</target>
+					<source>11</source>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>

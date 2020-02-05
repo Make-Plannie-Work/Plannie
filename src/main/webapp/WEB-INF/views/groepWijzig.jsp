@@ -19,5 +19,5 @@
         </form:form>
     </div>
 
-    <a href="/groepDetail/${groep.groepId}"><button type="text" class="btn btn-primary mt-3" id="annuleren">Annuleren</button></a>
+    <a href="${pageContext.request.contextPath}/groepDetail/${groep.groepId}"><button type="text" class="btn btn-primary mt-3" id="annuleren">Annuleren</button></a>
 </div>

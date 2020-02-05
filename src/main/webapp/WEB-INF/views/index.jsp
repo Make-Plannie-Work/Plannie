@@ -111,7 +111,7 @@
     <!-- Call to action -->
     <ul class="list-unstyled list-inline text-center py-2">
 
-      <h6 class="mb-1"><small>Registreer je snel: <a id="registreren" href="/registreren" class="text-white">klik hier!</a></small></h6>
+      <h6 class="mb-1"><small>Registreer je snel: <a id="registreren" href="${pageContext.request.contextPath}/registreren" class="text-white">klik hier!</a></small></h6>
 
 
       </li>
