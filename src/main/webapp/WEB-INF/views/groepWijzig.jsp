@@ -5,10 +5,26 @@
     <div class="row">
         <form:form action = "/groepDetail/${groep.groepId}/groepWijzig" method="post" modelAttribute="groepsNaamWijzigingsFormulier">
             <input type="text" name="groepsNaam" required="required" value="${groep.groepsNaam}">
-            <input id="groepsNaamWijzigen" type="submit" class="btn btn-primary" value="Wijzig naam">
+            <input id="groepsNaamWijzigen" type="submit" class="btn btn-primary" value="Wijzig groepsnaam">
         </form:form>
+
     </div>
-    <br>
+    <hr class="my-4">
+    <div class="row">
+        <form:form action = "/groepDetail/${groep.groepId}/groepBeheerderWijzig" method="post">
+            <select name="beheerderEmail" size="5" style="width: 100%">
+                <c:forEach items="${groepsLedenLijst}" var="groepslid">
+                    <c:if test="${groepslid.gebruikersId != groep.aanmaker}">
+                        <option value="${groepslid.email}">${groepslid.voornaam} ${groepslid.achternaam}</option>
+                    </c:if>
+                </c:forEach>
+            </select>
+            <br>
+            <input id="groepBeheerderWijzigen" type="submit" class="btn btn-primary" value="Wijzig groep beheerder">
+        </form:form>
+
+    </div>
+    <hr class="my-4">
     <div class="row">
         <form:form method="POST" enctype="multipart/form-data" action="/${groep.groepId}/uploadImage" >
 

@@ -153,4 +153,12 @@ public class ReisItem {
     public void setImagePath(String imagePath) {
         this.imagePath = imagePath;
     }
+
+    // Met deze methode haal je het reisItemId op van het hoogste reisItem.
+    public Integer getHoofdReisItemId() {
+        if (gekoppeldeReisItem == null) {
+            return this.reisItemId;
+        }
+        return gekoppeldeReisItem.getHoofdReisItemId();
+    }
 }
