@@ -41,7 +41,7 @@ public class GroepController {
     private PlannieReisItemService plannieReisItemService;
 
     @PostMapping("/groepAanmaken")
-    public String nieuweGroep (Groep groep, Model model, Principal principal) {
+    public String nieuweGroep(Groep groep, Model model, Principal principal) {
         if (groep != null && !groep.getGroepsNaam().isEmpty()) {
             model.addAttribute(groep);
             plannieGroepService.voegGroepToe(groep, principal);
@@ -82,7 +82,7 @@ public class GroepController {
     }
 
     @PostMapping("/groepDetail/{groepId}/voegLedenToeAanGroepViaEmail")
-    public String voegLedenToeAanGroepViaEmail(@PathVariable("groepId") Integer groepId, @ModelAttribute("groepslidEmail") Gebruiker gebruiker,  BindingResult result, Model model, HttpServletRequest request) throws MessagingException {
+    public String voegLedenToeAanGroepViaEmail(@PathVariable("groepId") Integer groepId, @ModelAttribute("groepslidEmail") Gebruiker gebruiker, BindingResult result, Model model, HttpServletRequest request) throws MessagingException {
         Optional<Groep> groepOptional = plannieGroepService.findById(groepId);
         if (!groepOptional.isPresent()) {
             result.reject("Invalid group");
@@ -96,7 +96,8 @@ public class GroepController {
             gebruikerRepository.save(gebruiker);
             plannieGroepService.voegGebruikerToeAanGroep(gebruikerRepository.findGebruikerByEmail(gebruiker.getEmail()).getGebruikersId(), groepId);
             plannieGroepService.stuurUitnodigingPerEmail(gebruiker.getEmail(), groepId, gebruikerRepository.findGebruikerByEmail(gebruiker.getEmail()).getIdentifier(), request);
-        } return "redirect:/groepDetail/" + groepOptional.get().getGroepId();
+        }
+        return "redirect:/groepDetail/" + groepOptional.get().getGroepId();
     }
 
     @GetMapping("/groepDetail/{groepId}/VerwijderLedenUitGroep/{gebruikersId}")
@@ -122,7 +123,7 @@ public class GroepController {
 
     @PostMapping("/groepDetail/{groepId}/groepWijzig")
     public String wijzigenGroepsNaam(@ModelAttribute("groepsNaamWijzigingsFormulier")
-                                     Groep groep, @PathVariable("groepId") Integer groepId, BindingResult result) {
+                                             Groep groep, @PathVariable("groepId") Integer groepId, BindingResult result) {
         if (result.hasErrors()) {
             return "groepDetail";
         } else {
@@ -131,6 +132,18 @@ public class GroepController {
             groepRepository.save(huidigeGroep);
             return "redirect:/groepDetail/" + groepId;
         }
+    }
+
+    // Wijzig de beheerder van de groep.
+    @PostMapping("/groepDetail/{groepId}/groepBeheerderWijzig")
+    public String wijzigenGroepsBeheerder(@RequestParam("beheerderEmail") String beheerderEmail, @PathVariable("groepId") Integer groepId) {
+
+        Groep huidigeGroep = groepRepository.findByGroepId(groepId);
+        Gebruiker nieuweBeheerder = gebruikerRepository.findGebruikerByEmail(beheerderEmail);
+        huidigeGroep.setAanmaker(nieuweBeheerder.getGebruikersId());
+        groepRepository.save(huidigeGroep);
+
+        return "redirect:/groepDetail/" + groepId;
     }
 
     // Bestanden uploaden
@@ -152,7 +165,7 @@ public class GroepController {
     // Gebruikers zoeken
     @RequestMapping(value = "/{groepId}/zoekGebruikers")
     @ResponseBody
-    public List<Gebruiker> gebruikers(@RequestParam(value = "term", required = false, defaultValue="") String term, @PathVariable("groepId") Integer groepId) {
+    public List<Gebruiker> gebruikers(@RequestParam(value = "term", required = false, defaultValue = "") String term, @PathVariable("groepId") Integer groepId) {
         List<Gebruiker> suggestions = new ArrayList<Gebruiker>();
         System.out.println(groepId);
         List<Gebruiker> alleGebruikers = gebruikerRepository.findGebruikers(term, groepId);
