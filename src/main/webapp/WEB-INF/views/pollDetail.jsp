@@ -35,7 +35,7 @@
                                         </c:when>
                                         <c:otherwise>
                                             <a id="stemmenOp${optie.stemOptie}"
-                                               href="${poll.reisItemId}/StemmenOp/${optie.pollOptieId}">Stem nu!</a>
+                                               href="${pageContext.request.contextPath}${poll.reisItemId}/StemmenOp/${optie.pollOptieId}">Stem nu!</a>
                                         </c:otherwise>
                                     </c:choose>
 
@@ -49,7 +49,7 @@
                     <div class="container">
 
                         <div class="row">
-                            <a href="/${groep.groepId}/reisItemDetail/${reis.reisItemId}">
+                            <a href="${pageContext.request.contextPath}/${groep.groepId}/reisItemDetail/${reis.reisItemId}">
                                 <button type="text" class="btn btn-primary mt-3" id="annuleren">Terug</button>
                             </a>
                         </div>

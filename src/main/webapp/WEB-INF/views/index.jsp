@@ -56,7 +56,7 @@
       </div>
       <div class="modal-body">
 
-        <form:form id="loginForm" action="/index" modelAttribute="loginForm" method="post">
+        <form:form id="loginForm" action="${pageContext.request.contextPath}/index" modelAttribute="loginForm" method="post">
           <div class="form-group">
             <form:input type="email" class="form-control" id="username" path="username" placeholder="Email"/>
           </div>
@@ -84,7 +84,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form:form id="updatePasswordForm" action="/wachtwoordReset" modelAttribute="updatePasswordForm" method="post">
+      <form:form id="updatePasswordForm" action="${pageContext.request.contextPath}/wachtwoordReset" modelAttribute="updatePasswordForm" method="post">
         <div class="modal-body">
 
 

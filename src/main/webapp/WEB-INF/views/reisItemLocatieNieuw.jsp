@@ -20,7 +20,7 @@
                 <div class="row">
                     <div class="googleMapLarge" id="map"></div>
 
-                    <form:form action="/${groep.groepId}/reisItemDetail/${reisItem.reisItemId}/nieuweLocatie"
+                    <form:form action="${pageContext.request.contextPath}/${groep.groepId}/reisItemDetail/${reisItem.reisItemId}/nieuweLocatie"
                                method="post" modelAttribute="locatieAanmakenFormulier">
 
                         <div class="row">
@@ -54,7 +54,7 @@
 
                     </form:form>
 
-                    <a href="/${groep.groepId}/reisItemDetail/${reisItem.reisItemId}">
+                    <a href="${pageContext.request.contextPath}/${groep.groepId}/reisItemDetail/${reisItem.reisItemId}">
                         <button type="text" class="btn btn-primary mt-3" id="annuleren">Annuleren</button>
                     </a>
                 </div>

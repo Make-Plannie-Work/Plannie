@@ -11,7 +11,7 @@
         </div>
         <div class="modal-body">
 
-            <form:form id="loginForm" action="/index" modelAttribute="loginForm" method="post">
+            <form:form id="loginForm" action="${pageContext.request.contextPath}/index" modelAttribute="loginForm" method="post">
                 <div class="form-group">
                     <form:input type="email" class="form-control" id="username" path="username" placeholder="Email"/>
                 </div>

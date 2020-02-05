@@ -10,7 +10,7 @@
     </div>
     <br>
     <div class="row">
-        <form:form method="POST" enctype="multipart/form-data" action="/${groep.groepId}/uploadImage" >
+        <form:form method="POST" enctype="multipart/form-data" action="${pageContext.request.contextPath}/${groep.groepId}/uploadImage" >
 
                     <td><input type="file" name="imageFile" accept="image/*"/></td>
 

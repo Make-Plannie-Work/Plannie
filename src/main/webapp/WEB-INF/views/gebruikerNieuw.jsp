@@ -15,7 +15,7 @@
         <div class="col-sm-8">
             <div class="jumbotron shadow border">
                 <h3>Registreren</h3>
-                <form:form action = "/registreren" id="registreren" method="post" modelAttribute="registratieFormulier"  class="needs-validation was-validation" novalidate="true">
+                <form:form action = "${pageContext.request.contextPath}/registreren" id="registreren" method="post" modelAttribute="registratieFormulier"  class="needs-validation was-validation" novalidate="true">
                     <div class="container mt-4">
                         <div class="row">
                             <div class="col">
@@ -85,7 +85,7 @@
             </div>
             <div class="modal-body">
 
-                <form:form id="loginForm" action="/index" modelAttribute="loginForm" method="post">
+                <form:form id="loginForm" action="${pageContext.request.contextPath}/index" modelAttribute="loginForm" method="post">
                     <div class="form-group">
                         <form:input type="email" class="form-control" id="username" path="username" placeholder="Email"/>
                     </div>
@@ -113,7 +113,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form:form id="updatePasswordForm" action="/wachtwoordReset" modelAttribute="updatePasswordForm" method="post">
+            <form:form id="updatePasswordForm" action="${pageContext.request.contextPath}/wachtwoordReset" modelAttribute="updatePasswordForm" method="post">
                 <div class="modal-body">
 
 

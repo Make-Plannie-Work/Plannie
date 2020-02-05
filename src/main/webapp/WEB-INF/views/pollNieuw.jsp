@@ -18,7 +18,7 @@
                     <p class="lead">Poll aanmaken</p>
                 </div>
                     <div>
-                        <form:form action="/${groep.groepId}/reisItemDetail/${reisItem.reisItemId}/nieuwePoll"
+                        <form:form action="${pageContext.request.contextPath}/${groep.groepId}/reisItemDetail/${reisItem.reisItemId}/nieuwePoll"
                                    method="post" modelAttribute="pollAanmakenFormulier">
                             <div class="row">
                                 <div class="col-md-" >
@@ -52,7 +52,7 @@
 
                         </form:form>
 
-                        <a href="/${groep.groepId}/reisItemDetail/${reisItem.reisItemId}">
+                        <a href="${pageContext.request.contextPath}/${groep.groepId}/reisItemDetail/${reisItem.reisItemId}">
                             <button type="text" class="btn btn-primary mt-3" id="annuleren">Annuleren</button>
                         </a>
                     </div>

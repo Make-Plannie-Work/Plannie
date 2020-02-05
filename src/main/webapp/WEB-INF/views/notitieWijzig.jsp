@@ -15,7 +15,7 @@
                 </div>
                 <div class="row">
                     <div>
-                        <form:form action="/${groep.groepId}/${reisItem.reisItemId}/${reisItems.reisItemId}/notitieWijzigen" method="post" modelAttribute="notitieWijzigingsFormulier">
+                        <form:form action="${pageContext.request.contextPath}/${groep.groepId}/${reisItem.reisItemId}/${reisItems.reisItemId}/notitieWijzigen" method="post" modelAttribute="notitieWijzigingsFormulier">
                             <div class="row">
                                 <div class="col">
                                     <form:input type="text" class="form-control" path="naam" required="required"
@@ -47,7 +47,7 @@
 
 
 
-                        <form:form action="/${groep.groepId}/${reisItem.reisItemId}/${reisItems.reisItemId}/subReisItemVerwijderen" method="post" modelAttribute="subReisItemVerwijderFormulier">
+                        <form:form action="${pageContext.request.contextPath}/${groep.groepId}/${reisItem.reisItemId}/${reisItems.reisItemId}/subReisItemVerwijderen" method="post" modelAttribute="subReisItemVerwijderFormulier">
 
 
 
@@ -68,7 +68,7 @@
 
 
 
-                        <a href="/${groep.groepId}/reisItemDetail/${reisItem.reisItemId}">
+                        <a href="${pageContext.request.contextPath}/${groep.groepId}/reisItemDetail/${reisItem.reisItemId}">
                             <button type="text" class="btn btn-primary mt-3" id="annuleren">Annuleren</button>
                         </a>
                     </div>
@@ -81,7 +81,7 @@
         <div class="col-sm-4">
             <div class="jumbotron shadow" id="wouter">
                 <div class="row" >
-                    <p class="lead text-white"><a class ="lead text-white" href="/${groep.groepId}/reisItemDetail/${reisItem.reisItemId}">${reisItem.naam} </a> <p class="lead text-white">  - <a class ="lead text-white" href="/groepDetail/${groep.groepId}">${groep.groepsNaam}</a></p>
+                    <p class="lead text-white"><a class ="lead text-white" href="${pageContext.request.contextPath}/${groep.groepId}/reisItemDetail/${reisItem.reisItemId}">${reisItem.naam} </a> <p class="lead text-white">  - <a class ="lead text-white" href="${pageContext.request.contextPath}/groepDetail/${groep.groepId}">${groep.groepsNaam}</a></p>
                 </div>
                 <hr class="my-4">
                 <div class="row">

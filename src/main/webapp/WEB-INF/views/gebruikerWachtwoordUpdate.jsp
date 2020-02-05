@@ -6,11 +6,11 @@
 <body>
 
 <nav class="navbar navbar-light bg-light shadow">
-    <span class="navbar-brand mb-0 h1"><a href="/gebruikerDetail" class="text-dark">Plannie</a></span>
+    <span class="navbar-brand mb-0 h1"><a href="${pageContext.request.contextPath}/gebruikerDetail" class="text-dark">Plannie</a></span>
 
     <ul class="nav justify-content-end">
         <li class="nav-item">
-            <a id="registreren" class="nav-link text-dark" href="/registreren">Registreer</a>
+            <a id="registreren" class="nav-link text-dark" href="${pageContext.request.contextPath}/registreren">Registreer</a>
         </li>
         <li class="nav-item">
             <a id="inloggen" class="nav-link text-dark" data-toggle="modal" data-target="#loginmodal">Login</a>
@@ -83,7 +83,7 @@
             </div>
             <div class="modal-body">
 
-                <form:form id="loginForm" action="/index" modelAttribute="loginForm" method="post">
+                <form:form id="loginForm" action="${pageContext.request.contextPath}/index" modelAttribute="loginForm" method="post">
                     <div class="form-group">
                         <form:input type="email" class="form-control" id="username" path="username" placeholder="Email"/>
                     </div>

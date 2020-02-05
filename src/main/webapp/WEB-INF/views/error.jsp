@@ -7,7 +7,7 @@
 
 <div class="container mt-3">
     <div class="row">
-        <span class="navbar-brand mb-0 h1 mt-3" ><a id="gebruikerDetail" href="/gebruikerDetail"><img src="/images/PlannieLogo.png" class="img-fluid" alt="Responsive image"></a></span>
+        <span class="navbar-brand mb-0 h1 mt-3" ><a id="gebruikerDetail" href="${pageContext.request.contextPath}/gebruikerDetail"><img src="${pageContext.request.contextPath}/images/PlannieLogo.png" class="img-fluid" alt="Responsive image"></a></span>
     </div>
     <div class="row">
         <div class="col-sm-12 fixed-top">
@@ -62,7 +62,7 @@
         <!-- Call to action -->
         <ul class="list-unstyled list-inline text-center py-2">
 
-            <h6 class="mb-1"><small>Registreer je snel: <a id="registreren" href="/registreren" class="text-white">klik hier!</a></small></h6>
+            <h6 class="mb-1"><small>Registreer je snel: <a id="registreren" href="${pageContext.request.contextPath}/registreren" class="text-white">klik hier!</a></small></h6>
 
 
             </li>

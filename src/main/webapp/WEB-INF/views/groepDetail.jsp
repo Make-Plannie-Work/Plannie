@@ -16,17 +16,17 @@
 
                             <div class="card flex-row flex-wrap mb-2 mx-auto " id="reisItemCard">
                                 <div class="card-header border-0">
-                                    <img id="reisItemImg-klein" class="img-fluid card-img-top" src="/images/${reisItem.imagePath}" alt="Card image cap">
+                                    <img id="reisItemImg-klein" class="img-fluid card-img-top" src="${pageContext.request.contextPath}/images/${reisItem.imagePath}" alt="Card image cap">
                                 </div>
                                 <div class="card-block px-2">
-                                    <h4 class="card-title"><a href="/${groep.groepId}/reisItemDetail/${reisItem.reisItemId}">${reisItem.naam}</a></h4>
+                                    <h4 class="card-title"><a href="${pageContext.request.contextPath}/${groep.groepId}/reisItemDetail/${reisItem.reisItemId}">${reisItem.naam}</a></h4>
                                     <p class="card-text">Info over reis: ${reisItem.naam}</p>
                                 </div>
                             </div>
                         </c:forEach>
                         <div class="container" >
                             <div class="row">
-                                <form:form action="/${groep.groepId}/reisItemAanmaken" class="m-auto" method="post" modelAttribute="nieuwReisItemFormulier">
+                                <form:form action="${pageContext.request.contextPath}/${groep.groepId}/reisItemAanmaken" class="m-auto" method="post" modelAttribute="nieuwReisItemFormulier">
                                     <input id="reisNaam" type="text" class="form-control" name="naam" required="required" placeholder="Naam Reis">
                                     <button class="text mt-2 btn-primary shadow" id="reisItemAanmaken" type="submit">Maak Reis Aan <i class="fas fa-plus"></i></button>
                                 </form:form>
@@ -40,7 +40,7 @@
         <div class="col-sm-4">
             <div class="jumbotron shadow" id="wouter">
 
-                    <img id="groepImg" class="img-fluid card-img-top" src="/images/groep/${groep.imagePath}" alt="Card image cap">
+                    <img id="groepImg" class="img-fluid card-img-top" src="${pageContext.request.contextPath}/images/groep/${groep.imagePath}" alt="Card image cap">
 
 
                     <h3 class="card-title lead text-white mt-3">${groep.groepsNaam} <c:if test = "${groep.aanmaker == currentUser.gebruikersId}">
@@ -63,7 +63,7 @@
                         <c:forEach items="${groepsLedenLijst}" var="groepslid">
                             <tr>
                                 <td id="groepslid${groepslid.voornaam}" data-toggle="tooltip" data-placement="bottom" title="${groepslid.email}">${groepslid.voornaam} ${groepslid.achternaam}</td>
-                                <td><c:if test="${groepslid.gebruikersId == groep.aanmaker}"><i class="fas fa-crown"></i></c:if><c:if test = "${groep.aanmaker == currentUser.gebruikersId}"><a id="Verwijder${groepslid.voornaam}UitGroep" href="${groep.groepId}/VerwijderLedenUitGroep/${groepslid.gebruikersId}">
+                                <td><c:if test="${groepslid.gebruikersId == groep.aanmaker}"><i class="fas fa-crown"></i></c:if><c:if test = "${groep.aanmaker == currentUser.gebruikersId}"><a id="Verwijder${groepslid.voornaam}UitGroep" href="${pageContext.request.contextPath}/${groep.groepId}/VerwijderLedenUitGroep/${groepslid.gebruikersId}">
                                     <i class="far fa-trash-alt"></i>
                                 </a></td></c:if>
                             </tr>
@@ -83,7 +83,7 @@
         <div class="col-sm-offset-1 col-sm-10 mb-5 mx-auto">
             <div class="card w-75 mx-auto">
                 <div class="card-body">
-                    <form:form action="/groepDetail/${groep.groepId}/voegLedenToeAanGroepViaEmail" class="form-inline" method="post" modelAttribute="groepslidEmail">
+                    <form:form action="${pageContext.request.contextPath}/groepDetail/${groep.groepId}/voegLedenToeAanGroepViaEmail" class="form-inline" method="post" modelAttribute="groepslidEmail">
                         <h5 class="card-title ">Stuur een uitnodiging naar een nog niet bestaande gebruiker.</h5>
                         <p class="card-text">
                         <div class="form-group">
