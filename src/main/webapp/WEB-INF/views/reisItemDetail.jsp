@@ -1,6 +1,8 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib tagdir="/WEB-INF/tags" prefix="tag"%>
+<%@ page import="java.util.*" %>
 <jsp:include page="header.jsp"/>
 <title>Plannie - ReisDetails ${reisItem.naam}</title>
 <body>
@@ -8,18 +10,19 @@
 <div class="container mt-3">
     <div class="row">
 
-            <div class="col-sm-8">
-                <div class="jumbotron shadow border">
-                    <div class="row">
-                        <p class="lead">
-                            <a id="reisItemBudget">Het totale budget van ${reisItem.naam} bedraagt: ${reisItem.berekenTotaalBudget()} euro</a>
-                         </p>
-                    </div>
-                    <div class="row">
+        <div class="col-sm-8">
+            <div class="jumbotron shadow border">
+                <div class="row">
+                    <p class="lead">
+                        <a id="reisItemBudget">Het totale budget van ${reisItem.naam} bedraagt:
+                            ${reisItem.berekenTotaalBudget()} euro</a>
+                    </p>
+                </div>
+                <div class="row">
 
-                    <c:forEach items="${alleReisItemsVanReis}" var="subReisItem">
-                        <%@include file="subReisItemDetail.jsp"%>
-                    </c:forEach>
+                    <div class="col-sm-12">
+                    <tag:subReisItemDetail subReisItems="${reisItem.reisItems}"/>
+                    </div>
 
                 </div>
             </div>
