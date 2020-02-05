@@ -10,6 +10,7 @@ import MakePlannieWork.Plannie.repository.ReisItemRepository;
 import MakePlannieWork.Plannie.service.PlannieGroepService;
 import MakePlannieWork.Plannie.service.PlannieReisItemService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -39,6 +40,9 @@ public class ReisItemController {
 
     @Autowired
     private PlannieReisItemService plannieReisItemService;
+
+    @Value("${plannie.mapsAPI}")
+    private String mapsAPI;
 
     // Vanuit een Groep een Reis aanmaken
     @PostMapping("{groepId}/reisItemAanmaken")
@@ -77,6 +81,7 @@ public class ReisItemController {
             model.addAttribute("groepslidEmail", new Gebruiker());
             model.addAttribute("groep", groepOptional.get());
             model.addAttribute("alleReisItemsVanReis", reisItemOptional.get().getReisItems());
+            model.addAttribute("mapsAPI", mapsAPI);
             return "reisItemDetail";
         }
         return "redirect:/groepDetail";
@@ -111,6 +116,7 @@ public class ReisItemController {
 
         if (reisItemOptional.isPresent() && !notitie.getTekst().equals("")) {
             ReisItem reis = reisItemOptional.get();
+            reisItemId = reis.getHoofdReisItemId();
 
             // ReisItem aan reis koppelen, en ReisItem aan reis toevoegen.
             notitie.setGekoppeldeReisItemId(reis);
@@ -151,6 +157,7 @@ public class ReisItemController {
 
         if (reisItemOptional.isPresent()) {
             ReisItem reis = reisItemOptional.get();
+            reisItemId = reis.getHoofdReisItemId();
 
             // We gebruiken de String eindDatum om tijdelijk de keuze van de gebruiker op te slaan.
             // Deze wordt hier uitgelezen naar poll opties, en daarna weer leeggehaald.
@@ -289,6 +296,7 @@ public class ReisItemController {
             model.addAttribute("reisItem", reisItemOptional.get());
             model.addAttribute("groepslidEmail", new Gebruiker());
             model.addAttribute("groep", groepOptional.get());
+            model.addAttribute("mapsAPI", mapsAPI);
 
             model.addAttribute("locatieAanmakenFormulier", new Locatie());
             return "reisItemLocatieNieuw";
@@ -306,6 +314,7 @@ public class ReisItemController {
 
         if (reisItemOptional.isPresent()) {
             ReisItem reis = reisItemOptional.get();
+            reisItemId = reis.getHoofdReisItemId();
 
             // ReisItem aan reis koppelen, en ReisItem aan reis toevoegen.
             locatie.setGekoppeldeReisItemId(reis);
@@ -334,6 +343,7 @@ public class ReisItemController {
             model.addAttribute("reisItems", reisItemRepository.findLocatieByReisItemId(locatieId));
             model.addAttribute("locatieWijzigingsFormulier", reisItemRepository.findLocatieByReisItemId(locatieId));
             model.addAttribute("subReisItemVerwijderFormulier", notitieOptional.get());
+            model.addAttribute("mapsAPI", mapsAPI);
             return "reisItemLocatieWijzig";
         }
         return "redirect:/" + groepId + "/reisItemDetail/" + reisItemId;
@@ -365,7 +375,9 @@ public class ReisItemController {
                                      @PathVariable("reisItemsId") Integer subReisItemId, BindingResult result) {
         Optional<ReisItem> huidigeSubReisItem = reisItemRepository.findById(subReisItemId);
         if (huidigeSubReisItem.isPresent() && !result.hasErrors()) {
-            reisItemRepository.delete(huidigeSubReisItem.get());
+            ReisItem reis = huidigeSubReisItem.get();
+            reisItemId = reis.getHoofdReisItemId();
+            reisItemRepository.delete(reis);
         }
         return "redirect:/" + groepId + "/reisItemDetail/" + reisItemId;
     }

@@ -117,7 +117,7 @@
         crossorigin="anonymous"></script>
 <!-- Replace the value of the key parameter with your own API key. -->
 <script defer
-        src="https://maps.googleapis.com/maps/api/js?key=YOUR-API-KEY&callback=initMapAndGeo">
+        src="https://maps.googleapis.com/maps/api/js?key=${mapsAPI}&callback=initMapAndGeo">
 </script>
 <script src="\js/googleKaart.js"></script>
 </body>
