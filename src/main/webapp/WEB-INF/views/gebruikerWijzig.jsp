@@ -19,7 +19,7 @@
                 </div>
                 <div class="row">
                     <div>
-                        <form:form action="/wijzigen" method="post" modelAttribute="gebruikersWijzigingsFormulier">
+                        <form:form action="${pageContext.request.contextPath}/wijzigen" method="post" modelAttribute="gebruikersWijzigingsFormulier">
                             <div class="row">
                                 <div class="col">
                                     <form:input type="text" class="form-control" path="voornaam" required="required"
@@ -67,7 +67,7 @@
 
                         </form:form>
 
-                        <a href="/gebruikerDetail">
+                        <a href="${pageContext.request.contextPath}/gebruikerDetail">
                             <button type="text" class="btn btn-primary mt-3" id="annuleren">Annuleren</button>
                         </a>
                     </div>

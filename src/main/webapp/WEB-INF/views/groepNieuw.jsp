@@ -3,7 +3,7 @@
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 
 <div class="row ">
-    <form:form action="/groepAanmaken" class="m-auto" method="post" modelAttribute="nieuweGroepFormulier">
+    <form:form action="${pageContext.request.contextPath}/groepAanmaken" class="m-auto" method="post" modelAttribute="nieuweGroepFormulier">
         <input id="groepNaam" type="text" class="form-control " name="groepsNaam" required="required" placeholder="Naam Groep">
         <button id="groepAanmaken" class="text mt-2 btn-primary shadow" type="submit">Maak groep aan <i class="fas fa-plus"></i></button>
     </form:form>

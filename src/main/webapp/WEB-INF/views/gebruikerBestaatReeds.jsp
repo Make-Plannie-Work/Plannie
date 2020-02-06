@@ -56,7 +56,7 @@
             </div>
             <div class="modal-body">
 
-                <form:form id="loginForm" action="/index" modelAttribute="loginForm" method="post">
+                <form:form id="loginForm" action="${pageContext.request.contextPath}/index" modelAttribute="loginForm" method="post">
                     <div class="form-group">
                         <form:input type="email" class="form-control" id="username" path="username"
                                     placeholder="Email"/>
@@ -87,7 +87,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form:form id="updatePasswordForm" action="/wachtwoordReset" modelAttribute="updatePasswordForm"
+            <form:form id="updatePasswordForm" action="${pageContext.request.contextPath}/wachtwoordReset" modelAttribute="updatePasswordForm"
                        method="post">
                 <div class="modal-body">
 
@@ -116,7 +116,7 @@
         <!-- Call to action -->
         <ul class="list-unstyled list-inline text-center py-2">
 
-            <h6 class="mb-1"><small>Registreer je snel: <a id="registreren" href="/registreren" class="text-white">klik
+            <h6 class="mb-1"><small>Registreer je snel: <a id="registreren" href="${pageContext.request.contextPath}/registreren" class="text-white">klik
                 hier!</a></small></h6>
 
 

@@ -19,7 +19,7 @@
                 </div>
                 <div class="row">
                     <div>
-                        <form:form action="/${groep.groepId}/reisItemDetail/${reisItem.reisItemId}/nieuweNotitie" method="post" modelAttribute="notitieAanmakenFormulier">
+                        <form:form action="${pageContext.request.contextPath}/${groep.groepId}/reisItemDetail/${reisItem.reisItemId}/nieuweNotitie" method="post" modelAttribute="notitieAanmakenFormulier">
                             <div class="row">
 
                                     <form:input id="notitieTitel" type="text" class="form-control" path="naam" required="required"
@@ -49,7 +49,7 @@
 
                         </form:form>
 
-                        <a href= "/${groep.groepId}/reisItemDetail/${reisItem.reisItemId}">
+                        <a href= "{pageContext.request.contextPath}/${groep.groepId}/reisItemDetail/${reisItem.reisItemId}">
                             <button type="text" class="btn btn-primary mt-3" id="annuleren">Annuleren</button>
                         </a>
                     </div>
