@@ -63,7 +63,7 @@
                         <c:forEach items="${groepsLedenLijst}" var="groepslid">
                             <tr>
                                 <td id="groepslid${groepslid.voornaam}" data-toggle="tooltip" data-placement="bottom"><c:if test="${groepslid.gebruikersId == groep.aanmaker}"><i class="fas fa-crown"></i> - </c:if>${groepslid.voornaam} ${groepslid.achternaam}</td>
-                                <td><c:if test = "${groep.aanmaker == currentUser.gebruikersId}"><a id="Verwijder${groepslid.voornaam}UitGroep" href="${pageContext.request.contextPath}/${groep.groepId}/VerwijderLedenUitGroep/${groepslid.gebruikersId}">
+                                <td><c:if test = "${groep.aanmaker == currentUser.gebruikersId}"><a id="Verwijder${groepslid.voornaam}UitGroep" href="${pageContext.request.contextPath}/groepDetail/${groep.groepId}/VerwijderLedenUitGroep/${groepslid.gebruikersId}">
                                     <i class="far fa-trash-alt"></i>
                                 </a></td></c:if>
                             </tr>
