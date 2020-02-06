@@ -281,10 +281,12 @@ public class ReisItemController {
                 // Elke poll optie wordt ingevuld met een getrimde versie van de gebruikers invoer, en daarna opgeslagen.
                 tekst = tekst.trim();
                 if (!tekst.equals("")) {
-                    PollOptie optie = new PollOptie();
-                    optie.setPoll(poll);
-                    optie.setStemOptie(tekst.trim());
-                    optie.setOptieIndex(optieIndex);
+
+                    PollOptie optie = new PollOptie.Builder(tekst.trim())
+                            .metIndex(optieIndex)
+                            .vanPoll(poll)
+                            .build();
+
                     optieIndex ++;
 
                     poll.voegPollOptieToe(optie);
