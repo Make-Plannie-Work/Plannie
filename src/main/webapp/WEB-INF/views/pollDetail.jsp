@@ -35,7 +35,7 @@
                                         </c:when>
                                         <c:otherwise>
                                             <a id="stemmenOp${optie.stemOptie}"
-                                               href="${pageContext.request.contextPath}${poll.reisItemId}/StemmenOp/${optie.pollOptieId}">Stem nu!</a>
+                                               href="${poll.reisItemId}/StemmenOp/${optie.pollOptieId}">Stem nu!</a>
                                         </c:otherwise>
                                     </c:choose>
 

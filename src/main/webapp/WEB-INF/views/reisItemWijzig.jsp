@@ -3,7 +3,7 @@
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 <div class="container mt-4">
     <div class="row">
-        <form:form action = "/${groepId}/reisItemDetail/${reisItemId}/reisNaamWijzigen" method="post" modelAttribute="reisNaamWijzigingsFormulier">
+        <form:form action= "${pageContext.request.contextPath}/${groepId}/reisItemDetail/${reisItemId}/reisNaamWijzigen" method="post" modelAttribute="reisNaamWijzigingsFormulier">
             <input type="text" name="naam" required="required" value="${reisItem.naam}">
             <input id="reisNaamWijzigen" type="submit" class="btn btn-primary" value="Wijzig reisitem">
         </form:form>

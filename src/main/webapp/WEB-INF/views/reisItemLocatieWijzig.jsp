@@ -133,6 +133,6 @@
 <script defer
         src="https://maps.googleapis.com/maps/api/js?key=${mapsAPI}&callback=initMapAndGeo">
 </script>
-<script src="\js/googleKaart.js"></script>
+<script src="${pageContext.request.contextPath}\js/googleKaart.js"></script>
 </body>
 </html>

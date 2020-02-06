@@ -43,7 +43,7 @@
             </security:authorize>
             <li class="nav-item">
                 <a class="nav-link" href="#" onclick="${pageContext.request.contextPath}/document.forms['logoutForm'].submit()">Uitloggen</a>
-                <form id="logoutForm" action="${pageContext.request.contextPath}${pageContext.request.contextPath}/logout" method="POST">
+                <form id="logoutForm" action="${pageContext.request.contextPath}/logout" method="POST">
                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                 </form>
 
