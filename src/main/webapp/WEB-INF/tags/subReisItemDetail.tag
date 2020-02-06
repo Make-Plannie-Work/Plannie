@@ -24,7 +24,7 @@
                             </div>
                             <div class="card-block px-2">
                                 <h4 class="card-title"><a id="NotitieDetails${subReisItem.naam}"
-                                                          href="/${groepId}/${reisItemId}/${subReisItem.reisItemId}/NotitieWijzigen">${subReisItem.naam}</a>
+                                                          href="${pageContext.request.contextPath}/${groepId}/${reisItemId}/${subReisItem.reisItemId}/NotitieWijzigen">${subReisItem.naam}</a>
                                     <tag:dropDownNieuwReisItem reisItem="${subReisItem}"/>
                                 </h4>
                                 <p class="card-text">${subReisItem.tekst}</p>
@@ -37,7 +37,7 @@
                             </div>
                             <div class="card-block px-2">
                                 <h4 class="card-title"><a id="PollDetails${subReisItem.naam}"
-                                                          href="/${groepId}/${reisItemId}/PollDetail/${subReisItem.reisItemId}">${subReisItem.naam}</a>
+                                                          href="${pageContext.request.contextPath}/${groepId}/${reisItemId}/PollDetail/${subReisItem.reisItemId}">${subReisItem.naam}</a>
                                     <tag:dropDownNieuwReisItem reisItem="${subReisItem}"/>
                                 </h4>
                                 <p class="card-text">
@@ -56,7 +56,7 @@
                             </div>
                             <div class="card-block px-2">
                                 <h4 class="card-title"><a id="LocatieDetails${subReisItem.naam}"
-                                                          href="/${groepId}/${reisItemId}/${subReisItem.reisItemId}/LocatieWijzigen">${subReisItem.naam}</a>
+                                                          href="${pageContext.request.contextPath}/${groepId}/${reisItemId}/${subReisItem.reisItemId}/LocatieWijzigen">${subReisItem.naam}</a>
                                     <tag:dropDownNieuwReisItem reisItem="${subReisItem}"/>
                                 </h4>
                                 <p class="card-text">${subReisItem.adres}</p>
@@ -73,7 +73,7 @@
                             </div>
                             <div class="card-block px-2">
                                 <h4 class="card-title"><a id="ActiviteitDetails${subReisItem.naam}"
-                                                          href="/${groepId}/${reisItemId}/${subReisItem.reisItemId}/activiteitWijzigen">${subReisItem.naam}</a>
+                                                          href="${pageContext.request.contextPath}/${groepId}/${reisItemId}/${subReisItem.reisItemId}/activiteitWijzigen">${subReisItem.naam}</a>
                                     <tag:dropDownNieuwReisItem reisItem="${subReisItem}"/>
                                 </h4>
                                 <p class="card-text">${subReisItem.omschrijving}</p>
@@ -86,7 +86,7 @@
                             </div>
                             <div class="card-block px-2">
                                 <h4 class="card-title"><a id="reisItemDetails${subReisItem.reisItemId}"
-                                                          href="/${groep.groepId}/reisItemsDetail/${subReisItem.reisItemId}">${subReisItem.naam}</a>
+                                                          href="${pageContext.request.contextPath}/${groep.groepId}/reisItemsDetail/${subReisItem.reisItemId}">${subReisItem.naam}</a>
                                     <tag:dropDownNieuwReisItem reisItem="${subReisItem}"/>
                                 </h4>
                                 <p class="card-text">${subReisItem.getClass().name}</p>

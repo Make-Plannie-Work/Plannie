@@ -18,7 +18,7 @@
                 </div>
                 <div class="row">
                     <div>
-                        <form:form action="/${groep.groepId}/reisItemDetail/${reisItem.reisItemId}/nieuwBudget" method="post" modelAttribute="budgetAanmakenFormulier">
+                        <form:form action="${pageContext.request.contextPath}/${groep.groepId}/reisItemDetail/${reisItem.reisItemId}/nieuwBudget" method="post" modelAttribute="budgetAanmakenFormulier">
                             <div class="row">
                                 <div class="col">
                                     <form:input id="budgetBedrag" type="text" class="form-control" path="bedrag" required="required"
@@ -33,7 +33,7 @@
 
                         </form:form>
 
-                        <a href= "/${groep.groepId}/reisItemDetail/${reisItem.reisItemId}">
+                        <a href="${pageContext.request.contextPath}/${groep.groepId}/reisItemDetail/${reisItem.reisItemId}">
                             <button type="text" class="btn btn-primary mt-3" id="annuleren">Annuleren</button>
                         </a>
                     </div>

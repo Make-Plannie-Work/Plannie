@@ -10,7 +10,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link rel="shortcut icon" type="image/icon" href="/images/favicon.ico"/>
+    <link rel="shortcut icon" type="image/icon" href="${pageContext.request.contextPath}/images/favicon.ico"/>
     <script src="https://kit.fontawesome.com/d450c035a5.js" crossorigin="anonymous"></script>
     <title>Error</title>
 </head>
@@ -19,11 +19,11 @@
 <nav class="navbar sticky-top" style="background-color: #FFFFFF; text-color: #FF3B56;">
     <ul class="nav justify-content-end">
         <li class="nav-item">
-            <a class="nav-link text-dark" method="post" id="gebruikerWijzigen" href="/gebruikerWijzig">Jouw gegevens</a>
+            <a class="nav-link text-dark" method="post" id="gebruikerWijzigen" href="${pageContext.request.contextPath}/gebruikerWijzig">Jouw gegevens</a>
         </li>
         <security:authorize access="hasAuthority('ROLE_ADMIN')">
             <li class="nav-item">
-                <a class="nav-link text-dark" method="post" id="admin" href="/admin">admin</a>
+                <a class="nav-link text-dark" method="post" id="admin" href="${pageContext.request.contextPath}/admin">admin</a>
             </li>
         </security:authorize>
         <li class="nav-item">
@@ -36,7 +36,7 @@
 
 <div class="container mt-3">
     <div class="row">
-        <span class="navbar-brand mb-0 h1 mt-3" ><a id="gebruikerDetail" href="/gebruikerDetail"><img src="/images/PlannieLogo.png" class="img-fluid" alt="Responsive image"></a></span>
+        <span class="navbar-brand mb-0 h1 mt-3" ><a id="gebruikerDetail" href="${pageContext.request.contextPath}/gebruikerDetail"><img src="${pageContext.request.contextPath}/images/PlannieLogo.png" class="img-fluid" alt="Responsive image"></a></span>
     </div>
     <div class="row">
         <div class="col-sm-12 fixed-top">
@@ -90,7 +90,7 @@
             </div>
             <div class="modal-body">
 
-                <form:form id="loginForm" action="/index" modelAttribute="loginForm" method="post">
+                <form:form id="loginForm" action="${pageContext.request.contextPath}/index" modelAttribute="loginForm" method="post">
                     <div class="form-group">
                         <form:input type="email" class="form-control" id="username" path="username" placeholder="Email"/>
                     </div>
@@ -118,7 +118,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form:form id="updatePasswordForm" action="/wachtwoordReset" modelAttribute="updatePasswordForm" method="post">
+            <form:form id="updatePasswordForm" action="${pageContext.request.contextPath}/wachtwoordReset" modelAttribute="updatePasswordForm" method="post">
                 <div class="modal-body">
 
 
@@ -145,7 +145,7 @@
         <!-- Call to action -->
         <ul class="list-unstyled list-inline text-center py-2">
 
-            <h6 class="mb-1"><small>Registreer je snel: <a id="registreren" href="/registreren" class="text-white">klik hier!</a></small></h6>
+            <h6 class="mb-1"><small>Registreer je snel: <a id="registreren" href="${pageContext.request.contextPath}/registreren" class="text-white">klik hier!</a></small></h6>
 
 
             </li>

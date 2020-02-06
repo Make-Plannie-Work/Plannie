@@ -15,7 +15,7 @@
         <div class="col-sm-8">
             <div class="jumbotron shadow border">
                 <h3>Registreren</h3>
-                <form:form action = "/registreren" id="registreren" method="post" modelAttribute="registratieFormulier"  class="needs-validation was-validation" novalidate="true">
+                <form:form action= "${pageContext.request.contextPath}/registreren" id="registreren" method="post" modelAttribute="registratieFormulier"  class="needs-validation was-validation" novalidate="true">
                     <div class="container mt-4">
                         <div class="row">
                             <div class="col">
@@ -85,7 +85,7 @@
             </div>
             <div class="modal-body">
 
-                <form:form id="loginForm" action="/index" modelAttribute="loginForm" method="post">
+                <form:form id="loginForm" action="${pageContext.request.contextPath}/index" modelAttribute="loginForm" method="post">
                     <div class="form-group">
                         <form:input type="email" class="form-control" id="username" path="username" placeholder="Email"/>
                     </div>
@@ -113,7 +113,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form:form id="updatePasswordForm" action="/wachtwoordReset" modelAttribute="updatePasswordForm" method="post">
+            <form:form id="updatePasswordForm" action="${pageContext.request.contextPath}/wachtwoordReset" modelAttribute="updatePasswordForm" method="post">
                 <div class="modal-body">
 
 
@@ -148,7 +148,7 @@
         integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
         crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.1/dist/jquery.validate.min.js"></script>
-<script src="\js/validation.js" type="text/javascript"></script>
+<script src="${pageContext.request.contextPath}\js/validation.js" type="text/javascript"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
         integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
         crossorigin="anonymous"></script>

@@ -16,7 +16,7 @@
             <div class="jumbotron shadow border">
                 <div sec:authorize="hasAuthority('NEW_USER_PRIVILEGE')">
                     <h3>Hoi ${gebruiker.voornaam}. Voltooi hier je aanmelding voor Plannie!</h3>
-                    <form:form action = "${gebruiker.identifier}/saveGebruiker" method="post" modelAttribute="maakRegistratieCompleetFormulier">
+                    <form:form action= "${pageContext.request.contextPath}/${gebruiker.identifier}/saveGebruiker" method="post" modelAttribute="maakRegistratieCompleetFormulier">
                         <div class="container mt-4">
 
                             <form:button id="registratieCompleet" type="submit" class="btn btn-primary mt-3"  >Registratie voltooien</form:button>
@@ -63,7 +63,7 @@
             </div>
             <div class="modal-body">
 
-                <form:form id="loginForm" action="/index" modelAttribute="loginForm" method="post">
+                <form:form id="loginForm" action="${pageContext.request.contextPath}/index" modelAttribute="loginForm" method="post">
                     <div class="form-group">
                         <form:input type="email" class="form-control" id="username" path="username" placeholder="Email"/>
                     </div>
