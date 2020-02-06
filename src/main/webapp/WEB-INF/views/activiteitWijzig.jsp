@@ -60,7 +60,7 @@
                                 </div>
                                 <div class="card-block px-2">
                                     <h4 class="card-title"><a id="LocatieDetails${reisItems.naam}"
-                                                              href="/${groepId}/${reisItemId}/${reisItems.reisItemId}/NotitieWijzig">${reisItems.naam}</a>
+                                                              href="${pageContext.request.contextPath}/${groepId}/${reisItemId}/${reisItems.reisItemId}/NotitieWijzig">${reisItems.naam}</a>
                                     </h4>
                                     <p class="card-text">${reisItems.adres}</p>
                                     <div class="googleMapSmall" id="map${reisItems.reisItemId}" data-latitude="${reisItems.latitude}" data-longitude="${reisItems.longitude}" data-id="${reisItems.reisItemId}"></div>
