@@ -1,6 +1,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib uri="http://displaytag.sf.net" prefix="display" %>
 <jsp:include page="header.jsp"/>
 <title>Plannie - Groepsdetails ${groep.groepsNaam}</title>
 <body>
@@ -53,25 +54,31 @@
                 <hr class="my-4">
                 </c:if>
 
-                    <table class="table table-hover table-borderless text-white">
-                        <thead>
-                        <tr>
-                            <th scope="col">Groepsleden</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <c:forEach items="${groepsLedenLijst}" var="groepslid">
-                            <tr>
-                                <td id="groepslid${groepslid.voornaam}" data-toggle="tooltip" data-placement="bottom" title="${groepslid.email}">${groepslid.voornaam} ${groepslid.achternaam}</td>
-                                <td><c:if test="${groepslid.gebruikersId == groep.aanmaker}"><i class="fas fa-crown"></i></c:if><c:if test = "${groep.aanmaker == currentUser.gebruikersId}"><a id="Verwijder${groepslid.voornaam}UitGroep" href="${groep.groepId}/VerwijderLedenUitGroep/${groepslid.gebruikersId}">
-                                    <i class="far fa-trash-alt"></i>
-                                </a></td></c:if>
-                            </tr>
-                        </c:forEach>
-                        </tbody>
-                    </table>
 
 
+                <nav aria-label="Pagination" c:if test="${directors.totalPages gt 0}">
+                    <ul class="pagination justify-content-center font-weight-bold">
+                        <li class="page-item" th:classappend="${directors.number eq 0} ? 'disabled'">
+                            <a class="page-link"
+                               th:href="@{/directors?page={id}(id=${directors.number lt 2 ? 1 : directors.number})}"
+                               aria-label="Previous" title="Previous Page" data-toggle="tooltip">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                        <li class="page-item" th:classappend="${i eq directors.number + 1} ? 'active'"
+                            c:forEach="i : ${#numbers.sequence( 1, directors.totalPages, 1)}">
+                            <a class="page-link" th:href="@{/directors?page={id}(id=${i})}" th:text="${i}"
+                               th:title="${'Page '+ i}" data-toggle="tooltip"></a>
+                        </li>
+                        <li class="page-item" th:classappend="${directors.number + 1 eq directors.totalPages} ? 'disabled'">
+                            <a class="page-link"
+                               th:href="@{/directors?page={id}(id=${directors.number + 2})}"
+                               aria-label="Next" title="Next Page" data-toggle="tooltip">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
 
                 </div>
             </div>
