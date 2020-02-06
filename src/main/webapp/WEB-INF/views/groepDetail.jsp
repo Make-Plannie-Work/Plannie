@@ -63,7 +63,7 @@
                         <c:forEach items="${groepsLedenLijst}" var="groepslid">
                             <tr>
                                 <td id="groepslid${groepslid.voornaam}" data-toggle="tooltip" data-placement="bottom" title="${groepslid.email}">${groepslid.voornaam} ${groepslid.achternaam}</td>
-                                <td><c:if test="${groepslid.gebruikersId == groep.aanmaker}"><i class="fas fa-crown"></i></c:if><c:if test = "${groep.aanmaker == currentUser.gebruikersId}"><a id="Verwijder${groepslid.voornaam}UitGroep" href="${pageContext.request.contextPath}/${groep.groepId}/VerwijderLedenUitGroep/${groepslid.gebruikersId}">
+                                <td><c:if test="${groepslid.gebruikersId == groep.aanmaker}"><i class="fas fa-crown"></i></c:if><c:if test = "${groep.aanmaker == currentUser.gebruikersId}"><a id="Verwijder${groepslid.voornaam}UitGroep" href="${pageContext.request.contextPath}/groepDetail/${groep.groepId}/VerwijderLedenUitGroep/${groepslid.gebruikersId}">
                                     <i class="far fa-trash-alt"></i>
                                 </a></td></c:if>
                             </tr>
@@ -144,8 +144,8 @@
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-<script src="${pageContext.request.contextPath}//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script src="${pageContext.request.contextPath}/js/search.js"></script>
+<script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="${pageContext.request.contextPath}/js/search.js"> </script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
     integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
     crossorigin="anonymous"></script>
