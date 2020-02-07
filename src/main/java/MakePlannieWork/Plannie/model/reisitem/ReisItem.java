@@ -4,6 +4,8 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -59,6 +61,12 @@ public class ReisItem {
         } else {
             return gekoppeldeReisItem.vindHoofdReisId();
         }
+    }
+
+    public ArrayList<ReisItem> geefReisGesorteerdDatum() {
+        ArrayList<ReisItem> itemsGesorteerd = new ArrayList<>(reisItems);
+        itemsGesorteerd.sort(Comparator.comparing(ReisItem::getStartDatum));
+        return itemsGesorteerd;
     }
 
     public void voegReisItemToe(ReisItem reisItem) {
