@@ -45,6 +45,13 @@
                         </div>
                     </c:forEach>
 
+                    <form:form action="${pageContext.request.contextPath}/${groep.groepId}/${reis.reisItemId}/${poll.reisItemId}/subReisItemVerwijderen" method="post" modelAttribute="subReisItemVerwijderFormulier">
+
+                        <form:button id="pollVerwijderen" type="submit" class="btn btn-primary mt-3"> Sluit poll
+                        </form:button>
+
+                    </form:form>
+
 
                     <div class="container">
 

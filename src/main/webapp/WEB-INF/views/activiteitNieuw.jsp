@@ -21,7 +21,7 @@
                     <div>
                         <div class="row">
                             <div class="col">
-                            <form:form action="/${groep.groepId}/reisItemDetail/${reisItem.reisItemId}/nieuweActiviteit" method="post" modelAttribute="activiteitAanmakenFormulier">
+                            <form:form action="${pageContext.request.contextPath}/${groep.groepId}/reisItemDetail/${reisItem.reisItemId}/nieuweActiviteit" method="post" modelAttribute="activiteitAanmakenFormulier">
                                     <form:radiobutton class="ActiviteitBorrelen" id="activiteitSoort" path="soortActiviteit" value="Borrelen" required="required" label="Borrelen"/><br>
                                     <form:radiobutton class="ActiviteitActiviteit" id="activiteitSoort1" path="soortActiviteit" value="Activiteit" required="required" label="Activiteit"/><br>
                                     <form:radiobutton class="ActiviteitDineren" id="activiteitSoort2" path="soortActiviteit" value="Dineren" required="required" label="Dineren"/><br>
@@ -48,7 +48,7 @@
                                     </form:button>
                             </form:form>
 
-                        <a href= "/${groep.groepId}/reisItemDetail/${reisItem.reisItemId}">
+                        <a href= "${pageContext.request.contextPath}/${groep.groepId}/reisItemDetail/${reisItem.reisItemId}">
                             <button type="text" class="btn btn-primary mt-3" id="annuleren">Annuleren</button>
                         </a>
                     </div>

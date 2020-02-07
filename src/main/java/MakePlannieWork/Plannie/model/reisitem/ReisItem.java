@@ -53,6 +53,14 @@ public class ReisItem {
         return totaalBudget;
     }
 
+    public Integer vindHoofdReisId() {
+        if (gekoppeldeReisItem == null) {
+            return reisItemId;
+        } else {
+            return gekoppeldeReisItem.vindHoofdReisId();
+        }
+    }
+
     public void voegReisItemToe(ReisItem reisItem) {
         if (reisItems == null) {
             reisItems = new HashSet<>();
@@ -75,8 +83,6 @@ public class ReisItem {
     public void setGekoppeldeReisItem(ReisItem gekoppeldeReisItem) {
         this.gekoppeldeReisItem = gekoppeldeReisItem;
     }
-
-
 
     public Integer getReisItemId() {
         return reisItemId;

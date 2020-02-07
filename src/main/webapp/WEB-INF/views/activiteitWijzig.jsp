@@ -21,17 +21,31 @@
                     <div>
                         <div class="row">
                             <div class="col">
-                                <form:form action="/${groepId}/${reisItemId}/${reisItemsId}/activiteitWijzigen" method="post" modelAttribute="activiteitWijzigFormulier">
-                                            <form:radiobutton id="activiteitSoort" path="soortActiviteit" value="Borrelen" required="required" label="Borrelen"/><br>
-                                            <form:radiobutton id="activiteitSoort1" path="soortActiviteit" value="Activiteit" required="required" label="Activiteit"/><br>
-                                            <form:radiobutton id="activiteitSoort2" path="soortActiviteit" value="Dineren" required="required" label="Dineren"/><br>
-                                            <form:radiobutton id="activiteitSoort3" path="soortActiviteit" value="Overnachten" required="required" label="Overnachten"/><br>
+                                <form:form
+                                        action="${pageContext.request.contextPath}/${groepId}/${reisItemId}/${reisItemsId}/activiteitWijzigen"
+                                        method="post" modelAttribute="activiteitWijzigFormulier">
+                                    <form:radiobutton id="activiteitSoort" path="soortActiviteit" value="Borrelen"
+                                                      required="required" label="Borrelen"/>
+                                    <br>
+                                    <form:radiobutton id="activiteitSoort1" path="soortActiviteit" value="Activiteit"
+                                                      required="required" label="Activiteit"/>
+                                    <br>
+                                    <form:radiobutton id="activiteitSoort2" path="soortActiviteit" value="Dineren"
+                                                      required="required" label="Dineren"/>
+                                    <br>
+                                    <form:radiobutton id="activiteitSoort3" path="soortActiviteit" value="Overnachten"
+                                                      required="required" label="Overnachten"/>
+                                    <br>
 
-                                    <form:input id="activiteitTitel" type="text" class="form-control" path="naam" required="required"
+                                    <form:input id="activiteitTitel" type="text" class="form-control" path="naam"
+                                                required="required"
                                                 placeholder="Titel"/>
-                                    <form:input id="activiteitOmschrijving" type="text" class="form-control" path="omschrijving"/>
-                                    <form:input id="activiteitDatum" type="date" class="form-control" path="startDatum" required="required" placeholder="Datum"/>
-                                    <form:input id="activiteitBudget" type="number" step="10" min="0" class="form-control" path="budget" placeholder="Budget"/>
+                                    <form:input id="activiteitOmschrijving" type="text" class="form-control"
+                                                path="omschrijving"/>
+                                    <form:input id="activiteitDatum" type="date" class="form-control" path="startDatum"
+                                                required="required" placeholder="Datum"/>
+                                    <form:input id="activiteitBudget" type="number" step="10" min="0"
+                                                class="form-control" path="budget" placeholder="Budget"/>
                             </div>
                         </div>
 
@@ -42,31 +56,19 @@
                         </form:button>
                         </form:form>
 
-                        <form:form action="/${groep.groepId}/${reisItem.reisItemId}/${reisItems.reisItemId}/subReisItemVerwijderen" method="post" modelAttribute="subReisItemVerwijderFormulier">
+                        <form:form
+                                action="${pageContext.request.contextPath}/${groep.groepId}/${reisItem.reisItemId}/${reisItems.reisItemId}/subReisItemVerwijderen"
+                                method="post" modelAttribute="subReisItemVerwijderFormulier">
                             <form:button id="activiteitVerwijderen" type="submit" class="btn btn-primary mt-3">
                                 Verwijder Activiteit
                             </form:button>
                         </form:form>
 
+                        <a href="${pageContext.request.contextPath}/${groep.groepId}/reisItemDetail/${reisItem.reisItemId}">
+                            <button type="text" class="btn btn-primary mt-3" id="annuleren">Annuleren</button>
+                        </a>
+
                         <hr class="my-4">
-
-                        <c:forEach items="${alleReisItemsVanReis}" var="reisItems">
-                            <div class="card reisItem flex-row flex-wrap mb-2 mx-auto" id="reisItemCard">
-
-                                <p class="lead">Notitie</p>
-                                <c:set var="soortReisItem" scope="session" value="${MakePlannieWork.Plannie.model.reisitem.Notitie}"/>
-                                <div class="card-header border-0">
-                                    Notitie ${reisItems.startDatum}
-                                </div>
-                                <div class="card-block px-2">
-                                    <h4 class="card-title"><a id="LocatieDetails${reisItems.naam}"
-                                                              href="${pageContext.request.contextPath}/${groepId}/${reisItemId}/${reisItems.reisItemId}/NotitieWijzig">${reisItems.naam}</a>
-                                    </h4>
-                                    <p class="card-text">${reisItems.adres}</p>
-                                    <div class="googleMapSmall" id="map${reisItems.reisItemId}" data-latitude="${reisItems.latitude}" data-longitude="${reisItems.longitude}" data-id="${reisItems.reisItemId}"></div>
-                                </div>
-                            </div>
-                        </c:forEach>
 
                     </div>
                 </div>

@@ -77,13 +77,20 @@ public class ReisItemController {
         Optional<ReisItem> reisItemOptional = plannieReisItemService.findById(reisItemId);
 
         if (reisItemOptional.isPresent() && groepOptional.isPresent()) {
+            // Het ReisItemId van de reis wordt opgevraagd, zodat er niet foutief een detail overzicht van een sub-reisitem wordt getoond.
+            Integer hoofdReisId = reisItemOptional.get().vindHoofdReisId();
+            Optional<ReisItem> hoofdReis = reisItemRepository.findById(hoofdReisId);
+
+            if (hoofdReis.isPresent()) {
             model.addAttribute("currentUser", gebruikerRepository.findGebruikerByEmail(principal.getName()));
-            model.addAttribute("reisItem", reisItemOptional.get());
+            model.addAttribute("reisItem", hoofdReis.get());
             model.addAttribute("groepslidEmail", new Gebruiker());
             model.addAttribute("groep", groepOptional.get());
-            model.addAttribute("alleReisItemsVanReis", reisItemOptional.get().getReisItems());
+            model.addAttribute("alleReisItemsVanReis", hoofdReis.get().getReisItems());
             model.addAttribute("mapsAPI", mapsAPI);
             return "reisItemDetail";
+
+            }
         }
         return "redirect:/groepDetail";
     }
@@ -316,7 +323,9 @@ public class ReisItemController {
             model.addAttribute("currentUser", gebruikerRepository.findGebruikerByEmail(principal.getName()));
             model.addAttribute("groep", groepOptional.get());
             model.addAttribute("reis", reisItemOptional.get());
-            model.addAttribute("poll", reisItemRepository.findPollByReisItemId(pollId));
+            Poll poll = reisItemRepository.findPollByReisItemId(pollId);
+            model.addAttribute("poll", poll);
+            model.addAttribute("subReisItemVerwijderFormulier", poll);
             return "pollDetail";
         }
 
