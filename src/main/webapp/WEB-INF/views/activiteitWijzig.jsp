@@ -1,6 +1,8 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib tagdir="/WEB-INF/tags" prefix="tag"%>
+<%@ page import="java.util.*" %>
 <jsp:include page="header.jsp"/>
 <title>Activiteit aanmaken - ${currentUser.voornaam}</title>
 <body>
@@ -14,13 +16,14 @@
 
         <div class="col-sm-8">
             <div class="jumbotron shadow border">
+                <div class="col">
                 <div class="row">
                     <p class="lead">Activiteit</p>
                 </div>
                 <div class="row">
                     <div>
                         <div class="row">
-                            <div class="col">
+                            <div class="col-sm-8">
                                 <form:form
                                         action="${pageContext.request.contextPath}/${groepId}/${reisItemId}/${reisItemsId}/activiteitWijzigen"
                                         method="post" modelAttribute="activiteitWijzigFormulier">
@@ -67,10 +70,15 @@
                         <a href="${pageContext.request.contextPath}/${groep.groepId}/reisItemDetail/${reisItem.reisItemId}">
                             <button type="text" class="btn btn-primary mt-3" id="annuleren">Annuleren</button>
                         </a>
-
                         <hr class="my-4">
 
+                        <div class="row">
+                            <div class="col-sm-11">
+                                <tag:subReisItemDetail subReisItems="${reisItems.reisItems}"/>
+                            </div>
+                        </div>
                     </div>
+                </div>
                 </div>
             </div>
         </div>
