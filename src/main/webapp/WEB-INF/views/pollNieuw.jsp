@@ -26,7 +26,8 @@
                                                 required="required"
                                                 placeholder="Titel"/>
                                     <form:input id="pollDatum" type="date" class="form-control" path="startDatum"
-                                                required="required"/>
+                                                required="required"
+                                                value="${reisItem.geefNieuwStartDatum()}"/>
                                 </div>
                             </div>
 

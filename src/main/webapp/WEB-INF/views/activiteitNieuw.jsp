@@ -21,7 +21,7 @@
                     <div>
                         <div class="row">
                             <div class="col">
-                            <form:form action="/${groep.groepId}/reisItemDetail/${reisItem.reisItemId}/nieuweActiviteit" method="post" modelAttribute="activiteitAanmakenFormulier">
+                            <form:form action="${pageContext.request.contextPath}/${groep.groepId}/reisItemDetail/${reisItem.reisItemId}/nieuweActiviteit" method="post" modelAttribute="activiteitAanmakenFormulier">
                                     <form:radiobutton class="ActiviteitBorrelen" id="activiteitSoort" path="soortActiviteit" value="Borrelen" required="required" label="Borrelen"/><br>
                                     <form:radiobutton class="ActiviteitActiviteit" id="activiteitSoort1" path="soortActiviteit" value="Activiteit" required="required" label="Activiteit"/><br>
                                     <form:radiobutton class="ActiviteitDineren" id="activiteitSoort2" path="soortActiviteit" value="Dineren" required="required" label="Dineren"/><br>
@@ -31,13 +31,13 @@
                                                 placeholder="Titel"/>
                                     <form:input id="activiteitOmschrijving" type="text" class="form-control" path="omschrijving" placeholder="Omschrijving"/>
                                     <form:input id="activiteitDatum" type="date" class="form-control" path="startDatum" required="required"
-                                                placeholder="Datum"/>
+                                                value="${reisItem.geefNieuwStartDatum()}"/>
 
-                                    <form:textarea id="activiteitTekst" path="tekst" class="form-control mt-2" rows="5" cols="30" required="false" placeholder="Vul hier uw notitie in (niet verplicht)"/>
+                                    <form:textarea id="activiteitTekst" path="tekst" class="form-control mt-2" rows="5" cols="30" required="required" placeholder="Vertel hier je groepsleden wat jullie gaan doen."/>
                             </div>
                         </div>
                                     <hr class="my-4">
-                                    <p class="lead">Optioneel: Voeg een budget toe aan deze activiteit</p>
+                                    <p class="lead">Optioneel: Voeg een budget toe aan deze activiteit${reisItem.startDatum}</p>
                                     <div class="row">
                                         <div class="col">
                                             <form:input id="activiteitBudget" type="number" step="10" min="0" class="form-control" path="budget"/>
@@ -48,7 +48,7 @@
                                     </form:button>
                             </form:form>
 
-                        <a href= "/${groep.groepId}/reisItemDetail/${reisItem.reisItemId}">
+                        <a href= "${pageContext.request.contextPath}/${groep.groepId}/reisItemDetail/${reisItem.reisItemId}">
                             <button type="text" class="btn btn-primary mt-3" id="annuleren">Annuleren</button>
                         </a>
                     </div>

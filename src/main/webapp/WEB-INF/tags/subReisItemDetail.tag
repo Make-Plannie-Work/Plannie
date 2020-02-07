@@ -1,6 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="tag"%>
-<%@ attribute name="subReisItems" type="org.hibernate.collection.internal.PersistentSet"%>
+<%@ attribute name="subReisItems" type="java.util.ArrayList"%>
 
 <c:forEach var="subReisItem" items="${subReisItems}">
 
@@ -101,7 +101,7 @@
                      aria-labelledby="headingOne${subReisItem.reisItemId}"
                      data-parent="#accordionReisItems${subReisItem.reisItemId}">
                     <div class="card-body">
-                        <tag:subReisItemDetail subReisItems="${subReisItem.reisItems}"/>
+                        <tag:subReisItemDetail subReisItems="${subReisItem.geefReisGesorteerdDatum()}"/>
                     </div>
                 </div>
             </c:if>

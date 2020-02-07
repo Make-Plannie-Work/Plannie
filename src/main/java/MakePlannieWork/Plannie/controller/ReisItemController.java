@@ -49,7 +49,7 @@ public class ReisItemController {
     @PostMapping("{groepId}/reisItemAanmaken")
     public String nieuwReisItem(ReisItem reisItem, @PathVariable("groepId") Integer groepId, Principal principal) {
         Optional<Groep> groepOptional = plannieGroepService.findById(groepId);
-        if (reisItem != null && !reisItem.getNaam().isEmpty()) {
+        if (reisItem.getNaam() != null && !reisItem.getNaam().isEmpty()) {
             plannieReisItemService.voegReisItemToe(groepOptional.get(), reisItem, principal);
             return "redirect:/" + groepId + "/reisItemDetail/" + reisItem.getReisItemId();
         }
@@ -77,13 +77,18 @@ public class ReisItemController {
         Optional<ReisItem> reisItemOptional = plannieReisItemService.findById(reisItemId);
 
         if (reisItemOptional.isPresent() && groepOptional.isPresent()) {
-            model.addAttribute("currentUser", gebruikerRepository.findGebruikerByEmail(principal.getName()));
-            model.addAttribute("reisItem", reisItemOptional.get());
-            model.addAttribute("groepslidEmail", new Gebruiker());
-            model.addAttribute("groep", groepOptional.get());
-            model.addAttribute("alleReisItemsVanReis", reisItemOptional.get().getReisItems());
-            model.addAttribute("mapsAPI", mapsAPI);
-            return "reisItemDetail";
+            // Het ReisItemId van de reis wordt opgevraagd, zodat er niet foutief een detail overzicht van een sub-reisitem wordt getoond.
+            Integer hoofdReisId = reisItemOptional.get().vindHoofdReisId();
+            Optional<ReisItem> hoofdReis = reisItemRepository.findById(hoofdReisId);
+
+            if (hoofdReis.isPresent()) {
+                model.addAttribute("currentUser", gebruikerRepository.findGebruikerByEmail(principal.getName()));
+                model.addAttribute("reisItem", hoofdReis.get());
+                model.addAttribute("groepslidEmail", new Gebruiker());
+                model.addAttribute("groep", groepOptional.get());
+                model.addAttribute("mapsAPI", mapsAPI);
+                return "reisItemDetail";
+            }
         }
         return "redirect:/groepDetail";
     }
@@ -168,7 +173,7 @@ public class ReisItemController {
                 reisItemRepository.save(activiteit);
 
             }
-            if (locatie.getAdres() != null || locatie.getLatitude() != 0 || locatie.getLongitude() != 0 ) {
+            if (locatie.getAdres() != null || locatie.getLatitude() != 0 || locatie.getLongitude() != 0) {
                 locatie.setGekoppeldeReisItemId(activiteit);
                 activiteit.voegReisItemToe(locatie);
                 reisItemRepository.save(locatie);
@@ -182,7 +187,7 @@ public class ReisItemController {
     // Klaarzetten van het Activiteit wijzigen Overzicht
     @GetMapping("/{groepId}/{reisItemId}/{reisItemsId}/activiteitWijzigen")
     public String huidigeActiviteit(@PathVariable("groepId") Integer groepId, @PathVariable("reisItemId") Integer reisItemId,
-                                 @PathVariable("reisItemsId") Integer activiteitId, Model model, Principal principal) {
+                                    @PathVariable("reisItemsId") Integer activiteitId, Model model, Principal principal) {
 
         Optional<Groep> groepOptional = plannieGroepService.findById(groepId);
         Optional<ReisItem> reisItemOptional = plannieReisItemService.findById(reisItemId);
@@ -287,7 +292,7 @@ public class ReisItemController {
                             .vanPoll(poll)
                             .build();
 
-                    optieIndex ++;
+                    optieIndex++;
 
                     poll.voegPollOptieToe(optie);
                 }
@@ -316,7 +321,9 @@ public class ReisItemController {
             model.addAttribute("currentUser", gebruikerRepository.findGebruikerByEmail(principal.getName()));
             model.addAttribute("groep", groepOptional.get());
             model.addAttribute("reis", reisItemOptional.get());
-            model.addAttribute("poll", reisItemRepository.findPollByReisItemId(pollId));
+            Poll poll = reisItemRepository.findPollByReisItemId(pollId);
+            model.addAttribute("poll", poll);
+            model.addAttribute("subReisItemVerwijderFormulier", poll);
             return "pollDetail";
         }
 
@@ -337,7 +344,7 @@ public class ReisItemController {
             model.addAttribute("groep", groepOptional.get());
             model.addAttribute("reis", reisItemOptional.get());
 
-            poll.gebruikerStemt(optieId,gebruiker);
+            poll.gebruikerStemt(optieId, gebruiker);
             reisItemRepository.save(poll);
 
             model.addAttribute("poll", poll);
@@ -371,7 +378,7 @@ public class ReisItemController {
     // Opslaan van gewijzigde notitie
     @PostMapping("/{groepId}/{reisItemId}/{reisItemsId}/notitieWijzigen")
     public String notitieWijzigen(@ModelAttribute("notitieWijzigingsFormulier") Notitie notitie, @PathVariable("groepId")
-                                  Integer groepId, @PathVariable("reisItemId") Integer reisItemId,
+            Integer groepId, @PathVariable("reisItemId") Integer reisItemId,
                                   @PathVariable("reisItemsId") Integer notitieId, BindingResult result) {
         if (result.hasErrors()) {
             return "redirect:/notitieWijzig";
@@ -486,7 +493,7 @@ public class ReisItemController {
     @PostMapping("/{groepId}/{reisItemId}/{reisItemsId}/subReisItemVerwijderen")
     public String subReisItemVerwijderen(@ModelAttribute("subReisItemVerwijderFormulier") ReisItem reisItem, @PathVariable("groepId")
             Integer groepId, @PathVariable("reisItemId") Integer reisItemId,
-                                     @PathVariable("reisItemsId") Integer subReisItemId, BindingResult result) {
+                                         @PathVariable("reisItemsId") Integer subReisItemId, BindingResult result) {
         Optional<ReisItem> huidigeSubReisItem = reisItemRepository.findById(subReisItemId);
         if (huidigeSubReisItem.isPresent() && !result.hasErrors()) {
             ReisItem reis = huidigeSubReisItem.get();
