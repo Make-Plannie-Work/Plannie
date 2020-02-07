@@ -45,28 +45,10 @@
 
                         </form:form>
 
-
-
-                        <form:form action="${pageContext.request.contextPath}/${groep.groepId}/${reisItem.reisItemId}/${reisItems.reisItemId}/subReisItemVerwijderen" method="post" modelAttribute="subReisItemVerwijderFormulier">
-
-
-
-                            <form:button id="notitieVerwijderen" type="submit" class="btn btn-primary mt-3"> Verwijder notitie
-                            </form:button>
-
-                        </form:form>
-
-
-
-
-
-
-
-
-
-
-
-
+                        <a id="notverwijderen1" data-toggle="modal" data-target="#waarschuwingsModal">
+                            <button type="text" class="btn btn-primary mt-3" id="notVerwijderen">Verwijder notitie</button>
+                        </a>
+                        <hr class="my-1">
 
                         <a href="${pageContext.request.contextPath}/${groep.groepId}/reisItemDetail/${reisItem.reisItemId}">
                             <button type="text" class="btn btn-primary mt-3" id="annuleren">Annuleren</button>
@@ -92,6 +74,30 @@
         </div>
     </div>
 </div>
+</div>
+
+<div class="modal fade" id="waarschuwingsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="inloggenmodal">Notitie verwijderen</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <form:form id="notitieVerwijderenForm" action="${pageContext.request.contextPath}/${groep.groepId}/${reisItem.reisItemId}/${reisItems.reisItemId}/subReisItemVerwijderen"
+                           modelAttribute="subReisItemVerwijderFormulier" method="post">
+                Weet u zeker dat u deze notitie wil verwijderen?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuleer</button>
+                <button id="verwijderNotitie" type="submit" class="btn btn-primary">Verwijder notitie</button>
+                </form:form>
+            </div>
+        </div>
+    </div>
 </div>
 
 <!-- Footer -->
