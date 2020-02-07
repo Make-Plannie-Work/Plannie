@@ -75,30 +75,8 @@
     </div>
 </div>
 </div>
+<jsp:include page="waarschuwingsModal.jsp"/>
 
-<div class="modal fade" id="waarschuwingsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="inloggenmodal">Notitie verwijderen</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-
-                <form:form id="notitieVerwijderenForm" action="${pageContext.request.contextPath}/${groep.groepId}/${reisItem.reisItemId}/${reisItems.reisItemId}/subReisItemVerwijderen"
-                           modelAttribute="subReisItemVerwijderFormulier" method="post">
-                Weet u zeker dat u deze notitie wil verwijderen?
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuleer</button>
-                <button id="verwijderNotitie" type="submit" class="btn btn-primary">Verwijder notitie</button>
-                </form:form>
-            </div>
-        </div>
-    </div>
-</div>
 
 <!-- Footer -->
 <footer class="py-4 bg-dark text-white-50">
