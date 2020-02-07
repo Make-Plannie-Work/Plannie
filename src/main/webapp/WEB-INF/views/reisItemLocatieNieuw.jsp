@@ -32,7 +32,7 @@
                                         placeholder="Geef een naam op voor deze locatie"/>
                             <form:input id="locatieDatum" type="date" class="form-control" path="startDatum"
                                         required="required"
-                                        placeholder="Datum"/>
+                                        value="${reisItem.geefNieuwStartDatum()}"/>
                             <label for="locatieAdres">Adres</label>
                             <form:input id="locatieAdres" type="text" class="form-control" path="adres"
                                         required="required" data-toggle="tooltip" data-placement="top" title="Adres"

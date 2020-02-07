@@ -4,6 +4,8 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashSet;
@@ -55,6 +57,7 @@ public class ReisItem {
         return totaalBudget;
     }
 
+    // Methode om de overkoepelende reis te geven, inplaats van het eerstvolgende reisItem.
     public Integer vindHoofdReisId() {
         if (gekoppeldeReisItem == null) {
             return reisItemId;
@@ -63,10 +66,30 @@ public class ReisItem {
         }
     }
 
+    // Methode om de set van ReisItems gesorteerd terug te geven.
     public ArrayList<ReisItem> geefReisGesorteerdDatum() {
         ArrayList<ReisItem> itemsGesorteerd = new ArrayList<>(reisItems);
         itemsGesorteerd.sort(Comparator.comparing(ReisItem::getStartDatum));
         return itemsGesorteerd;
+    }
+
+    // Methode om een startdatum voor een nieuw reisItem te geven.
+    public String geefNieuwStartDatum() {
+        if (this.startDatum == null) {
+            // Als dit reisItem zelf geen startdatum heeft, wordt er gecontroleerd of er een gekoppeldReisItem is.
+            if (this.gekoppeldeReisItem != null) {
+                // De gekoppeldeReisItem wordt om de startDatum gevraagd.
+                return this.gekoppeldeReisItem.geefNieuwStartDatum();
+            } else {
+                // Als er geen gekoppeldeReisItem is, wordt de startdatum op de datum van vandaag gezet.
+                DateTimeFormatter datumFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                LocalDateTime vandaag = LocalDateTime.now();
+                return datumFormatter.format(vandaag);
+            }
+        } else {
+            // Als dit reisItem een startdatum heeft, geeft hij deze terug, om klaar te zetten in de JSP's, voor een nieuw ReisItem.
+            return this.startDatum;
+        }
     }
 
     public void voegReisItemToe(ReisItem reisItem) {

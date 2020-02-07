@@ -74,7 +74,7 @@
 
                         <div class="row">
                             <div class="col-sm-11">
-                                <tag:subReisItemDetail subReisItems="${reisItems.reisItems}"/>
+                                <tag:subReisItemDetail subReisItems="${reisItem.geefReisGesorteerdDatum()}"/>
                             </div>
                         </div>
                     </div>

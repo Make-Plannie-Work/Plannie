@@ -49,7 +49,7 @@ public class ReisItemController {
     @PostMapping("{groepId}/reisItemAanmaken")
     public String nieuwReisItem(ReisItem reisItem, @PathVariable("groepId") Integer groepId, Principal principal) {
         Optional<Groep> groepOptional = plannieGroepService.findById(groepId);
-        if (reisItem != null && !reisItem.getNaam().isEmpty()) {
+        if (reisItem.getNaam() != null && !reisItem.getNaam().isEmpty()) {
             plannieReisItemService.voegReisItemToe(groepOptional.get(), reisItem, principal);
             return "redirect:/" + groepId + "/reisItemDetail/" + reisItem.getReisItemId();
         }
