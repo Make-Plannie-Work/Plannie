@@ -5,21 +5,16 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="inloggenmodal">Notitie verwijderen</h5>
+                <h5 class="modal-title" id="waarschuwingsModalTitel"></h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
-
-                <form:form id="notitieVerwijderenForm" action="${pageContext.request.contextPath}/${groep.groepId}/${reisItem.reisItemId}/${reisItems.reisItemId}/subReisItemVerwijderen"
-                           modelAttribute="subReisItemVerwijderFormulier" method="post">
-                    Weet u zeker dat u deze notitie wil verwijderen?
+            <div class="modal-body" id="waarschuwingsModalBody">
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuleer</button>
-                <button id="verwijderNotitie" type="submit" class="btn btn-primary">Verwijder notitie</button>
-                </form:form>
+                <a class="btn btn-primary btn" id="doorgaan" href="${contextPath} />"></a>
             </div>
         </div>
     </div>

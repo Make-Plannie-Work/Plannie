@@ -28,4 +28,5 @@ public interface ReisItemRepository extends JpaRepository<ReisItem, Integer> {
     Locatie findLocatieByReisItemId(Integer locatieId);
 
     Activiteit findActiviteitByReisItemId(Integer activiteitId);
+
 }

@@ -495,4 +495,12 @@ public class ReisItemController {
         }
         return "redirect:/" + groepId + "/reisItemDetail/" + reisItemId;
     }
+
+    @GetMapping("/{groepId}/{reisItemId}/{reisItemsId}/subReisItemVerwijderen")
+    public String notitieVerwijderen(@PathVariable("groepId")
+                                     Integer groepId, @PathVariable("reisItemId") Integer reisItemId,
+                                     @PathVariable("reisItemsId") Integer subReisItemId) {
+        reisItemRepository.deleteById(subReisItemId);
+        return "redirect:/" + groepId + "/reisItemDetail/" + reisItemId;
+    }
 }

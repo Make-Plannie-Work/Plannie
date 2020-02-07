@@ -45,10 +45,15 @@
 
                         </form:form>
 
-                        <a id="notverwijderen1" data-toggle="modal" data-target="#waarschuwingsModal">
-                            <button type="text" class="btn btn-primary mt-3" id="notVerwijderen">Verwijder notitie</button>
-                        </a>
-                        <hr class="my-1">
+                        <button type="button" class="btn btn-primary mt-3" data-toggle="modal" data-target="#waarschuwingsModal"
+                        data-target="#waarschuwingsModal"
+                        onclick="vullenModal(
+                        'Notitie verwijderen',
+                        'Weet u zeker dat u deze notitie wil verwijderen?',
+                        'Verwijder',
+                        '${pageContext.request.contextPath}/${groep.groepId}/${reisItem.reisItemId}/${reisItems.reisItemId}/subReisItemVerwijderen')">
+                            Verwijder notitie</button>
+                        <p><br></p>
 
                         <a href="${pageContext.request.contextPath}/${groep.groepId}/reisItemDetail/${reisItem.reisItemId}">
                             <button type="text" class="btn btn-primary mt-3" id="annuleren">Annuleren</button>
@@ -101,6 +106,8 @@
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
     integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
     crossorigin="anonymous"></script>
+<script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="${pageContext.request.contextPath}/js/vullenModal.js"> </script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
     integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
     crossorigin="anonymous"></script>
