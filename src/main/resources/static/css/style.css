@@ -13,9 +13,11 @@
 }
 
 .card-header {
+width: 30%;
 background-color: #FF3B56;}
 
 .card-block {
+width: 70%;
 background-color: #FFB37D;}
 
 #groepCard {
@@ -23,7 +25,7 @@ background-color: #FFB37D;}
 
 #reisItemCard {
 background-color: #FFB37D;
-width: 42rem;
+width: 100%;
 }
 
 #reisItemCard:hover {

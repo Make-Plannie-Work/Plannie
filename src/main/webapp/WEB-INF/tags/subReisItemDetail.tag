@@ -6,10 +6,10 @@
 
     <div class="accordion" id="accordionReisItems${subReisItem.reisItemId}">
         <div class="card">
-            <div class="card-header" id="headingOne${subReisItem.reisItemId}">
+            <div class="accordion-header" id="headingOne${subReisItem.reisItemId}">
                 <!--Mits dit item 1, of meerdere sub items heeft, komt er een Accordion-uitklap knop-->
                 <c:if test="${not empty subReisItem.reisItems}">
-                    <button class="btn btn-primary btn-lg btn-block" type="button" data-toggle="collapse"
+                    <button class="btn btn-danger btn-lg btn-block" type="button" data-toggle="collapse"
                             data-target="#collapseOne${subReisItem.reisItemId}" aria-expanded="true"
                             aria-controls="collapseOne${subReisItem.reisItemId}"><i class="far fa-list-alt"></i>
                     </button>
