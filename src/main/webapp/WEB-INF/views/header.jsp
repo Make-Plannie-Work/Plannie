@@ -49,6 +49,7 @@
 
             </li>
         </security:authorize>
+    </ul>
 </nav>
 <div class="container mt-3">
     <div class="row">
