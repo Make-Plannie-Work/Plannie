@@ -7,7 +7,7 @@ ourRequest.onload= function() {
     var alleLeden = JSON.parse(ourRequest.responseText);
     var htmlString = "";
     for (i = 0; i < alleLeden.length; i++) {
-        htmlString += '<tr><td id="groepsledenNamen">' + alleLeden[i].voornaam + ' ' + alleLeden[i].achternaam + '</td><td><button id=\"groepsledenButton\" onClick="verwijderUitGroep(' + alleLeden[i].gebruikersId + ')">Verwijder</button></td></tr>';
+        htmlString += '<tr><td id="groepsledenNamen">' + alleLeden[i].voornaam + ' ' + alleLeden[i].achternaam + '</td><td><button id=\"groepsledenButton\" onClick="verwijderUitGroep(' + alleLeden[i].gebruikersId + ')"><i class="fas fa-trash-alt"></i></button></td></tr>';
     }
     ledenLijst.insertAdjacentHTML('beforeend', htmlString);
 };
@@ -57,7 +57,7 @@ function RefreshTable(groepId) {
        var alleLeden = JSON.parse(ourRequest.responseText);
        var htmlString = "";
        for (i = 0; i < alleLeden.length; i++) {
-           htmlString += '<tr><td id="groepsledenNamen">' + alleLeden[i].voornaam + ' ' + alleLeden[i].achternaam + '</td><td><button id=\"groepsledenButton\" onClick="verwijderUitGroep(' + alleLeden[i].gebruikersId + ')">Verwijder</button></td></tr>';
+           htmlString += '<tr><td id="groepsledenNamen">' + alleLeden[i].voornaam + ' ' + alleLeden[i].achternaam + '</td><td><button id=\"groepsledenButton\" onClick="verwijderUitGroep(' + alleLeden[i].gebruikersId + ')"><i class="fas fa-trash-alt"></i></button></td></tr>';
        }
        ledenLijst.insertAdjacentHTML('beforeend', htmlString);
    };
