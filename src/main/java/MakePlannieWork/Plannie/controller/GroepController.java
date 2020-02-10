@@ -10,6 +10,9 @@ import MakePlannieWork.Plannie.service.PlannieGroepService;
 import MakePlannieWork.Plannie.service.PlannieReisItemService;
 import org.openqa.selenium.json.Json;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -69,12 +72,6 @@ public class GroepController {
         return "redirect:/gebruikerDetail";
     }
 
-    @GetMapping("/groepDetail/{groepId}/voegGebruikerToeAanGroep/{gebruikersId}")
-    public String voegGebruikerToeAanGroep(@PathVariable("groepId") Integer groepId, @PathVariable("gebruikersId") Integer gebruikersId, Principal principal) {
-        plannieGroepService.voegGebruikerToeAanGroep(gebruikersId, groepId);
-        return "redirect:/groepDetail/" + groepId;
-    }
-
     @GetMapping("/groepDetail/{groepId}/voegLedenToeAanGroepViaEmail")
     public String voegLedenToeAanGroepViaEmail(Model model, HttpServletRequest request) {
         model.addAttribute("groepslidEmail", new Gebruiker());
@@ -98,16 +95,6 @@ public class GroepController {
             plannieGroepService.stuurUitnodigingPerEmail(gebruiker.getEmail(), groepId, gebruikerRepository.findGebruikerByEmail(gebruiker.getEmail()).getIdentifier(), request);
         }
         return "redirect:/groepDetail/" + groepOptional.get().getGroepId();
-    }
-
-    @GetMapping("/groepDetail/{groepId}/VerwijderLedenUitGroep/{gebruikersId}")
-    public String VerwijderLedenUitGroep(@PathVariable("groepId") Integer groepId, @PathVariable("gebruikersId") Integer gebruikersId, Principal principal) {
-        plannieGroepService.verwijderGebruikerUitGroep(gebruikersId, groepId);
-        if (groepRepository.findByGroepId(groepId).getGroepsleden().contains(gebruikerRepository.findByEmail(principal.getName()).get())) {
-            return "redirect:/groepDetail/" + groepId;
-        } else {
-            return "redirect:/gebruikerDetail";
-        }
     }
 
     // Gebruiker gaat naar scherm waar naam van groep gewijzigd kan worden
@@ -167,10 +154,30 @@ public class GroepController {
     @ResponseBody
     public List<Gebruiker> gebruikers(@RequestParam(value = "term", required = false, defaultValue = "") String term, @PathVariable("groepId") Integer groepId) {
         List<Gebruiker> suggestions = new ArrayList<Gebruiker>();
-        System.out.println(groepId);
         List<Gebruiker> alleGebruikers = gebruikerRepository.findGebruikers(term, groepId);
         suggestions.addAll(alleGebruikers);
 
         return suggestions;
+    }
+
+    @RequestMapping("/{groepId}/groepsLeden")
+    @ResponseBody
+    public List<Gebruiker> findGroepsLeden(@PathVariable("groepId") Integer groepId) {
+        List<Gebruiker> suggestions = new ArrayList<>();
+        List<Gebruiker> alleGroepsLeden = gebruikerRepository.findByGroepen_groepId(groepId);
+        suggestions.addAll(alleGroepsLeden);
+        return suggestions;
+    }
+
+    @RequestMapping("/{groepId}/VerwijderLedenUitGroep/{gebruikersId}")
+    @ResponseBody
+    public void VerwijderLedenUitGroepAjax(@PathVariable("groepId") Integer groepId, @PathVariable("gebruikersId") Integer gebruikersId, Principal principal) {
+        plannieGroepService.verwijderGebruikerUitGroep(gebruikersId, groepId);
+    }
+
+    @RequestMapping("/groepDetail/{groepId}/voegGebruikerToeAanGroep/{gebruikersId}")
+    @ResponseBody
+    public void voegGebruikerToeAanGroep(@PathVariable("groepId") Integer groepId, @PathVariable("gebruikersId") Integer gebruikersId, Principal principal) {
+        plannieGroepService.voegGebruikerToeAanGroep(gebruikersId, groepId);
     }
 }

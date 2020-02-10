@@ -1,7 +1,8 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
-<%@ taglib uri="http://displaytag.sf.net" prefix="display" %>
+<%@ taglib prefix="tag" uri="/WEB-INF/taglibs/customTaglib.tld"%>
+
 <jsp:include page="header.jsp"/>
 <title>Plannie - Groepsdetails ${groep.groepsNaam}</title>
 <body>
@@ -54,31 +55,17 @@
                 <hr class="my-4">
                 </c:if>
 
+                    <table class="table table-hover table-borderless text-white">
+                        <thead>
+                        <tr>
+                            <th scope="col">Groepsleden</th>
+                        </tr>
+                        </thead>
+                        <tbody id="groepsLeden">
 
+                        </tbody>
+                    </table>
 
-                <nav aria-label="Pagination" c:if test="${directors.totalPages gt 0}">
-                    <ul class="pagination justify-content-center font-weight-bold">
-                        <li class="page-item" th:classappend="${directors.number eq 0} ? 'disabled'">
-                            <a class="page-link"
-                               th:href="@{/directors?page={id}(id=${directors.number lt 2 ? 1 : directors.number})}"
-                               aria-label="Previous" title="Previous Page" data-toggle="tooltip">
-                                <span aria-hidden="true">&laquo;</span>
-                            </a>
-                        </li>
-                        <li class="page-item" th:classappend="${i eq directors.number + 1} ? 'active'"
-                            c:forEach="i : ${#numbers.sequence( 1, directors.totalPages, 1)}">
-                            <a class="page-link" th:href="@{/directors?page={id}(id=${i})}" th:text="${i}"
-                               th:title="${'Page '+ i}" data-toggle="tooltip"></a>
-                        </li>
-                        <li class="page-item" th:classappend="${directors.number + 1 eq directors.totalPages} ? 'disabled'">
-                            <a class="page-link"
-                               th:href="@{/directors?page={id}(id=${directors.number + 2})}"
-                               aria-label="Next" title="Next Page" data-toggle="tooltip">
-                                <span aria-hidden="true">&raquo;</span>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
 
                 </div>
             </div>
@@ -152,7 +139,7 @@
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script src="/js/search.js"></script>
+<script src="/js/main.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
     integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
     crossorigin="anonymous"></script>

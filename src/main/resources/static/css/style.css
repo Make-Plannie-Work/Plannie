@@ -309,3 +309,53 @@ html, body {
   margin: 0;
   padding: 0;
 }
+
+#groepsledenButton {
+    color: #FFFFFF;
+    font-weight: 400;
+    font-family: 'Viga', sans-serif;
+    background:none;
+    border:none;
+    margin:0;
+    padding:0;
+    cursor: pointer;
+}
+
+#groepsledenButton:hover {
+    color: #FFE070;
+    font-weight: 400;
+    font-family: 'Viga', sans-serif;
+    background:none;
+    border:none;
+    margin:0;
+    padding:0;
+    cursor: pointer;
+}
+
+#groepsledenNamen{
+     color: #FFFFFF;
+     font-weight: 400;
+     font-family: 'Viga', sans-serif;
+}
+
+#groepsledenButtonAutocomplete {
+    color: #000000;
+    font-weight: 400;
+    font-family: 'Viga', sans-serif;
+    background:none;
+    border:none;
+    margin:0;
+    padding:0;
+    cursor: pointer;
+}
+
+#groepsledenButtonAutocomplete:hover {
+    color: #FF3B56;
+    font-weight: 400;
+    font-family: 'Viga', sans-serif;
+    background:none;
+    border:none;
+    margin:0;
+    padding:0;
+    cursor: pointer;
+}
