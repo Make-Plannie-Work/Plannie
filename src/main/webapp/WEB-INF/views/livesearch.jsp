@@ -6,4 +6,5 @@
         <input type="text" class="form-control" path="tekst" id="Zoek_Gebruikers" placeholder="Zoek naar Gebruikers">
     </div>
     <input type="hidden" id="groepId" value='${groep.groepId}'/>
+    <input type="hidden" id="contextPath" value="${pageContext.request.contextPath}"/>
 </form:form>
