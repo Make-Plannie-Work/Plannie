@@ -45,11 +45,18 @@
                         </div>
                     </c:forEach>
 
+                    <form:form action="${pageContext.request.contextPath}/${groep.groepId}/${reis.reisItemId}/${poll.reisItemId}/subReisItemVerwijderen" method="post" modelAttribute="subReisItemVerwijderFormulier">
+
+                        <form:button id="pollVerwijderen" type="submit" class="btn btn-primary mt-3"> Sluit poll
+                        </form:button>
+
+                    </form:form>
+
 
                     <div class="container">
 
                         <div class="row">
-                            <a href="/${groep.groepId}/reisItemDetail/${reis.reisItemId}">
+                            <a href="${pageContext.request.contextPath}/${groep.groepId}/reisItemDetail/${reis.reisItemId}">
                                 <button type="text" class="btn btn-primary mt-3" id="annuleren">Terug</button>
                             </a>
                         </div>

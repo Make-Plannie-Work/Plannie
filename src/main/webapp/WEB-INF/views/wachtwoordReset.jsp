@@ -9,7 +9,7 @@
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
-        <form:form id="updatePasswordForm" action="/wachtwoordReset" modelAttribute="updatePasswordForm" method="post">
+        <form:form id="updatePasswordForm" action="${pageContext.request.contextPath}/wachtwoordReset" modelAttribute="updatePasswordForm" method="post">
             <div class="modal-body">
 
 

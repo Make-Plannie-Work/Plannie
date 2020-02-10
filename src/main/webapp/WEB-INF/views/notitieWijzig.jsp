@@ -15,7 +15,7 @@
                 </div>
                 <div class="row">
                     <div>
-                        <form:form action="/${groep.groepId}/${reisItem.reisItemId}/${reisItems.reisItemId}/notitieWijzigen" method="post" modelAttribute="notitieWijzigingsFormulier">
+                        <form:form action="${pageContext.request.contextPath}/${groep.groepId}/${reisItem.reisItemId}/${reisItems.reisItemId}/notitieWijzigen" method="post" modelAttribute="notitieWijzigingsFormulier">
                             <div class="row">
                                 <div class="col">
                                     <form:input type="text" class="form-control" path="naam" required="required"
@@ -45,30 +45,17 @@
 
                         </form:form>
 
+                        <button type="button" class="btn btn-primary mt-3" data-toggle="modal" data-target="#waarschuwingsModal"
+                        data-target="#waarschuwingsModal"
+                        onclick="vullenModal(
+                        'Notitie verwijderen',
+                        'Weet u zeker dat u deze notitie wil verwijderen?',
+                        'Verwijder',
+                        '${pageContext.request.contextPath}/${groep.groepId}/${reisItem.reisItemId}/${reisItems.reisItemId}/subReisItemVerwijderen')">
+                            Verwijder notitie</button>
+                        <p><br></p>
 
-
-                        <form:form action="/${groep.groepId}/${reisItem.reisItemId}/${reisItems.reisItemId}/subReisItemVerwijderen" method="post" modelAttribute="subReisItemVerwijderFormulier">
-
-
-
-                            <form:button id="notitieVerwijderen" type="submit" class="btn btn-primary mt-3"> Verwijder notitie
-                            </form:button>
-
-                        </form:form>
-
-
-
-
-
-
-
-
-
-
-
-
-
-                        <a href="/${groep.groepId}/reisItemDetail/${reisItem.reisItemId}">
+                        <a href="${pageContext.request.contextPath}/${groep.groepId}/reisItemDetail/${reisItem.reisItemId}">
                             <button type="text" class="btn btn-primary mt-3" id="annuleren">Annuleren</button>
                         </a>
                     </div>
@@ -81,7 +68,7 @@
         <div class="col-sm-4">
             <div class="jumbotron shadow" id="wouter">
                 <div class="row" >
-                    <p class="lead text-white"><a class ="lead text-white" href="/${groep.groepId}/reisItemDetail/${reisItem.reisItemId}">${reisItem.naam} </a> <p class="lead text-white">  - <a class ="lead text-white" href="/groepDetail/${groep.groepId}">${groep.groepsNaam}</a></p>
+                    <p class="lead text-white"><a class ="lead text-white" href="${pageContext.request.contextPath}/${groep.groepId}/reisItemDetail/${reisItem.reisItemId}">${reisItem.naam} </a> <p class="lead text-white">  - <a class ="lead text-white" href="${pageContext.request.contextPath}/groepDetail/${groep.groepId}">${groep.groepsNaam}</a></p>
                 </div>
                 <hr class="my-4">
                 <div class="row">
@@ -93,6 +80,8 @@
     </div>
 </div>
 </div>
+<jsp:include page="waarschuwingsModal.jsp"/>
+
 
 <!-- Footer -->
 <footer class="py-4 bg-dark text-white-50">
@@ -117,6 +106,8 @@
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
     integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
     crossorigin="anonymous"></script>
+<script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="${pageContext.request.contextPath}/js/vullenModal.js"> </script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
     integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
     crossorigin="anonymous"></script>

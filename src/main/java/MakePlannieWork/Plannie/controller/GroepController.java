@@ -7,6 +7,7 @@ import MakePlannieWork.Plannie.repository.GebruikerRepository;
 import MakePlannieWork.Plannie.repository.GroepRepository;
 import MakePlannieWork.Plannie.service.PlannieGebruikersService;
 import MakePlannieWork.Plannie.service.PlannieGroepService;
+import MakePlannieWork.Plannie.service.PlannieMailingService;
 import MakePlannieWork.Plannie.service.PlannieReisItemService;
 import org.openqa.selenium.json.Json;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +43,9 @@ public class GroepController {
 
     @Autowired
     private PlannieReisItemService plannieReisItemService;
+
+    @Autowired
+    private PlannieMailingService plannieMailingService;
 
     @PostMapping("/groepAanmaken")
     public String nieuweGroep(Groep groep, Model model, Principal principal) {
@@ -91,10 +95,15 @@ public class GroepController {
             gebruiker.setIdentifier(UUID.randomUUID().toString());
             gebruiker.setVoornaam(gebruiker.getEmail());
             gebruikerRepository.save(gebruiker);
+            final String token = UUID.randomUUID().toString();
+            plannieGebruikersService.maakGebruikerVerificatieToken(gebruiker, token);
             plannieGroepService.voegGebruikerToeAanGroep(gebruikerRepository.findGebruikerByEmail(gebruiker.getEmail()).getGebruikersId(), groepId);
-            plannieGroepService.stuurUitnodigingPerEmail(gebruiker.getEmail(), groepId, gebruikerRepository.findGebruikerByEmail(gebruiker.getEmail()).getIdentifier(), request);
-        }
-        return "redirect:/groepDetail/" + groepOptional.get().getGroepId();
+            try {
+                plannieMailingService.maakGebruikerVerificatieTokenEmail(plannieMailingService.getAppUrl(request), request.getLocale(), token, gebruiker);
+            } catch (MessagingException e) {
+                e.printStackTrace();
+            }
+        } return "redirect:/groepDetail/" + groepOptional.get().getGroepId();
     }
 
     // Gebruiker gaat naar scherm waar naam van groep gewijzigd kan worden

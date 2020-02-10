@@ -16,42 +16,49 @@ public class PollOptie {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer pollOptieId;
-
+    // TODO hierop wordt gestemd
     private String stemOptie;
-
     // Hiermee worden de poll opties gesorteerd op de volgorde waarop de gebruiker ze op wilde slaan.
+    // TODO hierop wordt gesorteerd
     private int optieIndex;
-
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "reisItemId")
+    // Hier hoort deze poll optie bij
     private Poll poll;
-
     @ManyToMany(cascade = CascadeType.ALL)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Set<Gebruiker> stemmen = new HashSet<>();
 
-    public int geefAantalStemmen() {
-        return stemmen.size();
-    }
+    public static class Builder {
 
-    // Kijkt of een gebruiker op deze optie gestemd heeft.
-    public boolean gebruikerHeeftGestemd(int gebruikerID) {
-        boolean gestemd = false;
-        Iterator<Gebruiker> gebruikers = stemmen.iterator();
-        while (gebruikers.hasNext() && !gestemd) {
-            if (gebruikers.next().getGebruikersId() == gebruikerID) {
-                gestemd = true;
-            }
+        private Integer pollOptieId;
+        private String stemOptie;
+        private int optieIndex;
+        private Poll poll;
+        private Set<Gebruiker> stemmen = new HashSet<>();
+
+        public Builder(String stemOptie) {
+            this.stemOptie = stemOptie;
         }
-        return gestemd;
-    }
+        public Builder vanPoll(Poll poll) {
+            this.poll = poll;
 
-    public void verwijderStem(Gebruiker gebruiker) {
-        stemmen.remove(gebruiker);
-    }
+            return this;
+        }
+        public Builder metIndex(int optieIndex) {
+            this.optieIndex = optieIndex;
 
-    public void voegStemToe(Gebruiker gebruiker) {
-        stemmen.add(gebruiker);
+            return this;
+        }
+
+        public PollOptie build() {
+            PollOptie optie = new PollOptie();
+            optie.stemOptie = this.stemOptie;
+            optie.poll = this.poll;
+            optie.optieIndex = this.optieIndex;
+
+            return optie;
+        }
     }
 
     // Getters en Setters
@@ -93,5 +100,29 @@ public class PollOptie {
 
     public void setOptieIndex(int optieIndex) {
         this.optieIndex = optieIndex;
+    }
+
+    public int geefAantalStemmen() {
+        return stemmen.size();
+    }
+
+    // Kijkt of een gebruiker op deze optie gestemd heeft.
+    public boolean gebruikerHeeftGestemd(int gebruikerID) {
+        boolean gestemd = false;
+        Iterator<Gebruiker> gebruikers = stemmen.iterator();
+        while (gebruikers.hasNext() && !gestemd) {
+            if (gebruikers.next().getGebruikersId() == gebruikerID) {
+                gestemd = true;
+            }
+        }
+        return gestemd;
+    }
+
+    public void verwijderStem(Gebruiker gebruiker) {
+        stemmen.remove(gebruiker);
+    }
+
+    public void voegStemToe(Gebruiker gebruiker) {
+        stemmen.add(gebruiker);
     }
 }
