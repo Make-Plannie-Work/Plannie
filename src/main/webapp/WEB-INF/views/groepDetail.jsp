@@ -1,7 +1,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
-<%@ taglib prefix="tag" uri="/WEB-INF/taglibs/customTaglib.tld"%>
+
 
 <jsp:include page="header.jsp"/>
 <title>Plannie - Groepsdetails ${groep.groepsNaam}</title>
@@ -9,7 +9,6 @@
 
 <div class="container mt-3">
     <div class="row">
-
         <div class="col-sm-8">
             <div class="jumbotron shadow border">
                 <div class="row" >
@@ -41,20 +40,15 @@
 
         <div class="col-sm-4">
             <div class="jumbotron shadow" id="wouter">
-
                     <img id="groepImg" class="img-fluid card-img-top" src="${pageContext.request.contextPath}/images/groep/${groep.imagePath}" alt="Card image cap">
-
-
                     <h3 class="card-title lead text-white mt-3">${groep.groepsNaam} <c:if test = "${groep.aanmaker == currentUser.gebruikersId}">
                             <a id="wijzigGroepsNaam2" type="button" class="text-white" data-toggle="modal" data-target="#wijzigGroepsNaam"><i class="far fa-edit"></i></a>
                         </c:if></h3>
 
                 <c:if test = "${groep.aanmaker == currentUser.gebruikersId}"><hr class="my-4">
                 <jsp:include page="livesearch.jsp"/>
-
                 <hr class="my-4">
                 </c:if>
-
                     <table class="table table-hover table-borderless text-white">
                         <thead>
                         <tr>
@@ -65,9 +59,6 @@
 
                         </tbody>
                     </table>
-
-
-
                 </div>
             </div>
         </div>
@@ -120,19 +111,6 @@
 <!-- Footer -->
 <footer class="py-4 bg-dark text-white-50">
 
-<!-- Footer Elements -->
-<div class="container">
-
-    <!-- Call to action -->
-    <ul class="list-unstyled list-inline text-center py-2">
-
-
-
-        </li>
-    </ul>
-    <!-- Call to action -->
-
-</div>
 <!-- Footer Elements -->
 </footer>
 <!-- Footer -->
