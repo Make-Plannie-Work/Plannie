@@ -100,3 +100,6 @@
 </div>
 </div>
 <jsp:include page="footer.jsp"/>
+<script defer
+        src="https://maps.googleapis.com/maps/api/js?key=${mapsAPI}&callback=initMapAndGeo">
+</script>
