@@ -144,7 +144,7 @@ public class ReisItem {
     }
 
     public String getStartDatum() {
-        return startDatum;
+        return geefNieuwStartDatum();
     }
 
     public void setStartDatum(String startDatum) {

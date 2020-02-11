@@ -150,8 +150,10 @@ public class ReisItemController {
         activiteit.setOmschrijving(activiteitDTO.getOmschrijving());
 
         notitie.setTekst(activiteitDTO.getTekst());
+        notitie.setStartDatum(activiteitDTO.getStartDatum());
 
         locatie.setAdres(activiteitDTO.getAdres());
+        locatie.setStartDatum(activiteitDTO.getStartDatum());
         locatie.setLatitude(activiteitDTO.getLatitude());
         locatie.setLongitude(activiteitDTO.getLongitude());
 
