@@ -6,46 +6,66 @@ $.ajaxSetup({
 });
 
 $(document).ready(function(){
-        $('#registreer').on('click',function(event){
-            var voornaam = $('#voornaam').val();
-            var achternaam = $('#achternaam').val();
-            var email = $('#email').val();
-            var wachtwoord = $('#psw').val();
-            var trancientWachtwoord = $('#trancientWachtwoord').val();
+    $('#registreer').on('click',function(event){
+        var voornaam = $('#voornaam').val();
+        var achternaam = $('#achternaam').val();
+        var email = $('#email').val();
+        var wachtwoord = $('#psw').val();
+        var trancientWachtwoord = $('#trancientWachtwoord').val();
 
-            event.preventDefault();
+        event.preventDefault();
 
-            var gebruiker = {"voornaam" : voornaam , "achternaam" : achternaam, "email" : email, "wachtwoord" : wachtwoord, "trancientWachtwoord" : trancientWachtwoord};
-            console.log(gebruiker);
+        var gebruiker = {
+        "voornaam" : voornaam ,
+         "achternaam" : achternaam,
+          "email" : email,
+           "wachtwoord" : wachtwoord,
+            "trancientWachtwoord" : trancientWachtwoord};
 
-            document.getElementById("registratieMelding").style.display = "alert alert-danger";
+
+
+
 
         $.ajax({
-               type: "POST",
-               contentType : 'application/json; charset=utf-8',
-
-               url: "/Plannie/registreren/controle",
-               data: JSON.stringify(gebruiker),
-               success :function(result) {
-
-
-               if(result === "gebruikerBestaat") {
-                    document.getElementById("registratieMelding").value = "Dit e-mail staat al geregistreerd. Bent u uw wachtwoord vergeten? Ga dan naar de login pagina en reset uw wachtwoord"}
-               //TODO wat van de controller terug komt, afhankelijk van wat er terug komt, moet er een melding op scherm komen
-               console.log(result)
-               },           error : function(e) {
-                                            console.log("ERROR: ", e);
-                                        }
-
-           });
-
+        type: "POST",
+        contentType : 'application/json; charset=utf-8',
+        url: "/Plannie/registreren/controle",
+        data: JSON.stringify(gebruiker),
+        success :function(result) {
+            //TODO wat van de controller terug komt, afhankelijk van wat er terug komt, moet er een melding op scherm komen
+            if(result === "gebruikerBestaat") {
+                setWaarschuwingType('alert alert-danger');
+                $("#alertTitel").text("Waarschuwing")
+                $("#alertTekst").text("Dit e-mail staat al geregistreerd. Bent u uw wachtwoord vergeten? Ga dan naar de login pagina en reset uw wachtwoord");
+            } else if (result === "gebruikerGeregistreerd") {
+                setWaarschuwingType('alert alert-success');
+                $("#alertTitel").text("Melding")
+                $("#alertTekst").text("Er is een e-mail verstuurd naar het opgegeven e-mail adres. Klik in de e-mail op de link om de registratie compleet te maken.");
+            } else if(result === "tokenLooptNog") {
+                setWaarschuwingType('alert alert-danger');
+                $("#alertTitel").text("Waarschuwing")
+                $("#alertTekst").text("Er is al een registratie e-mail naar dit email adres verstuurd. Controleer of de e-mail in uw spamfolder terechtgekomen is.");
+            } else {
+                setWaarschuwingType('alert alert-success');
+                $("#alertTitel").text("Melding")
+                $("#alertTekst").text("Er is een nieuwe token naar uw e-mail adres gestuurd. Klik in de e-mail op de link om de registratie compleet te maken.");
+            }
+            $('#registratieMelding').removeClass('fade');
+        },
+            error : function(e) {
+            console.log("ERROR: ", e);
+            }
         });
     });
-//gebruikerBestaat
-//tokenLooptNog
-//tokenNieuw
-//gebruikerGeregistreerd
+});
 
-// TODO De controller de waardes van het formulier sturen.
+$('.close').click(function () {
+  $(this).parent().addClass('fade'); // hides alert with Bootstrap CSS3 implem
+});
 
-// TODO aan de hand van de reactie van de controller een melding weergeven op het scherm.
+function setWaarschuwingType(type) {
+    $('#registratieMelding').removeClass('alert alert-danger');
+    $('#registratieMelding').removeClass('alert alert-success');
+
+    $('#registratieMelding').addClass(type);
+}

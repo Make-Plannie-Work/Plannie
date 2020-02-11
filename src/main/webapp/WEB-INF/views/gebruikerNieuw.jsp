@@ -43,8 +43,11 @@
                         </div>
 
                         <form:button id="registreer" type="submit" class="btn btn-primary mt-3"  >Registreer</form:button>
-                        <div class="none" id="registratieMelding" aria-hidden="true">
-                            <strong>Danger!</strong> This alert box could indicate a dangerous or potentially negative action.
+
+                        <div id="registratieMelding" class="alert alert-danger fade">
+                            <button href="#" type="button" class="close">&times;</button>
+                            <h4 id="alertTitel">Alert title</h4>
+                            <p id="alertTekst">Roses are red, violets are blue...</p>
                         </div>
 
                     </div>
