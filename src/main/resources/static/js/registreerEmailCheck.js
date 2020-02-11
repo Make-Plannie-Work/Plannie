@@ -1,4 +1,10 @@
 // TODO Javascript aanroepen met een onclick actie, wanneer het registratie formulier verzonden wordt.
+$.ajaxSetup({
+    beforeSend: function(xhr) {
+        xhr.setRequestHeader('X-CSRF-TOKEN', $('#csrfToken').attr('data-csrfToken'));
+    }
+});
+
 $(document).ready(function(){
         $('#registreer').on('click',function(event){
             var voornaam = $('#voornaam').val();
@@ -9,18 +15,22 @@ $(document).ready(function(){
 
             event.preventDefault();
 
-            gebruiker = {"voornaam" : voornaam , "achternaam" : achternaam, "email" : email, "wachtwoord" : wachtwoord, "trancientWachtwoord" : trancientWachtwoord};
+            var gebruiker = {"voornaam" : voornaam , "achternaam" : achternaam, "email" : email, "wachtwoord" : wachtwoord, "trancientWachtwoord" : trancientWachtwoord};
             console.log(gebruiker);
 
         $.ajax({
                type: "POST",
                contentType : 'application/json; charset=utf-8',
-               dataType : 'json',
-               url: "Plannie/registreren/controle.htm",
+
+               url: "/Plannie/registreren/controle",
                data: JSON.stringify(gebruiker), // Note it is important
                success :function(result) {
                // do what ever you want with data
-               }
+               console.log(result)
+               },           error : function(e) {
+                                            console.log("ERROR: ", e);
+                                        }
+
            });
 
         });

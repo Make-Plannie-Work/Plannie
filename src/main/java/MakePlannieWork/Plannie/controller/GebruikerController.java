@@ -10,8 +10,11 @@ import MakePlannieWork.Plannie.service.PlannieGebruikersService;
 import MakePlannieWork.Plannie.service.PlannieGroepService;
 import MakePlannieWork.Plannie.service.PlannieMailingService;
 import MakePlannieWork.Plannie.util.GenericResponse;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -129,10 +132,10 @@ public class GebruikerController {
         }
     }
 
-    @RequestMapping(value="/registreren/controle.htm",method=RequestMethod.POST)
-    public  @ResponseBody String  registrerenControleren(@RequestBody Gebruiker gebruiker, HttpServletRequest request) {
-        System.out.println("Test1: " + gebruiker.getVoornaam());
-        return "Succes";
+    @PostMapping("/registreren/controle")
+    public ResponseEntity<Object> nieuweGebruiker(@RequestBody String gebruiker) {
+        System.out.println("Test: " + gebruiker);
+        return new ResponseEntity<Object>("Hallo", HttpStatus.OK);
         // your logic next
     }
 
