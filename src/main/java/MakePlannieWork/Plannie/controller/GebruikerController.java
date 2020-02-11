@@ -85,18 +85,19 @@ public class GebruikerController {
     @PostMapping("/registreren")
     public String nieuweGebruiker(HttpServletRequest request, @ModelAttribute("registratieformulier") Gebruiker gebruiker,
                                   Model model, BindingResult result) throws MessagingException {
+
         List<Gebruiker> bestaandeGebruiker = gebruikerRepository.findGebruikersByEmail(gebruiker.getEmail());
         Gebruiker gebruikerZonderToken = gebruikerRepository.findGebruikerByEmail(gebruiker.getEmail());
         model.addAttribute("updatePasswordForm", new Gebruiker());
+        model.addAttribute("loginForm", new Gebruiker());
+        model.addAttribute("registratieFormulier", new Gebruiker());
+
         // Is het een bestaande gebruiker?
         if (!bestaandeGebruiker.isEmpty() || result.hasErrors() || !gebruiker.getWachtwoord().equals(gebruiker.getTrancientWachtwoord())) {
             if (gebruikerZonderToken.isEnabled()) { // Staat enabled op true?
-                model.addAttribute("loginForm", new Gebruiker());
+                // TODO melding aan gebruiker geven dat email adres al bestaat met AJAX
                 return "gebruikerBestaatReeds";
-                //TODO een Warning krijgen ipv nieuwe pagina laden dat gebruikers reeds bestaat, misschien met errorpage?
             } else if (gebruikerVerificatieRepository.findByGebruiker(gebruikerZonderToken) != null){
-                model.addAttribute("registratieFormulier", new Gebruiker());
-                model.addAttribute("loginForm", new Gebruiker());
                 return "gebruikerNieuw";
                 //TODO aangeven dat er al een token is in zijn email en doorsturen naar token
             } else {// maak een random token aan
@@ -110,6 +111,7 @@ public class GebruikerController {
                 return "redirect:/index";
             }
         } else { // Als het geen bestaande gebruiker is maak een gebruiker aan met een random token
+            //TODO gebruiker doorverwijzen naar zijn email om token te gebruiken
             gebruiker.setIdentifier(UUID.randomUUID().toString());
             gebruiker.setRollen(Arrays.asList(rolRepository.findRolByRolNaam("ROLE_USER")));
             gebruiker.setWachtwoord(passwordEncoder.encode(gebruiker.getWachtwoord()));
@@ -123,7 +125,6 @@ public class GebruikerController {
             } catch (MessagingException e) {
                 e.printStackTrace();
             }
-            model.addAttribute("loginForm", new Gebruiker());
             return "index";
         }
     }
