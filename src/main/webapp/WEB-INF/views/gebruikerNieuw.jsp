@@ -132,3 +132,4 @@
     </div>
 </div>
 <jsp:include page="footer.jsp"/>
+<script src="${pageContext.request.contextPath}/js/registreerEmailCheck.js"> </script>

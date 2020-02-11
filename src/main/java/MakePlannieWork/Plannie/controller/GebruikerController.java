@@ -129,6 +129,13 @@ public class GebruikerController {
         }
     }
 
+    @RequestMapping(value="/registreren/controle.htm",method=RequestMethod.POST)
+    public  @ResponseBody String  registrerenControleren(@RequestBody Gebruiker gebruiker, HttpServletRequest request) {
+        System.out.println("Test1: " + gebruiker.getVoornaam());
+        return "Succes";
+        // your logic next
+    }
+
     @GetMapping("/gebruikerBestaatReeds")
     String gebruikerBestaatReeds(Model model) {
         model.addAttribute("loginForm", new Gebruiker());
