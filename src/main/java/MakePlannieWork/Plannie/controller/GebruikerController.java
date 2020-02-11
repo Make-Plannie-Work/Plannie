@@ -99,11 +99,9 @@ public class GebruikerController {
         // Is het een bestaande gebruiker?
         if (!bestaandeGebruiker.isEmpty() || !gebruiker.getWachtwoord().equals(gebruiker.getTrancientWachtwoord())) {
             if (gebruikerZonderToken.isEnabled()) { // Staat enabled op true?
-                // TODO melding aan gebruiker geven dat email adres al bestaat met AJAX
                 return "gebruikerBestaat";
             } else if (gebruikerVerificatieRepository.findByGebruiker(gebruikerZonderToken) != null){
                 return "tokenLooptNog";
-                //TODO aangeven dat er al een token is in zijn email en doorsturen naar token
             } else {// maak een random token aan
                 final String token = UUID.randomUUID().toString();
                 plannieGebruikersService.maakGebruikerVerificatieToken(gebruikerZonderToken, token);
@@ -115,7 +113,6 @@ public class GebruikerController {
                 return "tokenNieuw";
             }
         } else { // Als het geen bestaande gebruiker is maak een gebruiker aan met een random token
-            //TODO gebruiker doorverwijzen naar zijn email om token te gebruiken
             gebruiker.setIdentifier(UUID.randomUUID().toString());
             gebruiker.setRollen(Arrays.asList(rolRepository.findRolByRolNaam("ROLE_USER")));
             gebruiker.setWachtwoord(passwordEncoder.encode(gebruiker.getWachtwoord()));

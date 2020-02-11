@@ -1,38 +1,45 @@
-// TODO Javascript aanroepen met een onclick actie, wanneer het registratie formulier verzonden wordt.
 $.ajaxSetup({
     beforeSend: function(xhr) {
         xhr.setRequestHeader('X-CSRF-TOKEN', $('#csrfToken').attr('data-csrfToken'));
     }
 });
 
-$(document).ready(function(){
-    $('#registreer').on('click',function(event){
-        var voornaam = $('#voornaam').val();
-        var achternaam = $('#achternaam').val();
-        var email = $('#email').val();
-        var wachtwoord = $('#psw').val();
-        var trancientWachtwoord = $('#trancientWachtwoord').val();
+$('#registreren').on('submit', function () {
+    // De standaard 'submit' van het registratie formulier wordt uitgeschakeld, aangezien we dit met AJAX oplossen.
+    event.preventDefault();
 
-        event.preventDefault();
+    // Er wordt een JSON gemaakt van de waarden op de JSP.
+    var gebruiker = {
+    "voornaam" : $('#voornaam').val(),
+     "achternaam" : $('#achternaam').val(),
+      "email" : $('#email').val(),
+       "wachtwoord" : $('#psw').val(),
+        "trancientWachtwoord" : $('#trancientWachtwoord').val()};
 
-        var gebruiker = {
-        "voornaam" : voornaam ,
-         "achternaam" : achternaam,
-          "email" : email,
-           "wachtwoord" : wachtwoord,
-            "trancientWachtwoord" : trancientWachtwoord};
+    // Er wordt bijgehouden hoeveel validatie fouten er zijn op het formulier.
+    var fouten = 0;
+    // Er wordt gekeken welke formulieren op de pagina validatie nodig hebben.
+    var forms = document.getElementsByClassName('needs-validation');
+    // Van elk invoerveld op de gevonden formulieren wordt gekeken of de invoer klopt.
+    var validation = Array.prototype.filter.call(forms, function(form) {
+        if (form.checkValidity() === false) {
+            // Als er een foute invoer gevonden is, wordt deze bijgehouden.
+            event.stopPropagation();
+            fouten ++;
+        }
+        form.classList.add('was-validated');
+    });
 
-
-
-
-
+    // Als er geen validatie fouten gevonden zijn, wordt de onderstaande AJAX uitgevoerd.
+    if (fouten <= 0) {
+        // De JSON wordt naar de controller in GebruikerController gestuurd.
         $.ajax({
         type: "POST",
         contentType : 'application/json; charset=utf-8',
         url: "/Plannie/registreren/controle",
         data: JSON.stringify(gebruiker),
         success :function(result) {
-            //TODO wat van de controller terug komt, afhankelijk van wat er terug komt, moet er een melding op scherm komen
+            // Afhankelijk van het bericht wat uit de controller in GebruikerController bevat, wordt er een melding op het scherm getoond.
             if(result === "gebruikerBestaat") {
                 setWaarschuwingType('alert alert-danger');
                 $("#alertTitel").text("Waarschuwing")
@@ -56,13 +63,15 @@ $(document).ready(function(){
             console.log("ERROR: ", e);
             }
         });
-    });
+    }
 });
 
+// Methode om de waarschuwing te sluiten.
 $('.close').click(function () {
   $(this).parent().addClass('fade'); // hides alert with Bootstrap CSS3 implem
 });
 
+// Methode om de waarschuwing van type te veranderen.
 function setWaarschuwingType(type) {
     $('#registratieMelding').removeClass('alert alert-danger');
     $('#registratieMelding').removeClass('alert alert-success');
