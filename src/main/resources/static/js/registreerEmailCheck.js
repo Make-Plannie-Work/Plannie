@@ -18,14 +18,19 @@ $(document).ready(function(){
             var gebruiker = {"voornaam" : voornaam , "achternaam" : achternaam, "email" : email, "wachtwoord" : wachtwoord, "trancientWachtwoord" : trancientWachtwoord};
             console.log(gebruiker);
 
+            document.getElementById("registratieMelding").style.display = "alert alert-danger";
+
         $.ajax({
                type: "POST",
                contentType : 'application/json; charset=utf-8',
 
                url: "/Plannie/registreren/controle",
-               data: JSON.stringify(gebruiker), // Note it is important
+               data: JSON.stringify(gebruiker),
                success :function(result) {
-               // do what ever you want with data
+
+
+               if(result === "gebruikerBestaat") {
+                    document.getElementById("registratieMelding").value = "Dit e-mail staat al geregistreerd. Bent u uw wachtwoord vergeten? Ga dan naar de login pagina en reset uw wachtwoord"}
                //TODO wat van de controller terug komt, afhankelijk van wat er terug komt, moet er een melding op scherm komen
                console.log(result)
                },           error : function(e) {
@@ -36,7 +41,10 @@ $(document).ready(function(){
 
         });
     });
-
+//gebruikerBestaat
+//tokenLooptNog
+//tokenNieuw
+//gebruikerGeregistreerd
 
 // TODO De controller de waardes van het formulier sturen.
 

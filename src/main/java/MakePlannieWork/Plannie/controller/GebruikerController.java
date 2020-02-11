@@ -100,9 +100,9 @@ public class GebruikerController {
         if (!bestaandeGebruiker.isEmpty() || !gebruiker.getWachtwoord().equals(gebruiker.getTrancientWachtwoord())) {
             if (gebruikerZonderToken.isEnabled()) { // Staat enabled op true?
                 // TODO melding aan gebruiker geven dat email adres al bestaat met AJAX
-                return "gebruikerBestaatReeds";
+                return "gebruikerBestaat";
             } else if (gebruikerVerificatieRepository.findByGebruiker(gebruikerZonderToken) != null){
-                return "gebruikerNieuw";
+                return "tokenLooptNog";
                 //TODO aangeven dat er al een token is in zijn email en doorsturen naar token
             } else {// maak een random token aan
                 final String token = UUID.randomUUID().toString();
@@ -112,7 +112,7 @@ public class GebruikerController {
                 } catch (MessagingException e) {
                     e.printStackTrace();
                 }
-                return "redirect:/index";
+                return "tokenNieuw";
             }
         } else { // Als het geen bestaande gebruiker is maak een gebruiker aan met een random token
             //TODO gebruiker doorverwijzen naar zijn email om token te gebruiken
@@ -129,7 +129,7 @@ public class GebruikerController {
             } catch (MessagingException e) {
                 e.printStackTrace();
             }
-            return "index";
+            return "gebruikerGeregistreerd";
         }
     }
 
