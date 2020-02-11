@@ -42,7 +42,7 @@ function verwijderUitGroep(gebruikerId){
 
 function voegToeAanGroep(gebruikerId){
     var ourRequest = new XMLHttpRequest();
-    ourRequest.open('GET', contextPath + '/' + groepId + '/voegGebruikerToeAanGroep/' + gebruikerId);
+    ourRequest.open('GET', contextPath + '/groepDetail/' + groepId + '/voegGebruikerToeAanGroep/' + gebruikerId);
     ourRequest.send();
     ourRequest.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
