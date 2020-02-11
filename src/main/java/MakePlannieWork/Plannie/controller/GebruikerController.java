@@ -10,7 +10,13 @@ import MakePlannieWork.Plannie.service.PlannieGebruikersService;
 import MakePlannieWork.Plannie.service.PlannieGroepService;
 import MakePlannieWork.Plannie.service.PlannieMailingService;
 import MakePlannieWork.Plannie.util.GenericResponse;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.util.JSONPObject;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
@@ -85,18 +91,13 @@ public class GebruikerController {
     }
 
 
-    @PostMapping("/registreren")
-    public String nieuweGebruiker(HttpServletRequest request, @ModelAttribute("registratieformulier") Gebruiker gebruiker,
-                                  Model model, BindingResult result) throws MessagingException {
+    public String registratieGebruiker(Gebruiker gebruiker, HttpServletRequest request) {
 
         List<Gebruiker> bestaandeGebruiker = gebruikerRepository.findGebruikersByEmail(gebruiker.getEmail());
         Gebruiker gebruikerZonderToken = gebruikerRepository.findGebruikerByEmail(gebruiker.getEmail());
-        model.addAttribute("updatePasswordForm", new Gebruiker());
-        model.addAttribute("loginForm", new Gebruiker());
-        model.addAttribute("registratieFormulier", new Gebruiker());
 
         // Is het een bestaande gebruiker?
-        if (!bestaandeGebruiker.isEmpty() || result.hasErrors() || !gebruiker.getWachtwoord().equals(gebruiker.getTrancientWachtwoord())) {
+        if (!bestaandeGebruiker.isEmpty() || !gebruiker.getWachtwoord().equals(gebruiker.getTrancientWachtwoord())) {
             if (gebruikerZonderToken.isEnabled()) { // Staat enabled op true?
                 // TODO melding aan gebruiker geven dat email adres al bestaat met AJAX
                 return "gebruikerBestaatReeds";
@@ -133,10 +134,15 @@ public class GebruikerController {
     }
 
     @PostMapping("/registreren/controle")
-    public ResponseEntity<Object> nieuweGebruiker(@RequestBody String gebruiker) {
-        System.out.println("Test: " + gebruiker);
-        return new ResponseEntity<Object>("Hallo", HttpStatus.OK);
-        // your logic next
+    public ResponseEntity<Object> nieuweGebruiker(@RequestBody String gebruikerString, HttpServletRequest request) throws JSONException {
+        JSONObject jsonGebruiker = new JSONObject(gebruikerString);
+        Gebruiker nieuweGebruiker = new Gebruiker();
+        nieuweGebruiker.setVoornaam(jsonGebruiker.getString("voornaam"));
+        nieuweGebruiker.setAchternaam(jsonGebruiker.getString("achternaam"));
+        nieuweGebruiker.setEmail(jsonGebruiker.getString("email"));
+        nieuweGebruiker.setWachtwoord(jsonGebruiker.getString("wachtwoord"));
+        nieuweGebruiker.setTrancientWachtwoord(jsonGebruiker.getString("trancientWachtwoord"));
+        return new ResponseEntity<Object>(registratieGebruiker(nieuweGebruiker, request), HttpStatus.OK);
     }
 
     @GetMapping("/gebruikerBestaatReeds")

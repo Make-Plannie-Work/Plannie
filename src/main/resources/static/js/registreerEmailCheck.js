@@ -26,6 +26,7 @@ $(document).ready(function(){
                data: JSON.stringify(gebruiker), // Note it is important
                success :function(result) {
                // do what ever you want with data
+               //TODO wat van de controller terug komt, afhankelijk van wat er terug komt, moet er een melding op scherm komen
                console.log(result)
                },           error : function(e) {
                                             console.log("ERROR: ", e);
