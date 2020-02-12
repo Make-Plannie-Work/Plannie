@@ -1,7 +1,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="tag"%>
 <%@ attribute name="subReisItems" type="java.util.ArrayList"%>
+<%@ attribute name="level" type="java.lang.Integer"%>
 
+<c:set var="level" scope="request" value="${level + 1}"/>
 <c:forEach var="subReisItem" items="${subReisItems}">
 
     <div class="accordion" id="accordionReisItems${subReisItem.reisItemId}">
@@ -101,7 +103,7 @@
                      aria-labelledby="headingOne${subReisItem.reisItemId}"
                      data-parent="#accordionReisItems${subReisItem.reisItemId}">
                     <div class="card-body">
-                        <tag:subReisItemDetail subReisItems="${subReisItem.geefReisGesorteerdDatum()}"/>
+                        <tag:subReisItemDetail subReisItems="${subReisItem.geefReisGesorteerdDatum()}" level="${level}"/>
                     </div>
                 </div>
             </c:if>
