@@ -90,7 +90,6 @@ public class ReisItemController {
                 model.addAttribute("groepslidEmail", new Gebruiker());
                 model.addAttribute("groep", groepOptional.get());
                 model.addAttribute("mapsAPI", mapsAPI);
-                System.out.println(hoofdReis.get().getStartDatum() + ", " + hoofdReis.get().getEindDatum());
 
                 return "reisItemDetail";
             }
