@@ -17,6 +17,9 @@ public class Dag {
     }
 
     // TODO methodes schrijven om algemene waardes over deze dag op te halen. Aantal activiteiten, startlocatie, etc etc.
+    public String geefDagTitel() {
+        return "Dag " + dagNummer;
+    }
 
     // Getters en Setters
     public long getDagNummer() {
