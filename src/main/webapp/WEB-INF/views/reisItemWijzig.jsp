@@ -4,8 +4,12 @@
 <div class="container mt-4">
     <div class="row">
         <form:form action= "${pageContext.request.contextPath}/${groepId}/reisItemDetail/${reisItemId}/reisNaamWijzigen" method="post" modelAttribute="reisNaamWijzigingsFormulier">
-            <input type="text" name="naam" required="required" value="${reisItem.naam}">
-            <input id="reisNaamWijzigen" type="submit" class="btn btn-primary" value="Wijzig reisitem">
+
+            <label for="naam">Naam van de reis</label>
+            <label for="Startdatum">Startdatum</label>
+            <form:input id="reisNaamWijzigenVeld" type="text" path="naam" required="required"/>
+            <form:input id="reisDatumWijzigenVeld" type="date" path="startDatum" required="required"/>
+            <form:button id="reisNaamWijzigen" type="submit" class="btn btn-primary" value="Wijzig reisitem">Wijzig reis gegevens</form:button>
         </form:form>
     </div>
 
@@ -19,5 +23,5 @@
         </form:form>
     </div>
 
-    <a href="${pageContext.request.contextPath}/{groepId}/reisItemDetail/{reisItemId}"><button type="text" class="btn btn-primary mt-3" id="annuleren">Annuleren</button></a>
+    <a href="${pageContext.request.contextPath}/${groepId}/reisItemDetail/${reisItemId}"><button type="text" class="btn btn-primary mt-3" id="annuleren">Annuleren</button></a>
 </div>

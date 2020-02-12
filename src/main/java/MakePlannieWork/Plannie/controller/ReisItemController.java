@@ -60,11 +60,13 @@ public class ReisItemController {
     @PostMapping("/{groepId}/reisItemDetail/{reisItemId}/reisNaamWijzigen")
     public String reisNaamWijzigen(@ModelAttribute("reisNaamWijzigingsFormulier")
                                            ReisItem reisItem, @PathVariable("groepId") Integer groepId, @PathVariable("reisItemId") Integer reisItemId, BindingResult result) {
-        if (result.hasErrors()) {
+        Optional<ReisItem> reisItemOptional = reisItemRepository.findById(reisItemId);
+        if (reisItemOptional.isEmpty() || result.hasErrors()) {
             return "groepDetail";
         } else {
-            ReisItem huidigReisItem = reisItemRepository.findGebruikerByReisItemId(reisItemId);
+            ReisItem huidigReisItem = reisItemOptional.get();
             huidigReisItem.setNaam(reisItem.getNaam());
+            huidigReisItem.setStartDatum(reisItem.getStartDatum());
             reisItemRepository.save(huidigReisItem);
             return "redirect:/" + groepId + "/reisItemDetail/" + reisItem.getReisItemId();
         }
@@ -84,6 +86,7 @@ public class ReisItemController {
             if (hoofdReis.isPresent()) {
                 model.addAttribute("currentUser", gebruikerRepository.findGebruikerByEmail(principal.getName()));
                 model.addAttribute("reisItem", hoofdReis.get());
+                model.addAttribute("reisNaamWijzigingsFormulier", hoofdReis.get());
                 model.addAttribute("groepslidEmail", new Gebruiker());
                 model.addAttribute("groep", groepOptional.get());
                 model.addAttribute("mapsAPI", mapsAPI);

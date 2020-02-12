@@ -7,8 +7,6 @@ import java.util.List;
 
 public interface ReisItemRepository extends JpaRepository<ReisItem, Integer> {
 
-    ReisItem findGebruikerByReisItemId (Integer Id);
-
     ReisItem findReisItemByAanmakerAndNaam(Integer aanmakerId, String naam);
 
     Notitie findNotitieByGekoppeldeReisItemAndNaam(ReisItem gekoppeldReisItem, String naam);
