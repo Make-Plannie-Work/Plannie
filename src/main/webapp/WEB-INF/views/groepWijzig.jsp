@@ -128,14 +128,18 @@ var roundedImage;
 
 
      function saveImage() {
+        roundedCanvas.toBlob(function (blob) {
         var ourRequest = new XMLHttpRequest();
-           ourRequest.open('POST', contextPath + '/' +  groepId + '/saveCroppedImage/' + roundedImage.src)
-           ourRequest.send();
+           ourRequest.open('POST', contextPath + '/' +  groepId + '/uploadImage');
+           var formData = new FormData();
+           formData.append('_csrf',  $('input[name="_csrf"]').attr('value'));
+           formData.append('imageFile', blob);
+           ourRequest.send(formData);
            ourRequest.onreadystatechange = function() {
              if (this.readyState == 4 && this.status == 200) {
              location.reload();
              }
-             };
+             };});
           }
 
   </script>
