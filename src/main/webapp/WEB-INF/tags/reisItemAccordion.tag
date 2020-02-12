@@ -3,11 +3,11 @@
 <%@ attribute name="subReisItems" type="java.util.ArrayList"%>
 <%@ attribute name="level" type="java.lang.Integer"%>
 
-<c:set var="level" scope="request" value="${level + 1}"/>
+<c:set var="level" scope="page" value="${level + 1}"/>
 <c:forEach var="subReisItem" items="${subReisItems}">
 
     <div class="accordion" id="accordionReisItems${subReisItem.reisItemId}">
-        <div class="card">
+        <div class="list-group">
             <div class="accordion-header" id="headingOne${subReisItem.reisItemId}">
                 <!--Mits dit item 1, of meerdere sub items heeft, komt er een Accordion-uitklap knop-->
                 <c:if test="${not empty subReisItem.reisItems}">
@@ -103,7 +103,7 @@
                      aria-labelledby="headingOne${subReisItem.reisItemId}"
                      data-parent="#accordionReisItems${subReisItem.reisItemId}">
                     <div class="card-body">
-                        <tag:subReisItemDetail subReisItems="${subReisItem.geefReisGesorteerdDatum()}" level="${level}"/>
+                        <tag:reisItemAccordion subReisItems="${subReisItem.geefReisGesorteerdDatum()}" level="${level}"/>
                     </div>
                 </div>
             </c:if>
