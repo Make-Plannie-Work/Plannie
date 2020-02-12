@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.Optional;
 
 @Controller
@@ -90,7 +91,6 @@ public class ReisItemController {
                 model.addAttribute("groepslidEmail", new Gebruiker());
                 model.addAttribute("groep", groepOptional.get());
                 model.addAttribute("mapsAPI", mapsAPI);
-
                 return "reisItemDetail";
             }
         }

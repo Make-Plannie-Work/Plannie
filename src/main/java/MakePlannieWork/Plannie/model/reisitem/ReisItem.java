@@ -77,29 +77,38 @@ public class ReisItem {
     // Dag 0 bevat alle niet-activiteiten.
     public ArrayList<Dag> geefDagenOverzicht() {
         ArrayList<Dag> dagen = new ArrayList<>();
-        dagen.add(new Dag(0));
         ArrayList<ReisItem> reisItem = geefReisGesorteerdDatum();
-
         String laatsteDatum = "";
+
         // Alle reisItems bijlangs
         for (ReisItem item : reisItem) {
             if (!(item instanceof Activiteit)) {
                 // Alle niet-Activiteit items worden op dag 0 ingedeeld.
+                if (dagen.size() == 0) {
+                    dagen.add(new Dag(0));
+                }
                 dagen.get(0).voegReisItemToe(item);
             } else {
-                // Alle activiteiten worden in dagen opgedeeld.
+                // Alle Activiteiten worden in dagen opgedeeld.
                 if (item.getStartDatum().equals(laatsteDatum)) {
-                    // Als de datum hetzelfde is als de vorige item, wordt deze activiteit bij de nieuwste dag ingevoegd.
+                    // Als de datum hetzelfde is als die van het vorige item, wordt deze activiteit bij de nieuwste dag ingevoegd.
                     dagen.get(dagen.size() - 1).voegReisItemToe(item);
                 } else {
                     // Als de datum een nieuwe is, wordt er een nieuwe dag aangemaakt, met bijhorend dagnummer.
-                    Integer dagNummer = 1; // TODO dagnummer laten uitrekenen aan de hand van de eerste datum.
+                    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+                    try {
+                        // Verschil in dagen uitrekenen vanaf de startdatum van de reis.
+                        Date start = format.parse(this.startDatum);
+                        Date huidig = format.parse(item.getStartDatum());
+                        long dagNummer = huidig.getTime() - start.getTime();
+                        dagNummer = TimeUnit.DAYS.convert(dagNummer, TimeUnit.MILLISECONDS);
 
-
-                    Dag dag = new Dag(dagNummer,item);
-                    dagen.add(dag);
+                        Dag dag = new Dag(dagNummer + 1,item);
+                        dagen.add(dag);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
                 }
-
                 laatsteDatum = item.getStartDatum();
             }
         }

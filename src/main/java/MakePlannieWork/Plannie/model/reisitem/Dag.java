@@ -4,14 +4,14 @@ import java.util.ArrayList;
 
 public class Dag {
 
-    private Integer dagNummer;
+    private long dagNummer;
     private ArrayList<ReisItem> reisItems;
 
-    public Dag(Integer dagNummer) {
+    public Dag(long dagNummer) {
         setDagNummer(dagNummer);
     }
 
-    public Dag(Integer dagNummer, ReisItem reisItem) {
+    public Dag(long dagNummer, ReisItem reisItem) {
         this(dagNummer);
         voegReisItemToe(reisItem);
     }
@@ -19,11 +19,11 @@ public class Dag {
     // TODO methodes schrijven om algemene waardes over deze dag op te halen. Aantal activiteiten, startlocatie, etc etc.
 
     // Getters en Setters
-    public Integer getDagNummer() {
+    public long getDagNummer() {
         return dagNummer;
     }
 
-    public void setDagNummer(Integer dagNummer) {
+    public void setDagNummer(long dagNummer) {
         this.dagNummer = dagNummer;
     }
 

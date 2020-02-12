@@ -16,10 +16,8 @@ public class PollOptie {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer pollOptieId;
-    // TODO hierop wordt gestemd
     private String stemOptie;
     // Hiermee worden de poll opties gesorteerd op de volgorde waarop de gebruiker ze op wilde slaan.
-    // TODO hierop wordt gesorteerd
     private int optieIndex;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "reisItemId")
