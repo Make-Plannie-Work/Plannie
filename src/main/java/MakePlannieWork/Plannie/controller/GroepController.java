@@ -9,11 +9,7 @@ import MakePlannieWork.Plannie.service.PlannieGebruikersService;
 import MakePlannieWork.Plannie.service.PlannieGroepService;
 import MakePlannieWork.Plannie.service.PlannieMailingService;
 import MakePlannieWork.Plannie.service.PlannieReisItemService;
-import org.openqa.selenium.json.Json;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -68,6 +64,9 @@ public class GroepController {
         model.addAttribute("lijstMetReisItems", alleReisItems);
         model.addAttribute("AlleLedenLijst", alleGebruikers);
         model.addAttribute("groepsLedenLijst", alleGebruikersInGroep);
+        ReisItem reisItem = new ReisItem();
+        reisItem.geefNieuwStartDatum();
+        model.addAttribute("nieuwReisItemFormulier", reisItem);
         if (groepOptional.isPresent()) {
             model.addAttribute("currentUser", gebruiker);
             model.addAttribute("groep", groepOptional.get());
