@@ -133,7 +133,7 @@ var roundedImage;
            ourRequest.open('POST', contextPath + '/' +  groepId + '/uploadImage');
            var formData = new FormData();
            formData.append('_csrf',  $('input[name="_csrf"]').attr('value'));
-           formData.append('imageFile', blob);
+           formData.append('imageFile', blob, 'filename');
            ourRequest.send(formData);
            ourRequest.onreadystatechange = function() {
              if (this.readyState == 4 && this.status == 200) {
