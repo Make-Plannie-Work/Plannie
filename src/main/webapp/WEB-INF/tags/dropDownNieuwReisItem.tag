@@ -12,7 +12,7 @@
         <i class="far fa-plus-square"></i></a>
 
 </p>
-<div class="collapse" id="collapseExample${reisItem.reisItemId}">
+<div class="collapse" id="collapseExample${dropDownId}">
     <div class="card card-body">
 
         <p class="card-text">Nieuw item toevoegen</p>
