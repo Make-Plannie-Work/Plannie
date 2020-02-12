@@ -42,7 +42,7 @@
             <div class="jumbotron shadow" id="wouter">
                     <img id="groepImg" class="img-fluid card-img-top" src="${pageContext.request.contextPath}/images/groep/${groep.imagePath}" alt="Card image cap">
                     <h3 class="card-title lead text-white mt-3">${groep.groepsNaam} <c:if test = "${groep.aanmaker == currentUser.gebruikersId}">
-                            <a id="wijzigGroepsNaam2" type="button" class="text-white" data-toggle="modal" data-target="#wijzigGroepsNaam"><i class="far fa-edit"></i></a>
+                            <a id="wijzigGroepsNaam2" type="button" class="text-white" data-toggle="modal" data-target="#wijzigGroepsNaam">x<i class="far fa-edit"></i></a>
                         </c:if></h3>
 
                 <c:if test = "${groep.aanmaker == currentUser.gebruikersId}"><hr class="my-4">
