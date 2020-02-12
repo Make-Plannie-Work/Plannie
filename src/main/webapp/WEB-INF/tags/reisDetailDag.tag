@@ -7,10 +7,9 @@
     ${dag.geefDagTitel()}
 </div>
 <div class="card-block px-2">
-    <h4 class="card-title"><a id="NotitieDetails${subReisItem.naam}"
-                              href="${pageContext.request.contextPath}/${groepId}/${reisItemId}/${subReisItem.reisItemId}/NotitieWijzigen">${subReisItem.naam}</a>
-        <tag:dropDownNieuwReisItem reisItem="${subReisItem}"/>
+    <h4 class="card-title"><a id="NotitieDetails${subReisItem.naam}">${dag.geefDagTitel()}</a>
+        <tag:dropDownNieuwReisItem dag="${dag}"/>
     </h4>
     <p class="card-text">${dag.geefOmschrijving()}</p>
-    <p class="card-text">${dag.geefBudget()}</p>
+    <p class="card-text">Budget: ${dag.geefBudget()} euro</p>
 </div>

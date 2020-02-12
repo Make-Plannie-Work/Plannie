@@ -1,11 +1,13 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="tag"%>
 <%@ attribute name="reisItem" type="MakePlannieWork.Plannie.model.reisitem.ReisItem"%>
+<%@ attribute name="dag" type="MakePlannieWork.Plannie.model.reisitem.Dag"%>
 
+<c:set var="dropDownId" scope="page" value="${dag.dagNummer + reisItem.reisItemId}"/>
 <p>
 
-    <a id="nieuwReisItemKeuze${reisItem.reisItemId}" class="button" data-toggle="collapse"
-       href="#collapseExample${reisItem.reisItemId}" role="button" aria-expanded="false"
+    <a id="nieuwReisItemKeuze${dropDownId}" class="button" data-toggle="collapse"
+       href="#collapseExample${dropDownId}" role="button" aria-expanded="false"
        aria-controls="collapseExample">
         <i class="far fa-plus-square"></i></a>
 

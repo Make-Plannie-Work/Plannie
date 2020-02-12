@@ -12,29 +12,65 @@
 </c:if>
 <c:if test="${level == 1}">
     <c:forEach var="dag" items="${reisDagen}">
-        <div class="accordion" id="accordionReisItems${dag.dagNummer}">
-            <div class="list-group">
-                <div class="accordion-header" id="headingOne${dag.dagNummer}">
-                    <button class="btn btn-danger btn-lg btn-block" type="button" data-toggle="collapse"
-                            data-target="#collapseOne${dag.dagNummer}" aria-expanded="true"
-                            aria-controls="collapseOne${dag.dagNummer}"><i class="far fa-list-alt"></i>
-                    </button>
-                    <div class="card reisItem flex-row flex-wrap mb-2 mx-auto" id="dagItemCard">
-                        <!--Dagen Overzicht tonen-->
-                        <tag:reisDetailDag dag="${dag}"/>
-                    </div>
-                </div>
+        <c:choose>
+            <c:when test="${dag.dagNummer == 0}">
+                <c:forEach var="dag0reisItem" items="${dag.reisItems}">
+                    <div class="accordion" id="accordionReisItems${dag0reisItem.reisItemId}">
+                        <div class="list-group">
+                            <div class="accordion-header" id="headingOne${dag0reisItem.reisItemId}">
+                                <!--Mits dit item 1, of meerdere sub items heeft, komt er een Accordion-uitklap knop-->
+                                <c:if test="${not empty subReisItem.reisItems}">
+                                    <button class="btn btn-danger btn-lg btn-block" type="button" data-toggle="collapse"
+                                            data-target="#collapseOne${subReisItem.reisItemId}" aria-expanded="true"
+                                            aria-controls="collapseOne${subReisItem.reisItemId}"><i class="far fa-list-alt"></i>
+                                    </button>
+                                </c:if>
+                                <div class="card reisItem flex-row flex-wrap mb-2 mx-auto" id="dag0ItemCard">
+                                    <!--Sub reisItem op een klein kaartje laten zien-->
+                                    <tag:reisDetailSubReisItem subReisItem="${dag0reisItem}"/>
+                                </div>
+                            </div>
 
-                <div id="collapseOne${dag.dagNummer}" class="collapse"
-                     aria-labelledby="headingOne${dag.dagNummer}"
-                     data-parent="#accordionReisItems${dag.dagNummer}">
-                    <div class="card-body">
-                        <tag:reisItemAccordion subReisItems="${dag.reisItems}"
-                                               level="${level}"/>
+                            <c:if test="${not empty subReisItem.reisItems}">
+                                <div id="collapseOne${dag0reisItem.reisItemId}" class="collapse"
+                                     aria-labelledby="headingOne${subReisItem.reisItemId}"
+                                     data-parent="#accordionReisItems${subReisItem.reisItemId}">
+                                    <div class="card-body">
+                                        <tag:reisItemAccordion subReisItems="${subReisItem.geefReisGesorteerdDatum()}"
+                                                               level="${level}"/>
+                                    </div>
+                                </div>
+                            </c:if>
+                        </div>
+                    </div>
+                </c:forEach>
+            </c:when>
+            <c:otherwise>
+                <div class="accordion" id="accordionReisItems${dag.dagNummer}">
+                    <div class="list-group">
+                        <div class="accordion-header" id="headingOne${dag.dagNummer}">
+                            <button class="btn btn-danger btn-lg btn-block" type="button" data-toggle="collapse"
+                                    data-target="#collapseOne${dag.dagNummer}" aria-expanded="true"
+                                    aria-controls="collapseOne${dag.dagNummer}"><i class="far fa-list-alt"></i>
+                            </button>
+                            <div class="card reisItem flex-row flex-wrap mb-2 mx-auto" id="dagItemCard">
+                                <!--Dagen Overzicht tonen-->
+                                <tag:reisDetailDag dag="${dag}"/>
+                            </div>
+                        </div>
+
+                        <div id="collapseOne${dag.dagNummer}" class="collapse"
+                             aria-labelledby="headingOne${dag.dagNummer}"
+                             data-parent="#accordionReisItems${dag.dagNummer}">
+                            <div class="card-body">
+                                <tag:reisItemAccordion subReisItems="${dag.reisItems}"
+                                                       level="${level}"/>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
+            </c:otherwise>
+        </c:choose>
     </c:forEach>
 </c:if>
 <c:if test="${level == 2}">
