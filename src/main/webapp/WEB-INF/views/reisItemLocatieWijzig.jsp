@@ -58,17 +58,14 @@
 
                         </form:form>
 
-
-                        <form:form
-                                action="${pageContext.request.contextPath}/${groep.groepId}/${reisItem.reisItemId}/${reisItems.reisItemId}/subReisItemVerwijderen"
-                                method="post" modelAttribute="subReisItemVerwijderFormulier">
-
-
-                            <form:button id="locatieVerwijderen" type="submit" class="btn btn-primary mt-3">Verwijder
-                                locatie
-                            </form:button>
-
-                        </form:form>
+                        <button type="button" class="btn btn-primary mt-3" data-toggle="modal" data-target="#waarschuwingsModal"
+                                onclick="vullenModal(
+                                'Locatie verwijderen',
+                                'Weet u zeker dat u deze locatie wil verwijderen?',
+                                'Verwijder',
+                                '${pageContext.request.contextPath}/${groep.groepId}/${reisItem.reisItemId}/${reisItems.reisItemId}/subReisItemVerwijderen')">
+                            Verwijder locatie
+                        </button>
 
 
                         <a href="${pageContext.request.contextPath}/${groep.groepId}/reisItemDetail/${reisItem.reisItemId}">
@@ -99,6 +96,7 @@
     </div>
 </div>
 </div>
+<jsp:include page="waarschuwingsModal.jsp"/>
 <jsp:include page="footer.jsp"/>
 <script defer
         src="https://maps.googleapis.com/maps/api/js?key=${mapsAPI}&callback=initMapAndGeo">
