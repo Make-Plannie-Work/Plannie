@@ -16,9 +16,31 @@ public class Dag {
         voegReisItemToe(reisItem);
     }
 
-    // TODO methodes schrijven om algemene waardes over deze dag op te halen. Aantal activiteiten, startlocatie, etc etc.
     public String geefDagTitel() {
         return "Dag " + dagNummer;
+    }
+
+    public String geefOmschrijving() {
+        StringBuilder omschrijving = new StringBuilder();
+        for (ReisItem item : reisItems) {
+            if (item instanceof Poll) {
+                omschrijving.append("Poll, ").append(((Poll) item).pollStatus());
+            } else if (item instanceof Activiteit) {
+                omschrijving.append(((Activiteit) item).getSoortActiviteit()).append(", ").append(item.getNaam());
+            } else if (item instanceof Locatie) {
+                omschrijving.append("Locatie, ").append(((Locatie) item).getAdres());
+            }
+            omschrijving.append("\n");
+        }
+        return omschrijving.toString();
+    }
+
+    public Double geefBudget() {
+        Double budget = 0.0;
+        for (ReisItem item : reisItems) {
+            budget += item.berekenTotaalBudget();
+        }
+        return budget;
     }
 
     // Getters en Setters
