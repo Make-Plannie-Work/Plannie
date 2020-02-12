@@ -59,13 +59,14 @@
                         </form:button>
                         </form:form>
 
-                        <form:form
-                                action="${pageContext.request.contextPath}/${groep.groepId}/${reisItem.reisItemId}/${reisItems.reisItemId}/subReisItemVerwijderen"
-                                method="post" modelAttribute="subReisItemVerwijderFormulier">
-                            <form:button id="activiteitVerwijderen" type="submit" class="btn btn-primary mt-3">
-                                Verwijder Activiteit
-                            </form:button>
-                        </form:form>
+                         <button type="button" class="btn btn-primary mt-3" data-toggle="modal" data-target="#waarschuwingsModal"
+                                onclick="vullenModal(
+                                    'Activiteit verwijderen',
+                                    'Weet u zeker dat u deze activiteit wil verwijderen?',
+                                    'Verwijder',
+                                    '${pageContext.request.contextPath}/${groep.groepId}/${reisItem.reisItemId}/${reisItems.reisItemId}/subReisItemVerwijderen')">
+                            Verwijder activiteit
+                        </button>
 
                         <a href="${pageContext.request.contextPath}/${groep.groepId}/reisItemDetail/${reisItem.reisItemId}">
                             <button type="text" class="btn btn-primary mt-3" id="annuleren">Annuleren</button>
@@ -107,4 +108,5 @@
         </div>
     </div>
 </div>
+<jsp:include page="waarschuwingsModal.jsp"/>
 <jsp:include page="footer.jsp"/>
