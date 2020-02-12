@@ -10,8 +10,17 @@ import MakePlannieWork.Plannie.service.PlannieGebruikersService;
 import MakePlannieWork.Plannie.service.PlannieGroepService;
 import MakePlannieWork.Plannie.service.PlannieMailingService;
 import MakePlannieWork.Plannie.util.GenericResponse;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.util.JSONPObject;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -82,23 +91,17 @@ public class GebruikerController {
     }
 
 
-    @PostMapping("/registreren")
-    public String nieuweGebruiker(HttpServletRequest request, @ModelAttribute("registratieformulier") Gebruiker gebruiker,
-                                  Model model, BindingResult result) throws MessagingException {
+    public String registratieGebruiker(Gebruiker gebruiker, HttpServletRequest request) {
+
         List<Gebruiker> bestaandeGebruiker = gebruikerRepository.findGebruikersByEmail(gebruiker.getEmail());
         Gebruiker gebruikerZonderToken = gebruikerRepository.findGebruikerByEmail(gebruiker.getEmail());
-        model.addAttribute("updatePasswordForm", new Gebruiker());
+
         // Is het een bestaande gebruiker?
-        if (!bestaandeGebruiker.isEmpty() || result.hasErrors() || !gebruiker.getWachtwoord().equals(gebruiker.getTrancientWachtwoord())) {
+        if (!bestaandeGebruiker.isEmpty() || !gebruiker.getWachtwoord().equals(gebruiker.getTrancientWachtwoord())) {
             if (gebruikerZonderToken.isEnabled()) { // Staat enabled op true?
-                model.addAttribute("loginForm", new Gebruiker());
-                return "gebruikerBestaatReeds";
-                //TODO een Warning krijgen ipv nieuwe pagina laden dat gebruikers reeds bestaat, misschien met errorpage?
+                return "gebruikerBestaat";
             } else if (gebruikerVerificatieRepository.findByGebruiker(gebruikerZonderToken) != null){
-                model.addAttribute("registratieFormulier", new Gebruiker());
-                model.addAttribute("loginForm", new Gebruiker());
-                return "gebruikerNieuw";
-                //TODO aangeven dat er al een token is in zijn email en doorsturen naar token
+                return "tokenLooptNog";
             } else {// maak een random token aan
                 final String token = UUID.randomUUID().toString();
                 plannieGebruikersService.maakGebruikerVerificatieToken(gebruikerZonderToken, token);
@@ -107,7 +110,7 @@ public class GebruikerController {
                 } catch (MessagingException e) {
                     e.printStackTrace();
                 }
-                return "redirect:/index";
+                return "tokenNieuw";
             }
         } else { // Als het geen bestaande gebruiker is maak een gebruiker aan met een random token
             gebruiker.setIdentifier(UUID.randomUUID().toString());
@@ -123,9 +126,20 @@ public class GebruikerController {
             } catch (MessagingException e) {
                 e.printStackTrace();
             }
-            model.addAttribute("loginForm", new Gebruiker());
-            return "index";
+            return "gebruikerGeregistreerd";
         }
+    }
+
+    @PostMapping("/registreren/controle")
+    public ResponseEntity<Object> nieuweGebruiker(@RequestBody String gebruikerString, HttpServletRequest request) throws JSONException {
+        JSONObject jsonGebruiker = new JSONObject(gebruikerString);
+        Gebruiker nieuweGebruiker = new Gebruiker();
+        nieuweGebruiker.setVoornaam(jsonGebruiker.getString("voornaam"));
+        nieuweGebruiker.setAchternaam(jsonGebruiker.getString("achternaam"));
+        nieuweGebruiker.setEmail(jsonGebruiker.getString("email"));
+        nieuweGebruiker.setWachtwoord(jsonGebruiker.getString("wachtwoord"));
+        nieuweGebruiker.setTrancientWachtwoord(jsonGebruiker.getString("trancientWachtwoord"));
+        return new ResponseEntity<Object>(registratieGebruiker(nieuweGebruiker, request), HttpStatus.OK);
     }
 
     @GetMapping("/gebruikerBestaatReeds")

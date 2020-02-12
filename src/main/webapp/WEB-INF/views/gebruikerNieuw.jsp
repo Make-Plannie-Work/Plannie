@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 <jsp:include page="header.jsp"/>
+<link id="csrfToken" data-csrfToken="${_csrf.token}"/>
 <title>Registreren in Plannie</title>
 <body>
 
@@ -15,7 +16,7 @@
         <div class="col-sm-8">
             <div class="jumbotron shadow border">
                 <h3>Registreren</h3>
-                <form:form action= "${pageContext.request.contextPath}/registreren" id="registreren" method="post" modelAttribute="registratieFormulier"  class="needs-validation was-validation" novalidate="true">
+                <form:form action="${pageContext.request.contextPath}/js/registreerEmailCheck.js" id="registreren" method="post" modelAttribute="registratieFormulier"  class="needs-validation was-validation" novalidate="true">
                     <div class="container mt-4">
                         <div class="row">
                             <div class="col">
@@ -42,6 +43,12 @@
                         </div>
 
                         <form:button id="registreer" type="submit" class="btn btn-primary mt-3"  >Registreer</form:button>
+
+                        <div id="registratieMelding" class="alert alert-danger fade">
+                            <button href="#" type="button" class="close">&times;</button>
+                            <h4 id="alertTitel">Alert title</h4>
+                            <p id="alertTekst">Roses are red, violets are blue...</p>
+                        </div>
 
                     </div>
 
@@ -132,3 +139,4 @@
     </div>
 </div>
 <jsp:include page="footer.jsp"/>
+<script src="${pageContext.request.contextPath}/js/registreerEmailCheck.js"> </script>
