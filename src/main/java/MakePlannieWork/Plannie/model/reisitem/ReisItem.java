@@ -26,7 +26,6 @@ public class ReisItem {
 
     private String naam;
     private String startDatum;
-    private String eindDatum;
     private String locatie;
     private Integer aanmaker;
     private String imagePath = "static/placeholder.png";
@@ -140,6 +139,28 @@ public class ReisItem {
         }
     }
 
+    public String getEindDatum() {
+        String eindDatum = startDatum;
+        if (reisItems != null) {
+            // Anders vind het de laatste datum van zijn subItems.
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+            try {
+                // Vind de laatste datum van alle reisItems.
+                Date laatste = format.parse(this.startDatum);
+                for (ReisItem item : reisItems) {
+                    Date checkDatum = format.parse(item.getEindDatum());
+                    if (checkDatum.compareTo(laatste) > 0) {
+                        laatste = checkDatum;
+                    }
+                }
+                eindDatum = format.format(laatste);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+        return eindDatum;
+    }
+
     // Methode om een startdatum voor een nieuw reisItem te geven.
     public String geefNieuwStartDatum() {
         if (this.startDatum == null) {
@@ -216,14 +237,6 @@ public class ReisItem {
 
     public void setStartDatum(String startDatum) {
         this.startDatum = startDatum;
-    }
-
-    public String getEindDatum() {
-        return eindDatum;
-    }
-
-    public void setEindDatum(String eindDatum) {
-        this.eindDatum = eindDatum;
     }
 
     public String getLocatie() {

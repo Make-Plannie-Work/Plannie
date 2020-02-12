@@ -90,6 +90,8 @@ public class ReisItemController {
                 model.addAttribute("groepslidEmail", new Gebruiker());
                 model.addAttribute("groep", groepOptional.get());
                 model.addAttribute("mapsAPI", mapsAPI);
+                System.out.println(hoofdReis.get().getStartDatum() + ", " + hoofdReis.get().getEindDatum());
+
                 return "reisItemDetail";
             }
         }
@@ -148,7 +150,6 @@ public class ReisItemController {
         activiteit.setSoortActiviteit(activiteitDTO.getSoortActiviteit());
         activiteit.setNaam(activiteitDTO.getNaam());
         activiteit.setStartDatum(activiteitDTO.getStartDatum());
-        activiteit.setEindDatum(activiteitDTO.getEindDatum());
         activiteit.setBudget(activiteitDTO.getBudget());
         activiteit.setOmschrijving(activiteitDTO.getOmschrijving());
 
@@ -284,7 +285,6 @@ public class ReisItemController {
             // We gebruiken de String eindDatum om tijdelijk de keuze van de gebruiker op te slaan.
             // Deze wordt hier uitgelezen naar poll opties, en daarna weer leeggehaald.
             String[] opties = poll.getEindDatum().split(",");
-            poll.setEindDatum(null);
 
             int optieIndex = 0;
             for (String tekst : opties) {

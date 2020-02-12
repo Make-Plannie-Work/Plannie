@@ -6,7 +6,6 @@ public class ActiviteitDTO {
 
     private String naam;
     private String startDatum;
-    private String eindDatum;
     private String locatie;
 
     private Double budget;
@@ -37,14 +36,6 @@ public class ActiviteitDTO {
 
     public void setStartDatum(String startDatum) {
         this.startDatum = startDatum;
-    }
-
-    public String getEindDatum() {
-        return eindDatum;
-    }
-
-    public void setEindDatum(String eindDatum) {
-        this.eindDatum = eindDatum;
     }
 
     public String getLocatie() {
