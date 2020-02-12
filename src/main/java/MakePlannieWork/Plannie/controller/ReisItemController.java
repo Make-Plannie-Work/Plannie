@@ -66,7 +66,7 @@ public class ReisItemController {
         } else {
             ReisItem huidigReisItem = reisItemOptional.get();
             huidigReisItem.setNaam(reisItem.getNaam());
-            huidigReisItem.setStartDatum(reisItem.getStartDatum());
+            huidigReisItem.wijzigCompleteReisDatum(reisItem.getStartDatum());
             reisItemRepository.save(huidigReisItem);
             return "redirect:/" + groepId + "/reisItemDetail/" + reisItem.getReisItemId();
         }

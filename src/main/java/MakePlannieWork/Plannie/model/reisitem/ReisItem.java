@@ -4,12 +4,13 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 /**
  * ReisItem class aangemaakt. Is composite. Heeft 1 op veel relatie met Groep.
@@ -73,6 +74,8 @@ public class ReisItem {
         return itemsGesorteerd;
     }
 
+    // Methode om alle subItems van dit item in dagen te rangschikken.
+    // Dag 0 bevat alle niet-activiteiten.
     public ArrayList<Dag> geefDagenOverzicht() {
         ArrayList<Dag> dagen = new ArrayList<>();
         dagen.add(new Dag(0));
@@ -103,6 +106,38 @@ public class ReisItem {
         }
 
         return dagen;
+    }
+
+    // Methode om de datum van dit, en alle onderliggende reisItems te wijzigen.
+    public void wijzigCompleteReisDatum(String nieuweDatum) {
+        if (!this.startDatum.equals(nieuweDatum)) {
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+            try {
+                // Verschil in dagen uitrekenen.
+                Date nieuw = format.parse(nieuweDatum);
+                Date oud = format.parse(this.startDatum);
+                long verschil = nieuw.getTime() - oud.getTime();
+                verschil = TimeUnit.DAYS.convert(verschil, TimeUnit.MILLISECONDS);
+
+                // De datum van dit reisItem, en alle onderliggende reisItems aanpassen.
+                wijzigDatum(verschil);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    // De datum van dit reisItem, en alle onderliggende reisItems aanpassen.
+    public void wijzigDatum(long verschil) {
+        DateTimeFormatter datumFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate datum = LocalDate.parse(startDatum, datumFormatter);
+        // Het verschil in dagen bij de startDatum optellen.
+        datum = datum.plusDays(verschil);
+        this.startDatum = datumFormatter.format(datum);
+
+        for (ReisItem item : getReisItems()) {
+            item.wijzigDatum(verschil);
+        }
     }
 
     // Methode om een startdatum voor een nieuw reisItem te geven.
