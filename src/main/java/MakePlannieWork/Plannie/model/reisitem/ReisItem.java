@@ -77,6 +77,7 @@ public class ReisItem {
     // Dag 0 bevat alle niet-activiteiten.
     public ArrayList<Dag> geefDagenOverzicht() {
         ArrayList<Dag> dagen = new ArrayList<>();
+        dagen.add(new Dag(0));
         ArrayList<ReisItem> reisItem = geefReisGesorteerdDatum();
         String laatsteDatum = "";
 
@@ -84,9 +85,6 @@ public class ReisItem {
         for (ReisItem item : reisItem) {
             if (!(item instanceof Activiteit)) {
                 // Alle niet-Activiteit items worden op dag 0 ingedeeld.
-                if (dagen.size() == 0) {
-                    dagen.add(new Dag(0));
-                }
                 dagen.get(0).voegReisItemToe(item);
             } else {
                 // Alle Activiteiten worden in dagen opgedeeld.

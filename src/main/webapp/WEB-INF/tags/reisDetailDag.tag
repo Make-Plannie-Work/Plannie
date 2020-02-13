@@ -8,31 +8,20 @@
 <!--Accordion kop-->
 <div class="accordion" id="accordionReisItems${dag.dagNummer}">
     <div class="list-group">
-        <div class="accordion-header" id="headingOne${dag.dagNummer}">
+        <div class="accordion-header" id="headingDag${dag.dagNummer}">
             <button class="btn btn-danger btn-lg btn-block" type="button" data-toggle="collapse"
-                    data-target="#collapseOne${dag.dagNummer}" aria-expanded="true"
-                    aria-controls="collapseOne${dag.dagNummer}"><i class="far fa-list-alt"></i>
+                    data-target="#collapseDag${dag.dagNummer}" aria-expanded="true"
+                    aria-controls="collapseDag${dag.dagNummer}">
+                <div class="row">
+                    <p class="card-title m-auto"><strong>${dag.geefDagTitel()}</strong> - ${dag.geefDatum()}</p>
+                </div>
+                <div><tag:dropDownNieuwReisItem dag="${dag}"/></div>
             </button>
-
-            <!--Inhoud begin-->
-            <div class="card reisItem flex-row flex-wrap mb-2 mx-auto" id="dagItemCard">
-                <div class="card-header border-0">
-                    ${dag.geefDagTitel()} ${dag.geefDatum()}
-                </div>
-                <div class="card-block px-2">
-                    <h4 class="card-title"><a id="NotitieDetails${subReisItem.naam}">${dag.geefDagTitel()}</a>
-                        <tag:dropDownNieuwReisItem dag="${dag}"/>
-                    </h4>
-                    <p class="card-text">${dag.geefOmschrijving()}</p>
-                    <p class="card-text">Budget: ${dag.geefBudget()} euro</p>
-                </div>
-            </div>
-            <!--Inhoud eind-->
-
         </div>
+
         <!--Accordion uitklapveld-->
-        <div id="collapseOne${dag.dagNummer}" class="collapse"
-             aria-labelledby="headingOne${dag.dagNummer}"
+        <div id="collapseDag${dag.dagNummer}" class="collapse show"
+             aria-labelledby="headingDag${dag.dagNummer}"
              data-parent="#accordionReisItems${dag.dagNummer}">
             <div class="card-body">
                 <tag:reisItemAccordion subReisItems="${dag.reisItems}" level="${level}"/>

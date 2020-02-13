@@ -8,7 +8,7 @@
 
 <!--Het juiste level wordt geset, als dit het eerste level is, en er minder dan 2 dagen zijn, wordt het level gelijk op 3 gezet.-->
 <c:set var="level" scope="page" value="${level + 1}"/>
-<c:if test="${level == 1 && fn:length(reisDagen) < 2}">
+<c:if test="${level == 1 && fn:length(reisDagen) <= 2}">
     <c:set var="level" scope="page" value="2"/>
 </c:if>
 <c:if test="${level <= 1}">
