@@ -9,6 +9,7 @@ import MakePlannieWork.Plannie.service.PlannieGebruikersService;
 import MakePlannieWork.Plannie.service.PlannieGroepService;
 import MakePlannieWork.Plannie.service.PlannieMailingService;
 import MakePlannieWork.Plannie.service.PlannieReisItemService;
+import org.apache.jasper.tagplugins.jstl.core.Url;
 import org.openqa.selenium.json.Json;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -21,8 +22,14 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.imageio.ImageIO;
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
 import java.security.Principal;
 import java.util.*;
 
@@ -156,6 +163,14 @@ public class GroepController {
             e.printStackTrace();
         }
         return "redirect:/groepDetail/" + groepId;
+    }
+    @RequestMapping(value = "/{groepId}/saveCroppedImage/{imageURL}")
+    @ResponseBody
+    public void saveCroppedImage(@PathVariable("groepId") Integer groepId, @PathVariable("imageURL") String imageURL) throws IOException {
+        Groep huidigeGroep = groepRepository.findByGroepId(groepId);
+        BufferedImage image = ImageIO.read(new File(imageURL));
+        ImageIO.write(image, "jpg", new File("huidigeGroep.getImagePath()"));
+
     }
 
     // Gebruikers zoeken
