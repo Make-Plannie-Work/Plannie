@@ -136,6 +136,12 @@ width: 100%;
     background-color: #FF3B56;
 }
 
+.tekstknop, h5 {
+    color: #FFFFFF;
+    font-weight: 400;
+    font-family: 'Viga', sans-serif;
+}
+
 .nav-link {
     color: #FFFFFF;
     font-weight: 400;

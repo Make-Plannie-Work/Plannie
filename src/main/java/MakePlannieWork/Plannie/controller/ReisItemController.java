@@ -98,6 +98,21 @@ public class ReisItemController {
         return "redirect:/groepDetail";
     }
 
+    @GetMapping("/{groepId}/reisItemDetail/{reisItemId}/BudgetOverzicht")
+    public String budgetOverzicht(@PathVariable("groepId") Integer groepId, @PathVariable("reisItemId") Integer reisItemId, Model model, Principal principal) {
+        Optional<Groep> groepOptional = plannieGroepService.findById(groepId);
+        Optional<ReisItem> reisItemOptional = plannieReisItemService.findById(reisItemId);
+
+        if (reisItemOptional.isPresent() && groepOptional.isPresent()) {
+            model.addAttribute("currentUser", gebruikerRepository.findGebruikerByEmail(principal.getName()));
+            model.addAttribute("reisItem", reisItemOptional.get());
+            model.addAttribute("groep", groepOptional.get());
+
+            return "budgetOverzicht";
+        }
+        return "reisItemDetail";
+    }
+
     // Ga naar pagina waar je notitie kan aanmaken
     @GetMapping("/{groepId}/reisItemDetail/{reisItemId}/NotitieAanmaken")
     public String notitieAanmaken(@PathVariable("groepId") Integer groepId, @PathVariable("reisItemId") Integer reisItemId, Model model, Principal principal) {
@@ -108,7 +123,6 @@ public class ReisItemController {
         if (reisItemOptional.isPresent() && groepOptional.isPresent()) {
             model.addAttribute("currentUser", gebruikerRepository.findGebruikerByEmail(principal.getName()));
             model.addAttribute("reisItem", reisItemOptional.get());
-            model.addAttribute("groepslidEmail", new Gebruiker());
             model.addAttribute("groep", groepOptional.get());
 
             model.addAttribute("notitieAanmakenFormulier", new Notitie());
