@@ -17,6 +17,14 @@
     <div class="row">
         <form:form id="groepsNaamWijzigenForm" action= "${pageContext.request.contextPath}/groepDetail/${groep.groepId}/groepWijzig" method="post" modelAttribute="groepsNaamWijzigingsFormulier">
             <input type="text" name="groepsNaam" required="required" value="${groep.groepsNaam}">
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#waarschuwingsModal"
+                    onclick="vullenModal(
+                            'Notitie verwijderen',
+                            'Weet u zeker dat u deze notitie wil verwijderen?',
+                            'Verwijder',
+                            '${pageContext.request.contextPath}/${groep.groepId}/${reisItem.reisItemId}/${reisItems.reisItemId}/subReisItemVerwijderen')">
+                Wijzig Groepsnaam
+            </button>
             <input id="groepsNaamWijzigen" type="submit" class="btn btn-primary" value="Wijzig groepsnaam">
         </form:form>
 
