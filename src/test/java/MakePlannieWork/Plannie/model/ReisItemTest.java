@@ -19,7 +19,6 @@ public class ReisItemTest {
         Integer reisItemId = 1;
         String naam = "testNaam";
         String startDatum = "10-06-2019";
-        String eindDatum = "10-06-2020";
         String locatie = "America";
         Integer aanmaker = 1;
 
@@ -37,7 +36,6 @@ public class ReisItemTest {
         assertEquals(reisItemId, reisItem.getReisItemId());
         assertEquals(naam, reisItem.getNaam());
         assertEquals(startDatum, reisItem.getStartDatum());
-        assertEquals(eindDatum, reisItem.getEindDatum());
         assertEquals(locatie, reisItem.getLocatie());
         assertEquals(aanmaker, reisItem.getAanmaker());
 
