@@ -22,7 +22,7 @@
                                                 placeholder="notitieNaam"/>
                                 </div>
                                 <div class="col">
-                                    <form:input type="date" class="form-control" path="startDatum"
+                                    <form:input type="datetime-local" class="form-control" path="startDatum"
                                                 required="required" placeholder="startDatum"/>
                                 </div>
                             </div>

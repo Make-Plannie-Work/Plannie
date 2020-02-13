@@ -8,7 +8,7 @@
             <label for="naam">Naam van de reis</label>
             <label for="Startdatum">Startdatum</label>
             <form:input id="reisNaamWijzigenVeld" type="text" path="naam" required="required"/>
-            <form:input id="reisDatumWijzigenVeld" type="date" path="startDatum" required="required"/>
+            <form:input id="reisDatumWijzigenVeld" type="datetime-local" path="startDatum" required="required"/>
             <form:button id="reisNaamWijzigen" type="submit" class="btn btn-primary" value="Wijzig reisitem">Wijzig reis gegevens</form:button>
         </form:form>
     </div>

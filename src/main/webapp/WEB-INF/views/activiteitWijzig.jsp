@@ -45,7 +45,7 @@
                                                 placeholder="Titel"/>
                                     <form:input id="activiteitOmschrijving" type="text" class="form-control"
                                                 path="omschrijving"/>
-                                    <form:input id="activiteitDatum" type="date" class="form-control" path="startDatum"
+                                    <form:input id="activiteitDatum" type="datetime-local" class="form-control" path="startDatum"
                                                 required="required" placeholder="Datum"/>
                                     <form:input id="activiteitBudget" type="number" step="10" min="0"
                                                 class="form-control" path="budget" placeholder="Budget"/>

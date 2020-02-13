@@ -24,7 +24,7 @@
 
                                     <form:input id="notitieTitel" type="text" class="form-control" path="naam" required="required"
                                                 placeholder="Titel"/>
-                                    <form:input id="notitieDatum" type="date" class="form-control" path="startDatum" required="required"
+                                    <form:input id="notitieDatum" type="datetime-local" class="form-control" path="startDatum" required="required"
                                                 value="${reisItem.geefNieuwStartDatum()}"/>
 
                                     <form:textarea id="notitieTekst" path="tekst" class="form-control mt-2" rows="5" cols="30" required="required" placeholder="Vul hier uw notitie in"/>
