@@ -11,6 +11,8 @@
       border-radius: 50%;
     }
   </style>
+<input type="hidden" id="imagePath" value="${groep.imagePath}"/>
+
 <div class="container mt-4">
     <div class="row">
         <form:form id="groepsNaamWijzigenForm" action= "${pageContext.request.contextPath}/groepDetail/${groep.groepId}/groepWijzig" method="post" modelAttribute="groepsNaamWijzigingsFormulier">
@@ -43,8 +45,9 @@
 
 
     <p>
+    <p>${groep.imagePath}</p>
         <button type="button" id="button">Crop</button>
-        <button type="button" onclick="saveImage()" id="save" style="visibility: hidden;">Sla op</button>
+        <button type="button" onclick="saveImage('${groep.imagePath}')" id="save" style="visibility: hidden;">Sla op</button>
     </p>
 
 
@@ -66,7 +69,6 @@
 var croppedCanvas;
 var roundedCanvas;
 var roundedImage;
-
 
     function getRoundedCanvas(sourceCanvas) {
 
@@ -127,13 +129,14 @@ var roundedImage;
     });
 
 
-     function saveImage() {
+     function saveImage(imagePath) {
+     console.log(imagePath)
         roundedCanvas.toBlob(function (blob) {
         var ourRequest = new XMLHttpRequest();
            ourRequest.open('POST', contextPath + '/' +  groepId + '/uploadImage');
            var formData = new FormData();
            formData.append('_csrf',  $('input[name="_csrf"]').attr('value'));
-           formData.append('imageFile', blob, 'filename');
+           formData.append('imageFile', blob, imagePath);
            ourRequest.send(formData);
            ourRequest.onreadystatechange = function() {
              if (this.readyState == 4 && this.status == 200) {
