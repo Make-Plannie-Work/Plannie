@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.security.Principal;
+import java.util.HashSet;
 import java.util.Optional;
 
 @Controller
@@ -499,6 +500,13 @@ public class ReisItemController {
         Optional<ReisItem> huidigeSubReisItem = reisItemRepository.findById(subReisItemId);
 
         if (huidigeSubReisItem.isPresent()) {
+            if (huidigeSubReisItem.get() instanceof Poll) {
+                // Als het te verwijderen reisItem een poll is, worden eerst de pollOpties verwijdert,
+                // om foreign constraints tegen te gaan bij het verwijderen van de Poll.
+                ((Poll) huidigeSubReisItem.get()).setPollOpties(new HashSet<>());
+                reisItemRepository.save(huidigeSubReisItem.get());
+            }
+
             reisItemRepository.deleteById(subReisItemId);
         }
         return "redirect:/" + groepId + "/reisItemDetail/" + reisItemId;
