@@ -45,13 +45,14 @@
                         </div>
                     </c:forEach>
 
-                    <form:form action="${pageContext.request.contextPath}/${groep.groepId}/${reis.reisItemId}/${poll.reisItemId}/subReisItemVerwijderen" method="post" modelAttribute="subReisItemVerwijderFormulier">
-
-                        <form:button id="pollVerwijderen" type="submit" class="btn btn-primary mt-3"> Sluit poll
-                        </form:button>
-
-                    </form:form>
-
+                     <button type="button" class="btn btn-primary mt-3" data-toggle="modal" data-target="#waarschuwingsModal"
+                            onclick="vullenModal(
+                            'Poll sluiten',
+                            'Weet u zeker dat u deze poll wil sluiten?',
+                            'Sluiten',
+                            '${pageContext.request.contextPath}/${groep.groepId}/${reis.reisItemId}/${poll.reisItemId}/subReisItemVerwijderen')">
+                        Sluit poll
+                    </button>
 
                     <div class="container">
 
@@ -141,4 +142,5 @@
     </div>
 </div>
 </div>
+<jsp:include page="waarschuwingsModal.jsp"/>
 <jsp:include page="footer.jsp"/>

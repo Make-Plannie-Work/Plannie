@@ -17,8 +17,12 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.imageio.ImageIO;
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.security.Principal;
 import java.util.*;
 
@@ -155,6 +159,14 @@ public class GroepController {
             e.printStackTrace();
         }
         return "redirect:/groepDetail/" + groepId;
+    }
+    @RequestMapping(value = "/{groepId}/saveCroppedImage/{imageURL}")
+    @ResponseBody
+    public void saveCroppedImage(@PathVariable("groepId") Integer groepId, @PathVariable("imageURL") String imageURL) throws IOException {
+        Groep huidigeGroep = groepRepository.findByGroepId(groepId);
+        BufferedImage image = ImageIO.read(new File(imageURL));
+        ImageIO.write(image, "jpg", new File("huidigeGroep.getImagePath()"));
+
     }
 
     // Gebruikers zoeken

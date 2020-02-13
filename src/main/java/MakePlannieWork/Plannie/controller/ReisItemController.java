@@ -20,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Optional;
 
 @Controller
@@ -494,24 +495,22 @@ public class ReisItemController {
     }
 
     // Verwijderen van subReisItem
-    @PostMapping("/{groepId}/{reisItemId}/{reisItemsId}/subReisItemVerwijderen")
-    public String subReisItemVerwijderen(@ModelAttribute("subReisItemVerwijderFormulier") ReisItem reisItem, @PathVariable("groepId")
-            Integer groepId, @PathVariable("reisItemId") Integer reisItemId,
-                                         @PathVariable("reisItemsId") Integer subReisItemId, BindingResult result) {
-        Optional<ReisItem> huidigeSubReisItem = reisItemRepository.findById(subReisItemId);
-        if (huidigeSubReisItem.isPresent() && !result.hasErrors()) {
-            ReisItem reis = huidigeSubReisItem.get();
-            reisItemId = reis.getHoofdReisItemId();
-            reisItemRepository.delete(reis);
-        }
-        return "redirect:/" + groepId + "/reisItemDetail/" + reisItemId;
-    }
-
     @GetMapping("/{groepId}/{reisItemId}/{reisItemsId}/subReisItemVerwijderen")
-    public String notitieVerwijderen(@PathVariable("groepId")
+    public String subReisItemVerwijderen(@PathVariable("groepId")
                                      Integer groepId, @PathVariable("reisItemId") Integer reisItemId,
                                      @PathVariable("reisItemsId") Integer subReisItemId) {
-        reisItemRepository.deleteById(subReisItemId);
+        Optional<ReisItem> huidigeSubReisItem = reisItemRepository.findById(subReisItemId);
+
+        if (huidigeSubReisItem.isPresent()) {
+            if (huidigeSubReisItem.get() instanceof Poll) {
+                // Als het te verwijderen reisItem een poll is, worden eerst de pollOpties verwijdert,
+                // om foreign constraints tegen te gaan bij het verwijderen van de Poll.
+                ((Poll) huidigeSubReisItem.get()).setPollOpties(new HashSet<>());
+                reisItemRepository.save(huidigeSubReisItem.get());
+            }
+
+            reisItemRepository.deleteById(subReisItemId);
+        }
         return "redirect:/" + groepId + "/reisItemDetail/" + reisItemId;
     }
 }
