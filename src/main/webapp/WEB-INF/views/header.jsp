@@ -50,6 +50,7 @@
             </li>
         </security:authorize>
     </ul>
+    <span><img src="${pageContext.request.contextPath}/images/1x/"/></span>
 </nav>
 <div class="container mt-3">
     <div class="row">
