@@ -61,11 +61,13 @@ public class ReisItemController {
     @PostMapping("/{groepId}/reisItemDetail/{reisItemId}/reisNaamWijzigen")
     public String reisNaamWijzigen(@ModelAttribute("reisNaamWijzigingsFormulier")
                                            ReisItem reisItem, @PathVariable("groepId") Integer groepId, @PathVariable("reisItemId") Integer reisItemId, BindingResult result) {
-        if (result.hasErrors()) {
+        Optional<ReisItem> reisItemOptional = reisItemRepository.findById(reisItemId);
+        if (reisItemOptional.isEmpty() || result.hasErrors()) {
             return "groepDetail";
         } else {
-            ReisItem huidigReisItem = reisItemRepository.findGebruikerByReisItemId(reisItemId);
+            ReisItem huidigReisItem = reisItemOptional.get();
             huidigReisItem.setNaam(reisItem.getNaam());
+            huidigReisItem.wijzigCompleteReisDatum(reisItem.getStartDatum());
             reisItemRepository.save(huidigReisItem);
             return "redirect:/" + groepId + "/reisItemDetail/" + reisItem.getReisItemId();
         }
@@ -85,9 +87,11 @@ public class ReisItemController {
             if (hoofdReis.isPresent()) {
                 model.addAttribute("currentUser", gebruikerRepository.findGebruikerByEmail(principal.getName()));
                 model.addAttribute("reisItem", hoofdReis.get());
+                model.addAttribute("reisNaamWijzigingsFormulier", hoofdReis.get());
                 model.addAttribute("groepslidEmail", new Gebruiker());
                 model.addAttribute("groep", groepOptional.get());
                 model.addAttribute("mapsAPI", mapsAPI);
+
                 return "reisItemDetail";
             }
         }
@@ -146,7 +150,6 @@ public class ReisItemController {
         activiteit.setSoortActiviteit(activiteitDTO.getSoortActiviteit());
         activiteit.setNaam(activiteitDTO.getNaam());
         activiteit.setStartDatum(activiteitDTO.getStartDatum());
-        activiteit.setEindDatum(activiteitDTO.getEindDatum());
         activiteit.setBudget(activiteitDTO.getBudget());
         activiteit.setOmschrijving(activiteitDTO.getOmschrijving());
 
@@ -282,7 +285,6 @@ public class ReisItemController {
             // We gebruiken de String eindDatum om tijdelijk de keuze van de gebruiker op te slaan.
             // Deze wordt hier uitgelezen naar poll opties, en daarna weer leeggehaald.
             String[] opties = poll.getEindDatum().split(",");
-            poll.setEindDatum(null);
 
             int optieIndex = 0;
             for (String tekst : opties) {

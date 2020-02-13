@@ -30,7 +30,6 @@ public class ReisItemTest {
         reisItem.setReisItemId(reisItemId);
         reisItem.setNaam(naam);
         reisItem.setStartDatum(startDatum);
-        reisItem.setEindDatum(eindDatum);
         reisItem.setLocatie(locatie);
         reisItem.setAanmaker(aanmaker);
 

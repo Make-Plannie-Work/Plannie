@@ -75,7 +75,7 @@
 
                         <div class="row">
                             <div class="col-sm-11">
-                                <tag:subReisItemDetail subReisItems="${reisItem.geefReisGesorteerdDatum()}"/>
+                                <tag:reisItemAccordion subReisItems="${reisItems.geefReisGesorteerdDatum()}"/>
                             </div>
                         </div>
                     </div>
