@@ -16,6 +16,10 @@ public class Dag {
         voegReisItemToe(reisItem);
     }
 
+    public String geefDatum() {
+        return reisItems.get(0).getStartDatum();
+    }
+
     public String geefDagTitel() {
         return "Dag " + dagNummer;
     }

@@ -21,7 +21,7 @@
                 <div class="row">
 
                     <div class="col-sm-12">
-                    <tag:reisItemAccordion reisDagen="${reisItem.geefDagenOverzicht()}"/>
+                        <tag:reisItemAccordion subReisItems="${reisItem.geefReisGesorteerdDatum()}" reisDagen="${reisItem.geefDagenOverzicht()}" level="0"/>
                     </div>
 
                 </div>
