@@ -98,17 +98,24 @@ width: 100%;
               box-shadow: 0 3px 2px rgba(0, 0, 0, 0.3);
 }
 
-.btn-primary {
-    color: #494949 !important;
-    text-decoration: none;
-    background: #ffffff;
-    padding: 5px;
-    border: 1px solid #494949 !important;
+.btn-primary, #keuzeReisItemMenu {
+    color: #ffffff !important;
+    font-family: 'Viga', sans-serif;
+    background: #FF3B56;
+    padding: 5px 28px;
+    border: 1px solid #FF3B56 !important;
     display: inline-block;
     transition: all 0.4s ease 0s;
 }
 
- .btn-primary:hover {
+.btn-primary:hover {
+    color: #FF3B56 !important;
+    background-color: #ffffff;
+    border: 1px solid #FF3B56 !important;
+    transition: all 0.4s ease 0s;
+}
+
+.btn-primary:focus {
     color: #ffffff !important;
     background-color: #FF3B56;
     border-color: #FFE070 !important;
@@ -116,21 +123,58 @@ width: 100%;
     box-shadow: 0 3px 2px rgba(0, 0, 0, 0.3);
 }
 
-.btn-primary:focus {
-                       color: #ffffff !important;
-                       background-color: #FF3B56;
-                       border-color: #FFE070 !important;
-                       transition: all 0.4s ease 0s;
-                       box-shadow: 0 3px 2px rgba(0, 0, 0, 0.3);
-                   }
-
 .btn-primary:active {
-                        color: #ffffff !important;
-                        background-color: #FF3B56;
-                        border-color: #FFE070 !important;
-                        transition: all 0.4s ease 0s;
-                        box-shadow: 0 3px 2px rgba(0, 0, 0, 0.3);
-                    }
+     color: #ffffff !important;
+     background-color: #FF3B56 !important;
+     border-color: #FFE070 !important;
+     transition: all 0.4s ease 0s;
+     box-shadow: 0 3px 2px rgba(0, 0, 0, 0.3);
+}
+
+
+
+.dropDownbtn:focus {
+    color: #FF3B56 !important;
+    background-color: #ffffff;
+    border-color: #FFE070 !important;
+    transition: all 0.4s ease 0s;
+    box-shadow: 0 3px 2px rgba(0, 0, 0, 0.3);
+}
+
+.dropDownbtn:active {
+     color: #FF3B56 !important;
+     background-color: #ffffff !important;
+     border-color: #FFE070 !important;
+     transition: all 0.4s ease 0s;
+     box-shadow: 0 3px 2px rgba(0, 0, 0, 0.3);
+}
+
+.card-body .dropDownbtn {
+  background-color: #ffffff;
+  font-family: 'Viga', sans-serif;
+  border: 1px solid #FF3B56 !important;
+  color: #FF3B56 !important;
+  padding: 5px 28px;
+  text-align: center;
+  width: 200px;
+  text-decoration: none;
+  display: block;
+}
+
+.card-body .dropDownbtn:not(:last-child) {
+  border-bottom: none !important; /* Prevent double borders */
+}
+
+.card-body .dropDownbtn:hover {
+    color: #ffffff !important;
+    background-color: #FF3B56;
+    border: 1px solid #FF3B56 !important;
+    transition: all 0.4s ease 0s;
+}
+
+.groepAanmaakbtn {
+    border-color: #ffffff !important;
+}
 
 .navbar {
     background-color: #FF3B56;
