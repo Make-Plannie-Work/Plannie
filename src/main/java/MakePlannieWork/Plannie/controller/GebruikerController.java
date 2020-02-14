@@ -98,20 +98,19 @@ public class GebruikerController {
 
         // Is het een bestaande gebruiker?
         if (!bestaandeGebruiker.isEmpty() || !gebruiker.getWachtwoord().equals(gebruiker.getTrancientWachtwoord())) {
-            if (gebruikerZonderToken.isEnabled()) { // Staat enabled op true?
+            // Staat enabled op true?
+            if (gebruikerZonderToken.isEnabled()) {
                 return "gebruikerBestaat";
             } else if (gebruikerVerificatieRepository.findByGebruiker(gebruikerZonderToken) != null){
                 return "tokenLooptNog";
-            } else {// maak een random token aan
+            // maak een random token aan
+            } else {
                 maakTokenAan(gebruikerZonderToken, request);
                 return "tokenNieuw";
             }
-        } else { // Als het geen bestaande gebruiker is maak een gebruiker aan met een random token
-            gebruiker.setIdentifier(UUID.randomUUID().toString());
-            gebruiker.setRollen(Arrays.asList(rolRepository.findRolByRolNaam("ROLE_USER")));
-            gebruiker.setWachtwoord(passwordEncoder.encode(gebruiker.getWachtwoord()));
-            gebruiker.setEnabled(false);
-            gebruikerRepository.save(gebruiker);
+        // Als het geen bestaande gebruiker is maak een gebruiker aan met een random token
+        } else {
+            maakGebruikerAan(gebruiker);
             // maak een random token aan
             maakTokenAan(gebruiker, request);
             return "gebruikerGeregistreerd";
@@ -126,6 +125,14 @@ public class GebruikerController {
         } catch (MessagingException execption) {
             execption.printStackTrace();
         }
+    }
+
+    public void maakGebruikerAan(Gebruiker gebruiker) {
+        gebruiker.setIdentifier(UUID.randomUUID().toString());
+        gebruiker.setRollen(Arrays.asList(rolRepository.findRolByRolNaam("ROLE_USER")));
+        gebruiker.setWachtwoord(passwordEncoder.encode(gebruiker.getWachtwoord()));
+        gebruiker.setEnabled(false);
+        gebruikerRepository.save(gebruiker);
     }
 
     @PostMapping("/registreren/controle")
