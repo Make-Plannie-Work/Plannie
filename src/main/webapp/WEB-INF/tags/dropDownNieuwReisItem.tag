@@ -14,16 +14,16 @@
     <div class="card card-body">
 
         <p class="card-text">Nieuw item toevoegen</p>
-        <a class="btn btn-primary" id="notitieKeuze${reisItem.reisItemId}/NotitieAanmaken"
+        <a class="btn btn-primary dropDownbtn" id="notitieKeuze${reisItem.reisItemId}/NotitieAanmaken"
            href="${pageContext.request.contextPath}/${groep.groepId}/reisItemDetail/${reisItem.reisItemId}/NotitieAanmaken">Een
             Notitie</a>
-        <a class="btn btn-primary" id="pollKeuze${reisItem.reisItemId}/PollAanmaken"
+        <a class="btn btn-primary dropDownbtn" id="pollKeuze${reisItem.reisItemId}/PollAanmaken"
            href="${pageContext.request.contextPath}/${groep.groepId}/reisItemDetail/${reisItem.reisItemId}/PollAanmaken">Een
             Poll</a>
-        <a class="btn btn-primary" id="locatieKeuze${reisItem.reisItemId}/LocatieAanmaken"
+        <a class="btn btn-primary dropDownbtn" id="locatieKeuze${reisItem.reisItemId}/LocatieAanmaken"
            href="${pageContext.request.contextPath}/${groep.groepId}/reisItemDetail/${reisItem.reisItemId}/LocatieAanmaken">Een
             Locatie</a>
-        <a class="btn btn-primary" id="activiteitKeuze${reisItem.reisItemId}/ActiviteitAanmaken"
+        <a class="btn btn-primary dropDownbtn" id="activiteitKeuze${reisItem.reisItemId}/ActiviteitAanmaken"
            href="${pageContext.request.contextPath}/${groep.groepId}/reisItemDetail/${reisItem.reisItemId}/ActiviteitAanmaken">Een
             Activiteit</a>
 
