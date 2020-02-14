@@ -25,7 +25,7 @@
                                     <form:input id="pollTitel" type="text" class="form-control" path="naam"
                                                 required="required"
                                                 placeholder="Titel"/>
-                                    <form:input id="pollDatum" type="date" class="form-control" path="startDatum"
+                                    <form:input id="pollDatum" type="datetime-local" class="form-control" path="startDatum"
                                                 required="required"
                                                 value="${reisItem.geefNieuwStartDatum()}"/>
                                 </div>

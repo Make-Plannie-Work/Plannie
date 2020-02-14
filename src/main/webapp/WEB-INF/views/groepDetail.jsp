@@ -1,8 +1,6 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
-
-
 <jsp:include page="header.jsp"/>
 <title>Plannie - Groepsdetails ${groep.groepsNaam}</title>
 <body>
@@ -29,8 +27,8 @@
                             <div class="row">
                                 <form:form action="${pageContext.request.contextPath}/${groep.groepId}/reisItemAanmaken" class="m-auto" method="post" modelAttribute="nieuwReisItemFormulier">
                                     <form:input id="reisNaam" type="text" class="form-control" path="naam" required="required" placeholder="Naam Reis"/>
-                                    <form:input id="reisDatum" type="date" class="form-control" path="startDatum" required="required"/>
-                                    <form:button class="text mt-2 btn-primary shadow" id="reisItemAanmaken" type="submit">Maak reis Aan <i class="fas fa-plus"></i></form:button>
+                                    <form:input id="reisDatum" type="datetime-local" class="form-control" path="startDatum" required="required"/>
+                                    <form:button class="text mt-2 btn-primary shadow" id="reisItemAanmaken" type="submit">Maak reis aan <i class="fas fa-plus"></i></form:button>
                                 </form:form>
                             </div>
                         </div>

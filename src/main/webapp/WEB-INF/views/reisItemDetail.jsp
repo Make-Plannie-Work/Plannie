@@ -21,7 +21,8 @@
                 <div class="row">
 
                     <div class="col-sm-12">
-                        <tag:reisItemAccordion subReisItems="${reisItem.geefReisGesorteerdDatum()}" reisDagen="${reisItem.geefDagenOverzicht()}" level="0"/>
+                        <tag:reisItemAccordion subReisItems="${reisItem.geefReisGesorteerdDatum()}"
+                                               reisDagen="${reisItem.geefDagenOverzicht()}" level="0"/>
                     </div>
 
                 </div>
@@ -37,11 +38,14 @@
                            href="${pageContext.request.contextPath}/${groep.groepId}/reisItemDetail/${reisItem.reisItemId}/NotitieAanmaken">Een
                             Notitie</a>
                         <a class="dropdown-item" id="pollKeuze"
-                           href="${pageContext.request.contextPath}/${groep.groepId}/reisItemDetail/${reisItem.reisItemId}/PollAanmaken">Een Poll</a>
+                           href="${pageContext.request.contextPath}/${groep.groepId}/reisItemDetail/${reisItem.reisItemId}/PollAanmaken">Een
+                            Poll</a>
                         <a class="dropdown-item" id="locatieKeuze"
                            href="${pageContext.request.contextPath}/${groep.groepId}/reisItemDetail/${reisItem.reisItemId}/LocatieAanmaken">Een
                             Locatie</a>
-                        <a class="dropdown-item" id="activiteitKeuze" href="${pageContext.request.contextPath}/${groep.groepId}/reisItemDetail/${reisItem.reisItemId}/ActiviteitAanmaken">Een Activiteit</a>
+                        <a class="dropdown-item" id="activiteitKeuze"
+                           href="${pageContext.request.contextPath}/${groep.groepId}/reisItemDetail/${reisItem.reisItemId}/ActiviteitAanmaken">Een
+                            Activiteit</a>
                     </div>
                 </div>
             </div>
@@ -49,19 +53,21 @@
         <div class="col-sm-4">
             <div class="jumbotron shadow" id="wouter">
 
-                <img id="reisItemImg" class="img-fluid card-img-top" src="${pageContext.request.contextPath}/images/${reisItem.imagePath}"
+                <img id="reisItemImg" class="img-fluid card-img-top"
+                     src="${pageContext.request.contextPath}/images/${reisItem.imagePath}"
                      alt="Card image cap">
 
                 <div class="row">
                     <h5 class="lead text-white">${reisItem.naam}
                         <a id="wijzigReisItem" type="button" class="text-white" data-toggle="modal"
                            data-target="#wijzigReisItem2"><i class="far fa-edit"></i></a>
-                        - <a class="lead text-white" href="${pageContext.request.contextPath}/groepDetail/${groep.groepId}">${groep.groepsNaam}</a>
+                        - <a class="lead text-white"
+                             href="${pageContext.request.contextPath}/groepDetail/${groep.groepId}">${groep.groepsNaam}</a>
                     </h5>
                 </div>
                 <hr class="my-4">
                 <div class="row">
-                    <p class="lead text-white mt-3">Locatie / Datum etc..</hp>
+                    <p class="lead text-white m-auto"><strong>${reisItem.geefGeformatteerdeReisDuratie()}</strong></p>
                     <hr class="my-4">
                 </div>
             </div>

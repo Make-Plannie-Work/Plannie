@@ -30,14 +30,14 @@
                                     <form:input id="activiteitTitel" type="text" class="form-control" path="naam" required="required"
                                                 placeholder="Titel"/>
                                     <form:input id="activiteitOmschrijving" type="text" class="form-control" path="omschrijving" placeholder="Omschrijving"/>
-                                    <form:input id="activiteitDatum" type="date" class="form-control" path="startDatum" required="required"
+                                    <form:input id="activiteitDatum" type="datetime-local" class="form-control" path="startDatum" required="required"
                                                 value="${reisItem.geefNieuwStartDatum()}"/>
 
                                     <form:textarea id="activiteitTekst" path="tekst" class="form-control mt-2" rows="5" cols="30" required="required" placeholder="Vertel hier je groepsleden wat jullie gaan doen."/>
                             </div>
                         </div>
                                     <hr class="my-4">
-                                    <p class="lead">Optioneel: Voeg een budget toe aan deze activiteit${reisItem.startDatum}</p>
+                                    <p class="lead">Optioneel: Voeg een budget toe aan deze activiteit</p>
                                     <div class="row">
                                         <div class="col">
                                             <form:input id="activiteitBudget" type="number" step="10" min="0" class="form-control" path="budget"/>

@@ -9,6 +9,7 @@
 <div class="accordion" id="accordionReisItems${dag.dagNummer}">
     <div class="list-group">
         <div class="accordion-header" id="headingDag${dag.dagNummer}">
+            <!--Inhoud begin, is altijd een Dag, en de gegevens van de dag staan in de knop.-->
             <button class="btn btn-danger btn-lg btn-block" type="button" data-toggle="collapse"
                     data-target="#collapseDag${dag.dagNummer}" aria-expanded="true"
                     aria-controls="collapseDag${dag.dagNummer}">
@@ -17,6 +18,7 @@
                 </div>
                 <div><tag:dropDownNieuwReisItem dag="${dag}"/></div>
             </button>
+            <!--Inhoud eind-->
         </div>
 
         <!--Accordion uitklapveld-->

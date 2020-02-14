@@ -30,7 +30,7 @@
                                         required="required" data-toggle="tooltip" data-placement="top"
                                         title="Naam van deze locatie"
                                         placeholder="Geef een naam op voor deze locatie"/>
-                            <form:input id="locatieDatum" type="date" class="form-control" path="startDatum"
+                            <form:input id="locatieDatum" type="datetime-local" class="form-control" path="startDatum"
                                         required="required"
                                         value="${reisItem.geefNieuwStartDatum()}"/>
                             <label for="locatieAdres">Adres</label>

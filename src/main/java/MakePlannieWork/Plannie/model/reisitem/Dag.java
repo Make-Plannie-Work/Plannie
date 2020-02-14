@@ -17,7 +17,7 @@ public class Dag {
     }
 
     public String geefDatum() {
-        return reisItems.get(0).getStartDatum();
+        return reisItems.get(0).geefGeformatteerdeStartDatum();
     }
 
     public String geefDagTitel() {
