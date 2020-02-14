@@ -34,7 +34,7 @@
                             <hr class="my-4">
 
                             <div class="row">
-                                <form:input id="pollOpties" type="text" class="form-control" path="eindDatum"
+                                <form:input id="pollOpties" type="text" class="form-control" path="locatie"
                                             required="required"
                                             placeholder="Vul stemopties in, gescheiden door komma's"/>
                             </div>

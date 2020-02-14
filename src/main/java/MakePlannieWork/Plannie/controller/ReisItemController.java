@@ -284,7 +284,8 @@ public class ReisItemController {
 
             // We gebruiken de String eindDatum om tijdelijk de keuze van de gebruiker op te slaan.
             // Deze wordt hier uitgelezen naar poll opties, en daarna weer leeggehaald.
-            String[] opties = poll.getEindDatum().split(",");
+            String[] opties = poll.getLocatie().split(",");
+            poll.setLocatie(null);
 
             int optieIndex = 0;
             for (String tekst : opties) {
