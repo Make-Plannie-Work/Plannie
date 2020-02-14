@@ -18,7 +18,7 @@
                 </button>
             </c:if>
 
-            <!--Inhoud begin-->
+            <!--Inhoud begin, kan elk soort reisItem zijn.-->
             <div class="card reisItem flex-row flex-wrap mb-2 mx-auto" id="reisItemCard">
                 <c:choose>
                     <c:when test="${soortReisItem == 'MakePlannieWork.Plannie.model.reisitem.Notitie'}">

@@ -29,8 +29,17 @@
 </c:if>
 <c:if test="${level == 2}">
     <c:forEach var="subReisItem" items="${subReisItems}">
-        <!--Activiteit Overzicht tonen-->
-        <tag:reisDetailActiviteit subReisItem="${subReisItem}" level="${level}"/>
+        <c:set var="soortReisItem" scope="request" value="${subReisItem.getClass().name}"/>
+        <c:choose>
+            <c:when test="${soortReisItem == 'MakePlannieWork.Plannie.model.reisitem.Activiteit'}">
+                <!--Activiteit Overzicht tonen-->
+                <tag:reisDetailActiviteit subReisItem="${subReisItem}" level="${level}"/>
+            </c:when>
+            <c:otherwise>
+                <!--Sub reisItem op een klein kaartje laten zien-->
+                <tag:reisDetailSubReisItem subReisItem="${subReisItem}" level="${level}"/>
+            </c:otherwise>
+        </c:choose>
     </c:forEach>
 </c:if>
 <c:if test="${level >= 3}">

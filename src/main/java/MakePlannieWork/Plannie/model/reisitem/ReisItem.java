@@ -165,6 +165,14 @@ public class ReisItem {
         return eindDatum;
     }
 
+    public String geefGeformatteerdeDatum() {
+        return this.startDatum.substring(0,10);
+    }
+
+    public String geefGeformatteerdeTijd() {
+        return this.startDatum.substring(11,16);
+    }
+
     // Methode om een startdatum voor een nieuw reisItem te geven.
     public String geefNieuwStartDatum() {
         if (this.startDatum == null) {
