@@ -87,20 +87,14 @@ public class ReisItem {
                 dagen.get(0).voegReisItemToe(item);
             } else {
                 // Alle Activiteiten worden in dagen opgedeeld.
-                if (item.getStartDatum().substring(0,10).equals(laatsteDatum.substring(0,10))) {
+                if (item.getStartDatum().substring(0, 10).equals(laatsteDatum.substring(0, 10))) {
                     // Als de datum hetzelfde is als die van het vorige item, wordt deze activiteit bij de nieuwste dag ingevoegd.
                     dagen.get(dagen.size() - 1).voegReisItemToe(item);
                 } else {
                     // Als de datum een nieuwe is, wordt er een nieuwe dag aangemaakt, met bijhorend dagnummer.
-                    SimpleDateFormat timeDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
                     try {
-                        // Verschil in dagen uitrekenen vanaf de startdatum van de reis.
-                        Date start = timeDateFormat.parse(this.startDatum.replace("T"," "));
-                        Date huidig = timeDateFormat.parse(item.getStartDatum().replace("T"," "));
-                        long dagNummer = huidig.getTime() - start.getTime();
-                        dagNummer = TimeUnit.DAYS.convert(dagNummer, TimeUnit.MILLISECONDS);
-
-                        Dag dag = new Dag(dagNummer + 1,item);
+                        long dagNummer = berekenDagenTussenDatums(this.startDatum.replace("T", " "), item.getStartDatum().replace("T", " "));
+                        Dag dag = new Dag(dagNummer + 1, item);
                         dagen.add(dag);
                     } catch (ParseException e) {
                         e.printStackTrace();
@@ -118,8 +112,8 @@ public class ReisItem {
             SimpleDateFormat timeDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
             try {
                 // Verschil in dagen uitrekenen.
-                Date nieuw = timeDateFormat.parse(nieuweDatum.replace("T"," "));
-                Date oud = timeDateFormat.parse(this.startDatum.replace("T"," "));
+                Date nieuw = timeDateFormat.parse(nieuweDatum.replace("T", " "));
+                Date oud = timeDateFormat.parse(this.startDatum.replace("T", " "));
                 long verschil = nieuw.getTime() - oud.getTime();
 
                 // De datum van dit reisItem, en alle onderliggende reisItems aanpassen.
@@ -133,10 +127,10 @@ public class ReisItem {
     // De datum van dit reisItem, en alle onderliggende reisItems aanpassen.
     public void wijzigDatum(long verschil) throws ParseException {
         SimpleDateFormat timeDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-        Date datumTijd = timeDateFormat.parse(startDatum.replace("T"," "));
+        Date datumTijd = timeDateFormat.parse(startDatum.replace("T", " "));
         // Het verschil in dagen bij de startDatum optellen.
         datumTijd.setTime(datumTijd.getTime() + verschil);
-        this.startDatum = timeDateFormat.format(datumTijd).replace(" ","T");
+        this.startDatum = timeDateFormat.format(datumTijd).replace(" ", "T");
 
         for (ReisItem item : getReisItems()) {
             item.wijzigDatum(verschil);
@@ -150,14 +144,14 @@ public class ReisItem {
             SimpleDateFormat timeDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
             try {
                 // Vind de laatste datum van alle reisItems.
-                Date laatste = timeDateFormat.parse(this.startDatum.replace("T"," "));
+                Date laatste = timeDateFormat.parse(this.startDatum.replace("T", " "));
                 for (ReisItem item : reisItems) {
-                    Date checkDatum = timeDateFormat.parse(item.getEindDatum().replace("T"," "));
+                    Date checkDatum = timeDateFormat.parse(item.getEindDatum().replace("T", " "));
                     if (checkDatum.compareTo(laatste) > 0) {
                         laatste = checkDatum;
                     }
                 }
-                eindDatum = timeDateFormat.format(laatste).replace(" ","T");
+                eindDatum = timeDateFormat.format(laatste).replace(" ", "T");
             } catch (ParseException e) {
                 e.printStackTrace();
             }
@@ -165,12 +159,49 @@ public class ReisItem {
         return eindDatum;
     }
 
-    public String geefGeformatteerdeDatum() {
-        return this.startDatum.substring(0,10);
+    // Deze methode geeft een leesbare reisDuratie terug voor gebruik op de frontend.
+    public String geefGeformatteerdeReisDuratie() throws ParseException {
+        String duratie;
+        long aantalDagen = berekenDagenTussenDatums(this.startDatum.replace("T", " "),
+                getEindDatum().replace("T", " "));
+        if (aantalDagen <= 0) {
+            if (!reisItems.isEmpty()) {
+                // Als er reisItems aan de reis gekoppeld zijn, worden de waardes van de chronoligisch eerste item teruggeggeven.
+                duratie = geefReisGesorteerdDatum().get(0).geefGeformatteerdeStartDatumEnTijd();
+            } else {
+                // Als er nog geen reisItems aan de reis gekoppeld zijn, word de startdatum van de reis teruggeggeven.
+                duratie = geefGeformatteerdeStartDatum();
+            }
+        } else {
+            // Als de reis meerdere dagen duurt, worden de start, en einddatum teruggeggeven.
+            duratie = geefGeformatteerdeStartDatum() + " t/m " + geefGeformatteerdeEindDatum();
+        }
+        return duratie;
+    }
+
+    public String geefGeformatteerdeStartDatum() {
+        return this.startDatum.substring(0, 10);
+    }
+
+    public String geefGeformatteerdeEindDatum() {
+        return getEindDatum().substring(0, 10);
     }
 
     public String geefGeformatteerdeTijd() {
-        return this.startDatum.substring(11,16);
+        return this.startDatum.substring(11, 16);
+    }
+
+    public String geefGeformatteerdeStartDatumEnTijd() {
+        return geefGeformatteerdeStartDatum() + " " + geefGeformatteerdeTijd();
+    }
+
+    private long berekenDagenTussenDatums(String beginDatumyyyyMMddHHmm, String eindDatumyyyyMMddHHmm) throws ParseException {
+        SimpleDateFormat timeDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date start = timeDateFormat.parse(beginDatumyyyyMMddHHmm.substring(0, 10));
+        Date eind = timeDateFormat.parse(eindDatumyyyyMMddHHmm.substring(0, 10));
+        long verschil = eind.getTime() - start.getTime();
+        verschil = TimeUnit.DAYS.convert(verschil, TimeUnit.MILLISECONDS);
+        return verschil;
     }
 
     // Methode om een startdatum voor een nieuw reisItem te geven.

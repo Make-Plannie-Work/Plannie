@@ -37,7 +37,7 @@
                             </div>
                         </div>
                                     <hr class="my-4">
-                                    <p class="lead">Optioneel: Voeg een budget toe aan deze activiteit${reisItem.startDatum}</p>
+                                    <p class="lead">Optioneel: Voeg een budget toe aan deze activiteit</p>
                                     <div class="row">
                                         <div class="col">
                                             <form:input id="activiteitBudget" type="number" step="10" min="0" class="form-control" path="budget"/>

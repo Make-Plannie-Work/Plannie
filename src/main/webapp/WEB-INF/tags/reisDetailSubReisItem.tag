@@ -23,7 +23,7 @@
                 <c:choose>
                     <c:when test="${soortReisItem == 'MakePlannieWork.Plannie.model.reisitem.Notitie'}">
                         <div class="card-header border-0">
-                            Notitie ${subReisItem.startDatum}
+                            Notitie ${subReisItem.geefGeformatteerdeStartDatumEnTijd()}
                         </div>
                         <div class="card-block px-2">
                             <h4 class="card-title"><a id="NotitieDetails${subReisItem.naam}"
@@ -37,7 +37,7 @@
                     </c:when>
                     <c:when test="${soortReisItem == 'MakePlannieWork.Plannie.model.reisitem.Poll'}">
                         <div class="card-header border-0">
-                            Poll ${subReisItem.startDatum}
+                            Poll ${subReisItem.geefGeformatteerdeStartDatumEnTijd()}
                         </div>
                         <div class="card-block px-2">
                             <h4 class="card-title"><a id="PollDetails${subReisItem.naam}"
@@ -56,7 +56,7 @@
                     </c:when>
                     <c:when test="${soortReisItem == 'MakePlannieWork.Plannie.model.reisitem.Locatie'}">
                         <div class="card-header border-0">
-                            Locatie ${subReisItem.startDatum}
+                            Locatie ${subReisItem.geefGeformatteerdeStartDatumEnTijd()}
                         </div>
                         <div class="card-block px-2">
                             <h4 class="card-title"><a id="LocatieDetails${subReisItem.naam}"
@@ -73,7 +73,7 @@
                     <c:when test="${soortReisItem == 'MakePlannieWork.Plannie.model.reisitem.Activiteit'}">
 
                         <div class="card-header border-0">
-                            ${subReisItem.soortActiviteit} ${subReisItem.startDatum}
+                            ${subReisItem.soortActiviteit} ${subReisItem.geefGeformatteerdeStartDatumEnTijd()}
                         </div>
                         <div class="card-block px-2">
                             <h4 class="card-title"><a id="ActiviteitDetails${subReisItem.naam}"

@@ -21,7 +21,7 @@
             <!--Inhoud begin, is altijd activiteit-->
             <div class="card reisItem flex-row flex-wrap mb-2 mx-auto" id="activiteitItemCard">
                 <div class="card-header border-0">
-                    ${subReisItem.soortActiviteit} ${subReisItem.startDatum}
+                    ${subReisItem.soortActiviteit} ${subReisItem.geefGeformatteerdeStartDatumEnTijd()}
                 </div>
                 <div class="card-block px-2">
                     <h4 class="card-title"><a id="ActiviteitDetails${subReisItem.naam}"
