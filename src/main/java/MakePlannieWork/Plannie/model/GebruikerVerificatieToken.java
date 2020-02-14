@@ -1,5 +1,10 @@
 package MakePlannieWork.Plannie.model;
 
+/**
+ * @Author Tabitha Krist
+ * Via deze class kan een Verificatietoken voor een gebruiker aangemaakt worden
+ */
+
 import javax.persistence.*;
 import java.util.Calendar;
 import java.util.Date;
@@ -28,11 +33,6 @@ public class GebruikerVerificatieToken {
         return new Date(calendar.getTime().getTime());
     }
 
-    public void updateToken(final String token) {
-        this.token = token;
-        this.expiryDate = berekenExpiryDate(EXPIRATION);
-    }
-
     public GebruikerVerificatieToken() {
     }
 
@@ -45,14 +45,6 @@ public class GebruikerVerificatieToken {
         this.token = token;
         this.gebruiker = gebruiker;
         this.expiryDate = berekenExpiryDate(EXPIRATION);
-    }
-
-    public Integer getGebruikerVerificatieTokenId() {
-        return gebruikerVerificatieTokenId;
-    }
-
-    public void setGebruikerVerificatieTokenId(Integer gebruikerVerificatieTokenId) {
-        this.gebruikerVerificatieTokenId = gebruikerVerificatieTokenId;
     }
 
     public String getToken() {
@@ -74,10 +66,5 @@ public class GebruikerVerificatieToken {
     public Date getExpiryDate() {
         return expiryDate;
     }
-
-    public void setExpiryDate(Date expiryDate) {
-        this.expiryDate = expiryDate;
-    }
-
 
 }
