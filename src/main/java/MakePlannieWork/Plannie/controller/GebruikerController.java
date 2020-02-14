@@ -103,13 +103,7 @@ public class GebruikerController {
             } else if (gebruikerVerificatieRepository.findByGebruiker(gebruikerZonderToken) != null){
                 return "tokenLooptNog";
             } else {// maak een random token aan
-                final String token = UUID.randomUUID().toString();
-                plannieGebruikersService.maakGebruikerVerificatieToken(gebruikerZonderToken, token);
-                try {
-                    plannieMailingService.maakGebruikerVerificatieTokenEmail(plannieMailingService.getAppUrl(request), request.getLocale(), token, gebruikerZonderToken);
-                } catch (MessagingException e) {
-                    e.printStackTrace();
-                }
+                maakTokenAan(gebruikerZonderToken, request);
                 return "tokenNieuw";
             }
         } else { // Als het geen bestaande gebruiker is maak een gebruiker aan met een random token
@@ -119,14 +113,18 @@ public class GebruikerController {
             gebruiker.setEnabled(false);
             gebruikerRepository.save(gebruiker);
             // maak een random token aan
-            final String token = UUID.randomUUID().toString();
-            plannieGebruikersService.maakGebruikerVerificatieToken(gebruiker, token);
-            try {
-                plannieMailingService.maakGebruikerVerificatieTokenEmail(plannieMailingService.getAppUrl(request), request.getLocale(), token, gebruiker);
-            } catch (MessagingException e) {
-                e.printStackTrace();
-            }
+            maakTokenAan(gebruiker, request);
             return "gebruikerGeregistreerd";
+        }
+    }
+
+    public void maakTokenAan(Gebruiker gebruiker, HttpServletRequest request) {
+        final String token = UUID.randomUUID().toString();
+        plannieGebruikersService.maakGebruikerVerificatieToken(gebruiker, token);
+        try {
+            plannieMailingService.maakGebruikerVerificatieTokenEmail(plannieMailingService.getAppUrl(request), request.getLocale(), token, gebruiker);
+        } catch (MessagingException execption) {
+            execption.printStackTrace();
         }
     }
 
@@ -140,13 +138,6 @@ public class GebruikerController {
         nieuweGebruiker.setWachtwoord(jsonGebruiker.getString("wachtwoord"));
         nieuweGebruiker.setTrancientWachtwoord(jsonGebruiker.getString("trancientWachtwoord"));
         return new ResponseEntity<Object>(registratieGebruiker(nieuweGebruiker, request), HttpStatus.OK);
-    }
-
-    @GetMapping("/gebruikerBestaatReeds")
-    String gebruikerBestaatReeds(Model model) {
-        model.addAttribute("loginForm", new Gebruiker());
-        model.addAttribute("updatePasswordForm", new Gebruiker());
-        return "index";
     }
 
     @GetMapping("/maakRegistratieCompleet")
