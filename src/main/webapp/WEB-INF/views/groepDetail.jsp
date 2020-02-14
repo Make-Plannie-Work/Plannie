@@ -29,7 +29,7 @@
                             <div class="row">
                                 <form:form action="${pageContext.request.contextPath}/${groep.groepId}/reisItemAanmaken" class="m-auto" method="post" modelAttribute="nieuwReisItemFormulier">
                                     <input id="reisNaam" type="text" class="form-control" name="naam" required="required" placeholder="Naam Reis">
-                                    <button class="text mt-2 btn-primary shadow" id="reisItemAanmaken" type="submit">Maak Reis Aan <i class="fas fa-plus"></i></button>
+                                    <button class="text mt-2 btn-primary shadow" id="reisItemAanmaken" type="submit">Maak reis aan <i class="fas fa-plus"></i></button>
                                 </form:form>
                             </div>
                         </div>
