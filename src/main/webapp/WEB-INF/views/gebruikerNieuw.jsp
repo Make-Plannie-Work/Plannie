@@ -44,15 +44,15 @@
 
                         <form:button id="registreer" type="submit" class="btn btn-primary mt-3"><span>Registreer</span></form:button>
 
-                        <div id="registratieMelding" class="alert alert-danger fade">
-                            <button href="#" type="button" class="close">&times;</button>
-                            <h4 id="alertTitel">Alert title</h4>
-                            <p id="alertTekst">Alert tekst</p>
-                        </div>
-
                     </div>
 
                 </form:form>
+                <br>
+                <div id="registratieMelding" class="alert alert-danger fade">
+                    <button href="#" type="button" class="close">&times;</button>
+                    <h4 id="alertTitel">Alert title</h4>
+                    <p id="alertTekst">Alert tekst</p>
+                </div>
             </div>
         </div>
 
