@@ -28,7 +28,7 @@
                         <tr><td></td><td></td><td>Totaal</td><td></td><td>&euro;${reisItem.berekenTotaalBudget()}</td></tr>
                         </tfoot>
                     </table>
-
+                <h5><a class="tekstknop-zwart" href="${pageContext.request.contextPath}/${groep.groepId}/reisItemDetail/${reisItem.reisItemId}/">Ga terug</a></h5>
             </div>
         </div>
 
