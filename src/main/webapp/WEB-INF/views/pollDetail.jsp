@@ -17,10 +17,10 @@
                     <c:forEach items="${poll.getPollOpties()}" var="optie">
                         <div class="card flex-row flex-wrap mb-2 mx-auto" id="reisItemCard">
 
-                            <div class="card-header border-0">
+                            <div class="plannieCard-header border-0">
                                 ${optie.stemOptie}
                             </div>
-                            <div class="card-block px-2">
+                            <div class="plannieCard-block px-2">
                                 <a>Aantal stemmen: ${optie.geefAantalStemmen()}</a>
                                 <div class="progress">
                                     <div class="progress-bar" role="progressbar" style="width: ${Math.round (optie.geefAantalStemmen() / poll.geefTotaalAantalStemmen() * 100)}%;" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100">

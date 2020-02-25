@@ -42,7 +42,7 @@
     <div class="row mb-3">
         <div class="col-sm-offset-1 col-sm-10 mb-5">
             <div class="card w-75 mx-auto">
-                <div class="card-body">
+                <div class="plannieCard-body">
                     <p>Contact</p>
                 </div>
             </div>

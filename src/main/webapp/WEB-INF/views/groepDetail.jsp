@@ -14,10 +14,10 @@
                         <c:forEach items="${lijstMetReisItems}" var="reisItem">
 
                             <div class="card flex-row flex-wrap mb-2 mx-auto " id="reisItemCard">
-                                <div class="card-header border-0">
+                                <div class="plannieCard-header border-0">
                                     <img id="reisItemImg-klein" class="img-fluid card-img-top" src="${pageContext.request.contextPath}/images/${reisItem.imagePath}" alt="Card image cap">
                                 </div>
-                                <div class="card-block px-2">
+                                <div class="plannieCard-block px-2">
                                     <h4 class="card-title"><a href="${pageContext.request.contextPath}/${groep.groepId}/reisItemDetail/${reisItem.reisItemId}">${reisItem.naam}</a></h4>
                                     <p class="card-text">Info over reis: ${reisItem.naam}</p>
                                 </div>
@@ -67,7 +67,7 @@
     <div class="row mx-auto">
         <div class="col-sm-offset-1 col-sm-10 mb-5 mx-auto">
             <div class="card w-75 mx-auto">
-                <div class="card-body">
+                <div class="plannieCard-body">
                     <form:form action="${pageContext.request.contextPath}/groepDetail/${groep.groepId}/voegLedenToeAanGroepViaEmail" class="form-inline" method="post" modelAttribute="groepslidEmail">
                         <h5 class="card-title ">Stuur een uitnodiging naar een nog niet bestaande gebruiker.</h5>
                         <p class="card-text">

@@ -13,7 +13,7 @@
 
 </p>
 <div class="collapse" id="collapseExample${dropDownId}">
-    <div class="card card-body">
+    <div class="card plannieCard-body">
 
         <p class="card-text">Nieuw item toevoegen</p>
         <a class="btn btn-primary dropDownbtn" id="notitieKeuze${reisItem.reisItemId}/NotitieAanmaken"

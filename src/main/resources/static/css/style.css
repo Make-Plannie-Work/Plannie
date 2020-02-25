@@ -12,11 +12,11 @@
     background-color: #FF3B56;
 }
 
-.card-header {
+.plannieCard-header {
 width: 30%;
 background-color: #FF3B56;}
 
-.card-block {
+.plannieCard-block {
 width: 70%;
 background-color: #FFB37D;}
 
@@ -149,7 +149,7 @@ width: 100%;
      box-shadow: 0 3px 2px rgba(0, 0, 0, 0.3);
 }
 
-.card-body .dropDownbtn {
+.plannieCard-body .dropDownbtn {
   background-color: #ffffff;
   font-family: 'Viga', sans-serif;
   border: 1px solid #FF3B56 !important;
@@ -161,11 +161,11 @@ width: 100%;
   display: block;
 }
 
-.card-body .dropDownbtn:not(:last-child) {
+.plannieCard-body .dropDownbtn:not(:last-child) {
   border-bottom: none !important; /* Prevent double borders */
 }
 
-.card-body .dropDownbtn:hover {
+.plannieCard-body .dropDownbtn:hover {
     color: #ffffff !important;
     background-color: #FF3B56;
     border: 1px solid #FF3B56 !important;
@@ -720,4 +720,34 @@ html, body {
   cursor: not-allowed;
 }
 
+.accordionDag-header {
+  width: 100%;
+}
 
+.pannieBtn-outline-primary {
+  background-color: #ffffff;
+  color: #FF3B56;
+  padding: 5px 5px;
+  display: block;
+}
+
+.pannieBtn-outline-primary:focus {
+    color: #ffffff;
+    background-color: #FF3B56;
+    transition: all 0.4s ease 0s;
+}
+
+.pannieBtn-outline-primary:active {
+    color: #ffffff;
+    background-color: #FF3B56;
+}
+
+.pannieBtn-outline-primary:hover {
+    color: #ffffff;
+    background-color: #FF3B56;
+    transition: all 0.4s ease 0s;
+}
+
+.pannieBtn-outline-primary:not(:last-child) {
+  border-bottom: none; /* Prevent double borders */
+}

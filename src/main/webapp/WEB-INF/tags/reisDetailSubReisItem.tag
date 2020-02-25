@@ -22,10 +22,10 @@
             <div class="card reisItem flex-row flex-wrap mb-2 mx-auto" id="reisItemCard">
                 <c:choose>
                     <c:when test="${soortReisItem == 'MakePlannieWork.Plannie.model.reisitem.Notitie'}">
-                        <div class="card-header border-0">
+                        <div class="plannieCard-header border-0">
                             Notitie ${subReisItem.geefGeformatteerdeStartDatumEnTijd()}
                         </div>
-                        <div class="card-block px-2">
+                        <div class="plannieCard-block px-2">
                             <h4 class="card-title"><a id="NotitieDetails${subReisItem.naam}"
                                                       href="${pageContext.request.contextPath}/${groepId}/${reisItemId}/${subReisItem.reisItemId}/NotitieWijzigen">${subReisItem.naam}</a>
                                 <c:if test="${level < 3}"><tag:dropDownNieuwReisItem reisItem="${subReisItem}"/></c:if>
@@ -36,10 +36,10 @@
                         </div>
                     </c:when>
                     <c:when test="${soortReisItem == 'MakePlannieWork.Plannie.model.reisitem.Poll'}">
-                        <div class="card-header border-0">
+                        <div class="plannieCard-header border-0">
                             Poll ${subReisItem.geefGeformatteerdeStartDatumEnTijd()}
                         </div>
-                        <div class="card-block px-2">
+                        <div class="plannieCard-block px-2">
                             <h4 class="card-title"><a id="PollDetails${subReisItem.naam}"
                                                       href="${pageContext.request.contextPath}/${groepId}/${reisItemId}/PollDetail/${subReisItem.reisItemId}">${subReisItem.naam}</a>
                                 <c:if test="${level < 3}"><tag:dropDownNieuwReisItem reisItem="${subReisItem}"/></c:if>
@@ -55,10 +55,10 @@
                         </div>
                     </c:when>
                     <c:when test="${soortReisItem == 'MakePlannieWork.Plannie.model.reisitem.Locatie'}">
-                        <div class="card-header border-0">
+                        <div class="plannieCard-header border-0">
                             Locatie ${subReisItem.geefGeformatteerdeStartDatumEnTijd()}
                         </div>
-                        <div class="card-block px-2">
+                        <div class="plannieCard-block px-2">
                             <h4 class="card-title"><a id="LocatieDetails${subReisItem.naam}"
                                                       href="${pageContext.request.contextPath}/${groepId}/${reisItemId}/${subReisItem.reisItemId}/LocatieWijzigen">${subReisItem.naam}</a>
                                 <c:if test="${level < 3}"><tag:dropDownNieuwReisItem reisItem="${subReisItem}"/></c:if>
@@ -72,10 +72,10 @@
                     </c:when>
                     <c:when test="${soortReisItem == 'MakePlannieWork.Plannie.model.reisitem.Activiteit'}">
 
-                        <div class="card-header border-0">
+                        <div class="plannieCard-header border-0">
                             ${subReisItem.soortActiviteit} ${subReisItem.geefGeformatteerdeStartDatumEnTijd()}
                         </div>
-                        <div class="card-block px-2">
+                        <div class="plannieCard-block px-2">
                             <h4 class="card-title"><a id="ActiviteitDetails${subReisItem.naam}"
                                                       href="${pageContext.request.contextPath}/${groepId}/${reisItemId}/${subReisItem.reisItemId}/activiteitWijzigen">${subReisItem.naam}</a>
                                 <c:if test="${level < 3}"><tag:dropDownNieuwReisItem reisItem="${subReisItem}"/></c:if>
@@ -85,10 +85,10 @@
                         </div>
                     </c:when>
                     <c:otherwise>
-                        <div class="card-header border-0">
+                        <div class="plannieCard-header border-0">
                             <img src="https://via.placeholder.com/100.jpg" alt="">
                         </div>
-                        <div class="card-block px-2">
+                        <div class="plannieCard-block px-2">
                             <h4 class="card-title"><a id="reisItemDetails${subReisItem.reisItemId}"
                                                       href="${pageContext.request.contextPath}/${groep.groepId}/reisItemsDetail/${subReisItem.reisItemId}">${subReisItem.naam}</a>
                                 <c:if test="${level < 3}"><tag:dropDownNieuwReisItem reisItem="${subReisItem}"/></c:if>
@@ -106,7 +106,7 @@
             <div id="collapseOne${subReisItem.reisItemId}" class="collapse"
                  aria-labelledby="headingOne${subReisItem.reisItemId}"
                  data-parent="#accordionReisItems${subReisItem.reisItemId}">
-                <div class="card-body">
+                <div class="plannieCard-body">
                     <tag:reisItemAccordion subReisItems="${subReisItem.geefReisGesorteerdDatum()}"
                                            level="${level}"/>
                 </div>

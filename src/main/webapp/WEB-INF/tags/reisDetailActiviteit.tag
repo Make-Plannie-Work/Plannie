@@ -8,28 +8,28 @@
 <c:set var="soortReisItem" scope="request" value="${subReisItem.getClass().name}"/>
 
 <!--Accordion kop-->
-<div class="accordion" id="accordionActiviteitItems${subReisItem.reisItemId}">
+<div class="accordionActiviteit" id="accordionActiviteit${subReisItem.reisItemId}">
     <div class="list-group">
-        <div class="accordion-header" id="headingActiviteitOne${subReisItem.reisItemId}">
+        <div class="accordionActiviteit-header" id="headingActiviteit${subReisItem.reisItemId}">
             <c:if test="${not empty subReisItem.reisItems}">
                 <button class="btn btn-danger btn-lg btn-block" type="button" data-toggle="collapse"
-                        data-target="#collapseActiviteitOne${subReisItem.reisItemId}" aria-expanded="true"
-                        aria-controls="collapseActiviteitOne${subReisItem.reisItemId}"><i class="far fa-list-alt"></i>
+                        data-target="#collapseActiviteit${subReisItem.reisItemId}" aria-expanded="true"
+                        aria-controls="collapseActiviteit${subReisItem.reisItemId}"><i class="far fa-list-alt"></i>
                 </button>
             </c:if>
 
             <!--Inhoud begin, is altijd activiteit-->
-            <div class="card reisItem flex-row flex-wrap mb-2 mx-auto" id="activiteitItemCard">
-                <div class="card-header border-0">
+            <div class="cardActiviteit reisItem flex-row flex-wrap mb-2 mx-auto" id="activiteitItemCard">
+                <div class="cardActiviteit-header border-0">
                     ${subReisItem.soortActiviteit} ${subReisItem.geefGeformatteerdeStartDatumEnTijd()}
                 </div>
-                <div class="card-block px-2">
-                    <h4 class="card-title"><a id="ActiviteitDetails${subReisItem.naam}"
+                <div class="cardActiviteit-block px-2">
+                    <h4 class="cardActiviteit-title"><a id="ActiviteitDetails${subReisItem.naam}"
                                               href="${pageContext.request.contextPath}/${groepId}/${reisItemId}/${subReisItem.reisItemId}/activiteitWijzigen">${subReisItem.naam}</a>
                         <tag:dropDownNieuwReisItem reisItem="${subReisItem}"/>
                     </h4>
-                    <p class="card-text">${subReisItem.omschrijving}</p>
-                    <p class="card-text">Budget: ${subReisItem.budget} euro</p>
+                    <p class="cardActiviteit-text">${subReisItem.omschrijving}</p>
+                    <p class="cardActiviteit-text">Budget: ${subReisItem.budget} euro</p>
                 </div>
             </div>
             <!--Inhoud eind-->
@@ -37,10 +37,10 @@
         </div>
         <!--Accordion uitklapveld-->
         <c:if test="${not empty subReisItem.reisItems}">
-            <div id="collapseActiviteitOne${subReisItem.reisItemId}" class="collapse"
-                 aria-labelledby="headingActiviteitOne${subReisItem.reisItemId}"
-                 data-parent="#accordionActiviteitItems${subReisItem.reisItemId}">
-                <div class="card-body">
+            <div id="collapseActiviteit${subReisItem.reisItemId}" class="collapse"
+                 aria-labelledby="headingActiviteit${subReisItem.reisItemId}"
+                 data-parent="#accordionActiviteit${subReisItem.reisItemId}">
+                <div class="cardActiviteit-body">
                     <tag:reisItemAccordion subReisItems="${subReisItem.geefReisGesorteerdDatum()}"
                                            level="${level}"/>
                 </div>

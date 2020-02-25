@@ -6,11 +6,12 @@
 <!--Locaties, poll status, budget, etc?-->
 
 <!--Accordion kop-->
-<div class="accordion" id="accordionReisItems${dag.dagNummer}">
-    <div class="list-group">
-        <div class="accordion-header" id="headingDag${dag.dagNummer}">
+<section class="accordionDag" id="accordionDag${dag.dagNummer}">
+    <div class="card">
+        <div class="accordionDag-header" id="headingDag${dag.dagNummer}">
+
             <!--Inhoud begin, is altijd een Dag, en de gegevens van de dag staan in de knop.-->
-            <button class="btn btn-danger btn-lg btn-block" type="button" data-toggle="collapse"
+            <button class="btn pannieBtn-outline-primary btn-lg btn-block" type="button" data-toggle="collapse"
                     data-target="#collapseDag${dag.dagNummer}" aria-expanded="true"
                     aria-controls="collapseDag${dag.dagNummer}">
                 <div class="row">
@@ -21,16 +22,20 @@
             <!--Inhoud eind-->
         </div>
 
+        <div class="plannieCard-body">
+
+        </div>
+
         <!--Accordion uitklapveld-->
-        <div id="collapseDag${dag.dagNummer}" class="collapse show"
+        <div id="collapseDag${dag.dagNummer}" class="collapse show card-footer"
              aria-labelledby="headingDag${dag.dagNummer}"
-             data-parent="#accordionReisItems${dag.dagNummer}">
-            <div class="card-body">
+             data-parent="#accordionDag${dag.dagNummer}">
+            <div class="cardDag-body">
                 <tag:reisItemAccordion subReisItems="${dag.reisItems}" level="${level}"/>
             </div>
         </div>
     </div>
-</div>
+</section>
 
 
 
