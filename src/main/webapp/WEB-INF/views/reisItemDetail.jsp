@@ -13,13 +13,6 @@
         <div class="col-sm-8">
             <div class="jumbotron shadow border">
                 <div class="row">
-                    <p class="lead">
-                        <a id="reisItemBudget">Het totale budget van ${reisItem.naam} bedraagt:
-                            ${reisItem.berekenTotaalBudget()} euro</a>
-                    </p>
-                </div>
-                <div class="row">
-
                     <div class="col-sm-12">
                         <tag:reisItemAccordion subReisItems="${reisItem.geefReisGesorteerdDatum()}"
                                                reisDagen="${reisItem.geefDagenOverzicht()}" level="0"/>
@@ -70,6 +63,11 @@
                     <p class="lead text-white m-auto"><strong>${reisItem.geefGeformatteerdeReisDuratie()}</strong></p>
                     <hr class="my-4">
                 </div>
+                <hr class="my-4 shadow">
+                <div class="row">
+                    <h5><a class="tekstknop" href="${pageContext.request.contextPath}/${groep.groepId}/reisItemDetail/${reisItem.reisItemId}/BudgetOverzicht">Kosten</a></h5>
+                </div>
+                <div class="row"><p class="lead text-white">Totaal: ${reisItem.berekenTotaalBudget()} euro</p>
             </div>
         </div>
     </div>
