@@ -21,26 +21,8 @@
                 </div>
             </div>
             <div class="jumbotron shadow border">
-                <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="keuzeReisItemMenu"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Wat voor soort reisitem wil je maken?
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" id="notitieKeuze"
-                           href="${pageContext.request.contextPath}/${groep.groepId}/reisItemDetail/${reisItem.reisItemId}/NotitieAanmaken">Een
-                            Notitie</a>
-                        <a class="dropdown-item" id="pollKeuze"
-                           href="${pageContext.request.contextPath}/${groep.groepId}/reisItemDetail/${reisItem.reisItemId}/PollAanmaken">Een
-                            Poll</a>
-                        <a class="dropdown-item" id="locatieKeuze"
-                           href="${pageContext.request.contextPath}/${groep.groepId}/reisItemDetail/${reisItem.reisItemId}/LocatieAanmaken">Een
-                            Locatie</a>
-                        <a class="dropdown-item" id="activiteitKeuze"
-                           href="${pageContext.request.contextPath}/${groep.groepId}/reisItemDetail/${reisItem.reisItemId}/ActiviteitAanmaken">Een
-                            Activiteit</a>
-                    </div>
-                </div>
+                Wat voor soort reisitem wil je toevoegen?
+                <tag:dropDownNieuwReisItem optie="0"/>
             </div>
         </div>
         <div class="col-sm-4">

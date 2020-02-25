@@ -26,7 +26,7 @@
                 <div class="cardActiviteit-block px-2">
                     <h4 class="cardActiviteit-title"><a id="ActiviteitDetails${subReisItem.naam}"
                                               href="${pageContext.request.contextPath}/${groepId}/${reisItemId}/${subReisItem.reisItemId}/activiteitWijzigen">${subReisItem.naam}</a>
-                        <tag:dropDownNieuwReisItem reisItem="${subReisItem}"/>
+                        <tag:dropDownNieuwReisItem reisItem="${subReisItem}" optie="-1"/>
                     </h4>
                     <p class="cardActiviteit-text">${subReisItem.omschrijving}</p>
                     <p class="cardActiviteit-text">Budget: ${subReisItem.budget} euro</p>

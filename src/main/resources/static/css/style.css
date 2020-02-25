@@ -724,30 +724,32 @@ html, body {
   width: 100%;
 }
 
-.pannieBtn-outline-primary {
+.dagKnop {
   background-color: #ffffff;
   color: #FF3B56;
   padding: 5px 5px;
   display: block;
+  font-size: 50px;
+  text-align: center;
 }
 
-.pannieBtn-outline-primary:focus {
+.dagKnop:focus {
     color: #ffffff;
     background-color: #FF3B56;
     transition: all 0.4s ease 0s;
 }
 
-.pannieBtn-outline-primary:active {
+.dagKnop:active {
     color: #ffffff;
     background-color: #FF3B56;
 }
 
-.pannieBtn-outline-primary:hover {
+.dagKnop:hover {
     color: #ffffff;
     background-color: #FF3B56;
     transition: all 0.4s ease 0s;
 }
 
-.pannieBtn-outline-primary:not(:last-child) {
+.dagKnop:not(:last-child) {
   border-bottom: none; /* Prevent double borders */
 }
