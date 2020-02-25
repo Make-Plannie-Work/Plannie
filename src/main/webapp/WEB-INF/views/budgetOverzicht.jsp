@@ -20,7 +20,7 @@
                         <tbody>
                             <c:forEach var="reisItem" items="${reisItem.geefReisGesorteerdDatum()}">
                                 <c:if test="${reisItem.budget > 0}">
-                                    <tr><td>${reisItem.startDatum}</td><td></td><td>${reisItem.naam}</td><td></td><td>&euro;${reisItem.budget}</td></tr>
+                                    <tr><td>${reisItem.geefGeformatteerdeStartDatumEnTijd()}</td><td></td><td>${reisItem.naam}</td><td></td><td>&euro;${reisItem.budget}</td></tr>
                                 </c:if>
                             </c:forEach>
                         </tbody>
