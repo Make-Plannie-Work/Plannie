@@ -21,6 +21,25 @@ function initMapsWithMarker() {
         position: {lat: latitude,lng: longitude},
         map: map});
     });
+
+
+    $('.googleMapMedium').each(function(i, obj) {
+    // Attributen ophalen van de <div class="googleMapSmall">kaart</div>
+    var id = obj.getAttribute('data-id');
+    var latitude = parseFloat(obj.getAttribute('data-latitude'));
+    var longitude = parseFloat(obj.getAttribute('data-longitude'));
+
+    // Kaart maken
+    map = new google.maps.Map(document.getElementById('mapMedium'+id), {
+        zoom: 12,
+        center: {lat: latitude,lng: longitude}
+    });
+
+    // Marker maken
+    marker = new google.maps.Marker({
+        position: {lat: latitude,lng: longitude},
+        map: map});
+    });
 }
 
 // Grote kaart maken om een locatie op aan te geven.

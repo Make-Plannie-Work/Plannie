@@ -65,6 +65,15 @@ public class ReisItem {
         }
     }
 
+    public Locatie vindLocatie() {
+        for (ReisItem item : geefReisGesorteerdDatum()) {
+            if (item instanceof Locatie) {
+                return (Locatie) item;
+            }
+        }
+        return null;
+    }
+
     // Methode om de set van ReisItems gesorteerd terug te geven.
     public ArrayList<ReisItem> geefReisGesorteerdDatum() {
         ArrayList<ReisItem> itemsGesorteerd = new ArrayList<>(reisItems);

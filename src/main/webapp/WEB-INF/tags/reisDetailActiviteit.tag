@@ -19,18 +19,30 @@
             </c:if>
 
             <!--Inhoud begin, is altijd activiteit-->
-            <div class="cardActiviteit reisItem flex-row flex-wrap mb-2 mx-auto" id="activiteitItemCard">
-                <div class="cardActiviteit-header border-0">
-                    ${subReisItem.soortActiviteit} ${subReisItem.geefGeformatteerdeStartDatumEnTijd()}
+            <div class="activiteitDetail-container">
+                <div class="activiteitDetail-locatie">
+                    <c:set var="locatie" scope="request" value="${subReisItem.vindLocatie()}"/>
+                    <c:choose>
+                        <c:when test="${not empty locatie}">
+                            <div class="googleMapMedium" id="mapMedium${locatie.reisItemId}"
+                                 data-latitude="${locatie.latitude}"
+                                 data-longitude="${locatie.longitude}"
+                                 data-id="${locatie.reisItemId}"></div>
+                        </c:when>
+                        <c:otherwise>
+                            Er is geen locatie
+                        </c:otherwise>
+                    </c:choose>
                 </div>
-                <div class="cardActiviteit-block px-2">
-                    <h4 class="cardActiviteit-title"><a id="ActiviteitDetails${subReisItem.naam}"
-                                              href="${pageContext.request.contextPath}/${groepId}/${reisItemId}/${subReisItem.reisItemId}/activiteitWijzigen">${subReisItem.naam}</a>
-                        <tag:dropDownNieuwReisItem reisItem="${subReisItem}" optie="-1"/>
+                <div class="activiteitDetail-soort">
+                    <h4 class="cardActiviteit-title">
+                        <a id="ActiviteitDetails${subReisItem.naam}" href="${pageContext.request.contextPath}/${groepId}/${reisItemId}/${subReisItem.reisItemId}/activiteitWijzigen">${subReisItem.soortActiviteit}</a>
                     </h4>
-                    <p class="cardActiviteit-text">${subReisItem.omschrijving}</p>
-                    <p class="cardActiviteit-text">Budget: ${subReisItem.budget} euro</p>
+                    <p style="font-size:20px;">${subReisItem.naam}</p>
                 </div>
+                <div class="activiteitDetail-omschrijving">${subReisItem.omschrijving}</div>
+                <div class="activiteitDetail-tijd">${subReisItem.geefGeformatteerdeTijd()}</div>
+                <div class="activiteitDetail-nieuw"><tag:dropDownNieuwReisItem reisItem="${subReisItem}" optie="-1"/></div>
             </div>
             <!--Inhoud eind-->
 
