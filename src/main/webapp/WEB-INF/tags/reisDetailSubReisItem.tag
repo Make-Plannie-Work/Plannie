@@ -110,39 +110,6 @@
                         </div>
 
                     </c:when>
-                    <c:when test="${soortReisItem == 'MakePlannieWork.Plannie.model.reisitem.Activiteit'}">
-                        <div class="card reisItem flex-row flex-wrap mb-2 mx-auto" id="reisItemCard">
-                            <div class="plannieCard-header border-0">
-                                ${subReisItem.soortActiviteit} ${subReisItem.geefGeformatteerdeStartDatumEnTijd()}
-                            </div>
-                            <div class="plannieCard-block px-2">
-                                <h4 class="card-title"><a id="ActiviteitDetails${subReisItem.naam}"
-                                                          href="${pageContext.request.contextPath}/${groepId}/${reisItemId}/${subReisItem.reisItemId}/activiteitWijzigen">${subReisItem.naam}</a>
-                                    <c:if test="${level < 3}">
-                                        <tag:nieuwReisItemKnoppen reisItem="${subReisItem}"/>
-                                    </c:if>
-                                </h4>
-                                <p class="card-text">${subReisItem.omschrijving}</p>
-                                <p class="card-text">Budget: ${subReisItem.budget} euro</p>
-                            </div>
-                        </div>
-                    </c:when>
-                    <c:otherwise>
-                        <div class="card reisItem flex-row flex-wrap mb-2 mx-auto" id="reisItemCard">
-                            <div class="plannieCard-header border-0">
-                                <img src="https://via.placeholder.com/100.jpg" alt="">
-                            </div>
-                            <div class="plannieCard-block px-2">
-                                <h4 class="card-title"><a id="reisItemDetails${subReisItem.reisItemId}"
-                                                          href="${pageContext.request.contextPath}/${groep.groepId}/reisItemsDetail/${subReisItem.reisItemId}">${subReisItem.naam}</a>
-                                    <c:if test="${level < 3}">
-                                        <tag:nieuwReisItemKnoppen reisItem="${subReisItem}"/>
-                                    </c:if>
-                                </h4>
-                                <p class="card-text">${subReisItem.getClass().name}</p>
-                            </div>
-                        </div>
-                    </c:otherwise>
                 </c:choose>
             </li>
             <!--Inhoud eind-->

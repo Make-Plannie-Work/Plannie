@@ -6,7 +6,6 @@
 <!--Locaties, poll status, budget, etc?-->
 
 <c:set var="soortReisItem" scope="request" value="${subReisItem.getClass().name}"/>
-
 <!--Accordion kop-->
 <div class="accordionActiviteit" id="accordionActiviteit${subReisItem.reisItemId}">
     <div class="list-group">
@@ -29,14 +28,18 @@
                     </c:choose>
                 </div>
                 <div class="activiteitDetailContainer-soort">
-                    <h4 class="cardActiviteit-title">
+                    <h4>
                         <a id="ActiviteitDetails${subReisItem.naam}"
                            href="${pageContext.request.contextPath}/${groepId}/${reisItemId}/${subReisItem.reisItemId}/activiteitWijzigen">${subReisItem.soortActiviteit}</a>
                     </h4>
                     <p style="font-size:20px;">${subReisItem.naam}</p>
                 </div>
-                <div class="activiteitDetailContainer-omschrijving">${subReisItem.omschrijving}</div>
-                <div class="activiteitDetailContainer-tijd">${subReisItem.geefGeformatteerdeTijd()}</div>
+                <div class="activiteitDetailContainer-omschrijving">
+                    ${subReisItem.omschrijving}
+                </div>
+                <div class="activiteitDetailContainer-tijd">
+                    ${subReisItem.geefGeformatteerdeTijd()}
+                </div>
                 <div class="activiteitDetailContainer-nieuw">
                     <button class="btn btn-primary mt-3" type="button" data-toggle="collapse"
                             data-target="#collapseActiviteit${subReisItem.reisItemId}" aria-expanded="true"

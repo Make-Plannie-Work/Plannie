@@ -8,7 +8,7 @@
 <!--Accordion kop-->
 <section class="accordionDag" id="accordionDag${dag.dagNummer}">
     <div class="card">
-        <div class="accordionDag-header card-body" id="headingDag${dag.dagNummer}">
+        <div class="accordionDag-header" id="headingDag${dag.dagNummer}">
 
             <!--Inhoud begin, is altijd een Dag, en de gegevens van de dag staan in de knop.-->
             <button class="btn dagKnop btn-lg btn-block" type="button" data-toggle="collapse"
@@ -22,7 +22,7 @@
         <!--Inhoud eind-->
 
         <!--Accordion uitklapveld-->
-        <div id="collapseDag${dag.dagNummer}" class="collapse show card-footer"
+        <div id="collapseDag${dag.dagNummer}" class="collapse show"
              aria-labelledby="headingDag${dag.dagNummer}"
              data-parent="#accordionDag${dag.dagNummer}">
             <div>

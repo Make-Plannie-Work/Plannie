@@ -855,7 +855,9 @@ margin-top: 5px;
   grid-template-columns: repeat(7, 1fr);
   grid-template-rows: repeat(4, 1fr);
   grid-gap: 5px;
-  background-color: #FFE070;
+  background-color: #FBFCFC;
+  border: 2px solid #FFE070;
+  border-radius: 5px;
   padding: 5px;
 }
 
@@ -890,7 +892,9 @@ margin-top: 5px;
   grid-template-columns: repeat(6, 1fr);
   grid-template-rows: repeat(5, 1fr);
   grid-gap: 5px;
-  background-color: #FFE070;
+  background-color: #FBFCFC;
+  border: 2px solid #FFE070;
+  border-radius: 5px;
   padding: 5px;
 }
 
@@ -926,7 +930,9 @@ margin-top: 5px;
   grid-template-columns: repeat(6, 1fr);
   grid-template-rows: repeat(4, 1fr);
   grid-gap: 5px;
-  background-color: #FFE070;
+  background-color: #FBFCFC;
+  border: 2px solid #FFE070;
+  border-radius: 5px;
   padding: 5px;
 }
 
@@ -962,7 +968,9 @@ margin-top: 5px;
   grid-template-columns: repeat(6, 1fr);
   grid-template-rows: repeat(4, 1fr);
   grid-gap: 5px;
-  background-color: #FFE070;
+  background-color: #FBFCFC;
+  border: 2px solid #FFE070;
+  border-radius: 5px;
   padding: 5px;
 }
 
