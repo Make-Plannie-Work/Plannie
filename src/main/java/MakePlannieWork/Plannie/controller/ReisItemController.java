@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.security.Principal;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Optional;
 
@@ -158,8 +157,9 @@ public class ReisItemController {
 
         Optional<ReisItem> reisItemOptional = plannieReisItemService.findById(reisItemId);
         Activiteit activiteit = new Activiteit();
-        Notitie notitie = new Notitie();
-        Locatie locatie = new Locatie();
+        Notitie notitie = null;
+        Locatie locatie = null;
+        boolean locatieEnNotitieKloppen = true;
 
         activiteit.setSoortActiviteit(activiteitDTO.getSoortActiviteit());
         activiteit.setNaam(activiteitDTO.getNaam());
@@ -167,39 +167,65 @@ public class ReisItemController {
         activiteit.setBudget(activiteitDTO.getBudget());
         activiteit.setOmschrijving(activiteitDTO.getOmschrijving());
 
-        notitie.setTekst(activiteitDTO.getTekst());
-        notitie.setStartDatum(activiteitDTO.getStartDatum());
+        if (activiteitDTO.isNotitieNodig()) {
+            notitie = new Notitie();
+            notitie.setNaam(activiteitDTO.getNotitieNaam());
+            notitie.setTekst(activiteitDTO.getNotitieTekst());
+            notitie.setStartDatum(activiteitDTO.getStartDatum());
+            System.out.println("Notitie tekst lengte: " + notitie.getTekst().length());
+            if (notitie.getNaam().equals("") || notitie.getTekst().length() <= 1) {
+                System.out.println("Notitie is fout");
+                locatieEnNotitieKloppen = false;
+            }
+        }
+        if (activiteitDTO.isLocatieNodig()) {
+            locatie = new Locatie();
+            locatie.setNaam(activiteitDTO.getLocatieNaam());
+            locatie.setAdres(activiteitDTO.getLocatieAdres());
+            locatie.setStartDatum(activiteitDTO.getStartDatum());
+            locatie.setLatitude(activiteitDTO.getLocatieLatitude());
+            locatie.setLongitude(activiteitDTO.getLocatieLongitude());
+            if (locatie.getNaam().equals("") || locatie.getAdres().equals("")) {
+                System.out.println("Locatie is fout");
+                locatieEnNotitieKloppen = false;
+            }
+        }
 
-        locatie.setAdres(activiteitDTO.getAdres());
-        locatie.setStartDatum(activiteitDTO.getStartDatum());
-        locatie.setLatitude(activiteitDTO.getLatitude());
-        locatie.setLongitude(activiteitDTO.getLongitude());
+        // Test
+        System.out.println("TEST PRINTLN:");
+        System.out.println("Locatie en notitie kloppen: " + locatieEnNotitieKloppen);
+        System.out.println("Activiteitsoort: " + activiteitDTO.getSoortActiviteit() + ", Naam: " + activiteitDTO.getNaam() + ", Omschrijving: " + activiteitDTO.getOmschrijving());
+        System.out.println("Notitie\nTitel: " + activiteitDTO.getNotitieNaam() + ", Tekst : " + activiteitDTO.getNotitieTekst());
+        System.out.println("Locatie\nTitel: " + activiteitDTO.getLocatieNaam() + ", Adres: " + activiteitDTO.getLocatieAdres() + ", lat: " + activiteitDTO.getLocatieLatitude() + ", long: " + activiteitDTO.getLocatieLongitude());
 
-
-        if (reisItemOptional.isPresent() && !notitie.getTekst().equals("")) {
+        if (reisItemOptional.isEmpty() || !locatieEnNotitieKloppen) {
+            System.out.println("Error!");
+            return "redirect:/" + groepId + "/reisItemDetail/" + reisItemId + "/ActiviteitAanmaken";
+        } else {
             ReisItem reis = reisItemOptional.get();
             reisItemId = reis.getHoofdReisItemId();
 
-            // ReisItem aan reis koppelen, en ReisItem aan reis toevoegen.
+//          ReisItem aan reis koppelen, en ReisItem aan reis toevoegen.
             activiteit.setGekoppeldeReisItemId(reis);
             reis.voegReisItemToe(activiteit);
             reisItemRepository.save(activiteit);
             reisItemRepository.save(reis);
 
-            if (!notitie.getTekst().equals("")) {
+            if (notitie != null) {
                 notitie.setGekoppeldeReisItemId(activiteit);
                 activiteit.voegReisItemToe(notitie);
                 reisItemRepository.save(notitie);
                 reisItemRepository.save(activiteit);
 
             }
-            if (locatie.getAdres() != null || locatie.getLatitude() != 0 || locatie.getLongitude() != 0) {
+            if (locatie != null) {
                 locatie.setGekoppeldeReisItemId(activiteit);
                 activiteit.voegReisItemToe(locatie);
                 reisItemRepository.save(locatie);
                 reisItemRepository.save(activiteit);
             }
         }
+        System.out.println("Success!");
         // Terug naar reis overzicht.
         return "redirect:/" + groepId + "/reisItemDetail/" + reisItemId;
     }
@@ -226,11 +252,11 @@ public class ReisItemController {
         return "redirect:/" + groepId + "/reisItemDetail/" + reisItemId;
     }
 
-    // Opslaan van gewijzigde locatie
+    // Opslaan van gewijzigde activiteit
     @PostMapping("/{groepId}/{reisItemId}/{reisItemsId}/activiteitWijzigen")
     public String activiteitWijzigen(@ModelAttribute("activiteitWijzigFormulier") Activiteit activiteit, @PathVariable("groepId") Integer groepId, @PathVariable("reisItemId") Integer reisItemId, @PathVariable("reisItemsId") Integer activiteitId, BindingResult result) {
         if (result.hasErrors()) {
-            return "redirect:/locatieWijzig";
+            return "redirect:/activiteitWijzigen";
         } else {
             Activiteit huidigeActiviteit = reisItemRepository.findActiviteitByReisItemId(activiteitId);
             huidigeActiviteit.setNaam(activiteit.getNaam());
@@ -512,8 +538,8 @@ public class ReisItemController {
     // Verwijderen van subReisItem
     @GetMapping("/{groepId}/{reisItemId}/{reisItemsId}/subReisItemVerwijderen")
     public String subReisItemVerwijderen(@PathVariable("groepId")
-                                     Integer groepId, @PathVariable("reisItemId") Integer reisItemId,
-                                     @PathVariable("reisItemsId") Integer subReisItemId) {
+                                                 Integer groepId, @PathVariable("reisItemId") Integer reisItemId,
+                                         @PathVariable("reisItemsId") Integer subReisItemId) {
         Optional<ReisItem> huidigeSubReisItem = reisItemRepository.findById(subReisItemId);
 
         if (huidigeSubReisItem.isPresent()) {

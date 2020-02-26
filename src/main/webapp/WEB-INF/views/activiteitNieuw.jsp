@@ -6,80 +6,148 @@
 <body>
 <div class="wrapper">
 
-<div class="container mt-3">
-    <div class="row">
-        <div class="col-sm-12 fixed-top">
+    <div class="container mt-3">
+        <div class="row">
+            <div class="col-sm-12 fixed-top">
+            </div>
         </div>
-    </div>
-    <div class="row">
+        <div class="row">
 
-        <div class="col-sm-8">
-            <div class="jumbotron shadow border">
-                <div class="row">
-                    <p class="lead">Activiteit</p>
-                </div>
-                <div class="row">
-                    <div>
-                        <div class="row">
-                            <div class="col">
-                            <form:form action="${pageContext.request.contextPath}/${groep.groepId}/reisItemDetail/${reisItem.reisItemId}/nieuweActiviteit" method="post" modelAttribute="activiteitAanmakenFormulier">
-                                    <form:radiobutton class="ActiviteitBorrelen" id="activiteitSoort" path="soortActiviteit" value="Borrelen" required="required" label="Borrelen"/><br>
-                                    <form:radiobutton class="ActiviteitActiviteit" id="activiteitSoort1" path="soortActiviteit" value="Activiteit" required="required" label="Activiteit"/><br>
-                                    <form:radiobutton class="ActiviteitDineren" id="activiteitSoort2" path="soortActiviteit" value="Dineren" required="required" label="Dineren"/><br>
-                                    <form:radiobutton class="ActiviteitOvernachten" id="activiteitSoort3" path="soortActiviteit" value="Overnachten" required="required" label="Overnachten"/><br>
+            <div class="col-sm-8">
+                <div class="jumbotron shadow border">
+                    <div class="row">
+                        <p class="lead">Activiteit</p>
+                    </div>
+                    <div class="row">
+                        <div>
+                            <div class="row">
+                                <div class="col">
+                                    <form:form
+                                            action="${pageContext.request.contextPath}/${groep.groepId}/reisItemDetail/${reisItem.reisItemId}/nieuweActiviteit"
+                                            method="post" modelAttribute="activiteitAanmakenFormulier">
+                                        <div class="form-group">
+                                            <form:radiobutton class="ActiviteitBorrelen" id="activiteitSoort"
+                                                              path="soortActiviteit" value="Borrelen"
+                                                              required="required"
+                                                              label="Borrelen"/>
+                                            <br>
+                                            <form:radiobutton class="ActiviteitActiviteit" id="activiteitSoort1"
+                                                              path="soortActiviteit" value="Activiteit"
+                                                              required="required"
+                                                              label="Activiteit"/>
+                                            <br>
+                                            <form:radiobutton class="ActiviteitDineren" id="activiteitSoort2"
+                                                              path="soortActiviteit" value="Dineren" required="required"
+                                                              label="Dineren"/>
+                                            <br>
+                                            <form:radiobutton class="ActiviteitOvernachten" id="activiteitSoort3"
+                                                              path="soortActiviteit" value="Overnachten"
+                                                              required="required"
+                                                              label="Overnachten"/>
+                                            <br>
 
-                                    <form:input id="activiteitTitel" type="text" class="form-control" path="naam" required="required"
-                                                placeholder="Titel"/>
-                                    <form:input id="activiteitOmschrijving" type="text" class="form-control" path="omschrijving" placeholder="Omschrijving"/>
-                                    <form:input id="activiteitDatum" type="datetime-local" class="form-control" path="startDatum" required="required"
-                                                value="${reisItem.geefNieuwStartDatum()}"/>
-
-                                    <form:textarea id="activiteitTekst" path="tekst" class="form-control mt-2" rows="5" cols="30" required="required" placeholder="Vertel hier je groepsleden wat jullie gaan doen."/>
-                            </div>
-                        </div>
-                                    <hr class="my-4">
-                                    <p class="lead">Optioneel: Voeg een budget toe aan deze activiteit</p>
-                                    <div class="row">
-                                        <div class="col">
-                                            <form:input id="activiteitBudget" type="number" step="10" min="0" class="form-control" path="budget"/>
+                                            <form:input id="activiteitTitel" type="text" class="form-control"
+                                                        path="naam"
+                                                        required="required"
+                                                        placeholder="Titel"/>
+                                            <form:input id="activiteitOmschrijving" type="text" class="form-control"
+                                                        path="omschrijving" placeholder="Omschrijving"/>
+                                            <form:input id="activiteitDatum" type="datetime-local" class="form-control"
+                                                        path="startDatum" required="required"
+                                                        value="${reisItem.geefNieuwStartDatum()}"/>
                                         </div>
-                                    </div>
-                                    <hr class="my-4">
-                                    <form:button id="activiteitAanmaken" type="submit" class="btn btn-primary mt-3">Activiteit opslaan
-                                    </form:button>
+
+                                        <div class="form-group">
+
+                                            <form:checkbox    id="notitieNodig"
+                                                              path="notitieNodig"
+                                                              value="true"
+                                                              label="Gelijk een notitie aanmaken"/>
+                                            <br>
+                                            Notitie:
+                                            <form:input id="notitieNaam" type="text" class="form-control"
+                                                        path="notitieNaam" placeholder="Notitie Titel"
+                                                        value="Niet vergeten!"/>
+                                            <form:textarea id="activiteitTekst" path="notitieTekst"
+                                                           class="form-control mt-2" rows="5" cols="30"
+                                                           placeholder="Vertel je groepsleden wat ze niet moeten vergeten mee te nemen, of deel een memo met ze."/>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <form:checkbox id="locatieNodig"
+                                                           path="locatieNodig"
+                                                           value="true"
+                                                           label="Gelijk een locatie aanmaken"/>
+                                            <br>
+                                            Locatie:
+                                            <form:input id="locatieNaam" type="text" class="form-control"
+                                                        path="locatieNaam"
+                                                        data-toggle="tooltip" data-placement="top"
+                                                        title="Naam van deze locatie"
+                                                        placeholder="Geef een naam op voor deze locatie"/>
+                                            <label for="locatieAdres">Adres</label>
+                                            <form:input id="locatieAdres" type="text" class="form-control"
+                                                        path="locatieAdres"
+                                                        data-toggle="tooltip" data-placement="top" title="Adres"
+                                                        placeholder="Adres van de locatie"/>
+                                            <label for="locatieLatitude">Latitude</label>
+                                            <label for="locatieLongitude">Longitude</label>
+                                            <form:input id="locatieLatitude" type="text" class="form-control-inline"
+                                                        path="locatieLatitude" data-toggle="tooltip"
+                                                        data-placement="top"
+                                                        title="Latitude" readonly="true" value="654321"/>
+                                            <form:input id="locatieLongitude" type="text" class="form-control-inline"
+                                                        path="locatieLongitude" data-toggle="tooltip"
+                                                        data-placement="top"
+                                                        title="Longitude" readonly="true" value="123456"/>
+                                        </div>
+                                </div>
+                            </div>
+                            <hr class="my-4">
+                            <p class="lead">Optioneel: Voeg een budget toe aan deze activiteit</p>
+                            <div class="row">
+                                <div class="col">
+                                    <form:input id="activiteitBudget" type="number" step="10" min="0"
+                                                class="form-control" path="budget"/>
+                                </div>
+                            </div>
+                            <hr class="my-4">
+                            <form:button id="activiteitAanmaken" type="submit" class="btn btn-primary mt-3">Activiteit
+                                opslaan
+                            </form:button>
                             </form:form>
 
-                        <a href= "${pageContext.request.contextPath}/${groep.groepId}/reisItemDetail/${reisItem.reisItemId}">
-                            <button type="text" class="btn btn-primary mt-3" id="annuleren">Annuleren</button>
-                        </a>
+                            <a href="${pageContext.request.contextPath}/${groep.groepId}/reisItemDetail/${reisItem.reisItemId}">
+                                <button type="text" class="btn btn-primary mt-3" id="annuleren">Annuleren</button>
+                            </a>
+                        </div>
+
                     </div>
-
                 </div>
             </div>
-        </div>
 
-        <div class="col-sm-4">
-            <div class="jumbotron shadow" id="wouter">
-                <div class="row">
-                    <p class="lead text-white">Info 1</p>
-                </div>
-                <hr class="my-4">
-                <div class="row">
-                    <p class="lead text-white mt-3">Info 2</hp>
+            <div class="col-sm-4">
+                <div class="jumbotron shadow" id="wouter">
+                    <div class="row">
+                        <p class="lead text-white">Info 1</p>
+                    </div>
                     <hr class="my-4">
+                    <div class="row">
+                        <p class="lead text-white mt-3">Info 2</hp>
+                        <hr class="my-4">
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-offset-1 col-sm-10 mb-5">
-            <div class="card w-75 mx-auto">
-                <div class="plannieCard-body">
-                    <p>Contact</p>
+        <div class="row">
+            <div class="col-sm-offset-1 col-sm-10 mb-5">
+                <div class="card w-75 mx-auto">
+                    <div class="plannieCard-body">
+                        <p>Contact</p>
+                    </div>
                 </div>
+
             </div>
-
         </div>
-    </div>
 
-<jsp:include page="footer.jsp"/>
+        <jsp:include page="footer.jsp"/>
