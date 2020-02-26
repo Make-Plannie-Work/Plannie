@@ -403,7 +403,8 @@ border-color: green;
 }
 
 .googleMapSmall {
-  min-height: 100px;
+  max-height: 300px;
+  height: 100%;
   width: 100%;
 }
 
@@ -885,7 +886,9 @@ margin-top: 5px;
   grid-template-columns: repeat(7, 1fr);
   grid-template-rows: repeat(4, 1fr);
   grid-gap: 5px;
-  background-color: #FFE070;
+  background-color: #FBFCFC;
+  border: 2px solid #FFE070;
+  border-radius: 5px;
   padding: 5px;
 }
 
@@ -913,4 +916,123 @@ margin-top: 5px;
   background-color: #FFFFFF;
   text-align: center;
   font-size: 30px;
+}
+
+.notitieDetailContainer-container {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  grid-gap: 5px;
+  background-color: #FBFCFC;
+  border: 2px solid #FFE070;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+.notitieDetailContainer-soort { grid-area: 1 / 1 / 2 / 3;
+  background-color: #FFFFFF;
+  text-align: center;
+  font-size: 30px;
+}
+.notitieDetailContainer-naam { grid-area: 1 / 3 / 2 / 7;
+  background-color: #FFFFFF;
+  text-align: center;
+  font-size: 30px;
+}
+.notitieDetailContainer-tekst { grid-area: 2 / 1 / 5 / 7;
+  background-color: #FFFFFF;
+  text-align: left;
+  font-size: 15px;
+  overflow-y: scroll;
+  max-height:165px;
+}
+.notitieDetailContainer-budget { grid-area: 5 / 1 / 6 / 5;
+  background-color: #FFFFFF;
+  text-align: left;
+  font-size: 15px;
+}
+.notitieDetailContainer-wijzig { grid-area: 5 / 5 / 6 / 7;
+  align-self: flex-end;
+  margin-left: auto;
+}
+
+.pollDetailContainer-container {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  grid-gap: 5px;
+  background-color: #FBFCFC;
+  border: 2px solid #FFE070;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+.pollDetailContainer-soort { grid-area: 1 / 1 / 2 / 3;
+  background-color: #FFFFFF;
+  text-align: center;
+  font-size: 30px;
+}
+.pollDetailContainer-naam { grid-area: 1 / 3 / 2 / 7;
+  background-color: #FFFFFF;
+  text-align: center;
+  font-size: 30px;
+}
+.pollDetailContainer-tekst { grid-area: 2 / 1 / 4 / 7;
+  background-color: #FFFFFF;
+  text-align: left;
+  padding:5px;
+  font-size: 20px;
+  max-height:107px;
+}
+.pollDetailContainer-budget { grid-area: 4 / 1 / 5 / 5;
+  background-color: #FFFFFF;
+  text-align: left;
+  font-size: 15px;
+}
+.pollDetailContainer-wijzig { grid-area: 4 / 5 / 5 / 7;
+  align-self: flex-end;
+  margin-left: auto;
+}
+
+.locatieDetailContainer-container {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  grid-gap: 5px;
+  background-color: #FBFCFC;
+  border: 2px solid #FFE070;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+.locatieDetailContainer-soort { grid-area: 1 / 1 / 2 / 3;
+  background-color: #FFFFFF;
+  text-align: center;
+  font-size: 30px;
+}
+.locatieDetailContainer-naam { grid-area: 1 / 3 / 2 / 7;
+  background-color: #FFFFFF;
+  text-align: center;
+  font-size: 30px;
+}
+.locatieDetailContainer-kaart { grid-area: 2 / 1 / 4 / 5;
+  background-color: #FFFFFF;
+  text-align: left;
+  padding:5px;
+  font-size: 20px;
+  max-height:107px;
+}
+.locatieDetailContainer-adresgegevens { grid-area: 2 / 5 / 4 / 7;
+  background-color: #FFFFFF;
+  text-align: left;
+  font-size: 15px;
+}
+.locatieDetailContainer-budget { grid-area: 4 / 1 / 5 / 5;
+  background-color: #FFFFFF;
+  text-align: left;
+  font-size: 15px;
+}
+.locatieDetailContainer-wijzig { grid-area: 4 / 5 / 5 / 7;
+  align-self: flex-end;
+  margin-left: auto;
 }
