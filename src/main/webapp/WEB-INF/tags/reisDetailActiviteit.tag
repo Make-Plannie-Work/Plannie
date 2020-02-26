@@ -52,15 +52,13 @@
         <div id="collapseActiviteit${subReisItem.reisItemId}" class="collapse"
              aria-labelledby="headingActiviteit${subReisItem.reisItemId}"
              data-parent="#accordionActiviteit${subReisItem.reisItemId}">
-            <div class="col">
-                <div class="activiteitDetailBody-body">
-                    <div class="row">
-                        <tag:nieuwReisItemKnoppen reisItem="${subReisItem}" optie="1"/>
-                    </div>
+            <ul class="list-group">
+                <li class="list-group-item list-group-item-light">
+                    <tag:nieuwReisItemKnoppen reisItem="${subReisItem}" optie="1"/>
+                </li>
                     <tag:reisItemAccordion subReisItems="${subReisItem.geefReisGesorteerdDatum()}"
                                            level="${level}"/>
-                </div>
-            </div>
+            </ul>
         </div>
     </div>
 </div>
