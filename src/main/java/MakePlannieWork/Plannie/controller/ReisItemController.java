@@ -141,6 +141,7 @@ public class ReisItemController {
             model.addAttribute("reisItem", reisItemOptional.get());
             model.addAttribute("groepslidEmail", new Gebruiker());
             model.addAttribute("groep", groepOptional.get());
+            model.addAttribute("mapsAPI", mapsAPI);
 
             model.addAttribute("notitie", new Notitie());
             model.addAttribute("activiteitAanmakenFormulier", new ActiviteitDTO());

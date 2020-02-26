@@ -83,6 +83,9 @@
                                             <br>
                                             <div id='collapseLocatie' class='collapse locatie'>
                                                 Locatie:
+                                                <div class="googleMapLarge" id="map"></div>
+
+
                                                 <form:input id="locatieNaam" type="text" class="form-control"
                                                             path="locatieNaam"
                                                             data-toggle="tooltip" data-placement="top"
@@ -98,12 +101,12 @@
                                                 <form:input id="locatieLatitude" type="text" class="form-control-inline"
                                                             path="locatieLatitude" data-toggle="tooltip"
                                                             data-placement="top"
-                                                            title="Latitude" readonly="true" value="654321"/>
+                                                            title="Latitude" readonly="true"/>
                                                 <form:input id="locatieLongitude" type="text"
                                                             class="form-control-inline"
                                                             path="locatieLongitude" data-toggle="tooltip"
                                                             data-placement="top"
-                                                            title="Longitude" readonly="true" value="123456"/>
+                                                            title="Longitude" readonly="true"/>
                                             </div>
                                         </div>
                                 </div>
@@ -156,3 +159,6 @@
         </div>
 
         <jsp:include page="footer.jsp"/>
+        <script defer
+                src="https://maps.googleapis.com/maps/api/js?key=${mapsAPI}&callback=initMapAndGeo">
+        </script>
