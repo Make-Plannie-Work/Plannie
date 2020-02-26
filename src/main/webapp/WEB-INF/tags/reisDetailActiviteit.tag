@@ -8,7 +8,7 @@
 <c:set var="soortReisItem" scope="request" value="${subReisItem.getClass().name}"/>
 <!--Accordion kop-->
 <div class="accordionActiviteit" id="accordionActiviteit${subReisItem.reisItemId}">
-    <div class="list-group">
+    <div class="list-group" style="border:0;">
         <div class="accordionActiviteit-header" id="headingActiviteit${subReisItem.reisItemId}">
 
             <!--Inhoud begin, is altijd activiteit-->

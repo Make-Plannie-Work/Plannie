@@ -36,10 +36,15 @@
                         onclick="window.location.href = '${pageContext.request.contextPath}/${groep.groepId}/reisItemDetail/${reisItem.reisItemId}/PollAanmaken'">
                     Poll
                 </button>
-                <button class="btn btn-primary mt-3" id="locatieKeuze${reisItem.reisItemId}/LocatieAanmaken"
-                        onclick="window.location.href = '${pageContext.request.contextPath}/${groep.groepId}/reisItemDetail/${reisItem.reisItemId}/LocatieAanmaken'">
-                    Locatie
-                </button>
+
+                <c:set var="locatie" scope="request" value="${subReisItem.vindLocatie()}"/>
+
+                <c:if test="${empty locatie}">
+                    <button class="btn btn-primary mt-3" id="locatieKeuze${reisItem.reisItemId}/LocatieAanmaken"
+                            onclick="window.location.href = '${pageContext.request.contextPath}/${groep.groepId}/reisItemDetail/${reisItem.reisItemId}/LocatieAanmaken'">
+                        Locatie
+                    </button>
+                </c:if>
             </div>
             <div class="btn-group mr-2" role="group" aria-label="Second group">
                 <button class="btn btn-primary mt-3" id="activiteitWijzigen${subReisItem.reisItemId}"
