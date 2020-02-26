@@ -74,10 +74,14 @@ public class ReisItem {
         return null;
     }
 
+    public String geefTypeReisItem() {
+        return this.getClass().getName();
+    }
+
     // Methode om de set van ReisItems gesorteerd terug te geven.
     public ArrayList<ReisItem> geefReisGesorteerdDatum() {
         ArrayList<ReisItem> itemsGesorteerd = new ArrayList<>(reisItems);
-        itemsGesorteerd.sort(Comparator.comparing(ReisItem::getStartDatum));
+        itemsGesorteerd.sort(Comparator.comparing(ReisItem::getStartDatum).thenComparing(ReisItem::getNaam).thenComparing(ReisItem::geefTypeReisItem));
         return itemsGesorteerd;
     }
 
@@ -268,7 +272,11 @@ public class ReisItem {
     }
 
     public String getNaam() {
-        return naam;
+        if (naam != null) {
+            return naam;
+        } else {
+            return "";
+        }
     }
 
     public void setNaam(String naam) {

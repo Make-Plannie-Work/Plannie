@@ -38,7 +38,9 @@
                     ${subReisItem.omschrijving}
                 </div>
                 <div class="activiteitDetailContainer-tijd">
-                    ${subReisItem.geefGeformatteerdeTijd()}
+                    Kosten: ${subReisItem.budget}
+                    <br/>
+                    ${subReisItem.geefGeformatteerdeStartDatumEnTijd()}
                 </div>
                 <div class="activiteitDetailContainer-nieuw">
                     <button class="btn btn-primary mt-3" type="button" data-toggle="collapse"
@@ -59,8 +61,8 @@
                 <li class="list-group-item list-group-item-light">
                     <tag:nieuwReisItemKnoppen reisItem="${subReisItem}" optie="1"/>
                 </li>
-                    <tag:reisItemAccordion subReisItems="${subReisItem.geefReisGesorteerdDatum()}"
-                                           level="${level}"/>
+                <tag:reisItemAccordion subReisItems="${subReisItem.geefReisGesorteerdDatum()}"
+                                       level="${level}"/>
             </ul>
         </div>
     </div>

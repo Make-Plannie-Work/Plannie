@@ -27,8 +27,7 @@
                                 </div>
                             </div>
                             <div class="form-group mt-3">
-                                     <form:input type="number" class="form-control" path="budget" required="required"
-                                                placeholder="notitieBudget" />
+                                     <form:input type="number" class="form-control" path="budget" placeholder="notitieBudget" />
                             </div>
                             <div class="form-group mt-3">
                                 <form:textarea id="notitieTekst" path="tekst" class="form-control mt-2" rows="5" cols="30" required="required"
