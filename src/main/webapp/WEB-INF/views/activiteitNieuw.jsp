@@ -4,6 +4,7 @@
 <jsp:include page="header.jsp"/>
 <title>Activiteit aanmaken - ${currentUser.voornaam}</title>
 <body>
+<div class="wrapper">
 
 <div class="container mt-3">
     <div class="row">
@@ -80,6 +81,5 @@
 
         </div>
     </div>
-</div>
 
 <jsp:include page="footer.jsp"/>
