@@ -21,6 +21,11 @@
 </head>
 
 <nav class="navbar sticky-top">
+
+    <security:authorize access="isAuthenticated()">
+        <img src="${pageContext.request.contextPath}/images/planniewit.png" class="ml-5" id="logowit"/>
+    </security:authorize>
+
     <ul class="nav justify-content-end">
 
         <security:authorize access="isAnonymous()">
@@ -33,6 +38,9 @@
             </li>
         </security:authorize>
         <security:authorize access="isAuthenticated()">
+
+
+
             <li class="nav-item">
                 <a class="nav-link" method="post" id="gebruikerDetailHeader" href="${pageContext.request.contextPath}/gebruikerDetail">${currentUser.voornaam}'s Plannie</a>
             </li>
@@ -51,7 +59,9 @@
                 </form>
 
             </li>
+
         </security:authorize>
     </ul>
+
 </nav>
 
