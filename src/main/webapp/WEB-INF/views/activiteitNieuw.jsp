@@ -59,47 +59,52 @@
 
                                         <div class="form-group">
 
-                                            <form:checkbox    id="notitieNodig"
-                                                              path="notitieNodig"
-                                                              value="true"
-                                                              label="Gelijk een notitie aanmaken"/>
+                                            <form:checkbox id="notitieNodig"
+                                                           path="notitieNodig"
+                                                           label="Gelijk een notitie aanmaken"
+                                                           data-toggle='collapse' data-target='#collapseNotitie'/>
                                             <br>
-                                            Notitie:
-                                            <form:input id="notitieNaam" type="text" class="form-control"
-                                                        path="notitieNaam" placeholder="Notitie Titel"
-                                                        value="Niet vergeten!"/>
-                                            <form:textarea id="activiteitTekst" path="notitieTekst"
-                                                           class="form-control mt-2" rows="5" cols="30"
-                                                           placeholder="Vertel je groepsleden wat ze niet moeten vergeten mee te nemen, of deel een memo met ze."/>
+                                            <div id='collapseNotitie' class='collapse notitie'>
+                                                Notitie:
+                                                <form:input id="notitieNaam" type="text" class="form-control"
+                                                            path="notitieNaam" placeholder="Notitie Titel"
+                                                            value="Niet vergeten!"/>
+                                                <form:textarea id="activiteitTekst" path="notitieTekst"
+                                                               class="form-control mt-2" rows="5" cols="30"
+                                                               placeholder="Vertel je groepsleden wat ze niet moeten vergeten mee te nemen, of deel een memo met ze."/>
+                                            </div>
                                         </div>
 
                                         <div class="form-group">
                                             <form:checkbox id="locatieNodig"
                                                            path="locatieNodig"
-                                                           value="true"
-                                                           label="Gelijk een locatie aanmaken"/>
+                                                           label="Gelijk een locatie aanmaken"
+                                                           data-toggle='collapse' data-target='#collapseLocatie'/>
                                             <br>
-                                            Locatie:
-                                            <form:input id="locatieNaam" type="text" class="form-control"
-                                                        path="locatieNaam"
-                                                        data-toggle="tooltip" data-placement="top"
-                                                        title="Naam van deze locatie"
-                                                        placeholder="Geef een naam op voor deze locatie"/>
-                                            <label for="locatieAdres">Adres</label>
-                                            <form:input id="locatieAdres" type="text" class="form-control"
-                                                        path="locatieAdres"
-                                                        data-toggle="tooltip" data-placement="top" title="Adres"
-                                                        placeholder="Adres van de locatie"/>
-                                            <label for="locatieLatitude">Latitude</label>
-                                            <label for="locatieLongitude">Longitude</label>
-                                            <form:input id="locatieLatitude" type="text" class="form-control-inline"
-                                                        path="locatieLatitude" data-toggle="tooltip"
-                                                        data-placement="top"
-                                                        title="Latitude" readonly="true" value="654321"/>
-                                            <form:input id="locatieLongitude" type="text" class="form-control-inline"
-                                                        path="locatieLongitude" data-toggle="tooltip"
-                                                        data-placement="top"
-                                                        title="Longitude" readonly="true" value="123456"/>
+                                            <div id='collapseLocatie' class='collapse locatie'>
+                                                Locatie:
+                                                <form:input id="locatieNaam" type="text" class="form-control"
+                                                            path="locatieNaam"
+                                                            data-toggle="tooltip" data-placement="top"
+                                                            title="Naam van deze locatie"
+                                                            placeholder="Geef een naam op voor deze locatie"/>
+                                                <label for="locatieAdres">Adres</label>
+                                                <form:input id="locatieAdres" type="text" class="form-control"
+                                                            path="locatieAdres"
+                                                            data-toggle="tooltip" data-placement="top" title="Adres"
+                                                            placeholder="Adres van de locatie"/>
+                                                <label for="locatieLatitude">Latitude</label>
+                                                <label for="locatieLongitude">Longitude</label>
+                                                <form:input id="locatieLatitude" type="text" class="form-control-inline"
+                                                            path="locatieLatitude" data-toggle="tooltip"
+                                                            data-placement="top"
+                                                            title="Latitude" readonly="true" value="654321"/>
+                                                <form:input id="locatieLongitude" type="text"
+                                                            class="form-control-inline"
+                                                            path="locatieLongitude" data-toggle="tooltip"
+                                                            data-placement="top"
+                                                            title="Longitude" readonly="true" value="123456"/>
+                                            </div>
                                         </div>
                                 </div>
                             </div>

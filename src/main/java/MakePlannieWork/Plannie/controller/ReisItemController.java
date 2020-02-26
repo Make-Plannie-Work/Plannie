@@ -161,23 +161,24 @@ public class ReisItemController {
         Locatie locatie = null;
         boolean locatieEnNotitieKloppen = true;
 
+        // Activiteit setten
         activiteit.setSoortActiviteit(activiteitDTO.getSoortActiviteit());
         activiteit.setNaam(activiteitDTO.getNaam());
         activiteit.setStartDatum(activiteitDTO.getStartDatum());
         activiteit.setBudget(activiteitDTO.getBudget());
         activiteit.setOmschrijving(activiteitDTO.getOmschrijving());
 
+        // Notitie setten wanneer nodig en controleren op juistheid.
         if (activiteitDTO.isNotitieNodig()) {
             notitie = new Notitie();
             notitie.setNaam(activiteitDTO.getNotitieNaam());
             notitie.setTekst(activiteitDTO.getNotitieTekst());
             notitie.setStartDatum(activiteitDTO.getStartDatum());
-            System.out.println("Notitie tekst lengte: " + notitie.getTekst().length());
             if (notitie.getNaam().equals("") || notitie.getTekst().length() <= 1) {
-                System.out.println("Notitie is fout");
                 locatieEnNotitieKloppen = false;
             }
         }
+        // Locatie setten wanneer nodig en controleren op juistheid.
         if (activiteitDTO.isLocatieNodig()) {
             locatie = new Locatie();
             locatie.setNaam(activiteitDTO.getLocatieNaam());
@@ -186,20 +187,11 @@ public class ReisItemController {
             locatie.setLatitude(activiteitDTO.getLocatieLatitude());
             locatie.setLongitude(activiteitDTO.getLocatieLongitude());
             if (locatie.getNaam().equals("") || locatie.getAdres().equals("")) {
-                System.out.println("Locatie is fout");
                 locatieEnNotitieKloppen = false;
             }
         }
 
-        // Test
-        System.out.println("TEST PRINTLN:");
-        System.out.println("Locatie en notitie kloppen: " + locatieEnNotitieKloppen);
-        System.out.println("Activiteitsoort: " + activiteitDTO.getSoortActiviteit() + ", Naam: " + activiteitDTO.getNaam() + ", Omschrijving: " + activiteitDTO.getOmschrijving());
-        System.out.println("Notitie\nTitel: " + activiteitDTO.getNotitieNaam() + ", Tekst : " + activiteitDTO.getNotitieTekst());
-        System.out.println("Locatie\nTitel: " + activiteitDTO.getLocatieNaam() + ", Adres: " + activiteitDTO.getLocatieAdres() + ", lat: " + activiteitDTO.getLocatieLatitude() + ", long: " + activiteitDTO.getLocatieLongitude());
-
         if (reisItemOptional.isEmpty() || !locatieEnNotitieKloppen) {
-            System.out.println("Error!");
             return "redirect:/" + groepId + "/reisItemDetail/" + reisItemId + "/ActiviteitAanmaken";
         } else {
             ReisItem reis = reisItemOptional.get();
@@ -211,6 +203,7 @@ public class ReisItemController {
             reisItemRepository.save(activiteit);
             reisItemRepository.save(reis);
 
+            // Wanneer nodig, worden notitie en locatie toegevoegd.
             if (notitie != null) {
                 notitie.setGekoppeldeReisItemId(activiteit);
                 activiteit.voegReisItemToe(notitie);
@@ -225,7 +218,6 @@ public class ReisItemController {
                 reisItemRepository.save(activiteit);
             }
         }
-        System.out.println("Success!");
         // Terug naar reis overzicht.
         return "redirect:/" + groepId + "/reisItemDetail/" + reisItemId;
     }
