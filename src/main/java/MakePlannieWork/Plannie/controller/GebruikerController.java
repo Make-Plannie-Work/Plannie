@@ -2,6 +2,7 @@ package MakePlannieWork.Plannie.controller;
 
 import MakePlannieWork.Plannie.model.Gebruiker;
 import MakePlannieWork.Plannie.model.Groep;
+import MakePlannieWork.Plannie.model.reisitem.ReisItem;
 import MakePlannieWork.Plannie.repository.GebruikerVerificatieRepository;
 import MakePlannieWork.Plannie.repository.RolRepository;
 import MakePlannieWork.Plannie.repository.WachtwoordResetRepository;
@@ -181,7 +182,9 @@ public class GebruikerController {
     public String gebruikerDetail(Model model, Principal principal) {
         if (!plannieGroepService.getLijstMetGroepenOpGebruikersnaam(principal.getName()).isEmpty() || plannieGroepService.getLijstMetGroepenOpGebruikersnaam(principal.getName()) != null){
             Set<Groep> groepen = plannieGroepService.getLijstMetGroepenOpGebruikersnaam(principal.getName());
-            model.addAttribute("lijstMetGroepen", groepen);
+            ArrayList<Groep> gesorteerdeGroepen = new ArrayList<>(groepen);
+            gesorteerdeGroepen.sort(Comparator.comparing(Groep::getGroepId));
+            model.addAttribute("lijstMetGroepen", gesorteerdeGroepen);
         }
         model.addAttribute("currentUser", gebruikerRepository.findGebruikerByEmail(principal.getName()));
         return "gebruikerDetail";

@@ -62,20 +62,23 @@ public class GroepController {
     @GetMapping("/groepDetail/{groepId}")
     public String groepDetail(@PathVariable("groepId") Integer id, Model model, Principal principal) {
         Optional<Groep> groepOptional = plannieGroepService.findById(id);
-        List<Gebruiker> alleGebruikersInGroep = gebruikerRepository.findByGroepen_groepId(id);
-        List<Gebruiker> alleGebruikers = gebruikerRepository.findAll();
-        Gebruiker gebruiker = gebruikerRepository.findGebruikerByEmail(principal.getName());
-        Set<ReisItem> alleReisItems = plannieReisItemService.getLijstMetReisItemsOpGroepId(id);
-        model.addAttribute(gebruiker);
-        model.addAttribute("lijstMetReisItems", alleReisItems);
-        model.addAttribute("AlleLedenLijst", alleGebruikers);
-        model.addAttribute("groepsLedenLijst", alleGebruikersInGroep);
-        ReisItem reisItem = new ReisItem();
-        reisItem.geefNieuwStartDatum();
-        model.addAttribute("nieuwReisItemFormulier", reisItem);
         if (groepOptional.isPresent()) {
-            model.addAttribute("currentUser", gebruiker);
             model.addAttribute("groep", groepOptional.get());
+
+            Set<ReisItem> alleReisItems = plannieReisItemService.getLijstMetReisItemsOpGroepId(id);
+            ArrayList<ReisItem> gesorteerdeReizen = new ArrayList<>(alleReisItems);
+            gesorteerdeReizen.sort(Comparator.comparing(ReisItem::getEindDatum).thenComparing(ReisItem::getNaam));
+            model.addAttribute("lijstMetReisItems", gesorteerdeReizen);
+
+            Gebruiker gebruiker = gebruikerRepository.findGebruikerByEmail(principal.getName());
+            model.addAttribute("currentUser", gebruiker);
+
+            List<Gebruiker> alleGebruikersInGroep = gebruikerRepository.findByGroepen_groepId(id);
+            model.addAttribute("groepsLedenLijst", alleGebruikersInGroep);
+
+            ReisItem reisItem = new ReisItem();
+            reisItem.geefNieuwStartDatum();
+            model.addAttribute("nieuwReisItemFormulier", reisItem);
             return "groepDetail";
         }
         return "redirect:/gebruikerDetail";
@@ -108,7 +111,8 @@ public class GroepController {
             } catch (MessagingException e) {
                 e.printStackTrace();
             }
-        } return "redirect:/groepDetail/" + groepOptional.get().getGroepId();
+        }
+        return "redirect:/groepDetail/" + groepOptional.get().getGroepId();
     }
 
     // Gebruiker gaat naar scherm waar naam van groep gewijzigd kan worden
@@ -162,6 +166,7 @@ public class GroepController {
         }
         return "redirect:/groepDetail/" + groepId;
     }
+
     @RequestMapping(value = "/{groepId}/saveCroppedImage/{imageURL}")
     @ResponseBody
     public void saveCroppedImage(@PathVariable("groepId") Integer groepId, @PathVariable("imageURL") String imageURL) throws IOException {
