@@ -9,7 +9,6 @@
 
 <!--Accordion kop-->
 <div class="accordion" id="accordionReisItems${subReisItem.reisItemId}">
-    <div class="list-group">
         <div class="accordion-header" id="headingOne${subReisItem.reisItemId}">
             <c:if test="${not empty subReisItem.reisItems}">
                 <button class="btn btn-danger btn-lg btn-block" type="button" data-toggle="collapse"
@@ -19,7 +18,6 @@
             </c:if>
 
             <!--Inhoud begin, kan elk soort reisItem zijn.-->
-            <li class="list-group-item">
                 <c:choose>
                     <c:when test="${soortReisItem == 'MakePlannieWork.Plannie.model.reisitem.Notitie'}">
 
@@ -111,7 +109,6 @@
 
                     </c:when>
                 </c:choose>
-            </li>
             <!--Inhoud eind-->
 
         </div>
@@ -126,5 +123,4 @@
                 </div>
             </div>
         </c:if>
-    </div>
 </div>
