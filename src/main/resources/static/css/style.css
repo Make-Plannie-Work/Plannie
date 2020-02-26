@@ -1,6 +1,5 @@
 body {
      background-color:#FFFFFF;
-     text-align:center;
 }
 
 .wrapper {
@@ -228,6 +227,13 @@ width: 100%;
     background-color: #FF3B56;
 }
 
+h3 {
+    color: #000000;
+    font-weight: 800;
+    font-size: 100px;
+    font-family: 'Viga', sans-serif;
+}
+
 .tekstknop-zwart, h5{
     color: #000000;
     font-weight: 400;
@@ -421,7 +427,7 @@ html, body {
 }
 
 #groepsledenButton {
-    color: #FFFFFF;
+    color: #000000;
     font-weight: 400;
     font-family: 'Viga', sans-serif;
     background:none;
