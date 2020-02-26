@@ -79,24 +79,36 @@
 
                     </c:when>
                     <c:when test="${soortReisItem == 'MakePlannieWork.Plannie.model.reisitem.Locatie'}">
-                        <div class="card reisItem flex-row flex-wrap mb-2 mx-auto" id="reisItemCard">
-                            <div class="plannieCard-header border-0">
-                                Locatie ${subReisItem.geefGeformatteerdeStartDatumEnTijd()}
+
+                        <div class="locatieDetailContainer-container">
+                            <div class="locatieDetailContainer-soort">
+                                Locatie
                             </div>
-                            <div class="plannieCard-block px-2">
-                                <h4 class="card-title"><a id="LocatieDetails${subReisItem.naam}"
-                                                          href="${pageContext.request.contextPath}/${groepId}/${reisItemId}/${subReisItem.reisItemId}/LocatieWijzigen">${subReisItem.naam}</a>
-                                    <c:if test="${level < 3}">
-                                        <tag:nieuwReisItemKnoppen reisItem="${subReisItem}"/>
-                                    </c:if>
-                                </h4>
-                                <p class="card-text">${subReisItem.adres}</p>
+                            <div class="locatieDetailContainer-naam">
+                                ${subReisItem.naam}
+                            </div>
+                            <div class="locatieDetailContainer-kaart">
                                 <div class="googleMapSmall" id="map${subReisItem.reisItemId}"
                                      data-latitude="${subReisItem.latitude}"
                                      data-longitude="${subReisItem.longitude}"
                                      data-id="${subReisItem.reisItemId}"></div>
                             </div>
+                            <div class="locatieDetailContainer-adresgegevens">
+                                ${subReisItem.geefGeformatteerdAdres()}
+                            </div>
+                            <div class="locatieDetailContainer-budget">
+                                Kosten: ${subReisItem.budget}
+                                <br/>
+                                ${subReisItem.geefGeformatteerdeStartDatumEnTijd()}
+                            </div>
+                            <div class="locatieDetailContainer-wijzig">
+                                <button class="btn btn-primary mt-3" id="locatieWijzigen${subReisItem.reisItemId}"
+                                        onclick="window.location.href = '${pageContext.request.contextPath}/${groepId}/${reisItemId}/${subReisItem.reisItemId}/LocatieWijzigen'">
+                                    Wijzigen
+                                </button>
+                            </div>
                         </div>
+
                     </c:when>
                     <c:when test="${soortReisItem == 'MakePlannieWork.Plannie.model.reisitem.Activiteit'}">
                         <div class="card reisItem flex-row flex-wrap mb-2 mx-auto" id="reisItemCard">

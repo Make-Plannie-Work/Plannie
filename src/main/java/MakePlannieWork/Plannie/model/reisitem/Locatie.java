@@ -9,6 +9,10 @@ public class Locatie extends ReisItem {
     private double latitude;
     private double longitude;
 
+    public String geefGeformatteerdAdres() {
+        return adres.replace(", ", "<br/>");
+    }
+
     public String getAdres() {
         return adres;
     }
