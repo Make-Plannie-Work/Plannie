@@ -54,13 +54,4 @@
         </security:authorize>
     </ul>
 </nav>
-<div class="container mt-3">
-    <div class="row">
-        <span class="navbar-brand mb-0 h1 mt-3"><a id="gebruikerDetail" href="${pageContext.request.contextPath}/gebruikerDetail"><img
-                src="${pageContext.request.contextPath}/images/PlannieLogo.png" class="img-fluid" alt="Responsive image"></a></span>
-    </div>
-    <div class="row">
-        <div class="col-sm-12 fixed-top">
-        </div>
-    </div>
-</div>
+

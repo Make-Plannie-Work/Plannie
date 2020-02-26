@@ -5,40 +5,50 @@
 <title>Welkom bij Plannie</title>
 <body>
 
-<div class="container mt-3">
+<div class="container shadow-lg mb-3">
+  <div class="row">
+        <span class="navbar-brand mx-auto mb-0 mt-3"><a id="gebruikerDetail" href="${pageContext.request.contextPath}/gebruikerDetail"><img
+                src="${pageContext.request.contextPath}/images/PlannieLogo.png" class="img-fluid" alt="Responsive image"></a></span>
+  </div>
+    <div class="row mt-6 mb-6">
+      <hr class="my-4">
+    </div>
     <div class="row">
-    <div class="col-sm-8">
-      <div class="jumbotron shadow border">
-        <div class="row">
-          <p class="lead">Info 3</p>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse enim velit, tempor vel dolor et, porttitor vestibulum odio. Ut quis elit eu est viverra aliquam a ultricies leo. Curabitur non arcu hendrerit, vestibulum dui sit amet, suscipit diam. Integer suscipit dui tortor, euismod accumsan magna dictum ut. Curabitur sit amet nunc id sapien malesuada aliquet sit amet et arcu. In hendrerit porta justo vitae tempus. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Integer sit amet felis mauris. Proin vitae condimentum dolor. Mauris commodo porttitor mi, in consequat dui posuere ac. Praesent vitae enim magna. Sed egestas malesuada ligula, vel molestie tortor finibus at. Fusce vestibulum convallis tempus. Ut vel erat ultrices, placerat sapien a, ornare erat. Aliquam scelerisque convallis mauris a interdum. Etiam rhoncus in mi nec mollis. Cras malesuada elit et purus tincidunt varius. Suspendisse placerat lacus non libero pretium volutpat. Ut malesuada, ex non vehicula vulputate, quam ex ullamcorper dolor, id consectetur libero quam viverra ex. Aliquam blandit cursus ipsum consequat dictum. Cras vitae urna bibendum lorem maximus sollicitudin. Praesent consequat ultrices mi in bibendum. Nunc lorem dui, elementum id massa sed, dictum vehicula nulla. Maecenas in semper eros, eget vehicula risus. Integer vel lorem consequat ipsum auctor pretium imperdiet vitae sem. Sed volutpat, eros non eleifend mattis, lorem risus congue ante, et laoreet nulla felis ac augue. Curabitur rutrum dui tellus, dapibus eleifend augue hendrerit et. Phasellus efficitur urna tortor, et venenatis ipsum sagittis vitae. Nam tincidunt consectetur diam eget suscipit. Aenean at purus faucibus, venenatis lectus quis, maximus nisi.
-          </p>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse enim velit, tempor vel dolor et, porttitor vestibulum odio. Ut quis elit eu est viverra aliquam a ultricies leo. Curabitur non arcu hendrerit, vestibulum dui sit amet, suscipit diam. Integer suscipit dui tortor, euismod accumsan magna dictum ut. Curabitur sit amet nunc id sapien malesuada aliquet sit amet et arcu. In hendrerit porta justo vitae tempus. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Integer sit amet felis mauris. Proin vitae condimentum dolor. Mauris commodo porttitor mi, in consequat dui posuere ac. Praesent vitae enim magna. Sed egestas malesuada ligula, vel molestie tortor finibus at. Fusce vestibulum convallis tempus. Ut vel erat ultrices, placerat sapien a, ornare erat. Aliquam scelerisque convallis mauris a interdum. Etiam rhoncus in mi nec mollis. Cras malesuada elit et purus tincidunt varius. Suspendisse placerat lacus non libero pretium volutpat. Ut malesuada, ex non vehicula vulputate, quam ex ullamcorper dolor, id consectetur libero quam viverra ex. Aliquam blandit cursus ipsum consequat dictum. Cras vitae urna bibendum lorem maximus sollicitudin. Praesent consequat ultrices mi in bibendum. Nunc lorem dui, elementum id massa sed, dictum vehicula nulla. Maecenas in semper eros, eget vehicula risus. Integer vel lorem consequat ipsum auctor pretium imperdiet vitae sem. Sed volutpat, eros non eleifend mattis, lorem risus congue ante, et laoreet nulla felis ac augue. Curabitur rutrum dui tellus, dapibus eleifend augue hendrerit et. Phasellus efficitur urna tortor, et venenatis ipsum sagittis vitae. Nam tincidunt consectetur diam eget suscipit. Aenean at purus faucibus, venenatis lectus quis, maximus nisi.
-          </p>
+
+      <div class="col-sm-4">
+        <div class="jumbotron shadow-sm">
+          <div class="row" >
+            <i class="fas fa-users svg-inline--fa fa-users fa-w-20 fa-5x mx-auto plannierood"></i>
+          </div>
+          <hr class="my-4">
+          <div class="row">
+            <h5 class="mx-auto">Maak groepen aan</hp>
+
+          </div>
         </div>
       </div>
-    </div>
+
+      <div class="col-sm-4">
+        <div class="jumbotron shadow-sm ">
+          <div class="row" >
+            <i class="fas fa-suitcase svg-inline--fa fa-w-20 fa-5x mx-auto planniezalm"></i>
+          </div>
+          <hr class="my-4">
+          <div class="row">
+            <h5 class="mx-auto">Maak reizen aan</h5>
+
+          </div>
+        </div>
+      </div>
 
     <div class="col-sm-4">
-      <div class="jumbotron shadow" style="background-color: #FF3B56;">
+      <div class="jumbotron shadow-sm ">
         <div class="row" >
-          <p class="lead text-white">Info 1</p>
+          <i class="fas fa-tasks svg-inline--fa fa-w-20 fa-5x mx-auto planniegeel"></i>
         </div>
         <hr class="my-4">
         <div class="row">
-          <p class="lead text-white mt-3">Info 2</hp>
-          <hr class="my-4">
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="row mb-3">
-    <div class="col-sm-offset-1 col-sm-10 mb-5">
-      <div class="card w-75 mx-auto">
-        <div class="plannieCard-body">
-          <p>Contact</p>
+          <h5 class="mx-auto">Beheer je reizen</h5>
         </div>
       </div>
     </div>
@@ -64,12 +74,10 @@
             <form:input type="password" id="password" path="password" class="form-control" placeholder="Wachtwoord"/>
             <a id="resetten" class="nav-link text-dark" data-toggle="modal" data-target="#resetmodal">Wachtwoord resetten</a>
           </div>
-
-      </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuleer</button>
         <button id="login" type="submit" class="btn btn-primary">Login</button>
-        </form:form>
+      </div></form:form>
       </div>
     </div>
   </div>
@@ -102,4 +110,5 @@
     </div>
   </div>
 </div>
+</body>
 <jsp:include page="footer.jsp"/>

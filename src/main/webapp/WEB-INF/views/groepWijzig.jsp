@@ -91,7 +91,7 @@ var roundedImage;
       context.drawImage(sourceCanvas, 0, 0, width, height);
       context.globalCompositeOperation = 'destination-in';
       context.beginPath();
-      context.arc(width / 2, height / 2, Math.min(width, height) / 2, 0, 2 * Math.PI, true);
+      context.arc(width / 2, height / 2, Math.min(width, height) / 2, 0, 0, true);
       context.fill();
       return canvas;
     }
@@ -127,7 +127,7 @@ var roundedImage;
 
         // Show
         roundedImage = document.createElement('img');
-        roundedImage.src = roundedCanvas.toDataURL();
+        roundedImage.src = croppedCanvas.toDataURL();
 
         result.innerHTML = '';
         result.appendChild(roundedImage);
@@ -139,7 +139,7 @@ var roundedImage;
 
      function saveImage(imagePath) {
      console.log(imagePath)
-        roundedCanvas.toBlob(function (blob) {
+        croppedCanvas.toBlob(function (blob) {
         var ourRequest = new XMLHttpRequest();
            ourRequest.open('POST', contextPath + '/' +  groepId + '/uploadImage');
            var formData = new FormData();
