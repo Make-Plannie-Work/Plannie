@@ -3,7 +3,7 @@
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 <form:form action="#" autocomplete="off">
     <div id="autocomplete">
-        <input type="text" class="form-control" path="tekst" id="Zoek_Gebruikers" placeholder="Zoek naar Gebruikers">
+        <input type="text" class="form-control" path="tekst" id="Zoek_Gebruikers" placeholder="Voeg bestaande gebruikers toe">
     </div>
     <input type="hidden" id="groepId" value='${groep.groepId}'/>
     <input type="hidden" id="contextPath" value="${pageContext.request.contextPath}"/>

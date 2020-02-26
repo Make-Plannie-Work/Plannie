@@ -3,6 +3,33 @@ body {
      text-align:center;
 }
 
+.wrapper {
+     min-height: 100%;
+     margin: 0;
+     padding: 0;
+     position: relative;
+}
+
+
+html {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+footer {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+}
+
 .plannierood {
     color: #FF3B56;
 }
@@ -414,8 +441,12 @@ html, body {
     cursor: pointer;
 }
 
+#logowit {
+    max-height: 75px;
+}
+
 #groepsledenNamen{
-     color: #FFFFFF;
+     color: #000000;
      font-weight: 400;
      font-family: 'Viga', sans-serif;
 }

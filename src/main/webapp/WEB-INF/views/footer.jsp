@@ -3,7 +3,7 @@
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 <footer class="py-4 bg-dark text-white-50">
     <!-- Footer Elements -->
-    <div class="container">
+
         <!-- Call to action -->
         <ul class="list-unstyled list-inline text-center py-2">
             <security:authorize access="isAnonymous()">
@@ -13,7 +13,7 @@
             </security:authorize>
         </ul>
         <!-- Call to action -->
-    </div>
+
 
 </footer>
 <!-- Footer -->
@@ -33,5 +33,6 @@
 <!-- Replace the value of the key parameter with your own API key. -->
 
 <script src="${pageContext.request.contextPath}\js/googleKaart.js"></script>
+</div>
 </body>
 </html>
