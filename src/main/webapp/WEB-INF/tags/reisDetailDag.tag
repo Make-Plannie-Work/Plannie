@@ -7,27 +7,25 @@
 
 <!--Accordion kop-->
 <section class="accordionDag" id="accordionDag${dag.dagNummer}">
-    <div class="card">
-        <div class="accordionDag-header" id="headingDag${dag.dagNummer}">
+    <div class="accordionDag-header" id="headingDag${dag.dagNummer}">
 
-            <!--Inhoud begin, is altijd een Dag, en de gegevens van de dag staan in de knop.-->
-            <button class="btn dagKnop btn-lg btn-block" type="button" data-toggle="collapse"
-                    data-target="#collapseDag${dag.dagNummer}" aria-expanded="true"
-                    aria-controls="collapseDag${dag.dagNummer}">
-                <div class="row">
-                    <p class="card-title m-auto"><strong>${dag.geefDagTitel()}</strong> - ${dag.geefDatum()}</p>
-                </div>
-            </button>
-        </div>
-        <!--Inhoud eind-->
-
-        <!--Accordion uitklapveld-->
-        <div id="collapseDag${dag.dagNummer}" class="collapse show"
-             aria-labelledby="headingDag${dag.dagNummer}"
-             data-parent="#accordionDag${dag.dagNummer}">
-            <div>
-                <tag:reisItemAccordion subReisItems="${dag.reisItems}" level="${level}"/>
+        <!--Inhoud begin, is altijd een Dag, en de gegevens van de dag staan in de knop.-->
+        <button class="btn dagKnop btn-lg btn-block" type="button" data-toggle="collapse"
+                data-target="#collapseDag${dag.dagNummer}" aria-expanded="true"
+                aria-controls="collapseDag${dag.dagNummer}">
+            <div class="row">
+                <p class="card-title m-auto"><strong>${dag.geefDagTitel()}</strong> - ${dag.geefDatum()}</p>
             </div>
+        </button>
+    </div>
+    <!--Inhoud eind-->
+
+    <!--Accordion uitklapveld-->
+    <div id="collapseDag${dag.dagNummer}" class="collapse show"
+         aria-labelledby="headingDag${dag.dagNummer}"
+         data-parent="#accordionDag${dag.dagNummer}">
+        <div>
+            <tag:reisItemAccordion subReisItems="${dag.reisItems}" level="${level}"/>
         </div>
     </div>
 </section>

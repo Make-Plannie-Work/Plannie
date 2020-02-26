@@ -884,11 +884,11 @@ margin-top: 5px;
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   grid-template-rows: repeat(4, 1fr);
-  grid-gap: 5px;
+  grid-gap: 2px;
   background-color: #FBFCFC;
   border: 2px solid #FFE070;
   border-radius: 5px;
-  padding: 5px;
+  margin:2px;
 }
 
 .activiteitDetailContainer-locatie { grid-area: 1 / 1 / 4 / 4;
@@ -906,26 +906,25 @@ margin-top: 5px;
   text-align: center;
   font-size: 30px;
 }
-.activiteitDetailContainer-tijd { grid-area: 4 / 1 / 5 / 3;
+.activiteitDetailContainer-tijd { grid-area: 4 / 1 / 5 / 8;
   background-color: #FFFFFF;
   text-align: left;
   font-size: 15px;
 }
-.activiteitDetailContainer-nieuw { grid-area: 4 / 3 / 5 / 8;
-  background-color: #FFFFFF;
-  text-align: center;
-  font-size: 30px;
+.activiteitDetailContainer-nieuw { grid-area: 4 / 5 / 5 / 8;
+  align-self: flex-end;
+  margin-left: auto;
 }
 
 .notitieDetailContainer-container {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   grid-template-rows: repeat(5, 1fr);
-  grid-gap: 5px;
+  grid-gap: 2px;
   background-color: #FBFCFC;
   border: 2px solid #FFE070;
   border-radius: 5px;
-  padding: 5px;
+  margin:2px;
 }
 
 .notitieDetailContainer-soort { grid-area: 1 / 1 / 2 / 3;
@@ -945,7 +944,7 @@ margin-top: 5px;
   overflow-y: scroll;
   max-height:165px;
 }
-.notitieDetailContainer-budget { grid-area: 5 / 1 / 6 / 5;
+.notitieDetailContainer-budget { grid-area: 5 / 1 / 6 / 7;
   background-color: #FFFFFF;
   text-align: left;
   font-size: 15px;
@@ -959,11 +958,11 @@ margin-top: 5px;
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   grid-template-rows: repeat(4, 1fr);
-  grid-gap: 5px;
+  grid-gap: 2px;
   background-color: #FBFCFC;
   border: 2px solid #FFE070;
   border-radius: 5px;
-  padding: 5px;
+  margin:2px;
 }
 
 .pollDetailContainer-soort { grid-area: 1 / 1 / 2 / 3;
@@ -983,7 +982,7 @@ margin-top: 5px;
   font-size: 20px;
   max-height:107px;
 }
-.pollDetailContainer-budget { grid-area: 4 / 1 / 5 / 5;
+.pollDetailContainer-budget { grid-area: 4 / 1 / 5 / 7;
   background-color: #FFFFFF;
   text-align: left;
   font-size: 15px;
@@ -997,11 +996,11 @@ margin-top: 5px;
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   grid-template-rows: repeat(4, 1fr);
-  grid-gap: 5px;
+  grid-gap: 2px;
   background-color: #FBFCFC;
   border: 2px solid #FFE070;
   border-radius: 5px;
-  padding: 5px;
+  margin:2px;
 }
 
 .locatieDetailContainer-soort { grid-area: 1 / 1 / 2 / 3;
@@ -1026,7 +1025,7 @@ margin-top: 5px;
   text-align: left;
   font-size: 15px;
 }
-.locatieDetailContainer-budget { grid-area: 4 / 1 / 5 / 5;
+.locatieDetailContainer-budget { grid-area: 4 / 1 / 5 / 7;
   background-color: #FFFFFF;
   text-align: left;
   font-size: 15px;
