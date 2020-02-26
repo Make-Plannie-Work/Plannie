@@ -35,9 +35,11 @@
                             </div>
                             <div class="notitieDetailContainer-budget">
                                 Kosten: ${subReisItem.budget}
+                                <br/>
+                                ${subReisItem.geefGeformatteerdeStartDatumEnTijd()}
                             </div>
                             <div class="notitieDetailContainer-wijzig">
-                                <button class="btn btn-primary mt-3" id="activiteitWijzigen${subReisItem.reisItemId}"
+                                <button class="btn btn-primary mt-3" id="notitieWijzigen${subReisItem.reisItemId}"
                                         onclick="window.location.href = '${pageContext.request.contextPath}/${groepId}/${reisItemId}/${subReisItem.reisItemId}/NotitieWijzigen'">
                                     Wijzigen
                                 </button>
@@ -47,27 +49,34 @@
                     </c:when>
                     <c:when test="${soortReisItem == 'MakePlannieWork.Plannie.model.reisitem.Poll'}">
 
-                        <div class="card reisItem flex-row flex-wrap mb-2 mx-auto" id="reisItemCard">
-                            <div class="plannieCard-header border-0">
-                                Poll ${subReisItem.geefGeformatteerdeStartDatumEnTijd()}
+                        <div class="pollDetailContainer-container">
+                            <div class="pollDetailContainer-soort">
+                                Poll
                             </div>
-                            <div class="plannieCard-block px-2">
-                                <h4 class="card-title"><a id="PollDetails${subReisItem.naam}"
-                                                          href="${pageContext.request.contextPath}/${groepId}/${reisItemId}/PollDetail/${subReisItem.reisItemId}">${subReisItem.naam}</a>
-                                    <c:if test="${level < 3}">
-                                        <tag:nieuwReisItemKnoppen reisItem="${subReisItem}"/>
-                                    </c:if>
-                                </h4>
-                                <p class="card-text">
-                                <p class="card-text">
+                            <div class="pollDetailContainer-naam">
+                                ${subReisItem.naam}
+                            </div>
+                            <div class="pollDetailContainer-tekst">
+                                <div>
                                     <c:if test="${!subReisItem.gebruikerHeeftGestemd(currentUser.gebruikersId)}">
                                         <a class="lead text-blue">Stem nu!</a>
                                     </c:if>
                                     <a id="pollOptieTekst${subReisItem.reisItemId}">${subReisItem.pollStatus()}</a>
-                                </p>
-                                </p>
+                                </div>
+                            </div>
+                            <div class="pollDetailContainer-budget">
+                                Kosten: ${subReisItem.budget}
+                                <br/>
+                                ${subReisItem.geefGeformatteerdeStartDatumEnTijd()}
+                            </div>
+                            <div class="pollDetailContainer-wijzig">
+                                <button class="btn btn-primary mt-3" id="pollWijzigen2${subReisItem.reisItemId}"
+                                        onclick="window.location.href = '${pageContext.request.contextPath}/${groepId}/${reisItemId}/PollDetail/${subReisItem.reisItemId}'">
+                                    Stemmen
+                                </button>
                             </div>
                         </div>
+
                     </c:when>
                     <c:when test="${soortReisItem == 'MakePlannieWork.Plannie.model.reisitem.Locatie'}">
                         <div class="card reisItem flex-row flex-wrap mb-2 mx-auto" id="reisItemCard">
