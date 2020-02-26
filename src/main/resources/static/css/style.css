@@ -760,23 +760,37 @@ html, body {
   border-bottom: none; /* Prevent double borders */
 }
 
-.activiteitDetail-container {
+.activiteitDetailContainer-container {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   grid-template-rows: repeat(4, 1fr);
   grid-gap: 5px;
-  background-color: #FFFFFF;
+  background-color: #FFE070;
   padding: 5px;
 }
 
-.activiteitDetail-container > div {
-  background-color: #FFE070;
+.activiteitDetailContainer-locatie { grid-area: 1 / 1 / 4 / 4;
+  background-color: #FFFFFF;
   text-align: center;
   font-size: 30px;
 }
-
-.activiteitDetail-locatie { grid-area: 1 / 1 / 4 / 4; }
-.activiteitDetail-soort { grid-area: 1 / 4 / 2 / 8; }
-.activiteitDetail-omschrijving { grid-area: 2 / 4 / 4 / 8; }
-.activiteitDetail-tijd { grid-area: 4 / 1 / 5 / 3; }
-.activiteitDetail-nieuw { grid-area: 4 / 3 / 5 / 8; }
+.activiteitDetailContainer-soort { grid-area: 1 / 4 / 2 / 8;
+  background-color: #FFFFFF;
+  text-align: center;
+  font-size: 30px;
+}
+.activiteitDetailContainer-omschrijving { grid-area: 2 / 4 / 4 / 8;
+  background-color: #FFFFFF;
+  text-align: center;
+  font-size: 30px;
+}
+.activiteitDetailContainer-tijd { grid-area: 4 / 1 / 5 / 3;
+  background-color: #FFFFFF;
+  text-align: center;
+  font-size: 30px;
+}
+.activiteitDetailContainer-nieuw { grid-area: 4 / 3 / 5 / 8;
+  background-color: #FFFFFF;
+  text-align: center;
+  font-size: 30px;
+}

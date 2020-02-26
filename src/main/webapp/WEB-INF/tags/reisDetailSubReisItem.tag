@@ -28,7 +28,7 @@
                         <div class="plannieCard-block px-2">
                             <h4 class="card-title"><a id="NotitieDetails${subReisItem.naam}"
                                                       href="${pageContext.request.contextPath}/${groepId}/${reisItemId}/${subReisItem.reisItemId}/NotitieWijzigen">${subReisItem.naam}</a>
-                                <c:if test="${level < 3}"><tag:dropDownNieuwReisItem reisItem="${subReisItem}"/></c:if>
+                                <c:if test="${level < 3}"><tag:nieuwReisItemKnoppen reisItem="${subReisItem}"/></c:if>
                             </h4>
 
                             <p class="card-text">${subReisItem.tekst}</p>
@@ -42,7 +42,7 @@
                         <div class="plannieCard-block px-2">
                             <h4 class="card-title"><a id="PollDetails${subReisItem.naam}"
                                                       href="${pageContext.request.contextPath}/${groepId}/${reisItemId}/PollDetail/${subReisItem.reisItemId}">${subReisItem.naam}</a>
-                                <c:if test="${level < 3}"><tag:dropDownNieuwReisItem reisItem="${subReisItem}"/></c:if>
+                                <c:if test="${level < 3}"><tag:nieuwReisItemKnoppen reisItem="${subReisItem}"/></c:if>
                             </h4>
                             <p class="card-text">
                             <p class="card-text">
@@ -61,7 +61,7 @@
                         <div class="plannieCard-block px-2">
                             <h4 class="card-title"><a id="LocatieDetails${subReisItem.naam}"
                                                       href="${pageContext.request.contextPath}/${groepId}/${reisItemId}/${subReisItem.reisItemId}/LocatieWijzigen">${subReisItem.naam}</a>
-                                <c:if test="${level < 3}"><tag:dropDownNieuwReisItem reisItem="${subReisItem}"/></c:if>
+                                <c:if test="${level < 3}"><tag:nieuwReisItemKnoppen reisItem="${subReisItem}"/></c:if>
                             </h4>
                             <p class="card-text">${subReisItem.adres}</p>
                             <div class="googleMapSmall" id="map${subReisItem.reisItemId}"
@@ -78,7 +78,7 @@
                         <div class="plannieCard-block px-2">
                             <h4 class="card-title"><a id="ActiviteitDetails${subReisItem.naam}"
                                                       href="${pageContext.request.contextPath}/${groepId}/${reisItemId}/${subReisItem.reisItemId}/activiteitWijzigen">${subReisItem.naam}</a>
-                                <c:if test="${level < 3}"><tag:dropDownNieuwReisItem reisItem="${subReisItem}"/></c:if>
+                                <c:if test="${level < 3}"><tag:nieuwReisItemKnoppen reisItem="${subReisItem}"/></c:if>
                             </h4>
                             <p class="card-text">${subReisItem.omschrijving}</p>
                             <p class="card-text">Budget: ${subReisItem.budget} euro</p>
@@ -91,7 +91,7 @@
                         <div class="plannieCard-block px-2">
                             <h4 class="card-title"><a id="reisItemDetails${subReisItem.reisItemId}"
                                                       href="${pageContext.request.contextPath}/${groep.groepId}/reisItemsDetail/${subReisItem.reisItemId}">${subReisItem.naam}</a>
-                                <c:if test="${level < 3}"><tag:dropDownNieuwReisItem reisItem="${subReisItem}"/></c:if>
+                                <c:if test="${level < 3}"><tag:nieuwReisItemKnoppen reisItem="${subReisItem}"/></c:if>
                             </h4>
                             <p class="card-text">${subReisItem.getClass().name}</p>
                         </div>

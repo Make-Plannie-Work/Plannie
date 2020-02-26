@@ -8,7 +8,7 @@
 <!--Accordion kop-->
 <section class="accordionDag" id="accordionDag${dag.dagNummer}">
     <div class="card">
-        <div class="accordionDag-header card-header" id="headingDag${dag.dagNummer}">
+        <div class="accordionDag-header card-body" id="headingDag${dag.dagNummer}">
 
             <!--Inhoud begin, is altijd een Dag, en de gegevens van de dag staan in de knop.-->
             <button class="btn dagKnop btn-lg btn-block" type="button" data-toggle="collapse"
@@ -18,11 +18,6 @@
                     <p class="card-title m-auto"><strong>${dag.geefDagTitel()}</strong> - ${dag.geefDatum()}</p>
                 </div>
             </button>
-        </div>
-        <div class="card-body">
-            <div class="row">
-                <div>Toevoegen:<tag:dropDownNieuwReisItem optie="${level}"/></div>
-            </div>
         </div>
         <!--Inhoud eind-->
 

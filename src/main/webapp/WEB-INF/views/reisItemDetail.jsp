@@ -22,7 +22,7 @@
             </div>
             <div class="jumbotron shadow border">
                 Wat voor soort reisitem wil je toevoegen?
-                <tag:dropDownNieuwReisItem optie="0"/>
+                <tag:nieuwReisItemKnoppen optie="0"/>
             </div>
         </div>
         <div class="col-sm-4">
