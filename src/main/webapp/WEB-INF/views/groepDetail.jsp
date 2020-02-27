@@ -63,20 +63,24 @@
 
                 <div class="row mt-5">
                     <c:forEach items="${lijstMetReisItems}" var="reisItem">
-                        <div class="card flex-row flex-wrap mb-2" id="reisItemCard">
+                        <div class="card flex-row flex-wrap mb-2" id="reisItemCard" >
                             <div class="plannieCard-header border-0">
                                 <img id="reisItemImg-klein" class="img-fluid card-img-top"
                                      src="${pageContext.request.contextPath}/images/${reisItem.imagePath}"
                                      alt="Card image cap">
                             </div>
-                            <div class="plannieCard-block px-2">
-                                <h4 class="card-title"><a
-                                        href="${pageContext.request.contextPath}/${groep.groepId}/reisItemDetail/${reisItem.reisItemId}">${reisItem.naam}</a>
-                                </h4>
-                                <p class="card-text">Info over reis: ${reisItem.naam}</p>
+                            <a href="${pageContext.request.contextPath}/${groep.groepId}/reisItemDetail/${reisItem.reisItemId}">
+                            <div class="plannieCard-block px-2" style="width:100%; height: 100%;">
+                                <h5>${reisItem.naam}
+                                </h5>
+                                <p class="lead-text">Wanneer: ${reisItem.geefGeformatteerdeReisDuratie()}</p>
+                                <p class="lead-text">Waar: ${reisItem.vindLocatie().geefGeformatteerdAdres()}</p>
+                                <p class="lead-text">Kosten: ${reisItem.berekenTotaalBudget()} euro</p>
                             </div>
+                            </a>
                         </div>
                     </c:forEach>
+
                     <div class="row mb-5 ml-1">
                         <form:form action="${pageContext.request.contextPath}/${groep.groepId}/reisItemAanmaken"
                                     method="post" class="form-inline" modelAttribute="nieuwReisItemFormulier">
