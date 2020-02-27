@@ -39,14 +39,6 @@
             </div>
         </div>
     </div>
-    <div class="row mb-3">
-        <div class="col-sm-offset-1 col-sm-10 mb-5">
-            <div class="card w-75 mx-auto">
-                <div class="plannieCard-body">
-                    <p>Contact</p>
-                </div>
-            </div>
-        </div>
-    </div>
+
 </div>
 <jsp:include page="footer.jsp"/>
