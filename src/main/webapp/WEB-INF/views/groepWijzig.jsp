@@ -44,9 +44,6 @@
     <div class="row">
         <form:form id="groepBeheerderWijzigenForm" action = "${pageContext.request.contextPath}/groepDetail/${groep.groepId}/groepBeheerderWijzig" method="post">
             <select name="beheerderEmail" size="5" style="width: 100%" required="required">
-    <div class="row" style="width: 100%;">
-        <form:form id="groepBeheerderWijzigenForm" style="width: 100%;" action = "${pageContext.request.contextPath}/groepDetail/${groep.groepId}/groepBeheerderWijzig" method="post">
-            <select name="beheerderEmail" size="5" style="width: 100%">
                 <c:forEach items="${groepsLedenLijst}" var="groepslid">
                     <c:if test="${groepslid.gebruikersId != groep.aanmaker}">
                         <option value="${groepslid.email}">${groepslid.voornaam} ${groepslid.achternaam}</option>
