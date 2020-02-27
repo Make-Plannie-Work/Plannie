@@ -74,6 +74,24 @@ public class ReisItem {
         return null;
     }
 
+    private void test() {
+        String test = geefGeformatteerdEersteAdresVanReis();
+    }
+
+    public String geefGeformatteerdEersteAdresVanReis() {
+        for (ReisItem item : geefReisGesorteerdDatum()) {
+            if (item instanceof Locatie) {
+                return ((Locatie) item).geefGeformatteerdAdres();
+            } else {
+                String gevondenAdres = item.geefGeformatteerdEersteAdresVanReis();
+                if (!gevondenAdres.equals("nvt")) {
+                    return gevondenAdres;
+                }
+            }
+        }
+        return "nvt";
+    }
+
     public String geefTypeReisItem() {
         return this.getClass().getName();
     }
