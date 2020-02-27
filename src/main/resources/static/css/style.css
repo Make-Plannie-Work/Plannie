@@ -265,7 +265,12 @@ color: #FFE070;
 }
 
 a {
-text-decoration: none !important; }
+text-decoration: none !important;
+}
+
+p {
+color: black !important;
+}
 
 .nav-link:hover {
     color: #FFE070;
