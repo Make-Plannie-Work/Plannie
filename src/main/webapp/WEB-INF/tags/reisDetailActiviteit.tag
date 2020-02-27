@@ -22,24 +22,25 @@
                              data-id="${locatie.reisItemId}"></div>
                     </c:when>
                     <c:otherwise>
-                        Je hebt nog geen locatie toegevoegd.
+                        <h5>Je hebt nog geen locatie toegevoegd.</h5>
                     </c:otherwise>
                 </c:choose>
             </div>
             <div class="activiteitDetailContainer-soort">
                 <h4>
-                    <a id="ActiviteitDetails${subReisItem.naam}"
+                    <a class="tekstknop" id="ActiviteitDetails${subReisItem.naam}"
                        href="${pageContext.request.contextPath}/${groepId}/${reisItemId}/${subReisItem.reisItemId}/activiteitWijzigen">${subReisItem.soortActiviteit}</a>
                 </h4>
-                <p style="font-size:20px;">${subReisItem.naam}</p>
+                <h5>${subReisItem.naam}</h5>
             </div>
             <div class="activiteitDetailContainer-omschrijving">
-                ${subReisItem.omschrijving}
+                <h4>${subReisItem.omschrijving}</h4>
             </div>
             <div class="activiteitDetailContainer-tijd">
-                Kosten: ${subReisItem.budget}
-                <br/>
-                ${subReisItem.geefGeformatteerdeStartDatumEnTijd()}
+                <h5>Kosten: ${subReisItem.budget}
+                    <br/>
+                    ${subReisItem.geefGeformatteerdeStartDatumEnTijd()}
+                </h5>
             </div>
             <div class="activiteitDetailContainer-nieuw">
                 <button class="btn btn-primary mt-3" type="button" data-toggle="collapse"
