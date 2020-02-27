@@ -36,19 +36,14 @@
     <div class="row" style="width: 100%;">
         <form:form id="groepsNaamWijzigenForm" action= "${pageContext.request.contextPath}/groepDetail/${groep.groepId}/groepWijzig" method="post" style="width: 100%;" modelAttribute="groepsNaamWijzigingsFormulier">
             <input type="text" name="groepsNaam" required="required" value="${groep.groepsNaam}">
-            <button type="button" class="btn-primary" data-toggle="modal" data-target="#waarschuwingsModal"
-                    onclick="vullenModal(
-                            'Notitie verwijderen',
-                            'Weet u zeker dat u deze notitie wil verwijderen?',
-                            'Verwijder',
-                            '${pageContext.request.contextPath}/${groep.groepId}/${reisItem.reisItemId}/${reisItems.reisItemId}/subReisItemVerwijderen')">
-                Wijzig Groepsnaam
-            </button>
             <input id="groepsNaamWijzigen" type="submit" class="btn btn-primary" value="Wijzig groepsnaam">
         </form:form>
     </div>
 
     <hr class="my-4">
+    <div class="row">
+        <form:form id="groepBeheerderWijzigenForm" action = "${pageContext.request.contextPath}/groepDetail/${groep.groepId}/groepBeheerderWijzig" method="post">
+            <select name="beheerderEmail" size="5" style="width: 100%" required="required">
     <div class="row" style="width: 100%;">
         <form:form id="groepBeheerderWijzigenForm" style="width: 100%;" action = "${pageContext.request.contextPath}/groepDetail/${groep.groepId}/groepBeheerderWijzig" method="post">
             <select name="beheerderEmail" size="5" style="width: 100%">
