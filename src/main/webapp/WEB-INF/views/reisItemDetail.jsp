@@ -20,8 +20,7 @@
                     <div class="col-sm-8">
                         <h3 class="mt-5">${reisItem.naam}
                             <a id="wijzigReisItem" type="button" data-toggle="modal"
-                               data-target="#wijzigReisItem2"><i class="far fa-edit"></i></a>
-                            - <a class="mt-5 tekstknop-zwart"
+                               data-target="#wijzigReisItem2"><i class="far fa-edit"></i></a><a class="mt-5 tekstknop-zwart"
                                  href="${pageContext.request.contextPath}/groepDetail/${groep.groepId}">${groep.groepsNaam}</a>
                         </h3>
                     </div>
