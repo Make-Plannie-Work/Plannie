@@ -70,12 +70,11 @@
                                      alt="Card image cap">
                             </div>
                             <a href="${pageContext.request.contextPath}/${groep.groepId}/reisItemDetail/${reisItem.reisItemId}">
-                            <div class="plannieCard-block px-2 mt-1" style="width:100%; height: 100%;">
+                            <div class="plannieCard-block px-2 mt-3 ml-4" style="width:100%; height: 100%;">
                                 <h5>${reisItem.naam}
                                 </h5>
                                 <p class="lead-text">Wanneer: ${reisItem.geefGeformatteerdeReisDuratie()}</p>
-                                <p class="lead-text">Waar: ${reisItem.vindLocatie().geefGeformatteerdAdres()}</p>
-                                <p class="lead-text">Kosten: ${reisItem.berekenTotaalBudget()} euro</p>
+                                <p class="lead-text">Waar: ${reisItem.geefGeformatteerdEersteAdresVanReis()}</p>
                             </div>
                             </a>
                         </div>

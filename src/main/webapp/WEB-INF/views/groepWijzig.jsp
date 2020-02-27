@@ -3,12 +3,40 @@
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 <input type="hidden" id="imagePath" value="${groep.imagePath}"/>
 
-<div class="container mt-4"
 <div class="col">
-    <div class="row">
-        <form:form id="groepsNaamWijzigenForm" action= "${pageContext.request.contextPath}/groepDetail/${groep.groepId}/groepWijzig" method="post" modelAttribute="groepsNaamWijzigingsFormulier">
+<div class="row">
+    <div class="row" style="width: 100%;">
+        <div class="img-container mx-auto" style="width: 100%;">
+
+            <div id="result" class="mx-auto"></div>
+            <button class="btn btn-primary mt-3 mb-3" type="button" data-toggle="collapse" data-target="#wijzigAfbeelding" aria-expanded="false" aria-controls="collapseExample">
+                Wijzig afbeelding
+            </button>
+
+            <div class="collapse" id="wijzigAfbeelding">
+            <img id="image" src="${pageContext.request.contextPath}/images/groep/${groep.imagePath}" alt="Picture">
+            <p>${groep.imagePath}</p>
+            <button type="button" id="button">Crop</button>
+            <button type="button" onclick="saveImage('${groep.imagePath}')" id="save" style="visibility: hidden;">Sla op</button>
+            <form:form id="groepsAfbeeldingWijzigenForm" method="POST" enctype="multipart/form-data" action="${pageContext.request.contextPath}/${groep.groepId}/uploadImage" >
+                <td><input type="file" name="imageFile" accept="image/*"/></td>
+                <td><input type="submit" name="uploadImage" value="Upload" /></td>
+            </form:form>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+</div>
+
+<hr class="my-4">
+
+<div class="col">
+    <div class="row" style="width: 100%;">
+        <form:form id="groepsNaamWijzigenForm" action= "${pageContext.request.contextPath}/groepDetail/${groep.groepId}/groepWijzig" method="post" style="width: 100%;" modelAttribute="groepsNaamWijzigingsFormulier">
             <input type="text" name="groepsNaam" required="required" value="${groep.groepsNaam}">
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#waarschuwingsModal"
+            <button type="button" class="btn-primary" data-toggle="modal" data-target="#waarschuwingsModal"
                     onclick="vullenModal(
                             'Notitie verwijderen',
                             'Weet u zeker dat u deze notitie wil verwijderen?',
@@ -18,11 +46,11 @@
             </button>
             <input id="groepsNaamWijzigen" type="submit" class="btn btn-primary" value="Wijzig groepsnaam">
         </form:form>
-
     </div>
+
     <hr class="my-4">
-    <div class="row">
-        <form:form id="groepBeheerderWijzigenForm" action = "${pageContext.request.contextPath}/groepDetail/${groep.groepId}/groepBeheerderWijzig" method="post">
+    <div class="row" style="width: 100%;">
+        <form:form id="groepBeheerderWijzigenForm" style="width: 100%;" action = "${pageContext.request.contextPath}/groepDetail/${groep.groepId}/groepBeheerderWijzig" method="post">
             <select name="beheerderEmail" size="5" style="width: 100%">
                 <c:forEach items="${groepsLedenLijst}" var="groepslid">
                     <c:if test="${groepslid.gebruikersId != groep.aanmaker}">
@@ -31,38 +59,13 @@
                 </c:forEach>
             </select>
             <br>
-            <input id="groepBeheerderWijzigen" type="submit" class="btn btn-primary" value="Wijzig groep beheerder">
-        </form:form>
-
-    </div>
-    <hr class="my-4">
-
-    <div class="img-container">
-        <img id="image" src="${pageContext.request.contextPath}/images/groep/${groep.imagePath}" alt="Picture">
-        <div id="result"></div>
-    </div>
-
-
-    <p>
-    <p>${groep.imagePath}</p>
-        <button type="button" id="button">Crop</button>
-        <button type="button" onclick="saveImage('${groep.imagePath}')" id="save" style="visibility: hidden;">Sla op</button>
-    </p>
-
-
-    <div class="row">
-        <form:form id="groepsAfbeeldingWijzigenForm" method="POST" enctype="multipart/form-data" action="${pageContext.request.contextPath}/${groep.groepId}/uploadImage" >
-
-                    <td><input type="file" name="imageFile" accept="image/*"/></td>
-
-                    <td><input type="submit" name="uploadImage" value="Upload" /></td>
-
+            <input id="groepBeheerderWijzigen" type="submit" class="btn-primary" value="Wijzig groep beheerder">
         </form:form>
     </div>
 
     <a href="${pageContext.request.contextPath}/groepDetail/${groep.groepId}"><button type="text" class="btn btn-primary mt-3" id="annuleren">Annuleren</button></a>
 </div>
-</div>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.6/cropper.js"></script>
 <script>
 var croppedCanvas;
@@ -82,7 +85,7 @@ var roundedImage;
       context.drawImage(sourceCanvas, 0, 0, width, height);
       context.globalCompositeOperation = 'destination-in';
       context.beginPath();
-      context.arc(width / 2, height / 2, Math.min(width, height) / 2, 0, 0, true);
+      context.arc(width / 1, height / 1, Math.min(width, height) / 2, 0, 0, true);
       context.fill();
       return canvas;
     }
@@ -92,11 +95,11 @@ var roundedImage;
       var button = document.getElementById('button');
       var save = document.getElementById('save');
       var result = document.getElementById('result');
-      result.innerHTML = '<img src="http://localhost:8080/Plannie/images/groep/${groep.imagePath}"/>';
+      result.innerHTML = '<img src="http://localhost:8080/Plannie/images/groep/${groep.imagePath}" style="width: 80%; border-radius: 99em;  border: 5px solid #eee; box-shadow: 0 3px 2px rgba(0, 0, 0, 0.3);"/>';
       var croppable = false;
       var cropper = new Cropper(image, {
         aspectRatio: 1,
-        viewMode: 1,
+        viewMode: 2,
         ready: function () {
           croppable = true;
         },
