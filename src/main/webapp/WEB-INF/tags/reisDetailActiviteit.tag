@@ -22,7 +22,7 @@
                              data-id="${locatie.reisItemId}"></div>
                     </c:when>
                     <c:otherwise>
-                        Er is geen locatie
+                        Je hebt nog geen locatie toegevoegd.
                     </c:otherwise>
                 </c:choose>
             </div>
@@ -54,8 +54,9 @@
     <!--Accordion uitklapveld-->
     <div id="collapseActiviteit${subReisItem.reisItemId}" class="collapse"
          aria-labelledby="headingActiviteit${subReisItem.reisItemId}"
-         data-parent="#accordionActiviteit${subReisItem.reisItemId}">
-        <div style="margin-left: auto; align-self: flex-end;">
+         data-parent="#accordionActiviteit${subReisItem.reisItemId}"
+         style="margin:50px;">
+        <div>
             <tag:nieuwReisItemKnoppen reisItem="${subReisItem}" optie="1"/>
             <br/>
         </div>

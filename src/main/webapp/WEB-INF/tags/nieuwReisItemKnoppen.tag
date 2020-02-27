@@ -2,7 +2,7 @@
 <%@ taglib tagdir="/WEB-INF/tags" prefix="tag"%>
 <%@ attribute name="reisItem" type="MakePlannieWork.Plannie.model.reisitem.ReisItem"%>
 <%@ attribute name="optie" type="java.lang.Integer"%>
-<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+<div class="btn-toolbar d-flex justify-content-center" role="toolbar" aria-label="Toolbar with button groups">
     <c:choose>
         <c:when test="${optie == 0}">
             <div class="btn-group mr-2" role="group" aria-label="Second group">

@@ -411,7 +411,7 @@ border-color: green;
 }
 
 .googleMapSmall {
-  max-height: 300px;
+  max-height: 400px;
   height: 100%;
   width: 100%;
 }
@@ -903,6 +903,7 @@ margin-top: 5px;
 .activiteitDetailContainer-locatie { grid-area: 1 / 1 / 4 / 4;
   background-color: #FFFFFF;
   text-align: center;
+    padding: 5px 5px 5px;
   font-size: 30px;
 }
 .activiteitDetailContainer-soort { grid-area: 1 / 4 / 2 / 8;
@@ -919,10 +920,12 @@ margin-top: 5px;
   background-color: #FFFFFF;
   text-align: left;
   font-size: 15px;
+    padding: 2px 10px 0px;
 }
 .activiteitDetailContainer-nieuw { grid-area: 4 / 5 / 5 / 8;
   align-self: flex-end;
   margin-left: auto;
+    padding: 2px 10px 10px;
 }
 
 .notitieDetailContainer-container {
@@ -951,7 +954,7 @@ margin-top: 5px;
   text-align: left;
   font-size: 15px;
   overflow-y: scroll;
-  max-height:165px;
+  max-height:190px;
 }
 .notitieDetailContainer-budget { grid-area: 5 / 1 / 6 / 7;
   background-color: #FFFFFF;
@@ -961,6 +964,7 @@ margin-top: 5px;
 .notitieDetailContainer-wijzig { grid-area: 5 / 5 / 6 / 7;
   align-self: flex-end;
   margin-left: auto;
+  padding: 0 10px 10px;
 }
 
 .pollDetailContainer-container {
@@ -989,7 +993,6 @@ margin-top: 5px;
   text-align: left;
   padding:5px;
   font-size: 20px;
-  max-height:107px;
 }
 .pollDetailContainer-budget { grid-area: 4 / 1 / 5 / 7;
   background-color: #FFFFFF;
@@ -999,6 +1002,7 @@ margin-top: 5px;
 .pollDetailContainer-wijzig { grid-area: 4 / 5 / 5 / 7;
   align-self: flex-end;
   margin-left: auto;
+    padding: 0 10px 10px;
 }
 
 .locatieDetailContainer-container {
@@ -1025,14 +1029,14 @@ margin-top: 5px;
 .locatieDetailContainer-kaart { grid-area: 2 / 1 / 4 / 5;
   background-color: #FFFFFF;
   text-align: left;
-  padding:5px;
+    padding: 5px 5px 5px;
   font-size: 20px;
-  max-height:107px;
 }
 .locatieDetailContainer-adresgegevens { grid-area: 2 / 5 / 4 / 7;
   background-color: #FFFFFF;
   text-align: left;
   font-size: 15px;
+    padding: 10px 10px 10px;
 }
 .locatieDetailContainer-budget { grid-area: 4 / 1 / 5 / 7;
   background-color: #FFFFFF;
@@ -1042,4 +1046,5 @@ margin-top: 5px;
 .locatieDetailContainer-wijzig { grid-area: 4 / 5 / 5 / 7;
   align-self: flex-end;
   margin-left: auto;
+    padding: 2px 10px 10px;
 }

@@ -118,3 +118,6 @@
     </div>
     <jsp:include page="waarschuwingsModal.jsp"/>
     <jsp:include page="footer.jsp"/>
+    <script defer
+            src="https://maps.googleapis.com/maps/api/js?key=${mapsAPI}&callback=initMapsWithMarker">
+    </script>
