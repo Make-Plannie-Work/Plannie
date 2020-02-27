@@ -42,7 +42,11 @@
 
 
             <li class="nav-item">
-                <a class="nav-link" method="post" id="gebruikerDetailHeader" href="${pageContext.request.contextPath}/gebruikerDetail">${currentUser.voornaam}'s Plannie</a>
+                <c:choose>
+                    <c:when test="${not empty currentUser.voornaam}">
+                        <a class="nav-link" method="post" id="gebruikerDetailHeader" href="${pageContext.request.contextPath}/gebruikerDetail">${currentUser.voornaam}'s Plannie</a>
+                    </c:when>
+                </c:choose>
             </li>
             <li class="nav-item">
                 <a class="nav-link" method="post" id="gebruikerWijzigen" href="${pageContext.request.contextPath}/gebruikerWijzig">Jouw gegevens</a>

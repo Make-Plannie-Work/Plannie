@@ -2,20 +2,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 <jsp:include page="header.jsp"/>
-<title>Registreren in Plannie</title>
+<title>Wachtwoord resetten</title>
 <body>
-
-<nav class="navbar navbar-light bg-light shadow">
-    <span class="navbar-brand mb-0 h1"><a href="${pageContext.request.contextPath}/gebruikerDetail" class="text-dark">Plannie</a></span>
-
-    <ul class="nav justify-content-end">
-        <li class="nav-item">
-            <a id="registreren" class="nav-link text-dark" href="${pageContext.request.contextPath}/registreren">Registreer</a>
-        </li>
-        <li class="nav-item">
-            <a id="inloggen" class="nav-link text-dark" data-toggle="modal" data-target="#loginmodal">Login</a>
-        </li>
-</nav>
 
 <div class="container mt-3">
     <div class="row">
@@ -27,7 +15,7 @@
         <div class="col-sm-8">
             <div class="jumbotron shadow">
                 <div sec:authorize="hasAuthority('CHANGE_PASSWORD_PRIVILEGE')">
-                <h3>Hoi ${gebruiker.voornaam}. Stel snel je wachtwoord opnieuw in</h3>
+                <h1>Hoi ${gebruiker.voornaam}. Stel snel je wachtwoord opnieuw in</h1>
                 <form:form action= "${pageContext.request.contextPath}/${gebruiker.identifier}/saveWachtwoord" method="post" modelAttribute="wachtwoordUpdateFormulier">
                     <div class="container mt-4">
                         <div class="row">
@@ -48,7 +36,7 @@
         </div>
 
         <div class="col-sm-4">
-            <div class="jumbotron shadow" style="background-color: #666666;">
+            <div class="jumbotron shadow" id="wouter">
                 <div class="row" >
                     <p class="lead text-white">Info 1</p>
                 </div>

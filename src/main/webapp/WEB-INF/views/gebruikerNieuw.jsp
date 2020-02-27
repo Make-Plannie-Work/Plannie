@@ -15,7 +15,7 @@
 
         <div class="col-sm-8">
             <div class="jumbotron shadow border">
-                <h3>Registreren</h3>
+                <h1>Registreren</h1>
                 <form:form action="${pageContext.request.contextPath}/js/registreerEmailCheck.js" id="registreren" method="post" modelAttribute="registratieFormulier"  class="needs-validation was-validation" novalidate="true">
                     <div class="container mt-4">
                         <div class="row">
