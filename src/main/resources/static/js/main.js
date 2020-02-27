@@ -21,7 +21,7 @@ ourRequest.send();
         minLength: 2
      }).data("ui-autocomplete")._renderItem = function( tr, item ) {
      var inner_html = '<input id="groepsledenButtonAutocomplete" type="button" onClick="voegToeAanGroep(' + item.gebruikersId + ')" value=\"'+ item.voornaam + ' ' + item.achternaam + '\"></input>';
-     return $( "<td></td>" )
+     return $( "<tr></tr>" )
      .data( "item.autocomplete", item )
      .append(inner_html)
      .appendTo( tr );

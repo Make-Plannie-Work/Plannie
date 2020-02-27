@@ -19,7 +19,7 @@
                     </div>
                     <div class="col-sm-8">
                         <h3 class="mt-5">${reisItem.naam}
-                            <a id="wijzigReisItem" type="button" data-toggle="modal"
+                            <a id="wijzigReisItem" class="tekstknop-zwart" type="button" data-toggle="modal"
                                data-target="#wijzigReisItem2"><i class="far fa-edit"></i></a><a class="mt-5 tekstknop-zwart"
                                  href="${pageContext.request.contextPath}/groepDetail/${groep.groepId}">${groep.groepsNaam}</a>
                         </h3>
@@ -31,7 +31,7 @@
                     </div>
                     <div class="col-sm-8">
                         <h5 href="${pageContext.request.contextPath}/${groep.groepId}/reisItemDetail/${reisItem.reisItemId}/BudgetOverzicht">
-                            <a class="tekstknop"
+                            <a class="tekstknop-zwart"
                                href="${pageContext.request.contextPath}/${groep.groepId}/reisItemDetail/${reisItem.reisItemId}/BudgetOverzicht">
                                 Kosten<br/>Totaal: ${reisItem.berekenTotaalBudget()} euro
                             </a>
@@ -49,9 +49,9 @@
             </div>
 
             <div class="text-center" style="width:100%;">
-                <div class="jumbotron shadow border">
-                    Wat voor soort reisitem wil je toevoegen?
-                    <br/>
+                <div class="jumbotron">
+                    <h5>Wat voor soort reisitem wil je toevoegen?</h5>
+
                     <tag:nieuwReisItemKnoppen optie="0"/>
                 </div>
             </div>

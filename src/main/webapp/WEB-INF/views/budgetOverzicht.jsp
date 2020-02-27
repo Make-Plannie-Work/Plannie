@@ -4,15 +4,12 @@
 <jsp:include page="header.jsp"/>
 <title>Budget overzicht</title>
 <body>
-
-<div class="container mt-3">
-    <div class="row">
+<div class="wrapper">
+    <div class="container shadow-lg mb-3">
+    <div class="row mx-auto mb-4">
+        <h3>Budget overzicht</h3>
         <div class="col-sm-offset-1 col-sm-10 mb-5">
-            <div class="jumbotron shadow border">
-                <div class="row">
-                    <h5 class="lead">Budget overzicht</h5>
-                </div>
-
+        </div>
                     <table class="table table-borderless">
                         <thead>
                         <tr><th>Datum</th><th></th><th>Wat?</th><th></th><th>Hoeveel?</th></tr>
@@ -28,14 +25,9 @@
                         <tr><td></td><td></td><td>Totaal</td><td></td><td>&euro;${reisItem.berekenTotaalBudget()}</td></tr>
                         </tfoot>
                     </table>
-                <h5><a class="tekstknop-zwart" href="${pageContext.request.contextPath}/${groep.groepId}/reisItemDetail/${reisItem.reisItemId}/">Ga terug</a></h5>
-            </div>
+                <h5><a class="tekstknop-zwart " href="${pageContext.request.contextPath}/${groep.groepId}/reisItemDetail/${reisItem.reisItemId}/">Ga terug</a></h5>
         </div>
-
-
     </div>
-
-</div>
 <jsp:include page="footer.jsp"/>
 
 
