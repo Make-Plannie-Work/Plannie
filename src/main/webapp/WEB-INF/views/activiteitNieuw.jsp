@@ -19,7 +19,7 @@
                         <p class="lead">Activiteit</p>
                     </div>
                     <div class="row">
-                        <div>
+                        <div style="width:100%;">
                             <div class="row">
                                 <div class="col">
                                     <form:form
