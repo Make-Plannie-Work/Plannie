@@ -8,53 +8,54 @@
 <body>
 
 <div class="wrapper">
-    <div class="container mt-3">
+    <div class="container shadow-lg mb-3">
         <div class="row">
+            <div class="col-sm-12">
 
-            <div class="col-sm-8">
-                <div class="jumbotron shadow border">
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <tag:reisItemAccordion subReisItems="${reisItem.geefReisGesorteerdDatum()}"
-                                                   reisDagen="${reisItem.geefDagenOverzicht()}" level="0"/>
-                        </div>
+                <!--            <div class="col-sm-4">-->
+                <!--                <div class="jumbotron shadow" id="wouter">-->
 
+                <!--                    <img id="reisItemImg" class="img-fluid card-img-top"-->
+                <!--                         src="${pageContext.request.contextPath}/images/${reisItem.imagePath}"-->
+                <!--                         alt="Card image cap">-->
+
+                <!--                    <div class="row">-->
+                <!--                        <h5 class="lead text-white">${reisItem.naam}-->
+                <!--                            <a id="wijzigReisItem" type="button" class="text-white" data-toggle="modal"-->
+                <!--                               data-target="#wijzigReisItem2"><i class="far fa-edit"></i></a>-->
+                <!--                            - <a class="lead text-white"-->
+                <!--                                 href="${pageContext.request.contextPath}/groepDetail/${groep.groepId}">${groep.groepsNaam}</a>-->
+                <!--                        </h5>-->
+                <!--                    </div>-->
+                <!--                    <hr class="my-4">-->
+                <!--                    <div class="row">-->
+                <!--                        <p class="lead text-white m-auto"><strong>${reisItem.geefGeformatteerdeReisDuratie()}</strong>-->
+                <!--                        </p>-->
+                <!--                        <hr class="my-4">-->
+                <!--                    </div>-->
+                <!--                    <hr class="my-4 shadow">-->
+                <!--                    <div class="row">-->
+                <!--                        <h5><a class="tekstknop"-->
+                <!--                               href="${pageContext.request.contextPath}/${groep.groepId}/reisItemDetail/${reisItem.reisItemId}/BudgetOverzicht">Kosten</a>-->
+                <!--                        </h5>-->
+                <!--                    </div>-->
+                <!--                    <div class="row"><p class="lead text-white">Totaal: ${reisItem.berekenTotaalBudget()} euro</p>-->
+                <!--                    </div>-->
+                <!--                </div>-->
+                <!--            </div>-->
+
+                <div class="jumbotron">
+                    <div class="container">
+                        <tag:reisItemAccordion subReisItems="${reisItem.geefReisGesorteerdDatum()}"
+                                               reisDagen="${reisItem.geefDagenOverzicht()}" level="0"/>
                     </div>
                 </div>
+                <div class="text-center">
                 <div class="jumbotron shadow border">
                     Wat voor soort reisitem wil je toevoegen?
+                    <br/>
                     <tag:nieuwReisItemKnoppen optie="0"/>
                 </div>
-            </div>
-            <div class="col-sm-4">
-                <div class="jumbotron shadow" id="wouter">
-
-                    <img id="reisItemImg" class="img-fluid card-img-top"
-                         src="${pageContext.request.contextPath}/images/${reisItem.imagePath}"
-                         alt="Card image cap">
-
-                    <div class="row">
-                        <h5 class="lead text-white">${reisItem.naam}
-                            <a id="wijzigReisItem" type="button" class="text-white" data-toggle="modal"
-                               data-target="#wijzigReisItem2"><i class="far fa-edit"></i></a>
-                            - <a class="lead text-white"
-                                 href="${pageContext.request.contextPath}/groepDetail/${groep.groepId}">${groep.groepsNaam}</a>
-                        </h5>
-                    </div>
-                    <hr class="my-4">
-                    <div class="row">
-                        <p class="lead text-white m-auto"><strong>${reisItem.geefGeformatteerdeReisDuratie()}</strong>
-                        </p>
-                        <hr class="my-4">
-                    </div>
-                    <hr class="my-4 shadow">
-                    <div class="row">
-                        <h5><a class="tekstknop"
-                               href="${pageContext.request.contextPath}/${groep.groepId}/reisItemDetail/${reisItem.reisItemId}/BudgetOverzicht">Kosten</a>
-                        </h5>
-                    </div>
-                    <div class="row"><p class="lead text-white">Totaal: ${reisItem.berekenTotaalBudget()} euro</p>
-                    </div>
                 </div>
             </div>
         </div>

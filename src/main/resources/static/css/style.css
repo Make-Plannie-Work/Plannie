@@ -895,6 +895,7 @@ margin-top: 5px;
 .activiteitDetailContainer-locatie { grid-area: 1 / 1 / 4 / 4;
   background-color: #FFFFFF;
   text-align: center;
+    padding: 5px 5px 5px;
   font-size: 30px;
 }
 .activiteitDetailContainer-soort { grid-area: 1 / 4 / 2 / 8;
@@ -1020,7 +1021,7 @@ margin-top: 5px;
 .locatieDetailContainer-kaart { grid-area: 2 / 1 / 4 / 5;
   background-color: #FFFFFF;
   text-align: left;
-  padding:5px;
+    padding: 5px 5px 5px;
   font-size: 20px;
 }
 .locatieDetailContainer-adresgegevens { grid-area: 2 / 5 / 4 / 7;
