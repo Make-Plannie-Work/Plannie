@@ -74,10 +74,6 @@ public class ReisItem {
         return null;
     }
 
-    private void test() {
-        String test = geefGeformatteerdEersteAdresVanReis();
-    }
-
     public String geefGeformatteerdEersteAdresVanReis() {
         for (ReisItem item : geefReisGesorteerdDatum()) {
             if (item instanceof Locatie) {
