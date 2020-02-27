@@ -3,7 +3,8 @@
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 <input type="hidden" id="imagePath" value="${groep.imagePath}"/>
 
-<div class="container mt-4">
+<div class="container mt-4"
+<div class="col">
     <div class="row">
         <form:form id="groepsNaamWijzigenForm" action= "${pageContext.request.contextPath}/groepDetail/${groep.groepId}/groepWijzig" method="post" modelAttribute="groepsNaamWijzigingsFormulier">
             <input type="text" name="groepsNaam" required="required" value="${groep.groepsNaam}">
@@ -61,7 +62,7 @@
 
     <a href="${pageContext.request.contextPath}/groepDetail/${groep.groepId}"><button type="text" class="btn btn-primary mt-3" id="annuleren">Annuleren</button></a>
 </div>
-
+</div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.6/cropper.js"></script>
 <script>
 var croppedCanvas;
