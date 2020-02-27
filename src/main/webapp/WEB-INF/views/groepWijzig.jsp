@@ -14,7 +14,9 @@
             </button>
 
             <div class="collapse" id="wijzigAfbeelding">
-            <img id="image" src="${pageContext.request.contextPath}/images/groep/${groep.imagePath}" alt="Picture">
+                <div style="max-height: 400px">
+                    <img id="image" src="${pageContext.request.contextPath}/images/groep/${groep.imagePath}" style="height:200px"  alt="Picture">
+                </div>
             <p>${groep.imagePath}</p>
             <button type="button" id="button">Crop</button>
             <button type="button" onclick="saveImage('${groep.imagePath}')" id="save" style="visibility: hidden;">Sla op</button>
@@ -90,13 +92,19 @@ var roundedImage;
       result.innerHTML = '<img src="http://localhost:8080/Plannie/images/groep/${groep.imagePath}" style="width: 80%; border-radius: 99em;  border: 5px solid #eee; box-shadow: 0 3px 2px rgba(0, 0, 0, 0.3);"/>';
       var croppable = false;
       var cropper = new Cropper(image, {
-        aspectRatio: 1,
-        viewMode: 2,
-        ready: function () {
-          croppable = true;
-        },
+            viewMode: 1,
+            dragMode: 'move',
+            aspectRatio: 1,
+            autoCropArea: 0.5,
+            minContainerWidth: 300,
+            minContainerHeight: 300,
+            minCropBoxWidth: 50,
+            minCropBoxHeight: 50,
+            ready: function () {
+              croppable = true;
+            },
 
-      });
+          });
 
 
       button.onclick = function () {
