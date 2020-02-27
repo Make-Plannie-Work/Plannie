@@ -5,17 +5,15 @@
 <link id="csrfToken" data-csrfToken="${_csrf.token}"/>
 <title>Registreren in Plannie</title>
 <body>
-
-<div class="container mt-3">
-    <div class="row">
-        <div class="col-sm-12 fixed-top">
-        </div>
-    </div>
-    <div class="row">
-
-        <div class="col-sm-8">
-            <div class="jumbotron shadow border">
-                <h1>Registreren</h1>
+    <div class="wrapper">
+        <div class="container shadow-lg mb-3">
+            <div class="row">
+                <span class="navbar-brand mx-auto mb-0 mt-3"><a id="gebruikerDetail" href="${pageContext.request.contextPath}/gebruikerDetail"><img
+                  src="${pageContext.request.contextPath}/images/PlannieLogo.png" class="img-fluid" alt="Responsive image"></a></span>
+            </div>
+            <div class="row mx-auto">
+                <h1 class="m-auto">Registreren</h1>
+            </div>
                 <form:form action="${pageContext.request.contextPath}/js/registreerEmailCheck.js" id="registreren" method="post" modelAttribute="registratieFormulier"  class="needs-validation was-validation" novalidate="true">
                     <div class="container mt-4">
                         <div class="row">
@@ -52,19 +50,6 @@
                     <button href="#" type="button" class="close">&times;</button>
                     <h4 id="alertTitel">Alert title</h4>
                     <p id="alertTekst">Alert tekst</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-sm-4">
-            <div class="jumbotron shadow" id="wouter">
-                <div class="row" >
-                    <p class="lead text-white">Info 1</p>
-                </div>
-                <hr class="my-4">
-                <div class="row">
-                    <p class="lead text-white mt-3">Info 2</hp>
-                    <hr class="my-4">
                 </div>
             </div>
         </div>

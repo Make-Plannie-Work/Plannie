@@ -15,7 +15,7 @@
         <div class="col-sm-8">
             <div class="jumbotron shadow border">
                 <div sec:authorize="hasAuthority('NEW_USER_PRIVILEGE')">
-                    <h3>Hoi ${gebruiker.voornaam}. Voltooi hier je aanmelding voor Plannie!</h3>
+                    <h4>Hoi ${gebruiker.voornaam}. Voltooi hier je aanmelding voor Plannie!</h4>
                     <form:form action= "${pageContext.request.contextPath}/${gebruiker.identifier}/saveGebruiker" method="post" modelAttribute="maakRegistratieCompleetFormulier">
                         <div class="container mt-4">
 
