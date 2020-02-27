@@ -7,19 +7,21 @@
 <div class="row mx-auto" style="width: 100%;">
     <div class="row mx-auto" style="width: 100%;">
         <div class="img-container mx-auto" style="width: 100%;">
-
+            <div class="col col-3">
+                <div class="preview"></div>
+            </div>
             <div id="result" class="mx-auto"></div>
             <button class="btn btn-primary mt-3 mb-3" type="button" data-toggle="collapse" data-target="#wijzigAfbeelding" aria-expanded="false" aria-controls="collapseExample">
                 Wijzig afbeelding
-            </button>
+            </button> <button class="btn btn-primary mt-3 mb-3" type="button" onclick="saveImage('${groep.imagePath}')" id="save" style="visibility: hidden;">Sla op</button>
 
             <div class="collapse" id="wijzigAfbeelding">
                 <div style="max-height: 400px">
-                    <img id="image" src="${pageContext.request.contextPath}/images/groep/${groep.imagePath}" style="height:200px"  alt="Picture">
+                    <img id="image" class="cropperPlannieImg" src="${pageContext.request.contextPath}/images/groep/${groep.imagePath}" style="height:200px"  alt="Picture">
                 </div>
             <p>${groep.imagePath}</p>
             <button type="button" id="button">Crop</button>
-            <button type="button" onclick="saveImage('${groep.imagePath}')" id="save" style="visibility: hidden;">Sla op</button>
+
             <form:form id="groepsAfbeeldingWijzigenForm" method="POST" enctype="multipart/form-data" action="${pageContext.request.contextPath}/${groep.groepId}/uploadImage" >
                 <td><input type="file" name="imageFile" accept="image/*"/></td>
                 <td><input type="submit" name="uploadImage" value="Upload" /></td>
@@ -89,9 +91,11 @@ var roundedImage;
       var button = document.getElementById('button');
       var save = document.getElementById('save');
       var result = document.getElementById('result');
+
       result.innerHTML = '<img src="http://localhost:8080/Plannie/images/groep/${groep.imagePath}" style="width: 80%; border-radius: 99em;  border: 5px solid #eee; box-shadow: 0 3px 2px rgba(0, 0, 0, 0.3);"/>';
       var croppable = false;
       var cropper = new Cropper(image, {
+            display: 'block',
             viewMode: 1,
             dragMode: 'move',
             aspectRatio: 1,
@@ -116,15 +120,13 @@ var roundedImage;
         // Crop
         croppedCanvas = cropper.getCroppedCanvas();
 
-        // Round
-        roundedCanvas = getRoundedCanvas(croppedCanvas);
-
         // Show
-        roundedImage = document.createElement('img');
-        roundedImage.src = croppedCanvas.toDataURL();
+        croppedImage = document.createElement('img');
+        croppedImage.src = croppedCanvas.toDataURL();
 
         result.innerHTML = '';
-        result.appendChild(roundedImage);
+        result.style.width= '80%';
+        result.appendChild(croppedImage);
         save.style.visibility= 'visible';
 
       };

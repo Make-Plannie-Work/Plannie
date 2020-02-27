@@ -91,7 +91,7 @@ border: none;
       background-position: center center;
       -webkit-border-radius: 99em;
       -moz-border-radius: 99em;
-      border-radius: 99em;
+      border-radius: 50%;
       border: 5px solid #eee;
       box-shadow: 0 3px 2px rgba(0, 0, 0, 0.3);
 }
@@ -549,6 +549,17 @@ html, body {
   background-color: #000;
   opacity: 0.5;
 }
+
+ img {
+      max-width: 100%;
+    }
+
+.cropperPlannieImg {
+    border-radius: 99em !important;
+      border: 5px solid #eee !important;
+      box-shadow: 0 3px 2px rgba(0, 0, 0, 0.3) !important;
+}
+
 
 .cropper-view-box {
   display: block;
