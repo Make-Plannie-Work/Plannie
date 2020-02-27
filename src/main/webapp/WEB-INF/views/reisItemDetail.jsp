@@ -42,7 +42,7 @@
                 <hr class="my-4">
             </div>
 
-            <div class="jumbotron">
+            <div class="jumbotron" style="width:100%;">
                 <div class="container">
                     <tag:reisItemAccordion subReisItems="${reisItem.geefReisGesorteerdDatum()}"
                                            reisDagen="${reisItem.geefDagenOverzicht()}" level="0"/>
