@@ -11,7 +11,6 @@
     <div class="container shadow-lg mb-3">
         <div class="row">
             <div class="col-sm-12">
-
                 <div class="row">
                     <div class="col-sm-4">
                         <img id="reisItemImg" class="img-fluid card-img-top"
@@ -22,25 +21,25 @@
                         <h3 class="mt-5">${reisItem.naam}
                             <a id="wijzigReisItem" type="button" data-toggle="modal"
                                data-target="#wijzigReisItem2"><i class="far fa-edit"></i></a>
-                            - <a class="mt-5 tekstknop-zwart" href="${pageContext.request.contextPath}/groepDetail/${groep.groepId}">${groep.groepsNaam}</a>
+                            - <a class="mt-5 tekstknop-zwart"
+                                 href="${pageContext.request.contextPath}/groepDetail/${groep.groepId}">${groep.groepsNaam}</a>
                         </h3>
                     </div>
-                    <hr class="my-4">
-                    <div class="row">
-                        <p class="lead text-white m-auto"><strong>${reisItem.geefGeformatteerdeReisDuratie()}</strong>
-                        </p>
-                        <hr class="my-4">
+                </div>
+                <div class="row">
+                    <div class="col-sm-4 text-center">
+                        <h5>${reisItem.geefGeformatteerdeReisDuratie()}</h5>
                     </div>
-                    <hr class="my-4 shadow">
-                    <div class="row">
-                        <h5><a class="tekstknop"
-                               href="${pageContext.request.contextPath}/${groep.groepId}/reisItemDetail/${reisItem.reisItemId}/BudgetOverzicht">Kosten</a>
+                    <div class="col-sm-8">
+                        <h5 href="${pageContext.request.contextPath}/${groep.groepId}/reisItemDetail/${reisItem.reisItemId}/BudgetOverzicht">
+                            <a class="tekstknop"
+                               href="${pageContext.request.contextPath}/${groep.groepId}/reisItemDetail/${reisItem.reisItemId}/BudgetOverzicht">
+                                Kosten<br/>Totaal: ${reisItem.berekenTotaalBudget()} euro
+                            </a>
                         </h5>
                     </div>
-                    <div class="row"><p class="lead text-white">Totaal: ${reisItem.berekenTotaalBudget()} euro</p>
-                    </div>
-
                 </div>
+                <hr class="my-4">
             </div>
 
             <div class="jumbotron">
@@ -49,7 +48,8 @@
                                            reisDagen="${reisItem.geefDagenOverzicht()}" level="0"/>
                 </div>
             </div>
-            <div class="text-center">
+
+            <div class="text-center" style="width:100%;">
                 <div class="jumbotron shadow border">
                     Wat voor soort reisitem wil je toevoegen?
                     <br/>
