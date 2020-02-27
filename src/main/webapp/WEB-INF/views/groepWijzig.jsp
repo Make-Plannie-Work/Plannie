@@ -3,9 +3,9 @@
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 <input type="hidden" id="imagePath" value="${groep.imagePath}"/>
 
-<div class="col">
-<div class="row">
-    <div class="row" style="width: 100%;">
+<div class="col" style="width: 100%;">
+<div class="row mx-auto" style="width: 100%;">
+    <div class="row mx-auto" style="width: 100%;">
         <div class="img-container mx-auto" style="width: 100%;">
 
             <div id="result" class="mx-auto"></div>
