@@ -19,14 +19,16 @@
                 <div style="max-height: 400px">
                     <img id="image" class="cropperPlannieImg" src="${pageContext.request.contextPath}/images/groep/${groep.imagePath}" style="height:200px"  alt="Picture">
                 </div>
-            <p>${groep.imagePath}</p>
-            <button type="button" id="button">Crop</button>
+                <p>${groep.imagePath}</p>
+                <button type="button" id="button">Crop</button>
 
-            <form:form id="groepsAfbeeldingWijzigenForm" method="POST" enctype="multipart/form-data" action="${pageContext.request.contextPath}/${groep.groepId}/uploadImage" >
-                <td><input type="file" name="imageFile" accept="image/*"/></td>
-                <td><input type="submit" name="uploadImage" value="Upload" /></td>
-            </form:form>
+                <form:form id="groepsAfbeeldingWijzigenForm" method="POST" enctype="multipart/form-data" action="${pageContext.request.contextPath}/${groep.groepId}/uploadImage" >
+                    <td><input type="file" name="imageFile" accept="image/*"/></td>
+                    <td><input type="submit" name="uploadImage" value="Upload" /></td>
+                </form:form>
             </div>
+
+            
         </div>
     </div>
 

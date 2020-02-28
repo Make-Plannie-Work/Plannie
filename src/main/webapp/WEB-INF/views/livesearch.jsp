@@ -5,6 +5,6 @@
     <div id="autocomplete" >
         <input type="text" class="form-control" path="tekst" id="Zoek_Gebruikers" placeholder="Voeg bestaande gebruikers toe">
     </div>
-    <input type="hidden" id="groepId" value='${groep.groepId}'/>
-    <input type="hidden" id="contextPath" value="${pageContext.request.contextPath}"/>
 </form:form>
+<input type="hidden" id="groepId" value='${groep.groepId}'/>
+<input type="hidden" id="contextPath" value="${pageContext.request.contextPath}"/>

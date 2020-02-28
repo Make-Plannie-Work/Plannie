@@ -117,4 +117,6 @@
 
 
 <jsp:include page="footer.jsp"/>
+<input type="hidden" id="groepId" value='${groep.groepId}'/>
+<input type="hidden" id="contextPath" value="${pageContext.request.contextPath}"/>
 <script src="${pageContext.request.contextPath}/js/main.js"></script>

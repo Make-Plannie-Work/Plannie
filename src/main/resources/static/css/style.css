@@ -922,9 +922,12 @@ margin-top: 5px;
   grid-template-rows: repeat(4, 1fr);
   grid-gap: 2px;
   background-color: #FBFCFC;
-  border: 2px solid #FFE070;
   border-radius: 5px;
   margin:2px;
+}
+
+.activiteitDetailContainer-container:hover {
+    background-color: #f2f2f2;
 }
 
 .activiteitDetailContainer-locatie { grid-area: 1 / 1 / 4 / 4;
@@ -933,6 +936,11 @@ margin-top: 5px;
     padding: 5px 5px 5px;
   font-size: 30px;
 }
+
+.activiteitDetailContainer-locatie:hover {
+    background-color: #f2f2f2;
+}
+
 .activiteitDetailContainer-soort { grid-area: 1 / 4 / 2 / 8;
   background-color: #FFFFFF;
   text-align: center;
